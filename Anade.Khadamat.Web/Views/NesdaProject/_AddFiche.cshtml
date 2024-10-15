@@ -1,0 +1,244 @@
+﻿@model Anade.Khadamat.Domain.FicheNotation
+
+
+
+<div class="modal-header">
+    <h5 class="modal-title" id="modalLabel"> Ajouter Fiche de Notation</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div id="modalMessages"></div>
+    <div id="booking" class="section">
+        <div class="section-center">
+            <div class="container" style="max-height: auto">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="booking-form">
+                            <form asp-action="AddFiche" asp-controller="NesdaProject"  
+                                  data-ajax="true"
+                                  data-ajax-success="addFiche">
+                                <input asp-for="PromoteurId" type="hidden" />
+                                <div class="form-group">
+                                    <span class="form-label">1- Parcours académique (Niveau de formation)</span>
+                                    <select asp-for="NiveauFormationId" asp-items="@ViewBag.NiveauFormationId as SelectList" class="form-control select2" required>
+                                        <option value="">Sélectionnez votre niveau de formation</option>
+                                    </select>
+                                    <span class="select-arrow"></span>
+                                    <span asp-validation-for="NiveauFormationId" class="text-danger"></span>
+                                    <div class="invalid-feedback"> Saisi le niveau de formation.</div>
+                                </div>
+                                <div class="form-group">
+                                    <span class="form-label">2- Experience professionnelle en relation avec l'activité projetée</span>
+                                    <select asp-for="ExperienceProfessionnelId" asp-items="@ViewBag.ExperienceProfessionnelID as SelectList" class="form-control select2" required>
+                                        <option value="">Sélectionnez votre niveau d'expérience professionnelle</option>
+                                    </select>
+                                    <span class="select-arrow"></span>
+                                    <span asp-validation-for="ExperienceProfessionnelId" class="text-danger"></span>
+                                    <div class="invalid-feedback"> Saisi l'Experience Professionnelle.</div>
+                                </div>
+                                <div class="form-group">
+                                    <span class="form-label">3- Niveau de maitrise de l’activité projetée.</span>
+                                    <select asp-for="ConcorrdenceId" asp-items="@ViewBag.ConcorrdenceID as SelectList" class="form-control select2" required>
+                                        <option value="">Sélectionnez la concordance</option>
+                                    </select>
+                                    <span class="select-arrow"></span>
+                                    <span asp-validation-for="ConcorrdenceId" class="text-danger"></span>
+                                    <div class="invalid-feedback"> Saisi le niveau de maitrise de l’activité projetée.</div>
+                                </div>
+                                <div class="form-group">
+                                    <span class="form-label">4- Contribution financière dans le financement du projet ( hors apport personnel).</span>
+                                    <select asp-for="ContributionFinanciereId" asp-items="@ViewBag.ContributionFinanciereId as SelectList" class="form-control select2" required>
+                                        <option value="">Sélectionnez la contribution financière</option>
+                                    </select>
+                                    <span class="select-arrow"></span>
+                                    <span asp-validation-for="ContributionFinanciereId" class="text-danger"></span>
+                                    <div class="invalid-feedback"> Saisi la contribution financière.</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="form-label">5- Capacité à défendre votre projet</label>
+                                            <input asp-for="CapaciteDefendreProjet" id="CapaciteDefendreProjet" type="hidden" class="form-control" placeholder="Capacité à défendre votre projet">
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="buttonContainer col-md-12" id="buttonCapaciteDefendreProjet">
+                                        <button type="button" class="value-btn active" onclick="setActive('buttonCapaciteDefendreProjet', 'CapaciteDefendreProjet', 0)">0</button>
+                                        <button type="button" class="value-btn" onclick="setActive('buttonCapaciteDefendreProjet', 'CapaciteDefendreProjet', 1)">1</button>
+                                        <button type="button" class="value-btn" onclick="setActive('buttonCapaciteDefendreProjet', 'CapaciteDefendreProjet', 2)">2</button>
+                                        <button type="button" class="value-btn" onclick="setActive('buttonCapaciteDefendreProjet', 'CapaciteDefendreProjet', 3)">3</button>
+                                        <button type="button" class="value-btn" onclick="setActive('buttonCapaciteDefendreProjet', 'CapaciteDefendreProjet', 4)">4</button>
+                                        <button type="button" class="value-btn" onclick="setActive('buttonCapaciteDefendreProjet', 'CapaciteDefendreProjet', 5)">5</button>
+                                        <button type="button" class="value-btn" onclick="setActive('buttonCapaciteDefendreProjet', 'CapaciteDefendreProjet', 6)">6</button>
+                                        <button type="button" class="value-btn" onclick="setActive('buttonCapaciteDefendreProjet', 'CapaciteDefendreProjet', 7)">7</button>
+                                        <button type="button" class="value-btn" onclick="setActive('buttonCapaciteDefendreProjet', 'CapaciteDefendreProjet', 8)">8</button>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="form-label">6- Evaluation du marché</label>
+                                            <input asp-for="Marche" type="hidden" id="Marche" class="form-control" placeholder="Evaluation du marché">
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="buttonContainer col-md-12" id="buttonMarche">
+                                        <button type="button" class="value-btn active" onclick="setActive('buttonMarche', 'Marche', 0)">0</button>
+                                        <button type="button" class="value-btn" onclick="setActive('buttonMarche', 'Marche', 1)">1</button>
+                                        <button type="button" class="value-btn" onclick="setActive('buttonMarche', 'Marche', 2)">2</button>
+                                        <button type="button" class="value-btn" onclick="setActive('buttonMarche', 'Marche', 3)">3</button>
+                                        <button type="button" class="value-btn" onclick="setActive('buttonMarche', 'Marche', 4)">4</button>
+                                        <button type="button" class="value-btn" onclick="setActive('buttonMarche', 'Marche', 5)">5</button>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="form-label">7- Évaluation des concurrents</label>
+                                            <input asp-for="Concurrents" type="hidden" id="Concurrents" class="form-control" placeholder="Évaluation des concurrents">
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="buttonContainer col-md-12" id="buttonConcurrents">
+                                        <button type="button" class="value-btn active" onclick="setActive('buttonConcurrents', 'Concurrents', 0)">0</button>
+                                        <button type="button" class="value-btn" onclick="setActive('buttonConcurrents', 'Concurrents', 1)">1</button>
+                                        <button type="button" class="value-btn" onclick="setActive('buttonConcurrents', 'Concurrents', 2)">2</button>
+                                        <button type="button" class="value-btn" onclick="setActive('buttonConcurrents', 'Concurrents', 3)">3</button>
+                                        <button type="button" class="value-btn" onclick="setActive('buttonConcurrents', 'Concurrents', 4)">4</button>
+                                        <button type="button" class="value-btn" onclick="setActive('buttonConcurrents', 'Concurrents', 5)">5</button>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="form-group">
+                                    <span class="form-label">8- Évaluation des clients.</span>
+                                    <select asp-for="ClientId" asp-items="@ViewBag.ClientID as SelectList" class="form-control select2" required>
+                                        <option value="">Sélectionnez l'évaluation des clients</option>
+                                    </select>
+                                    <span class="select-arrow"></span>
+                                    <span asp-validation-for="ClientId" class="text-danger"></span>
+                                    <div class="invalid-feedback"> Saisi l'évaluation des clients.</div>
+                                </div>
+
+                                <div class="form-group">
+                                    <span class="form-label">9- Stratégie marketing.</span>
+                                    <select asp-for="MarketingId" asp-items="@ViewBag.MarketingID as SelectList" class="form-control select2" required>
+                                        <option value="">Sélectionnez la Stratégie marketing</option>
+                                    </select>
+                                    <span class="select-arrow"></span>
+                                    <span asp-validation-for="MarketingId" class="text-danger"></span>
+                                    <div class="invalid-feedback"> Saisi la Stratégie marketing.</div>
+                                </div>
+                                <div class="form-group">
+                                    <span class="form-label">10- Pricing.</span>
+                                    <select asp-for="PricingId" asp-items="@ViewBag.PricingID as SelectList" class="form-control select2" required>
+                                        <option value="">Sélectionnez Pricing</option>
+                                    </select>
+                                    <span class="select-arrow"></span>
+                                    <span asp-validation-for="PricingId" class="text-danger"></span>
+                                    <div class="invalid-feedback"> Saisi Pricing.</div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="form-checkbox">
+                                        <label asp-for="EtudeTechnicoEconomique">
+                                            <input asp-for="EtudeTechnicoEconomique" type="checkbox" />
+                                            <span></span>11- Cochez pour confirmer l'existence d'une étude technico-économique
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <span class="form-label">12- la VAN (Valeur Annuelle Nette).</span>
+                                    <select asp-for="VanId" asp-items="@ViewBag.VanID as SelectList" class="form-control select2" required>
+                                        <option value="">Sélectionner la VAN (Valeur Annuelle Nette)</option>
+                                    </select>
+                                    <span class="select-arrow"></span>
+                                    <span asp-validation-for="VanId" class="text-danger"></span>
+                                    <div class="invalid-feedback"> Saisi la VAN (Valeur Annuelle Nette).</div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <span class="form-label">13- le DR (Délais de Récupération).</span>
+                                    <select asp-for="DrId" asp-items="@ViewBag.DrID as SelectList" class="form-control select2" required>
+                                        <option value="">Sélectionner le DR (Délais de Récupération)</option>
+                                    </select>
+                                    <span class="select-arrow"></span>
+                                    <span asp-validation-for="DrId" class="text-danger"></span>
+                                    <div class="invalid-feedback"> Saisi le DR (Délais de Récupération).</div>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="form-label">14- Création emploi</label>
+                                            <input asp-for="CreationEmploi" type="hidden" id="CreationEmploi" class="form-control" placeholder="Création emploi">
+                                        </div>
+                                    </div>
+
+                                    <br />
+                                    <div class="buttonContainer col-md-12" id="buttonCreationEmploi">
+                                        <button type="button" class="value-btn active" onclick="setActive('buttonCreationEmploi', 'CreationEmploi', 0)">0</button>
+                                        <button type="button" class="value-btn" onclick="setActive('buttonCreationEmploi', 'CreationEmploi', 1)">1</button>
+                                        <button type="button" class="value-btn" onclick="setActive('buttonCreationEmploi', 'CreationEmploi', 2)">2</button>
+                                        <button type="button" class="value-btn" onclick="setActive('buttonCreationEmploi', 'CreationEmploi', 3)">3</button>
+                                        <button type="button" class="value-btn" onclick="setActive('buttonCreationEmploi', 'CreationEmploi', 4)">4</button>
+                                        <button type="button" class="value-btn" onclick="setActive('buttonCreationEmploi', 'CreationEmploi', 5)">5</button>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="form-group">
+                                    <div class="form-checkbox">
+                                        <label asp-for="ProduitTemoin">
+                                            <input asp-for="ProduitTemoin" type="checkbox" />
+                                            <span></span>15- Cochez pour confirmer l'existence du produit témoin
+                                        </label>
+                                    </div>
+                                </div>
+
+                                @*<div class="col-md-12">
+                                    <div class="form-group">
+                                        <span class="form-label">Appreciation</span>
+                                        <input asp-for="appreciation" class="form-control" placeholder="Appreciation">
+                                        <span asp-validation-for="appreciation" class="text-danger"></span>
+                                    </div>
+                                </div>*@
+
+                                <div class="form-group modal-footer">
+                                    <input type="submit" class="btn btn-outline-primary" value="Add" />
+                                    <button class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+</div>
+
+ <script>
+        function setActive(buttonContainerId, inputId, value) {
+        // Désactiver tous les boutons dans le conteneur spécifié
+        var buttons = document.querySelectorAll('#' + buttonContainerId + ' .value-btn');
+        buttons.forEach(function(button) {
+            button.classList.remove('active');
+        });
+
+        // Activer le bouton cliqué
+        buttons[value].classList.add('active');
+
+        // Mettre la valeur dans l'input correspondant
+        document.getElementById(inputId).value = value;
+         }
+</script>

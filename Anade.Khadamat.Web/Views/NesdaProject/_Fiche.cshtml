@@ -1,0 +1,86 @@
+﻿@model IEnumerable<Anade.Khadamat.Domain.FicheNotation>
+<partial name="_Message" />
+
+<table class="table display compact">
+    <thead>
+        <tr>
+            <th>
+               N° Fiche
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                Score total
+            </th>
+            <th>
+                Délibération
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Analyste)
+            </th>
+         
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Numero)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ScoreTotal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Deliberation)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Analyste)
+            </td>
+            <td>
+
+
+
+
+                @if (!string.IsNullOrEmpty(item.appreciation))
+                {
+                    @*<button data-bs-target="#modal" data-bs-toggle="modal" class="btn btn-outline-primary btn-sm"
+                            data-url="@Url.Action("EditFiche",new { id=item.Id})">
+                        Ajouter Appreciation
+                    </button>*@
+                     <a asp-controller="Reporting" asp-action="Print" asp-route-id="@item.Id" class="btn btn-outline-primary btn-sm">  <i class='fa fa-print' style='color:#7ea591'></i> Imprimer</a>
+                }
+                                                else
+                                                {
+                                                    <button data-bs-target="#modal" data-bs-toggle="modal" class="btn btn-dark btn-sm clignote"
+                                                            data-url="@Url.Action("EditFiche",new { id=item.Id})">
+                                                        Ajouter Appreciation
+                                                    </button>
+
+                                                }
+
+                @*<a href="@Url.Action("DeleteFiche", new { id = @item.Id, promoteurId = @item.PromoteurId })"
+                   class="btn btn-outline-danger btn-sm"
+                   onclick="return confirmDelete(this);">
+                    <i class="fa fa-trash"></i>
+                </a>*@
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+    <script>
+        window.setTimeout(function () {
+            $(".alert").fadeTo(500, 0).slideUp(500, function () {
+                $(this).remove();
+            });
+        }, 2000);
+    </script>
+

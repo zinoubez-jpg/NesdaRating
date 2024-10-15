@@ -1,0 +1,167 @@
+﻿
+@{ ViewData["Title"] = "List des Fiches de Notations"; }
+
+@section head{
+    @*TODO:import datatables styles*@
+    <partial name="_datatables.style" />
+}
+
+
+<div class="container-fluid bg-primary py-2 mb-5 page-header">
+    <div class="container py-2">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 text-center">
+                <h1 class="display-6 text-white animated slideInDown">@ViewData["Title"]</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index" class="text-white">Home</a></li>
+                        <li class="breadcrumb-item text-white active" aria-current="page">@ViewData["Title"]</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<partial name="_Message" />
+
+
+<div class="card card_border p-lg-5 p-3 mb-4">
+    <div class="card-body py-3 p-0">
+        <table class="table display compact">
+            <thead>
+                <tr>
+                    <th>
+                        id
+                    </th>
+                    <th>
+                        Agence
+                    </th>
+                    <th>
+                        N° Dossier
+                    </th>
+                    <th>
+                        Numéro
+                    </th>
+                    <th>
+                        Date
+                    </th>
+                    <th>
+                        Promoteur
+                    </th>
+                    @*<th>
+                        Activité
+                    </th>*@
+                    <th>
+                        Score total
+                    </th>
+                    <th>
+                        Délibération
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+
+
+
+
+@section scripts{
+    @*TODO:import datatables scripts*@
+    <partial name="_datatables.script" />
+
+    @*TODO:apply the datatable plugin on table element*@
+    <script>
+
+        $(function () {
+            initDataTable("table","@Url.Action("DataTableFicheNotation")")
+        });
+
+        function initDataTable(selector, url) {
+
+           var dtTable =  $(selector).DataTable({
+            "processing": true,
+            "serverSide": true,
+               "lengthMenu": [[10, 25, 50, 100, 99999999], [10, 25, 50, 100,'All']],
+               "order": [[0, "desc"]],
+            "ajax": {
+                url: url,
+                  type: 'POST'
+                },
+            "columns":
+            [
+                    { "data": "id", "visible": false, "searchable": false },
+                    { "data": "nomAntenne", "visible": true, "searchable": false, "bSortable": true },
+                    { "data": "promoteurId", "visible": true, "searchable": false, "bSortable": true },
+
+                    { "data": "numero", "visible": true, "searchable": false, "bSortable": true },
+                    { "data": "date", "visible": true, "searchable": false, "bSortable": true },
+
+                    { "data": "raisoN_SOCIALE", "visible": true, "searchable": false, "bSortable": false },
+
+                    //{ "data": "activite", "visible": true, "searchable": false, "bSortable": true },
+                    {
+                        "data": "scoreTotal",
+                        "visible": true,
+                        "searchable": false,
+                        "bSortable": true,
+                        "createdCell": function (td, cellData) {
+                            var icon = cellData >= 42.5 ? 'fa-arrow-up' : 'fa-arrow-down';
+                            var iconStyle = cellData >= 42.5 ? 'color: #06BBCC;' : 'color: #900C3F;';
+                            $(td).html(cellData + ' <i class="fas ' + icon + '" style="' + iconStyle + '"></i>');
+                        }
+                    },
+                    {
+                        "data": "deliberation",
+                        "visible": true,
+                        "searchable": false,
+                        "bSortable": true,
+                        "createdCell": function (td, cellData) {
+                            var icon = cellData === 'Admis (e)' ? 'fa-arrow-up' : 'fa-arrow-down';
+                            var iconStyle = cellData === 'Admis (e)' ? 'color: #06BBCC;' : 'color: #900C3F;';
+                            $(td).html(cellData + ' <i class="fas ' + icon + '" style="' + iconStyle + '"></i>');
+                        }
+                    }
+
+
+                @*{ "data": null, "searchable": false, "sortable": false,
+                  "render": function (data, type, row, meta){
+                      var markup =
+                        "<a class='btn btn-secondary btn-sm' href=" + '@Url.Action("Edit")/' + row.id + "><i class='fa fa-pencil-alt'></i></a>" + " " +
+                        "<a class='btn btn-danger btn-sm' href=" + '@Url.Action("Delete")/' + row.id +"><i class='fa fa-trash'></i></a>";
+                          return markup;
+                        }
+                    }*@
+                   ],
+
+               dom: 'Blfrtip',
+               buttons: [
+                   {
+                       extend: 'excelHtml5',
+                       title: 'Liste Fiches de notation',
+                       text: 'Export to excel',
+
+                       autoFilter: true,
+                       //Columns to export
+                       exportOptions: {
+                           columns: [1, 2, 3,4,5,6,7]
+                       },
+                       customize: function (xlsx) {
+                           var sheet = xlsx.xl.worksheets['sheet1.xml'];
+
+                           // jQuery selector to add a border
+                           $('row c[r*="10"]', sheet).attr('s', '25');
+                       }
+
+                   }
+
+               ]
+
+            });
+        }
+
+
+
+    </script>
+
+}

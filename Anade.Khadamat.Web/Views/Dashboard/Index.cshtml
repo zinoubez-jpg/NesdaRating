@@ -1,0 +1,152 @@
+﻿@model Anade.Khadamat.Web.Models.DashboardViewModel
+@inject UserService Userservice
+@inject SignInManager<User> SignInManager
+
+@{ ViewData["Title"] = "Dashboard Principal";}
+
+
+@section head{
+    <partial name="_select2.style" />
+    <link href="~/Inscription/css/select2style.css" rel="stylesheet" />
+
+}
+
+<!-- Header Start -->
+<div class="container-fluid bg-primary py-2 mb-5 page-header">
+    <div class="container py-2">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 text-center">
+                <h1 class="display-6 text-white animated slideInDown">@ViewData["Title"]</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index" class="text-white">Home</a></li>
+                        <li class="breadcrumb-item text-white active" aria-current="page">@ViewData["Title"]</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Header End -->
+
+<div class="container-xxl py-5">
+    <div class="container">
+
+        @if (SignInManager.IsSignedIn(User))
+        {
+            var user = await Userservice.GetUserEagerLoadedAsync(User);
+            var str = await Userservice.GetStructureFromUserAsync(user.Id);
+
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                <h6 class="section-title bg-white text-center text-primary px-3">NESDA-Scoring  @str.Niveau.Designation - @str.Designation</h6>
+                <h4 class="mb-5">Salam! <span class="text-primary">@user.FullName</span>  , Content de vous revoir</h4>
+            </div>}
+
+        @if (User.IsInRole("DG"))
+        {
+
+            <div class="row justify-content-center">
+                <div class="col-lg-3 wow fadeInUp" data-wow-delay="0.3s">
+                    <form method="get" asp-action="Index">
+                        <div class="input-group mb-3">
+                            <select asp-for="StructureId" asp-items="@(ViewBag.StructureId as SelectList)" class="form-control select2" aria-label="Recipient's username" aria-describedby="button-addon2">
+                                <option value="">DG</option>
+                            </select>
+                            <span class="select-arrow"></span>
+                            <button class="btn btn-primary" type="submit" id="button-addon2">  Filtrer   </button>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        }
+
+        <br />
+        <!-- Service Start -->
+        <div class="container-xxl py-5">
+            <div class="container">
+                <div class="row g-4">
+                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="service-item text-center pt-3">
+                            <div class="p-4">
+                                <i class="fa fa-3x fa-solid fa-users text-primary mb-4"></i>
+                                <h5 class="mb-3">Total projets évalués</h5>
+                                <h3 class="mb-3"> @Model.NbProjetEvaluer </h3>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="service-item text-center pt-3">
+                            <div class="p-4">
+                                <i class="fa fa-3x fas fa-user-graduate text-primary mb-4"></i>
+                                <h5 class="mb-3">Projets admis</h5>
+                                <h3 class="mb-3"> @Model.Admis </h3>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.7s">
+                        <div class="service-item text-center pt-3">
+                            <div class="p-4">
+                                <i class="fa fa-3x fa-book-open text-primary mb-4"></i>
+                                <h5 class="mb-3">Projets non admis</h5>
+                                <h3 class="mb-3">@Model.NonAdmis </h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
+                        <div class="service-item text-center pt-3">
+                            <div class="p-4">
+                                <i class="fa fa-3x fas fa-clipboard-check text-primary mb-4"></i>
+                                <h5 class="mb-3">Total fiches élaborées</h5>
+                                <h3 class="mb-3">@Model.NbFicheNotation </h3>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <br />
+                @*<div class="row g-4">
+
+                    @if (User.IsInRole("DG"))
+                    {
+
+                        <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
+                            <a asp-action="DashboardGlobal" asp-controller="Dashboard" target="_blank">
+                                <div class="service-item text-center pt-3">
+                                    <div class="p-4">
+                                        <i class="fa fa-3x fas fa-table text-primary mb-4"></i>
+                                        <h5 class="mb-3">
+                                            Dashboard Global
+                                        </h5>
+                                        <h5 class="mb-3"> Récap par agence</h5>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    }
+
+                </div>*@
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section scripts{
+    <partial name="_select2.script" />
+    <script>
+        $(document).ready(function () {
+            $('.select2').select2();
+        });
+    </script>
+
+}
+
+
+

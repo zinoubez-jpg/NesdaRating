@@ -1,0 +1,48 @@
+﻿@inject SignInManager<User>  SignInManager
+
+@{ var user = await SignInManager.UserManager.GetUserAsync(User); }
+
+
+<nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
+    <a asp-controller="Home" asp-action="Index" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
+        <h2 class="m-0 text-primary"><i class="fa fa-sticky-note me-3"></i>NESDA-Rating</h2>
+    </a>
+    <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+        <div class="navbar-nav ms-auto p-4 p-lg-0">
+            <a asp-controller="Home" asp-action="Index" class="nav-item nav-link">Principal</a>
+            @if (SignInManager.IsSignedIn(User) && (await SignInManager.UserManager.IsInRoleAsync(user, "Admin") || 
+                                                    await SignInManager.UserManager.IsInRoleAsync(user, "AdminAgence") ||
+                                                    await SignInManager.UserManager.IsInRoleAsync(user, "Anade") ||
+                                                    await SignInManager.UserManager.IsInRoleAsync(user, "DG") ||
+                                                    await SignInManager.UserManager.IsInRoleAsync(user, "Utilisateur-Rating")))
+            {
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">Gestion Rating</a>
+                    <div class="dropdown-menu fade-down m-0">
+                        <a asp-controller="NesdaProject" asp-action="index" class="dropdown-item">Espace Projets</a>
+                        <a asp-controller="FicheNotation" asp-action="FicheNotationList" class="dropdown-item">Espace fiches notations </a>
+                    </div>
+                </div>
+            
+            }
+            @if (SignInManager.IsSignedIn(User) && (await SignInManager.UserManager.IsInRoleAsync(user, "Admin") || await SignInManager.UserManager.IsInRoleAsync(user, "AdminAgence")))
+            {
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">Gestion Plateforme</a>
+                    <div class="dropdown-menu fade-down m-0">
+                        <a asp-controller="Administration" asp-action="ListUsers" class="dropdown-item">Utilisateurs</a>
+                        <a asp-controller="Administration" asp-action="index" class="dropdown-item">User-Structure</a>
+                        <a asp-controller="Administration" asp-action="ListRoles" class="dropdown-item">Roles</a>
+                        <a asp-controller="Structure" asp-action="index" class="dropdown-item">Structures</a>
+
+                    </div>
+                </div>
+            } 
+        </div>
+        <partial name="_LoginPartial" />
+    </div>
+</nav>
+

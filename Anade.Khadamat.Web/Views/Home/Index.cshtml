@@ -1,0 +1,111 @@
+﻿@{ ViewData["Title"] = "Home Page"; }
+<!-- Service Start -->
+
+<div class="container-xxl py-5 category">
+    <div class="container">
+        <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+            <h6 class="section-title bg-white text-center text-primary px-3">Bienvenu</h6>
+            <h1 class="mb-5">Nesda-Rating</h1>
+        </div>
+        <div class="container-xxl py-5">
+            <div class="container">
+                <div class="row g-4">
+                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <a asp-controller="NesdaProject" asp-action="Create">
+                            <div class="service-item text-center pt-3">
+                                <div class="p-4">
+                                    <i class="fa fa-3x fa fa-book text-primary mb-4"></i>
+                                    <h5 class="mb-3">Nouvelle fiche de notation</h5>
+                                    <p>Élaborez une nouvelle fiche de notation pour un projet NESDA afin de la soumettre au CSVF. </p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
+                        <a asp-controller="FicheNotation" asp-action="FicheNotationList">
+                            <div class="service-item text-center pt-3">
+                                <div class="p-4">
+                                    <i class="fa fa-3x fa-database text-primary mb-4"></i>
+                                    <h5 class="mb-3">Liste fiches de notation</h5>
+                                    <p>Consultez et gérez toutes vos fiches enregistrées en un seul endroit. </p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
+                        <a asp-controller="NesdaProject" asp-action="Index">
+                            <div class="service-item text-center pt-3">
+                                <div class="p-4">
+                                    <i class="fa fa-3x fa-users text-primary mb-4"></i>
+                                    <h5 class="mb-3">Liste projets évalués</h5>
+                                    <p>Consultez et gérez tous les projets évalués, accessibles dans cette section. </p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+
+                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
+                        <a asp-controller="Dashboard" asp-action="Index">
+                            <div class="service-item text-center pt-3">
+                                <div class="p-4">
+                                    <i class="fa fa-3x fa-server text-primary mb-4"></i>
+                                    <h5 class="mb-3">Dashboard</h5>
+                                    <p>Surveillez et analysez les performances via des données visuelles clés. </p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s" style="min-height: 400px;">
+                <div class="position-relative h-100">
+                    <img class="img-fluid position-absolute w-100 h-100" src="~/NesdaAcademyTemplette/img/NesdaRating.png" alt="" style="object-fit: cover;">
+                </div>
+            </div>
+            <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.3s">
+                <h6 class="section-title bg-white text-start text-primary pe-3">Préambule</h6>
+                <h1 class="mb-4">Nesda-Rating</h1>
+                <p  style="text-align: justify; line-height: 1.6;  margin: 0 0 15px 0;" class="mb-4">Dans le cadre d'une approche économique visant à étudier chaque projet avant son financement, le dispositif NESDA prévoit une série de procédures et d'outils destinés aux analystes  responsables de l'évaluation et de la sélection des projets susceptibles de recevoir un financement</p>
+                <p  style="text-align: justify; line-height: 1.6;  margin: 0 0 15px 0;" class="mb-4">Parmi ces outils, qui facilitent l'analyse des projets d'investissement présentés par les porteurs de projets, on trouve la fiche de notation.Cette fiche de notation intervient en application de l’arrêté du 20 février 2023 fixant l’organisation et le fonctionnement du Comité de Sélection, de Validation et de Financement des projets d'investissements (CSVF), notamment ses articles 14, 15 et 16.</p>
+                <a data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-primary py-3 px-5 mt-2">En savoir plus</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Préambule</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p style="text-align: justify; line-height: 1.6;  margin: 0 0 15px 0;  font-size: 16px; " class="mb-4">Dans le cadre d'une approche économique visant à étudier chaque projet avant son financement, le dispositif NESDA prévoit une série de procédures et d'outils destinés aux analystes  responsables de l'évaluation et de la sélection des projets susceptibles de recevoir un financement</p>
+                <p style="text-align: justify; line-height: 1.6;  margin: 0 0 15px 0;  font-size: 16px; " class="mb-4">Parmi ces outils, qui facilitent l'analyse des projets d'investissement présentés par les porteurs de projets, on trouve la fiche de notation.Cette fiche de notation intervient en application de l’arrêté du 20 février 2023 fixant l’organisation et le fonctionnement du Comité de Sélection, de Validation et de Financement des projets d'investissements (CSVF), notamment ses articles 14, 15 et 16.</p>
+                <p style="text-align: justify; line-height: 1.6;  margin: 0 0 15px 0;  font-size: 16px; " class="mb-4">Elle est conçue pour évaluer de manière approfondie la maturité économique d'un projet d'investissement, en analysant les différents aspects du projet tels que sa faisabilité financière, son impact économique, et sa viabilité stratégique. </p>
+                <p style="text-align: justify; line-height: 1.6;  margin: 0 0 15px 0;  font-size: 16px; " class="mb-4">Cette évaluation vise à déterminer si le projet est prêt à être mis en œuvre et à maximiser ses chances de succès. Elle permet de réduire les risques associés au financement des projets en identifiant ceux qui présentent le plus fort potentiel de réussite.</p>
+                <p style="text-align: justify; line-height: 1.6;  margin: 0 0 15px 0;  font-size: 16px; " class="mb-4">L’évaluation préalable du projet, au moyen de cette fiche de notation, est une étape indispensable avant toute soumission du dossier au CSVF. </p>
+                <p style="text-align: justify; line-height: 1.6;  margin: 0 0 15px 0;  font-size: 16px; " class="mb-4">Etant un outil d’aide à la décision, cette fiche de notation sera actualisée à chaque fois que utile/nécessaire, pour optimiser sa pertinence.</p>
+                <p style="text-align: justify; line-height: 1.6;  margin: 0 0 15px 0;  font-size: 16px; " class="mb-4">Tout traitement de dossier qui ne respecte cette procédure sera considérée comme invalide.</p>
+                <p style="text-align: justify; line-height: 1.6; margin: 0 0 15px 0; font-size: 18px; color: #06BBCC;" class="mb-4">NB : Cette fiche de notation s'applique aux étudiants ou diplômés universitaires ayant    complété une formation au niveau des CDE.</p>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
