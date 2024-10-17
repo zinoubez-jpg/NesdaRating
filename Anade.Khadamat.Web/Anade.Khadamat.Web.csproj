@@ -82,6 +82,9 @@
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>DBKhadamate2024DataSet2.Designer.cs</LastGenOutput>
     </None>
+    <None Update="Report\BusinessPlan1.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Report\FicheNotation.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
