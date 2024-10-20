@@ -19,6 +19,59 @@ namespace Anade.Khadamat.Data.Migrations
                 .HasAnnotation("ProductVersion", "5.0.4")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("Anade.Khadamat.Domain.Acquisition", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AnneeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DetailInvestissementId")
+                        .HasColumnType("int");
+
+                    b.Property<float>("Montant")
+                        .HasColumnType("real");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AnneeId")
+                        .IsUnique();
+
+                    b.HasIndex("DetailInvestissementId");
+
+                    b.ToTable("Acquisition");
+                });
+
+            modelBuilder.Entity("Anade.Khadamat.Domain.Annee", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AcquisitionId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DetailAchatsDirectsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DetailChargesExternesId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DetailChiffreAffaireId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Numero")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Annee");
+                });
+
             modelBuilder.Entity("Anade.Khadamat.Domain.Annexe", b =>
                 {
                     b.Property<int>("Id")
@@ -76,6 +129,59 @@ namespace Anade.Khadamat.Data.Migrations
                     b.ToTable("Antenne");
                 });
 
+            modelBuilder.Entity("Anade.Khadamat.Domain.ApprovisionnementMatierePremiere", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Designation")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ApprovisionnementMatierePremiere");
+                });
+
+            modelBuilder.Entity("Anade.Khadamat.Domain.BusinessPlan", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Code")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Complet")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("Date_Generation")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("EvaluationProjetId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProjetId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StructureFinancementId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StuctureInvestissementId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Utilisateur")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProjetId");
+
+                    b.ToTable("BusinessPlan");
+                });
+
             modelBuilder.Entity("Anade.Khadamat.Domain.Client", b =>
                 {
                     b.Property<int>("Id")
@@ -103,6 +209,70 @@ namespace Anade.Khadamat.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Clients");
+                });
+
+            modelBuilder.Entity("Anade.Khadamat.Domain.CompteResultatPrevisionnel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<float>("AchatsConsommes")
+                        .HasColumnType("real");
+
+                    b.Property<float>("AmortissementsProvisions")
+                        .HasColumnType("real");
+
+                    b.Property<int>("AnneeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BusinessPlanId")
+                        .HasColumnType("int");
+
+                    b.Property<float>("CAF")
+                        .HasColumnType("real");
+
+                    b.Property<float>("ChargesExternes")
+                        .HasColumnType("real");
+
+                    b.Property<float>("ChiffreAffaires")
+                        .HasColumnType("real");
+
+                    b.Property<float>("EvolutionChiffreAffaires")
+                        .HasColumnType("real");
+
+                    b.Property<float>("ExcedentBrutExploitation")
+                        .HasColumnType("real");
+
+                    b.Property<float>("IBS_IFU_IRG")
+                        .HasColumnType("real");
+
+                    b.Property<float>("ResultatExploitation")
+                        .HasColumnType("real");
+
+                    b.Property<float>("ResultatNet")
+                        .HasColumnType("real");
+
+                    b.Property<float>("SalairesChargesSociales")
+                        .HasColumnType("real");
+
+                    b.Property<float>("TauxEBE")
+                        .HasColumnType("real");
+
+                    b.Property<float>("TauxVA")
+                        .HasColumnType("real");
+
+                    b.Property<float>("ValeurAjoutee")
+                        .HasColumnType("real");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AnneeId");
+
+                    b.HasIndex("BusinessPlanId");
+
+                    b.ToTable("CompteResultatPrevisionnel");
                 });
 
             modelBuilder.Entity("Anade.Khadamat.Domain.Concorrdence", b =>
@@ -163,6 +333,175 @@ namespace Anade.Khadamat.Data.Migrations
                     b.ToTable("ContributionFinancieres");
                 });
 
+            modelBuilder.Entity("Anade.Khadamat.Domain.DetailAchatsDirects", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AnneeId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ApprovisionnementMatierePremiereId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BusinessPlanId")
+                        .HasColumnType("int");
+
+                    b.Property<float>("Montant")
+                        .HasColumnType("real");
+
+                    b.Property<float>("PrixUnitaire")
+                        .HasColumnType("real");
+
+                    b.Property<int>("ProduitServiceId")
+                        .HasColumnType("int");
+
+                    b.Property<float>("Quantite")
+                        .HasColumnType("real");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AnneeId")
+                        .IsUnique();
+
+                    b.HasIndex("ApprovisionnementMatierePremiereId");
+
+                    b.HasIndex("BusinessPlanId");
+
+                    b.HasIndex("ProduitServiceId");
+
+                    b.ToTable("DetailAchatsDirects");
+                });
+
+            modelBuilder.Entity("Anade.Khadamat.Domain.DetailChargesExternes", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AnneeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BusinessPlanId")
+                        .HasColumnType("int");
+
+                    b.Property<float>("Montant")
+                        .HasColumnType("real");
+
+                    b.Property<int>("RubriqueChargesExternesId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AnneeId")
+                        .IsUnique();
+
+                    b.HasIndex("BusinessPlanId");
+
+                    b.HasIndex("RubriqueChargesExternesId");
+
+                    b.ToTable("DetailChargesExternes");
+                });
+
+            modelBuilder.Entity("Anade.Khadamat.Domain.DetailChiffreAffaire", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AnneeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BusinessPlanId")
+                        .HasColumnType("int");
+
+                    b.Property<float>("Montant")
+                        .HasColumnType("real");
+
+                    b.Property<float>("PrixUnitaire")
+                        .HasColumnType("real");
+
+                    b.Property<int>("ProduitServiceId")
+                        .HasColumnType("int");
+
+                    b.Property<float>("Quantite")
+                        .HasColumnType("real");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AnneeId")
+                        .IsUnique();
+
+                    b.HasIndex("BusinessPlanId");
+
+                    b.HasIndex("ProduitServiceId");
+
+                    b.ToTable("DetailChiffreAffaire");
+                });
+
+            modelBuilder.Entity("Anade.Khadamat.Domain.DetailEvaluationProjet", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AnneeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EvaluationProjetId")
+                        .HasColumnType("int");
+
+                    b.Property<float>("MontantCashFlowActualises")
+                        .HasColumnType("real");
+
+                    b.Property<float>("MontantCumulCFActualises")
+                        .HasColumnType("real");
+
+                    b.Property<float>("MontantTresorerieNet")
+                        .HasColumnType("real");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AnneeId");
+
+                    b.HasIndex("EvaluationProjetId");
+
+                    b.ToTable("DetailEvaluationProjet");
+                });
+
+            modelBuilder.Entity("Anade.Khadamat.Domain.DetailInvestissement", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BusinessPlanId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DesignationMateriel")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("DureeAmortissement")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TypeMaterielId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BusinessPlanId");
+
+                    b.HasIndex("TypeMaterielId");
+
+                    b.ToTable("DetailInvestissement");
+                });
+
             modelBuilder.Entity("Anade.Khadamat.Domain.Dr", b =>
                 {
                     b.Property<int>("Id")
@@ -190,6 +529,33 @@ namespace Anade.Khadamat.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Drs");
+                });
+
+            modelBuilder.Entity("Anade.Khadamat.Domain.EvaluationProjet", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BusinessPlanId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DelaiRecuperation")
+                        .HasColumnType("int");
+
+                    b.Property<float>("InvestissementInitial")
+                        .HasColumnType("real");
+
+                    b.Property<float>("MontantValeurActuelleNette")
+                        .HasColumnType("real");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BusinessPlanId")
+                        .IsUnique();
+
+                    b.ToTable("EvaluationProjet");
                 });
 
             modelBuilder.Entity("Anade.Khadamat.Domain.ExperienceProfessionnel", b =>
@@ -421,6 +787,37 @@ namespace Anade.Khadamat.Data.Migrations
                     b.ToTable("Marketings");
                 });
 
+            modelBuilder.Entity("Anade.Khadamat.Domain.Mois", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("AnneeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<string>("DesignationAr")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("DesignationFr")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AnneeId");
+
+                    b.ToTable("Mois");
+                });
+
             modelBuilder.Entity("Anade.Khadamat.Domain.NiveauFormation", b =>
                 {
                     b.Property<int>("Id")
@@ -448,6 +845,85 @@ namespace Anade.Khadamat.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("NiveauFormations");
+                });
+
+            modelBuilder.Entity("Anade.Khadamat.Domain.PlanTresorerieMensuel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<float>("AcquisitionEquipementAmenagement")
+                        .HasColumnType("real");
+
+                    b.Property<float>("ApportPersonnel")
+                        .HasColumnType("real");
+
+                    b.Property<float>("ApportSupplementaire")
+                        .HasColumnType("real");
+
+                    b.Property<int>("BusinessPlanId")
+                        .HasColumnType("int");
+
+                    b.Property<float>("CMT")
+                        .HasColumnType("real");
+
+                    b.Property<float>("CotisationsSociales")
+                        .HasColumnType("real");
+
+                    b.Property<float>("DecaissementFournisseurs")
+                        .HasColumnType("real");
+
+                    b.Property<float>("DecaissementPrestataires")
+                        .HasColumnType("real");
+
+                    b.Property<float>("DecaissementSalairesNets")
+                        .HasColumnType("real");
+
+                    b.Property<float>("EncaissementRecusClients")
+                        .HasColumnType("real");
+
+                    b.Property<float>("IBS_IFU")
+                        .HasColumnType("real");
+
+                    b.Property<float>("IRGSalaires")
+                        .HasColumnType("real");
+
+                    b.Property<int>("MoisId")
+                        .HasColumnType("int");
+
+                    b.Property<float>("PNRClassique")
+                        .HasColumnType("real");
+
+                    b.Property<float>("PNRLoyer")
+                        .HasColumnType("real");
+
+                    b.Property<float>("PaiementFGAssurancesFraisLieesCreation")
+                        .HasColumnType("real");
+
+                    b.Property<float>("SoldeFinal")
+                        .HasColumnType("real");
+
+                    b.Property<float>("SoldeInitial")
+                        .HasColumnType("real");
+
+                    b.Property<float>("TVAPayer")
+                        .HasColumnType("real");
+
+                    b.Property<float>("TotalDepense")
+                        .HasColumnType("real");
+
+                    b.Property<float>("TotalRecette")
+                        .HasColumnType("real");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BusinessPlanId");
+
+                    b.HasIndex("MoisId");
+
+                    b.ToTable("PlanTresorerieMensuel");
                 });
 
             modelBuilder.Entity("Anade.Khadamat.Domain.Pricing", b =>
@@ -479,6 +955,313 @@ namespace Anade.Khadamat.Data.Migrations
                     b.ToTable("Pricings");
                 });
 
+            modelBuilder.Entity("Anade.Khadamat.Domain.ProduitService", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Designation")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ProduitService");
+                });
+
+            modelBuilder.Entity("Anade.Khadamat.Domain.Projet", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Activite")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Categorie")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Commune")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FormeJuridique")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NumeroSIEJE")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RaisonSociale")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TypeFinancement")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Wilaya")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Projet");
+                });
+
+            modelBuilder.Entity("Anade.Khadamat.Domain.RubriqueChargesExternes", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<string>("DesignationAr")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("DesignationFr")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RubriqueChargesExternes");
+                });
+
+            modelBuilder.Entity("Anade.Khadamat.Domain.RubriqueStuctureInvestissement", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<string>("DesignationAr")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("DesignationFr")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RubriqueStuctureInvestissement");
+                });
+
+            modelBuilder.Entity("Anade.Khadamat.Domain.StructureFinancement", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<float>("ApportPersonnel")
+                        .HasColumnType("real");
+
+                    b.Property<float>("ApportSupplementaire")
+                        .HasColumnType("real");
+
+                    b.Property<int>("BusinessPlanId")
+                        .HasColumnType("int");
+
+                    b.Property<float>("CMT")
+                        .HasColumnType("real");
+
+                    b.Property<int>("DiffereEmprunt")
+                        .HasColumnType("int");
+
+                    b.Property<float>("ExonerationFiscale")
+                        .HasColumnType("real");
+
+                    b.Property<float>("PNRClassique")
+                        .HasColumnType("real");
+
+                    b.Property<float>("PNRSupplementaire")
+                        .HasColumnType("real");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BusinessPlanId")
+                        .IsUnique();
+
+                    b.ToTable("StructureFinancement");
+                });
+
+            modelBuilder.Entity("Anade.Khadamat.Domain.StuctureInvestissement", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<float>("ActifsBiologique")
+                        .HasColumnType("real");
+
+                    b.Property<float>("Amenagement")
+                        .HasColumnType("real");
+
+                    b.Property<float>("AssurancesLieesCreation")
+                        .HasColumnType("real");
+
+                    b.Property<int>("BusinessPlanId")
+                        .HasColumnType("int");
+
+                    b.Property<float>("EquipementsImportes")
+                        .HasColumnType("real");
+
+                    b.Property<float>("FondsGarantie")
+                        .HasColumnType("real");
+
+                    b.Property<float>("FondsRoulement")
+                        .HasColumnType("real");
+
+                    b.Property<float>("FraisGeneraux")
+                        .HasColumnType("real");
+
+                    b.Property<float>("InstallationsEquipements")
+                        .HasColumnType("real");
+
+                    b.Property<float>("MaterielAudioVisuel")
+                        .HasColumnType("real");
+
+                    b.Property<float>("MaterielBureau")
+                        .HasColumnType("real");
+
+                    b.Property<float>("MaterielCommunication")
+                        .HasColumnType("real");
+
+                    b.Property<float>("MaterielInformatique")
+                        .HasColumnType("real");
+
+                    b.Property<float>("MaterielProduction")
+                        .HasColumnType("real");
+
+                    b.Property<float>("MaterielRoulant")
+                        .HasColumnType("real");
+
+                    b.Property<float>("Total")
+                        .HasColumnType("real");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BusinessPlanId")
+                        .IsUnique();
+
+                    b.ToTable("StuctureInvestissement");
+                });
+
+            modelBuilder.Entity("Anade.Khadamat.Domain.TableauFluxTresorerie", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AnneeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BusinessPlanId")
+                        .HasColumnType("int");
+
+                    b.Property<float>("DecaissementAcquisitionEquipements")
+                        .HasColumnType("real");
+
+                    b.Property<float>("DecaissementIBS_IFU_IRG")
+                        .HasColumnType("real");
+
+                    b.Property<float>("DecaissementTVAPayer")
+                        .HasColumnType("real");
+
+                    b.Property<float>("EncaissementsProvenantEmprunts")
+                        .HasColumnType("real");
+
+                    b.Property<float>("EncaissementsRecuClients")
+                        .HasColumnType("real");
+
+                    b.Property<float>("EncaissementsSuiteApportPersonnel")
+                        .HasColumnType("real");
+
+                    b.Property<float>("Equilibre")
+                        .HasColumnType("real");
+
+                    b.Property<float>("FluxTresorerieNet")
+                        .HasColumnType("real");
+
+                    b.Property<float>("FluxTresorerieProvenantExploitation")
+                        .HasColumnType("real");
+
+                    b.Property<float>("FluxTresorerieProvenantFinancement")
+                        .HasColumnType("real");
+
+                    b.Property<float>("FluxTresorerieProvenantInvestissement")
+                        .HasColumnType("real");
+
+                    b.Property<float>("RemboursementsEmpruntsCMT")
+                        .HasColumnType("real");
+
+                    b.Property<float>("RemboursementsEmpruntsPNR")
+                        .HasColumnType("real");
+
+                    b.Property<float>("SoldeFinal")
+                        .HasColumnType("real");
+
+                    b.Property<float>("SoldeInitial")
+                        .HasColumnType("real");
+
+                    b.Property<float>("SommesVerseesFournisseurs")
+                        .HasColumnType("real");
+
+                    b.Property<float>("SommesVerseesPersonnelCNAS_IRG")
+                        .HasColumnType("real");
+
+                    b.Property<float>("SommesVerseesPrestataires")
+                        .HasColumnType("real");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AnneeId");
+
+                    b.HasIndex("BusinessPlanId");
+
+                    b.ToTable("TableauFluxTresorerie");
+                });
+
+            modelBuilder.Entity("Anade.Khadamat.Domain.TypeMateriel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<string>("DesignationAr")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("DesignationFr")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TypeMateriel");
+                });
+
             modelBuilder.Entity("Anade.Khadamat.Domain.Van", b =>
                 {
                     b.Property<int>("Id")
@@ -508,6 +1291,25 @@ namespace Anade.Khadamat.Data.Migrations
                     b.ToTable("Vans");
                 });
 
+            modelBuilder.Entity("Anade.Khadamat.Domain.Acquisition", b =>
+                {
+                    b.HasOne("Anade.Khadamat.Domain.Annee", "Annee")
+                        .WithOne("Acquisition")
+                        .HasForeignKey("Anade.Khadamat.Domain.Acquisition", "AnneeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Anade.Khadamat.Domain.DetailInvestissement", "DetailInvestissement")
+                        .WithMany("Acquisitions")
+                        .HasForeignKey("DetailInvestissementId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Annee");
+
+                    b.Navigation("DetailInvestissement");
+                });
+
             modelBuilder.Entity("Anade.Khadamat.Domain.Annexe", b =>
                 {
                     b.HasOne("Anade.Khadamat.Domain.Antenne", "Antenne")
@@ -517,6 +1319,170 @@ namespace Anade.Khadamat.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Antenne");
+                });
+
+            modelBuilder.Entity("Anade.Khadamat.Domain.BusinessPlan", b =>
+                {
+                    b.HasOne("Anade.Khadamat.Domain.Projet", "Projet")
+                        .WithMany("BusinessPlans")
+                        .HasForeignKey("ProjetId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Projet");
+                });
+
+            modelBuilder.Entity("Anade.Khadamat.Domain.CompteResultatPrevisionnel", b =>
+                {
+                    b.HasOne("Anade.Khadamat.Domain.Annee", "Annee")
+                        .WithMany("ComptesResultatPrevisionnel")
+                        .HasForeignKey("AnneeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Anade.Khadamat.Domain.BusinessPlan", "BusinessPlan")
+                        .WithMany("ComptesResultatPrevisionnel")
+                        .HasForeignKey("BusinessPlanId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Annee");
+
+                    b.Navigation("BusinessPlan");
+                });
+
+            modelBuilder.Entity("Anade.Khadamat.Domain.DetailAchatsDirects", b =>
+                {
+                    b.HasOne("Anade.Khadamat.Domain.Annee", "Annee")
+                        .WithOne("DetailAchatsDirects")
+                        .HasForeignKey("Anade.Khadamat.Domain.DetailAchatsDirects", "AnneeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Anade.Khadamat.Domain.ApprovisionnementMatierePremiere", null)
+                        .WithMany("DetailsAchatsDirects")
+                        .HasForeignKey("ApprovisionnementMatierePremiereId");
+
+                    b.HasOne("Anade.Khadamat.Domain.BusinessPlan", "BusinessPlan")
+                        .WithMany("DetailsAchatsDirects")
+                        .HasForeignKey("BusinessPlanId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Anade.Khadamat.Domain.ProduitService", "ProduitService")
+                        .WithMany()
+                        .HasForeignKey("ProduitServiceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Annee");
+
+                    b.Navigation("BusinessPlan");
+
+                    b.Navigation("ProduitService");
+                });
+
+            modelBuilder.Entity("Anade.Khadamat.Domain.DetailChargesExternes", b =>
+                {
+                    b.HasOne("Anade.Khadamat.Domain.Annee", "Annee")
+                        .WithOne("DetailChargesExternes")
+                        .HasForeignKey("Anade.Khadamat.Domain.DetailChargesExternes", "AnneeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Anade.Khadamat.Domain.BusinessPlan", "BusinessPlan")
+                        .WithMany("DetailsChargesExternes")
+                        .HasForeignKey("BusinessPlanId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Anade.Khadamat.Domain.RubriqueChargesExternes", "RubriqueChargesExternes")
+                        .WithMany("DetailsChargesExternes")
+                        .HasForeignKey("RubriqueChargesExternesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Annee");
+
+                    b.Navigation("BusinessPlan");
+
+                    b.Navigation("RubriqueChargesExternes");
+                });
+
+            modelBuilder.Entity("Anade.Khadamat.Domain.DetailChiffreAffaire", b =>
+                {
+                    b.HasOne("Anade.Khadamat.Domain.Annee", "Annee")
+                        .WithOne("DetailChiffreAffaire")
+                        .HasForeignKey("Anade.Khadamat.Domain.DetailChiffreAffaire", "AnneeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Anade.Khadamat.Domain.BusinessPlan", "BusinessPlan")
+                        .WithMany("DetailsChiffreAffaire")
+                        .HasForeignKey("BusinessPlanId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Anade.Khadamat.Domain.ProduitService", "ProduitService")
+                        .WithMany("DetailsChiffreAffaire")
+                        .HasForeignKey("ProduitServiceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Annee");
+
+                    b.Navigation("BusinessPlan");
+
+                    b.Navigation("ProduitService");
+                });
+
+            modelBuilder.Entity("Anade.Khadamat.Domain.DetailEvaluationProjet", b =>
+                {
+                    b.HasOne("Anade.Khadamat.Domain.Annee", "Annee")
+                        .WithMany("DetailsEvaluationProjet")
+                        .HasForeignKey("AnneeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Anade.Khadamat.Domain.EvaluationProjet", "EvaluationProjet")
+                        .WithMany("DetailsEvaluationProjet")
+                        .HasForeignKey("EvaluationProjetId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Annee");
+
+                    b.Navigation("EvaluationProjet");
+                });
+
+            modelBuilder.Entity("Anade.Khadamat.Domain.DetailInvestissement", b =>
+                {
+                    b.HasOne("Anade.Khadamat.Domain.BusinessPlan", "BusinessPlan")
+                        .WithMany("DetailsInvestissement")
+                        .HasForeignKey("BusinessPlanId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Anade.Khadamat.Domain.TypeMateriel", "TypeMateriel")
+                        .WithMany("DetailsInvestissement")
+                        .HasForeignKey("TypeMaterielId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("BusinessPlan");
+
+                    b.Navigation("TypeMateriel");
+                });
+
+            modelBuilder.Entity("Anade.Khadamat.Domain.EvaluationProjet", b =>
+                {
+                    b.HasOne("Anade.Khadamat.Domain.BusinessPlan", "BusinessPlan")
+                        .WithOne("EvaluationProjet")
+                        .HasForeignKey("Anade.Khadamat.Domain.EvaluationProjet", "BusinessPlanId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("BusinessPlan");
                 });
 
             modelBuilder.Entity("Anade.Khadamat.Domain.FicheNotation", b =>
@@ -602,6 +1568,92 @@ namespace Anade.Khadamat.Data.Migrations
                     b.Navigation("Van");
                 });
 
+            modelBuilder.Entity("Anade.Khadamat.Domain.Mois", b =>
+                {
+                    b.HasOne("Anade.Khadamat.Domain.Annee", null)
+                        .WithMany("Mois")
+                        .HasForeignKey("AnneeId");
+                });
+
+            modelBuilder.Entity("Anade.Khadamat.Domain.PlanTresorerieMensuel", b =>
+                {
+                    b.HasOne("Anade.Khadamat.Domain.BusinessPlan", "BusinessPlan")
+                        .WithMany("PlansTresorerieMensuel")
+                        .HasForeignKey("BusinessPlanId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Anade.Khadamat.Domain.Mois", "Mois")
+                        .WithMany("PlansTresorerieMensuel")
+                        .HasForeignKey("MoisId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("BusinessPlan");
+
+                    b.Navigation("Mois");
+                });
+
+            modelBuilder.Entity("Anade.Khadamat.Domain.StructureFinancement", b =>
+                {
+                    b.HasOne("Anade.Khadamat.Domain.BusinessPlan", "BusinessPlan")
+                        .WithOne("StructureFinancement")
+                        .HasForeignKey("Anade.Khadamat.Domain.StructureFinancement", "BusinessPlanId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("BusinessPlan");
+                });
+
+            modelBuilder.Entity("Anade.Khadamat.Domain.StuctureInvestissement", b =>
+                {
+                    b.HasOne("Anade.Khadamat.Domain.BusinessPlan", "BusinessPlan")
+                        .WithOne("StuctureInvestissement")
+                        .HasForeignKey("Anade.Khadamat.Domain.StuctureInvestissement", "BusinessPlanId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("BusinessPlan");
+                });
+
+            modelBuilder.Entity("Anade.Khadamat.Domain.TableauFluxTresorerie", b =>
+                {
+                    b.HasOne("Anade.Khadamat.Domain.Annee", "Annee")
+                        .WithMany("TableauxFluxTresorerie")
+                        .HasForeignKey("AnneeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Anade.Khadamat.Domain.BusinessPlan", "BusinessPlan")
+                        .WithMany("TableauxFluxTresorerie")
+                        .HasForeignKey("BusinessPlanId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Annee");
+
+                    b.Navigation("BusinessPlan");
+                });
+
+            modelBuilder.Entity("Anade.Khadamat.Domain.Annee", b =>
+                {
+                    b.Navigation("Acquisition");
+
+                    b.Navigation("ComptesResultatPrevisionnel");
+
+                    b.Navigation("DetailAchatsDirects");
+
+                    b.Navigation("DetailChargesExternes");
+
+                    b.Navigation("DetailChiffreAffaire");
+
+                    b.Navigation("DetailsEvaluationProjet");
+
+                    b.Navigation("Mois");
+
+                    b.Navigation("TableauxFluxTresorerie");
+                });
+
             modelBuilder.Entity("Anade.Khadamat.Domain.Annexe", b =>
                 {
                     b.Navigation("FicheNotations");
@@ -610,6 +1662,34 @@ namespace Anade.Khadamat.Data.Migrations
             modelBuilder.Entity("Anade.Khadamat.Domain.Antenne", b =>
                 {
                     b.Navigation("Annexes");
+                });
+
+            modelBuilder.Entity("Anade.Khadamat.Domain.ApprovisionnementMatierePremiere", b =>
+                {
+                    b.Navigation("DetailsAchatsDirects");
+                });
+
+            modelBuilder.Entity("Anade.Khadamat.Domain.BusinessPlan", b =>
+                {
+                    b.Navigation("ComptesResultatPrevisionnel");
+
+                    b.Navigation("DetailsAchatsDirects");
+
+                    b.Navigation("DetailsChargesExternes");
+
+                    b.Navigation("DetailsChiffreAffaire");
+
+                    b.Navigation("DetailsInvestissement");
+
+                    b.Navigation("EvaluationProjet");
+
+                    b.Navigation("PlansTresorerieMensuel");
+
+                    b.Navigation("StructureFinancement");
+
+                    b.Navigation("StuctureInvestissement");
+
+                    b.Navigation("TableauxFluxTresorerie");
                 });
 
             modelBuilder.Entity("Anade.Khadamat.Domain.Client", b =>
@@ -627,9 +1707,19 @@ namespace Anade.Khadamat.Data.Migrations
                     b.Navigation("FicheNotations");
                 });
 
+            modelBuilder.Entity("Anade.Khadamat.Domain.DetailInvestissement", b =>
+                {
+                    b.Navigation("Acquisitions");
+                });
+
             modelBuilder.Entity("Anade.Khadamat.Domain.Dr", b =>
                 {
                     b.Navigation("FicheNotations");
+                });
+
+            modelBuilder.Entity("Anade.Khadamat.Domain.EvaluationProjet", b =>
+                {
+                    b.Navigation("DetailsEvaluationProjet");
                 });
 
             modelBuilder.Entity("Anade.Khadamat.Domain.ExperienceProfessionnel", b =>
@@ -642,6 +1732,11 @@ namespace Anade.Khadamat.Data.Migrations
                     b.Navigation("FicheNotations");
                 });
 
+            modelBuilder.Entity("Anade.Khadamat.Domain.Mois", b =>
+                {
+                    b.Navigation("PlansTresorerieMensuel");
+                });
+
             modelBuilder.Entity("Anade.Khadamat.Domain.NiveauFormation", b =>
                 {
                     b.Navigation("FicheNotations");
@@ -650,6 +1745,26 @@ namespace Anade.Khadamat.Data.Migrations
             modelBuilder.Entity("Anade.Khadamat.Domain.Pricing", b =>
                 {
                     b.Navigation("FicheNotations");
+                });
+
+            modelBuilder.Entity("Anade.Khadamat.Domain.ProduitService", b =>
+                {
+                    b.Navigation("DetailsChiffreAffaire");
+                });
+
+            modelBuilder.Entity("Anade.Khadamat.Domain.Projet", b =>
+                {
+                    b.Navigation("BusinessPlans");
+                });
+
+            modelBuilder.Entity("Anade.Khadamat.Domain.RubriqueChargesExternes", b =>
+                {
+                    b.Navigation("DetailsChargesExternes");
+                });
+
+            modelBuilder.Entity("Anade.Khadamat.Domain.TypeMateriel", b =>
+                {
+                    b.Navigation("DetailsInvestissement");
                 });
 
             modelBuilder.Entity("Anade.Khadamat.Domain.Van", b =>

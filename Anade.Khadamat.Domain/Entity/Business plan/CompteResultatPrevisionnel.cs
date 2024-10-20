@@ -28,5 +28,6 @@ namespace Anade.Khadamat.Domain
 
         public virtual Annee Annee { get; set; }
         public virtual BusinessPlan BusinessPlan { get; set; }
+
     }
 }
