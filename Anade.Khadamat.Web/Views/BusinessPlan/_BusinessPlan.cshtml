@@ -1,0 +1,67 @@
+﻿@model IEnumerable<Anade.Khadamat.Domain.BusinessPlan>
+<partial name="_Message" />
+
+<table class="table display compact">
+    <thead>
+        <tr>
+            <th>
+                N° Business plan
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date_Generation)
+            </th>
+            <th>
+                Complet (Oui/Non)?
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Utilisateur)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Code)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date_Generation)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Complet)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Utilisateur)
+                </td>
+                <td>
+
+                    @if (item.Complet)
+                    {
+                        <a asp-controller="Reporting" asp-action="Print" asp-route-id="@item.Id" class="btn btn-outline-primary btn-sm">  <i class='fa fa-print' style='color:#7ea591'></i> Imprimer</a>
+                    }
+                    else
+                    {
+                        <button data-bs-target="#modal" data-bs-toggle="modal" class="btn btn-dark btn-sm clignote"
+                                data-url="@Url.Action("EditBusinessPlan",new { id=item.Id})">
+                            Compléter le business plan
+                        </button>
+
+                    }
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    window.setTimeout(function () {
+        $(".alert").fadeTo(500, 0).slideUp(500, function () {
+            $(this).remove();
+        });
+    }, 2000);
+</script>
+

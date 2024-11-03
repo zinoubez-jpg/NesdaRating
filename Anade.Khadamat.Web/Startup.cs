@@ -48,7 +48,7 @@ namespace Anade.Khadamat.Web
             services.AddTransient(typeof(ReferentielBusinessService<,>));
             services.AddTransient(typeof(GenericBusinessService<,>));
 
-         
+
             services.AddTransient<ProjetBusinessService>();
             services.AddHttpClient<FournisseurApiService>();
             services.AddHttpClient<PromoteurApiService>();
@@ -60,6 +60,8 @@ namespace Anade.Khadamat.Web
             services.AddTransient<FicheNotationBusinessService>();
             services.AddTransient<AnnexeBusinessService>();
 
+            services.AddTransient<BusinessPlanBusinessService>();
+            services.AddTransient<TauxStructureFinancementBusinessService>();
 
             AppSettings appSettings = Configuration.GetSection(nameof(AppSettings)).Get<AppSettings>();
 
@@ -79,7 +81,7 @@ namespace Anade.Khadamat.Web
 
 
             services.AddScoped<IReportService, ReportService>();
-            services.AddScoped < ILoadProperties<FicheNotation, int>, LoadProperties < FicheNotation, int>> ();
+            services.AddScoped<ILoadProperties<FicheNotation, int>, LoadProperties<FicheNotation, int>>();
 
 
 

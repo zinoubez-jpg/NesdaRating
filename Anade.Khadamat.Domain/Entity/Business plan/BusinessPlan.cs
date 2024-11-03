@@ -21,16 +21,17 @@ namespace Anade.Khadamat.Domain
 
         public int Id { get; set; }
         public string Code { get; set; }
-        public System.DateTime? Date_Generation { get; set; }
+        public System.DateTime Date_Creation { get; set; }
         public bool Complet { get; set; }
+        public System.DateTime? Date_Generation { get; set; }
         public string Utilisateur { get; set; }
 
-        public int ProjetId { get; set; }
-        public int StuctureInvestissementId { get; set; }
-        public int StructureFinancementId { get; set; }
-        public int EvaluationProjetId { get; set; }
+        [ForeignKey("PromoteurId")]
+        [Required(ErrorMessage = "RequiredMessage")]
+        [Display(Name = "N° Dossier ")]
+        public string NumeroSIEJE { get; set; }
 
-        public virtual Projet Projet { get; set; }
+        public virtual InformationBase InformationBase { get; set; }
         public virtual StuctureInvestissement StuctureInvestissement { get; set; }
         public virtual StructureFinancement StructureFinancement { get; set; }
         public virtual EvaluationProjet EvaluationProjet { get; set; }

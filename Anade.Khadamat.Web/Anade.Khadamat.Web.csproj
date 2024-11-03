@@ -35,6 +35,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="DBBusinessPlanDataSet.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>DBBusinessPlanDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Update="DBFicheNotationDataSet.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -65,6 +70,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="DBBusinessPlanDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DBBusinessPlanDataSet.Designer.cs</LastGenOutput>
+    </None>
     <None Update="DBFicheNotationDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>DBFicheNotationDataSet.Designer.cs</LastGenOutput>
@@ -82,10 +91,25 @@
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>DBKhadamate2024DataSet2.Designer.cs</LastGenOutput>
     </None>
-    <None Update="Report\BusinessPlan1.rdlc">
+    <None Update="Report\BusinessPlanV2.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Report\BusinessPlanV1.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Report\FicheNotation.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Report\BusinessPlan.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Report\BusinessPlan1.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Report\FicheNotation - Copier.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Report\FicheNotation1.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

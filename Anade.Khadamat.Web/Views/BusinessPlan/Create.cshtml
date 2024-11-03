@@ -1,0 +1,128 @@
+﻿@model Anade.Khadamat.Domain.PROMOTEUR
+@inject Anade.Business.Core.ApiServicesUrls ApiServicesUrls
+@inject UserService _userService;
+
+@{ ViewData["Title"] = "Récuperation info-Projet";
+    var user = await _userService.GetUserEagerLoadedAsync(User);
+    var structure = await _userService.GetStructureFromUserAsync(user.Id);
+
+    var designationToCode = new Dictionary<string, string>
+{
+            { "ANTENNE ROUIBA", "1606" },
+            { "ANTENNE EL HARRACH", "1607" },
+            { "ANTENNE HUSSEIN DEY", "1604" },
+            { "ANTENNE DAR EL BEIDA", "1614" },
+            { "ANTENNE SIDI M''HAMED", "1602" },
+            { "ANTENNE BOUZAREAH", "1612" },
+            { "ANTENNE BAB EL OUED", "1609" },
+            { "ANTENNE ZERALDA", "1605" },
+            { "ANTENNE CHERAGA", "1610" },
+            { "ANTENNE DRARIA", "1611" },
+            { "ANTENNE BIRTOUTA", "1603" },
+            { "ANTENNE BIR MOURAD RAIS", "1608" },
+            { "ANTENNE BARAKI", "1613" }
+        };
+
+    if (designationToCode.TryGetValue(structure.Designation, out var code))
+    {
+        structure.CodeStructure = code;
+    }
+
+}
+
+@section head{
+
+    <partial name="_select2.style" />
+    <partial name="_jqueryui.style" />
+    <link href="~/Inscription/css/style.css" rel="stylesheet" />
+}
+
+<div class="container-fluid bg-primary py-2 mb-5 page-header">
+    <div class="container py-2">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 text-center">
+                <h1 class="display-6 text-white animated slideInDown">@ViewData["Title"]</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index" class="text-white">Home</a></li>
+                        <li class="breadcrumb-item"><a asp-controller="NesdaProject" asp-action="Index" class="text-white">Liste Projets</a></li>
+                        <li class="breadcrumb-item text-white active" aria-current="page">@ViewData["Title"]</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<partial name="_Message" />
+
+<div class="container-xxl py-5 category">
+    <div class="container">
+        <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+            <h6 class="section-title bg-white text-center text-primary px-3">Nesda-Scoring</h6>
+            <h1 class="mb-5"> Selectionner le projet pour le récupérer   </h1>
+        </div>
+    </div>
+</div>
+
+
+<div id="booking" class="section">
+    <div class="section-center">
+        <div class="container" style="max-height: auto">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="booking-form">
+                        <form asp-action="Create">
+                            <div class="row ">
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <span class="form-label">Numero Dossier / Raison social</span>
+                                        <select asp-for="Id" asp-items="@ViewBag.NiveauInstructionId as SelectList" class="form-control select2" required>
+                                            <option value="">Selectionner le projet pour le récupérer</option>
+                                        </select>
+                                        <span class="select-arrow"></span>
+                                        <span asp-validation-for="Id" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="form-btn col-md-4">
+                                    <button type="submit" class="submit-btn">Récuperer les Données</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br />
+    <br />
+    <br />
+</div>
+
+@section scripts{
+
+    <partial name="_ValidationScriptsPartial" />
+
+    <partial name="_select2.script" />
+    <partial name="_jqueryui.script" />
+    <script src="~/js/FournisseurSelect2.js"></script>
+    <script src="~/js/PromoteurSelect2.js"></script>
+
+    <script>
+         $(function () {
+             $("#Id").select2({
+
+                    templateResult: promoteurSelect2ResultTemplate,
+                    templateSelection:promoteurSelect2SelectionTemplate,
+                    escapeMarkup: escapeMarkup,
+                     ajax: {
+                            url:"@(ApiServicesUrls.GetBaseUrl<Anade.Khadamat.Domain.PROMOTEUR>("suivipagedfiltered")+"?Codeannexe="+ structure.CodeStructure)",
+                            dataType: 'json',
+                            processResults: processResult
+                        },
+             });
+         });
+
+    </script>
+}
+

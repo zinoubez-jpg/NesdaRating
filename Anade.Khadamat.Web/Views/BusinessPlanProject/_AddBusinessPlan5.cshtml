@@ -1,0 +1,52 @@
+﻿<!doctype html>
+<html>
+<head>
+    <title>Ignite UI igGridGroupBy</title>
+    <!-- Infragistics Combined CSS -->
+    <link href="css/themes/infragistics/infragistics.theme.css" rel="stylesheet" type="text/css" />
+    <link href="css/structure/infragistics.css" rel="stylesheet" type="text/css" />
+    <!-- jQuery Core -->
+    <script src="js/jquery.js" type="text/javascript"></script>
+    <!-- jQuery UI -->
+    <script src="js/jquery-ui.js" type="text/javascript"></script>
+    <script src="js/infragistics.core.js" type="text/javascript"></script>
+    <script src="js/infragistics.lob.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(function () {
+            var products = [
+                { "ProductID": 1, "ProductGroup": "9001", "Name": "Adjustable Race", "ProductNumber": "AR-5381" },
+                { "ProductID": 2, "ProductGroup": "9001", "Name": "Bearing Ball", "ProductNumber": "BA-8327" },
+                { "ProductID": 3, "ProductGroup": "8010", "Name": "BB Ball Bearing", "ProductNumber": "BE-2349" },
+                { "ProductID": 4, "ProductGroup": "9001", "Name": "Headset Ball Bearings", "ProductNumber": "BE-2908" },
+                { "ProductID": 316, "ProductGroup": "8010", "Name": "Blade", "ProductNumber": "BL-2036" },
+                { "ProductID": 317, "ProductGroup": "9001", "Name": "LL Crankarm", "ProductNumber": "CA-5965" },
+                { "ProductID": 318, "ProductGroup": "8010", "Name": "ML Crankarm", "ProductNumber": "CA-6738" },
+                { "ProductID": 319, "ProductGroup": "8010", "Name": "HL Crankarm", "ProductNumber": "CA-7457" },
+                { "ProductID": 320, "ProductGroup": "9001", "Name": "Chainring Bolts", "ProductNumber": "CB-2903" }
+            ];
+
+            $("#grid").igGrid({
+                autoGenerateColumns: true,
+                dataSource: products,
+                height: "400px",
+                features: [{
+                    name: "GroupBy",
+                    type: "local",
+                    columnSettings: [{
+                        columnKey: "ProductGroup",
+                        isGroupBy: true
+                    }, {
+                        columnKey: "ProductID",
+                        allowGrouping: false
+                    }]
+                }]
+            });
+            $("#grid").igGrid("dataBind");
+        });
+    </script>
+</head>
+<body>
+    <table id="grid">
+    </table>
+</body>
+</html>

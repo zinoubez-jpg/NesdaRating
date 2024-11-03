@@ -1,0 +1,120 @@
+﻿@model List<Anade.Khadamat.Domain.PROMOTEUR>
+
+@{ ViewData["Title"] = "Liste des Projets ";}
+
+@section head{
+
+    <partial name="_datatables.style" />
+}
+
+<div class="container-fluid bg-primary py-2 mb-5 page-header">
+    <div class="container py-2">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 text-center">
+                <h1 class="display-6 text-white animated slideInDown">@ViewData["Title"]</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index" class="text-white">Home</a></li>
+                        <li class="breadcrumb-item text-white active" aria-current="page">@ViewData["Title"]</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<partial name="_Message" />
+
+<div class="card card_border p-lg-5 p-3 mb-4">
+
+    <div class="card-body py-3 p-0">
+        <p class="text-right pr-1">
+            <a asp-action="Create" class="btn btn-style btn-primary mr-2"><i class="fa fa-plus-square"></i>&nbsp;Nouveau</a>
+        </p>
+        <br />
+        <table class="table display compact">
+            <thead>
+                <tr>
+
+                    <th>
+                        N° dossier
+                    </th>
+                    <th>
+                        Raison socale
+                    </th>
+                    <th>
+                        Date dépôt
+                    </th>
+                    <th>
+                        Activité
+                    </th>
+
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NUM_DOSS)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RAISON_SOCIALE)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DATE_DEPOT)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ACTIVITE)
+                        </td>
+
+                        <td>
+
+                            @Html.ActionLink("Details", "Details", new { id = item.NUM_DOSS }, new { @class = "fa fa-laptop icon-fea" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+
+@section scripts{
+    @*TODO:import datatables scripts*@
+    <partial name="_datatables.script" />
+
+    @*TODO:apply the datatable plugin on table element*@
+    <script>
+        $(function () {
+            $("table").DataTable({
+                dom: 'Blfrtip',
+                buttons: [
+                    {
+                        extend: 'excelHtml5',
+                        title: 'Liste des Projets',
+                        text: 'Export to excel',
+
+                        autoFilter: true,
+                        //Columns to export
+                        exportOptions: {
+                            columns: [0, 1, 2, 3]
+                        },
+                        customize: function (xlsx) {
+                            var sheet = xlsx.xl.worksheets['sheet1.xml'];
+
+                            // jQuery selector to add a border
+                            $('row c[r*="10"]', sheet).attr('s', '25');
+                        }
+
+                    }
+
+                ]
+
+            });
+        });
+    </script>
+}

@@ -1,0 +1,256 @@
+﻿@model Anade.Khadamat.Domain.PROMOTEUR
+@inject Anade.Business.Core.ApiServicesUrls ApiServicesUrls
+
+
+
+@{ ViewData["Title"] = "Détails Dossier";}
+@section head{
+    <partial name="_select2.style" />
+    <partial name="_jqueryui.style" />
+    <partial name="_sweetalert2.style" />
+
+    <link href="~/Inscription/css/style.css" rel="stylesheet" />
+
+}
+
+<div class="container-fluid bg-primary py-2 mb-5 page-header">
+    <div class="container py-2">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 text-center">
+                <h1 class="display-6 text-white animated slideInDown">@ViewData["Title"]</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index" class="text-white">Home</a></li>
+                        <li class="breadcrumb-item"><a asp-controller="BusinessPlanProject" asp-action="Index" class="text-white">Liste Projets</a></li>
+                        <li class="breadcrumb-item text-white active" aria-current="page">@ViewData["Title"]</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+<partial name="_Message" />
+
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-lg-6 wow fadeInLeft" data-wow-delay="0.3s">
+                <h6 class="section-title bg-white text-start text-primary pe-3">Projet</h6>
+                <h1 class="mb-4">Informations sur le projet</h1>
+                <div class="row gy-2 gx-4 mb-4">
+                    <div class="col-sm-3">
+                        <p class="mb-0" style="font-weight: bold;"><i class="fa fa-arrow-right text-primary me-2"></i>N° Dossier :</p>
+                    </div>
+                    <div class="col-sm-9">
+                        <p class="mb-0"> @Html.DisplayFor(model => model.NUM_DOSS)</p>
+                    </div>
+                    <div class="col-sm-3">
+                        <p class="mb-0" style="font-weight: bold;"><i class="fa fa-arrow-right text-primary me-2"></i>Raison Social :</p>
+                    </div>
+                    <div class="col-sm-9">
+                        <p class="mb-0"> @Html.DisplayFor(model => model.RAISON_SOCIALE)</p>
+                    </div>
+                    <div class="col-sm-3">
+                        <p class="mb-0" style="font-weight: bold;"><i class="fa fa-arrow-right text-primary me-2"></i>Date Dépot :</p>
+                    </div>
+                    <div class="col-sm-9">
+                        <p class="mb-0"> @Html.DisplayFor(model => model.DATE_DEPOT)</p>
+                    </div>
+                    <div class="col-sm-3">
+                        <p class="mb-0" style="font-weight: bold;"><i class="fa fa-arrow-right text-primary me-2"></i>Activité :</p>
+                    </div>
+                    <div class="col-sm-9">
+                        <p class="mb-0">@Html.DisplayFor(model => model.ACTIVITE)</p>
+                    </div>
+                    <div class="col-sm-3">
+                        <p class="mb-0" style="font-weight: bold;"><i class="fa fa-arrow-right text-primary me-2"></i>Siège Social :</p>
+                    </div>
+                    <div class="col-sm-9">
+                        <p class="mb-0"> @Html.DisplayFor(model => model.SIEGE_SOCIAL)</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 wow fadeInRight" data-wow-delay="0.3s">
+                <h6 class="section-title bg-white text-start text-primary pe-3">Promoteur</h6>
+                <h1 class="mb-4">Informations sur le promoteur</h1>
+                <div class="row gy-2 gx-4 mb-4">
+                    <div class="col-sm-4">
+                        <p class="mb-0" style="font-weight: bold;"><i class="fa fa-arrow-right text-primary me-2"></i>Nom :</p>
+                    </div>
+                    <div class="col-sm-8">
+                        <p class="mb-0"> @Html.DisplayFor(model => model.NOM_P)</p>
+                    </div>
+                    <div class="col-sm-4">
+                        <p class="mb-0" style="font-weight: bold;"><i class="fa fa-arrow-right text-primary me-2"></i>Prénom :</p>
+                    </div>
+                    <div class="col-sm-8">
+                        <p class="mb-0"> @Html.DisplayFor(model => model.PRENOM_P)</p>
+                    </div>
+                    <div class="col-sm-4">
+                        <p class="mb-0" style="font-weight: bold;"><i class="fa fa-arrow-right text-primary me-2"></i>Date Naissance :</p>
+                    </div>
+                    <div class="col-sm-8">
+                        <p class="mb-0"> @Html.DisplayFor(model => model.DDN_P)</p>
+                    </div>
+                    <div class="col-sm-4">
+                        <p class="mb-0" style="font-weight: bold;"><i class="fa fa-arrow-right text-primary me-2"></i>Adresse :</p>
+                    </div>
+                    <div class="col-sm-8">
+                        <p class="mb-0">@Html.DisplayFor(model => model.ADR_P)</p>
+                    </div>
+                    <div class="col-sm-4">
+                        <p class="mb-0" style="font-weight: bold;"><i class="fa fa-arrow-right text-primary me-2"></i>Téléphone :</p>
+                    </div>
+                    <div class="col-sm-8">
+                        <p class="mb-0"> @Html.DisplayFor(model => model.TEL_P)</p>
+                    </div>
+                    <div class="col-sm-4">
+                        <p class="mb-0" style="font-weight: bold;"><i class="fa fa-arrow-right text-primary me-2"></i>Email :</p>
+                    </div>
+                    <div class="col-sm-8">
+                        <p class="mb-0"> @Html.DisplayFor(model => model.EMAIL_P)</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid bg-primary py-2 mb-5 page-header">
+    <div class="container py-2">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 text-center">
+                <h1 class="display-6 text-white animated fadeInUp">Business plans associés au Projet N° @Html.DisplayFor(model => model.NUM_DOSS)</h1>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="card card_border p-lg-5 p-3 mb-4">
+    <div class="card-body py-3 p-0">
+        <div class="row">
+            <div class="col-md-12">
+                <button class="btn btn-style btn-primary me-2"
+                        data-bs-toggle="modal"
+                        data-bs-target="#modalBP"
+                        data-url="@Url.Action("AddBusinessPlan", "BusinessPlanProject", new { promoteurId = Model.NUM_DOSS })">
+                    Ajouter Business Plan
+                </button>
+            </div>
+        </div>
+        <br />
+        <div class="table-responsive" id="businessPlan">
+            <partial name="_InfosBusinessPlan" model="@Model.BusinessPlans" />
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="modalBP" tabindex="-1" aria-labelledby="modalLabel" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+
+    @{ /*TODO: Import unobtrusive ajax script*/}
+    <partial name="_ajax.script" />
+    <partial name="_ValidationScriptsPartial" />
+    <partial name="_jqueryui.script" />
+    <partial name="_select2.script" />
+    <partial name="_sweetalert2.script" />
+
+    <script>
+        $(function () {
+
+            $('#modalBP').on('shown.bs.modal', function (e) {
+
+                var btn = e.relatedTarget;
+                var url = $(btn).data("url");
+
+                $.get(url, function (response) {
+
+                    $("#modalBP").find(".modal-content").html(response);
+
+                    addbusinessPlanPopupShown();
+                });
+            });
+
+        });
+
+        function addbusinessPlanPopupShown() {
+            $.validator.setDefaults({ ignore: '' });
+            $.validator.unobtrusive.parse($('form'));
+
+        }
+
+
+        function addBusinessPlan(data) {
+
+            if (data.messages !== undefined) {
+                $("#modalMessages").html(data.messages);
+            }
+            else {
+                $("#businessPlan").html(data);
+
+                $("#modalBP").modal("hide");
+            }
+        }
+
+        function deletebusinessPlan(data) {
+            if (data.messages !== undefined) {
+                $("#modalMessages").html(data.messages);
+            }
+            else {
+                $("#businessPlan").html(data);
+            }
+        }
+
+        function confirmDelete(element) {
+            Swal.fire({
+                title: 'Êtes-vous sûr de supprimer cet business plan de notation ?',
+                text: "Cette action est irréversible !",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Oui, supprimer !',
+                cancelButtonText: 'Annuler'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Si l'utilisateur confirme, déclenche la soumission AJAX
+                    $.ajax({
+                        url: element.href,
+                        type: 'POST',
+                        success: function (response) {
+                            // Appeler la fonction définie dans data-ajax-success
+                            deleteBusinessPlan(response);
+                        }
+                    });
+                }
+            });
+
+            // Empêche le lien de se suivre immédiatement
+            return false;
+        }
+
+    </script>
+
+    <script>
+        $(document).ready(function () {
+
+            $('.select2').select2();
+
+        });
+    </script>
+
+}

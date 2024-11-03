@@ -11,9 +11,14 @@ namespace Anade.Khadamat.Domain
         public Mois()
         {
             this.PlansTresorerieMensuel = new HashSet<PlanTresorerieMensuel>();
+            this.DetailsActiviteMois = new HashSet<DetailActiviteMois>();
         }
 
+        public int? AnneeId { get; set; }
+        public virtual Annee Annee { get; set; }
+
         public virtual ICollection<PlanTresorerieMensuel> PlansTresorerieMensuel { get; set; }
+        public virtual ICollection<DetailActiviteMois> DetailsActiviteMois { get; set; }
 
     }
 }

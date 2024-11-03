@@ -1,0 +1,572 @@
+﻿@model Anade.Khadamat.Domain.BusinessPlan
+
+<head>
+    <title>Ajouter Buisiness Plan</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+
+        .accordionZn:hover {
+            background-color: #06BBCC;
+        }
+
+        .accordionZn:after {
+            content: '\002B';
+            color: #777;
+            font-weight: bold;
+            float: right;
+            margin-left: 5px;
+        }
+
+        .accordionZn {
+            background-color: #F0FBFC;
+            color: #444;
+            cursor: pointer;
+            padding: 18px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 15px;
+            transition: 0.4s;
+        }
+
+        .active:after {
+            content: "\2212";
+        }
+
+        .panel {
+            padding: 0 18px;
+            background-color: white;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.2s ease-out;
+        }
+    </style>
+
+</head>
+
+
+<div class="modal-header">
+    <h5 class="modal-title" id="modalLabel">Ajouter Business Plan</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<div class="modal-body">
+    <div id="modalMessages"></div>
+    <div id="booking" class="section">
+        <div class="section-center">
+            <div class="container" style="max-height: 100%">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="booking-form">
+
+                            <form asp-action="AddBusinessPlan" asp-controller="BusinessPlanProject"
+                                  data-ajax="true"
+                                  data-ajax-success="addBusinessPlan">
+                                <div class="row">
+                                    <input asp-for="NumeroSIEJE" value="@(ViewBag.NumeroSIEJE)" type="hidden" />
+                                </div>
+
+
+                                <div class="container mt-3">
+
+                                    <h3>Informations de base</h3>
+                                    <br>
+
+                                    <div class="row">
+
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">Coût du projet</span>
+                                                <input id="CoutProjet" asp-for="InformationBase.CoutProjet" type="number" min="0.00" max="10000000.00" step="0.01" class="form-control">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">Délai client (J)</span>
+                                                <input id="DelaiClient" asp-for="InformationBase.DelaiClient" class="form-control">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">Délai fournisseur (J)</span>
+                                                <input id="DelaiFournisseur" asp-for="InformationBase.DelaiFournisseur" class="form-control">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">Délai prestataire (J)</span>
+                                                <input id="DelaiPrestataire" asp-for="InformationBase.DelaiPrestataire" class="form-control">
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row">
+
+                                        <div class="col-sm-3 form-group">
+                                            <span class="form-label">Catégorie.</span>
+                                            <select id="CategorieId" asp-for="InformationBase.CategorieId" asp-items="@ViewBag.CategorieID as SelectList" class="form-control select2" required>
+                                                <option value="">- - - - - -</option>
+                                            </select>
+                                            <span class="select-arrow"></span>
+                                            <span asp-validation-for="InformationBase.CategorieId" class="text-danger"></span>
+                                            <div class="invalid-feedback">Sélectionner la catégorie du promoteur.</div>
+                                        </div>
+
+                                        <div class="col-sm-3 form-group">
+                                            <span class="form-label">Type d'activité.</span>
+                                            <select id="TypeActiviteId" asp-for="InformationBase.TypeActiviteId" asp-items="@ViewBag.TypeActiviteID as SelectList" class="form-control select2" required>
+                                                <option value="">- - - - - -</option>
+                                            </select>
+                                            <span class="select-arrow"></span>
+                                            <span asp-validation-for="InformationBase.TypeActiviteId" class="text-danger"></span>
+                                            <div class="invalid-feedback">Sélectionner le type d'activité du projet.</div>
+                                        </div>
+
+                                        <div class="col-sm-3 form-group">
+                                            <span class="form-label">Forme juridique.</span>
+                                            <select id="FormeJuridiqueId" asp-for="InformationBase.FormeJuridiqueId" asp-items="@ViewBag.FormeJuridiqueID as SelectList" class="form-control select2" required>
+                                                <option value="">- - - - - -</option>
+                                            </select>
+                                            <span class="select-arrow"></span>
+                                            <span asp-validation-for="InformationBase.FormeJuridiqueId" class="text-danger"></span>
+                                            <div class="invalid-feedback">Sélectionner la forme juridique.</div>
+                                        </div>
+
+                                        <div class="col-sm-3 form-group">
+                                            <span class="form-label">Type financement.</span>
+                                            <select id="TypeFinancementId" asp-for="InformationBase.TypeFinancementId" asp-items="@ViewBag.TypeFinancementID as SelectList" class="form-control select2" required>
+                                                <option value="">- - - - - -</option>
+                                            </select>
+                                            <span class="select-arrow"></span>
+                                            <span asp-validation-for="InformationBase.TypeFinancementId" class="text-danger"></span>
+                                            <div class="invalid-feedback">Sélectionner le type financement.</div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row">
+
+                                        <div class="col-sm-3 form-group">
+                                            <span class="form-label">Regime d'imposition.</span>
+                                            <select id="RegimeImpositionId" asp-for="InformationBase.RegimeImpositionId" asp-items="@ViewBag.RegimeImpositionID as SelectList" class="form-control select2" required>
+                                                <option value="">- - - - - -</option>
+                                            </select>
+                                            <span class="select-arrow"></span>
+                                            <span asp-validation-for="InformationBase.RegimeImpositionId" class="text-danger"></span>
+                                            <div class="invalid-feedback">Sélectionner le regime d'imposition.</div>
+                                        </div>
+
+                                        <div class="col-sm-3 form-group">
+                                            <span class="form-label">Taux TVA.</span>
+                                            <select id="TauxTVAId" asp-for="InformationBase.TauxTVAId" asp-items="@ViewBag.TauxTVAID as SelectList" class="form-control select2" required>
+                                                <option value="">- - - - - -</option>
+                                            </select>
+                                            <span class="select-arrow"></span>
+                                            <span asp-validation-for="InformationBase.TauxTVAId" class="text-danger"></span>
+                                            <div class="invalid-feedback">Sélectionner le le taux de TVA.</div>
+                                        </div>
+
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">PNR supplémentaire</span>
+                                                <input asp-for="StructureFinancement.PNRSupplementaire" class="form-control">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">Apport supplémentaire</span>
+                                                <input asp-for="StructureFinancement.ApportSupplementaire" class="form-control">
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row">
+
+                                        <div class="col-sm-3 form-group">
+                                            <span class="form-label">Commune.</span>
+                                            <select id="CommuneBPId" asp-for="InformationBase.CommuneBPId" asp-items="@ViewBag.CommuneBPID as SelectList" class="form-control select2" required>
+                                                <option value="">- - - - - -</option>
+                                            </select>
+                                            <span class="select-arrow"></span>
+                                            <span asp-validation-for="InformationBase.CommuneBPId" class="text-danger"></span>
+                                            <div class="invalid-feedback">Sélectionner la commune.</div>
+                                        </div>
+
+                                        <div class="col-sm-3 form-group">
+                                            <span class="form-label">Type de zone</span>
+                                            <select id="TypeZoneId" asp-for="InformationBase.CommuneBP.TypeZoneId" class="form-control select2">
+                                                <option value="">- - - - - -</option>
+                                            </select>
+                                            <span class="select-arrow"></span>
+                                            <span asp-validation-for="InformationBase.CommuneBP.TypeZoneId" class="text-danger"></span>
+                                            <div class="invalid-feedback">Type de zone.</div>
+                                        </div>
+
+                                        <div class="col-sm-3 form-group">
+                                            <div class="form-checkbox">
+                                                <label id="ZonePromouvoir" asp-for="InformationBase.CommuneBP.ZonePromouvoir">
+                                                    <input asp-for="InformationBase.CommuneBP.ZonePromouvoir" type="checkbox" />
+                                                    <span></span>Zone à promouvoir
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-3 form-group">
+                                            <div class="form-checkbox">
+                                                <label id="ExonerationTVA" asp-for="InformationBase.ExonerationTVA">
+                                                    <input asp-for="InformationBase.ExonerationTVA" type="checkbox" />
+                                                    <span></span>Exonération TVA
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <br>
+
+                                    <div class="card text-bg-primary mb-3">
+
+                                        <div class="card-header">Calcule structure de financement</div>
+
+                                        <div class="card-body">
+
+                                            <div class="row">
+
+                                                <div class="col-md-6">
+
+                                                    <div class="row">
+
+                                                        <div class="col-sm-8">
+                                                            <div class="form-group">
+                                                                <span class="form-label">Apport personnel</span>
+                                                                <input id="ApportPersonnel" asp-for="StructureFinancement.ApportPersonnel" class="form-control" disabled>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-sm-4">
+                                                            <div class="form-group">
+                                                                <span class="form-label">%</span>
+                                                                <input id="TauxApportPersonnel" class="form-control" value="0" disabled>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="row">
+
+                                                        <div class="col-sm-8">
+                                                            <div class="form-group">
+                                                                <span class="form-label">CMT</span>
+                                                                <input id="CMT" asp-for="StructureFinancement.CMT" class="form-control" disabled>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-sm-4">
+                                                            <div class="form-group">
+                                                                <span class="form-label">%</span>
+                                                                <input id="TauxCMT" class="form-control" value="0" disabled>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="row">
+
+                                                        <div class="col-sm-8">
+                                                            <div class="form-group">
+                                                                <span class="form-label">PNR classique</span>
+                                                                <input id="PNRClassique" asp-for="StructureFinancement.PNRClassique" class="form-control" disabled>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-sm-4">
+                                                            <div class="form-group">
+                                                                <span class="form-label">%</span>
+                                                                <input id="TauxPNRClassique" class="form-control" value="0" disabled>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-md-6">
+
+                                                    <div class="row">
+
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <span class="form-label">Différé emprunt</span>
+                                                                <input id="DiffereEmprunt" class="form-control" disabled>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="row">
+
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <span class="form-label">Exonération fiscale</span>
+                                                                <input id="ExonerationFiscale" class="form-control" disabled>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="row">
+
+                                                        <div class="col-sm-4">
+                                                            <div class="form-group">
+                                                                <span class="form-label">Taux IFU</span>
+                                                                <input id="TauxIFU" class="form-control" value="0%" disabled>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-sm-4">
+                                                            <div class="form-group">
+                                                                <span class="form-label">Taux IBS</span>
+                                                                <input id="TauxIBS" class="form-control" value="0%" disabled>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-sm-4">
+                                                            <div class="form-group center">
+                                                                <button type="button" class="btn btn-outline-success" onclick="SimulerStructure();">Simuler la structure</button>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group modal-footer">
+                                        <input type="submit" class="btn btn-outline-primary" value="Add" />
+                                        <button class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                                    </div>
+
+                                </div>
+
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    var acc = document.getElementsByClassName("accordionZn");
+    var i;
+
+    for (i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function () {
+            this.classList.toggle("active");
+            var panel = this.nextElementSibling;
+            if (panel.style.maxHeight) {
+                panel.style.maxHeight = null;
+            } else {
+                panel.style.maxHeight = panel.scrollHeight + "px";
+            }
+        });
+    }
+</script>
+
+<script>
+    function setActive(buttonContainerId, inputId, value) {
+        // Désactiver tous les boutons dans le conteneur spécifié
+        var buttons = document.querySelectorAll('#' + buttonContainerId + ' .value-btn');
+        buttons.forEach(function (button) {
+            button.classList.remove('active');
+        });
+
+        // Activer le bouton cliqué
+        buttons[value].classList.add('active');
+
+        // Mettre la valeur dans l'input correspondant
+        document.getElementById(inputId).value = value;
+    }
+</script>
+
+<script>
+
+    $(document).ready(function () {
+        var i = 1;
+        $("#add_row").click(function () {
+            b = i - 1;
+            $('#addr' + i).html($('#addr' + b).html()).find('td:first-child').html(i + 1);
+            $('#tab_logic').append('<tr id="addr' + (i + 1) + '"></tr>');
+            i++;
+        });
+        $("#delete_row").click(function () {
+            if (i > 1) {
+                $("#addr" + (i - 1)).html('');
+                i--;
+            }
+        });
+
+    });
+
+</script>
+
+<script>
+
+    function SimulerStructure() {
+
+        var e = document.getElementById("CategorieId");
+
+        var CategorieValue = e.value;
+        var CategorieText = e.options[e.selectedIndex].text;
+
+        e = document.getElementById("TypeActiviteId");
+        var TypeActiviteValue = e.value;
+        var TypeActiviteText = e.options[e.selectedIndex].text;
+
+        e = document.getElementById("FormeJuridiqueId");
+        var FormeJuridiqueValue = e.value;
+        var FormeJuridiqueText = e.options[e.selectedIndex].text;
+
+        e = document.getElementById("TypeFinancementId");
+        var TypeFinancementValue = e.value;
+        var TypeFinancementText = e.options[e.selectedIndex].text;
+
+        e = document.getElementById("RegimeImpositionId");
+        var RegimeImpositionValue = e.value;
+        var RegimeImpositionText = e.options[e.selectedIndex].text;
+
+        e = document.getElementById("CommuneBPId");
+        var CommuneBPValue = e.value;
+        var CommuneBPText = e.options[e.selectedIndex].text;
+
+
+
+
+
+        if (TypeFinancementValue == 1) {
+
+            ApportPersonnel.value = CoutProjet.value;
+            TauxApportPersonnel.value = 100;
+            CMT.value = 0;
+            TauxCMT.value = 0;
+            PNRClassique.value = 0;
+            TauxPNRClassique.value = 0;
+
+        } else {
+            if (TypeFinancementValue == 2) {
+
+                DiffereEmprunt.value = "1 ans";
+
+                ApportPersonnel.value = parseFloat(CoutProjet.value) * 50 / 100;
+                TauxApportPersonnel.value = 50;
+                CMT.value = 0;
+                TauxCMT.value = 0;
+                PNRClassique.value = parseFloat(CoutProjet.value) * 50 / 100;
+                TauxPNRClassique.value = 50;
+
+            } else {
+                if (TypeFinancementValue == 3) {
+
+                    if (CategorieValue == 1) {
+
+                        ApportPersonnel.value = parseFloat(CoutProjet.value) * 5 / 100;
+                        TauxApportPersonnel.value = 5;
+                        CMT.value = parseFloat(CoutProjet.value) * 70 / 100;
+                        TauxCMT.value = 70;
+                        PNRClassique.value = parseFloat(CoutProjet.value) * 25 / 100;
+                        TauxPNRClassique.value = 25;
+
+                    } else {
+
+                        ApportPersonnel.value = parseFloat(CoutProjet.value) * 50 / 100;
+                        TauxApportPersonnel.value = 50;
+                        CMT.value = 0;
+                        TauxCMT.value = 0;
+                        PNRClassique.value = parseFloat(CoutProjet.value) * 50 / 100;
+                        TauxPNRClassique.value = 50;
+
+                    }
+                    DiffereEmprunt.value = "1 an et 6 mois";
+
+                } else {  /*Cas d'erreur affichage 0 par tous*/
+                   
+                    ApportPersonnel.value = 0;
+                    TauxApportPersonnel.value = 0;
+                    CMT.value = 0;
+                    TauxCMT.value = 0;
+                    PNRClassique.value = 0;
+                    TauxPNRClassique.value = 0;
+                }
+
+            }
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+
+</script>
+
+<script>
+    let day;
+    switch (new Date().getDay()) {
+        case 0:
+            day = "Sunday";
+            break;
+        case 1:
+            day = "Monday";
+            break;
+        case 2:
+            day = "Tuesday";
+            break;
+        case 3:
+            day = "Wednesday";
+            break;
+        case 4:
+            day = "Thursday";
+            break;
+        case 5:
+            day = "Friday";
+            break;
+        case 6:
+            day = "Saturday";
+    }
+    document.getElementById("demo").innerHTML = "Today is " + day;
+</script>

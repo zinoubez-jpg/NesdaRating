@@ -51,6 +51,6 @@ namespace Anade.Khadamat.Domain
     
        
         public virtual ICollection<FicheNotation> FicheNotations { get; set; }
-
+        public virtual ICollection<BusinessPlan> BusinessPlans { get; set; }
     }
 }
