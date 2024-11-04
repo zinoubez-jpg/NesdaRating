@@ -1,5 +1,7 @@
 ﻿@model Anade.Khadamat.Domain.BusinessPlan
 
+
+
 <head>
     <title>Ajouter Buisiness Plan</title>
     <meta charset="utf-8">
@@ -195,7 +197,7 @@
 
                                         <div class="col-sm-3 form-group">
                                             <span class="form-label">Commune.</span>
-                                            <select id="CommuneBPId" asp-for="InformationBase.CommuneBPId" asp-items="@ViewBag.CommuneBPID as SelectList" class="form-control select2" required>
+                                            <select id="CommuneBPId" asp-for="InformationBase.CommuneBPId" asp-items="@ViewBag.CommuneBPID as SelectList" class="form-control select2" onchange="GetPropertiesZone(this);" required>
                                                 <option value="">- - - - - -</option>
                                             </select>
                                             <span class="select-arrow"></span>
@@ -205,21 +207,18 @@
 
                                         <div class="col-sm-3 form-group">
                                             <span class="form-label">Type de zone</span>
-                                            <select id="TypeZoneId" asp-for="InformationBase.CommuneBP.TypeZoneId" class="form-control select2">
-                                                <option value="">- - - - - -</option>
-                                            </select>
+                                            <input id="TypeZoneId" class="form-control" value="- - - - - -" disabled>
                                             <span class="select-arrow"></span>
-                                            <span asp-validation-for="InformationBase.CommuneBP.TypeZoneId" class="text-danger"></span>
+                                            <span class="text-danger"></span>
                                             <div class="invalid-feedback">Type de zone.</div>
                                         </div>
 
                                         <div class="col-sm-3 form-group">
-                                            <div class="form-checkbox">
-                                                <label id="ZonePromouvoir" asp-for="InformationBase.CommuneBP.ZonePromouvoir">
-                                                    <input asp-for="InformationBase.CommuneBP.ZonePromouvoir" type="checkbox" />
-                                                    <span></span>Zone à promouvoir
-                                                </label>
-                                            </div>
+                                            <span class="form-label">Zone à promouvoir</span>
+                                            <input id="ZonePromouvoir" class="form-control" value="- - - - - -" disabled>
+                                            <span class="select-arrow"></span>
+                                            <span class="text-danger"></span>
+                                            <div class="invalid-feedback">Zone à promouvoir.</div>
                                         </div>
 
                                         <div class="col-sm-3 form-group">
@@ -508,7 +507,7 @@
                     DiffereEmprunt.value = "1 an et 6 mois";
 
                 } else {  /*Cas d'erreur affichage 0 par tous*/
-                   
+
                     ApportPersonnel.value = 0;
                     TauxApportPersonnel.value = 0;
                     CMT.value = 0;
@@ -542,31 +541,76 @@
 
     }
 
+    function GetPropertiesZone2(champ)
+    {
+
+        let fruits = ["Apple", "Banana"];
+
+        TypeZoneId.value = fruits[0];
+
+
+
+
+        @*var ZonePromouvoirValue = //@Listecommunes.getgetElementById(2);
+            TypeZoneId.value = @Listecommunes.value;
+        //var TypeZoneValue = e.options[e.selectedIndex].text;
+
+        TypeZoneId.value = ZonePromouvoirValue;*@
+    }
+
+    $(document).ready(function () {
+
+        $('#CommuneBPId').on('change', function () {
+
+            var selectedId = $(this).val();
+
+            console.log("Id : " + selectedId);
+
+            if (selectedId != null){
+                $.ajax({
+                    type: "POST",
+                    url: "/BusinessPlanProject/GetCommune/" + selectedId,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (result) {
+                        for (var r in result) {
+                            TypeZoneId.value = "success";
+                            ZonePromouvoir.value = result[r].zonePromouvoir;
+                        }
+
+
+
+                    },
+                    error: function () {
+                        //alert("Error try again");
+                        TypeZoneId.value = "Error";
+                    }
+                });
+            }
+        });
+    });
+
+    function GetCommuneGetProperties(communeId) {
+        $.ajax({
+            type: "POST",
+            url: "/BusinessPlanProject/GetCommune",
+            data: JSON.stringify({ communeId: communeId }),
+                    data: { communeId: selectedId },
+                    data: "{'communeId':'" + selectedId + "'}",
+                    data: { "communeId": selectedId },
+                    data: JSON.stringify({ communeId: communeId }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function () {
+                // alert("AddCoin" + data);
+                ShowInsertedCoin();
+            },
+            error: function (req, status, error) {
+                alert("x" + error + status);
+            }
+        }).done(function (result) { ShowInsertedCoin(); });
+
+    }
+
 </script>
 
-<script>
-    let day;
-    switch (new Date().getDay()) {
-        case 0:
-            day = "Sunday";
-            break;
-        case 1:
-            day = "Monday";
-            break;
-        case 2:
-            day = "Tuesday";
-            break;
-        case 3:
-            day = "Wednesday";
-            break;
-        case 4:
-            day = "Thursday";
-            break;
-        case 5:
-            day = "Friday";
-            break;
-        case 6:
-            day = "Saturday";
-    }
-    document.getElementById("demo").innerHTML = "Today is " + day;
-</script>

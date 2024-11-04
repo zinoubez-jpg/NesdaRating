@@ -42,7 +42,7 @@ namespace Anade.Khadamat.Web.Controllers
 
         private readonly ReferentielBusinessService<FormeJuridique, int> _formeJuridiqueBusinessService;
         private readonly ReferentielBusinessService<TypeFinancement, int> _typeFinancementBusinessService;
-        private readonly ReferentielBusinessService<CommuneBP, int> _communeBPBusinessService;
+        private readonly CommuneBPBusinessService _communeBPBusinessService;
         private readonly ReferentielBusinessService<RegimeImposition, int> _regimeImpositionBusinessService;
         private readonly ReferentielBusinessService<TauxTVA, int> _tauxTVABusinessService;
         private readonly ReferentielBusinessService<FrequenceActivite, int> _frequenceActiviteBusinessService;
@@ -75,7 +75,7 @@ namespace Anade.Khadamat.Web.Controllers
                                              ReferentielBusinessService<TypeActivite, int> typeActiviteBusinessService,
                                              ReferentielBusinessService<FormeJuridique, int> formeJuridiqueBusinessService,
                                              ReferentielBusinessService<TypeFinancement, int> typeFinancementBusinessService,
-                                             ReferentielBusinessService<CommuneBP, int> communeBPBusinessService,
+                                             CommuneBPBusinessService communeBPBusinessService,
                                              ReferentielBusinessService<RegimeImposition, int> regimeImpositionBusinessService,
                                              ReferentielBusinessService<TauxTVA, int> tauxTVABusinessService,
                                              ReferentielBusinessService<FrequenceActivite, int> frequenceActiviteBusinessService,
@@ -316,7 +316,7 @@ namespace Anade.Khadamat.Web.Controllers
             ViewData["TypeActiviteID"] = new SelectList(_typeActiviteBusinessService.GetAll(), "Id", "DesignationFr");
             ViewData["FormeJuridiqueID"] = new SelectList(_formeJuridiqueBusinessService.GetAll(), "Id", "DesignationFr");
             ViewData["TypeFinancementID"] = new SelectList(_typeFinancementBusinessService.GetAll(), "Id", "DesignationFr");
-            ViewData["CommuneBPID"] = new SelectList(_communeBPBusinessService.GetAll(), "Id", "DesignationFr");
+
             ViewData["RegimeImpositionID"] = new SelectList(_regimeImpositionBusinessService.GetAll(), "Id", "DesignationFr");
             ViewData["TauxTVAID"] = new SelectList(_tauxTVABusinessService.GetAll(), "Id", "DesignationFr");
             ViewData["FrequenceActiviteID"] = new SelectList(_frequenceActiviteBusinessService.GetAll(), "Id", "DesignationFr");
@@ -324,7 +324,8 @@ namespace Anade.Khadamat.Web.Controllers
             ViewData["TauxStructureFinancementID"] = new SelectList(_tauxStructureFinancementBusinessService.GetAll(), "Id", "DesignationFr");
             ViewData["DiffereEmpruntID"] = new SelectList(_differeEmpruntBusinessService.GetAll(), "Id", "DesignationFr");
             ViewData["ExonerationFiscaleID"] = new SelectList(_exonerationFiscaleBusinessService.GetAll(), "Id", "DesignationFr");
-            //ViewData["FrequenceActiviteID"] = new SelectList(_frequenceActiviteBusinessService.GetAll(), "Id", "DesignationFr");
+
+            ViewData["CommuneBPID"] = new SelectList(_communeBPBusinessService.GetByCodeWilaya(promoteurId.Substring(0,2)), "Id", "DesignationFr");
 
             ViewData["NumeroSIEJE"] = promoteurId;
 
@@ -620,6 +621,16 @@ namespace Anade.Khadamat.Web.Controllers
                 return NotFound();
             return View(promoteur);
         }
+        [Route("{communeId}")]
+        public virtual async Task<IActionResult> GetCommune(int communeId)
+        {
+            return Json( _communeBPBusinessService.GetById(communeId, _communeBPBusinessService.GetDefaultLoadProperties()));
+        }
 
+
+        public virtual async Task<IActionResult> GetCommuneAll()
+        {
+            return Json(_communeBPBusinessService.GetAll(_communeBPBusinessService.GetDefaultLoadProperties()));
+        }
     }
 }

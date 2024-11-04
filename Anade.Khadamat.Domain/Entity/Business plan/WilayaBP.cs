@@ -13,6 +13,8 @@ namespace Anade.Khadamat.Domain
             this.CommunesBP = new HashSet<CommuneBP>();
         }
 
+        public bool GrandSud { get; set; }
+
         public virtual ICollection<CommuneBP> CommunesBP { get; set; }
     }
 }

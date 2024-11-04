@@ -1682,6 +1682,9 @@ namespace Anade.Khadamat.Data.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
+                    b.Property<bool>("GrandSud")
+                        .HasColumnType("bit");
+
                     b.HasKey("Id");
 
                     b.ToTable("WilayaBP");
