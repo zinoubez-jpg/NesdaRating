@@ -10,7 +10,7 @@ namespace Anade.Khadamat.Domain
     public partial class Acquisition : IEntity<int>
     {
         public int Id { get; set; }
-        public float Montant { get; set; }
+        public decimal Montant { get; set; }
 
         public int AnneeId { get; set; }
         public int DetailInvestissementId { get; set; }

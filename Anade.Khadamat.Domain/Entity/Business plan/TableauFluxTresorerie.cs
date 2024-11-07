@@ -8,24 +8,24 @@ namespace Anade.Khadamat.Domain
     public partial class TableauFluxTresorerie : IEntity<int>
     {
         public int Id { get; set; }
-        public float EncaissementsRecuClients { get; set; }
-        public float SommesVerseesFournisseurs { get; set; }
-        public float SommesVerseesPrestataires { get; set; }
-        public float SommesVerseesPersonnelCNAS_IRG { get; set; }
-        public float DecaissementTVAPayer { get; set; }
-        public float DecaissementIBS_IFU_IRG { get; set; }
-        public float FluxTresorerieProvenantExploitation { get; set; }
-        public float DecaissementAcquisitionEquipements { get; set; }
-        public float FluxTresorerieProvenantInvestissement { get; set; }
-        public float EncaissementsSuiteApportPersonnel { get; set; }
-        public float EncaissementsProvenantEmprunts { get; set; }
-        public float RemboursementsEmpruntsCMT { get; set; }
-        public float RemboursementsEmpruntsPNR { get; set; }
-        public float FluxTresorerieProvenantFinancement { get; set; }
-        public float FluxTresorerieNet { get; set; }
-        public float SoldeInitial { get; set; }
-        public float SoldeFinal { get; set; }
-        public float Equilibre { get; set; }
+        public decimal EncaissementsRecuClients { get; set; }
+        public decimal SommesVerseesFournisseurs { get; set; }
+        public decimal SommesVerseesPrestataires { get; set; }
+        public decimal SommesVerseesPersonnelCNAS_IRG { get; set; }
+        public decimal DecaissementTVAPayer { get; set; }
+        public decimal DecaissementIBS_IFU_IRG { get; set; }
+        public decimal FluxTresorerieProvenantExploitation { get; set; }
+        public decimal DecaissementAcquisitionEquipements { get; set; }
+        public decimal FluxTresorerieProvenantInvestissement { get; set; }
+        public decimal EncaissementsSuiteApportPersonnel { get; set; }
+        public decimal EncaissementsProvenantEmprunts { get; set; }
+        public decimal RemboursementsEmpruntsCMT { get; set; }
+        public decimal RemboursementsEmpruntsPNR { get; set; }
+        public decimal FluxTresorerieProvenantFinancement { get; set; }
+        public decimal FluxTresorerieNet { get; set; }
+        public decimal SoldeInitial { get; set; }
+        public decimal SoldeFinal { get; set; }
+        public decimal Equilibre { get; set; }
 
         public int AnneeId { get; set; }
         public int BusinessPlanId { get; set; }

@@ -14,9 +14,9 @@ namespace Anade.Khadamat.Domain
         }
 
         public int Id { get; set; }
-        public float MontantValeurActuelleNette { get; set; }
+        public decimal MontantValeurActuelleNette { get; set; }
         public int DelaiRecuperation { get; set; }
-        public float InvestissementInitial { get; set; }
+        public decimal InvestissementInitial { get; set; }
 
         public int BusinessPlanId { get; set; }
 

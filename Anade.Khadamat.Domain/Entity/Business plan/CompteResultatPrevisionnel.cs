@@ -8,20 +8,20 @@ namespace Anade.Khadamat.Domain
     public partial class CompteResultatPrevisionnel : IEntity<int>
     {
         public int Id { get; set; }
-        public float ChiffreAffaires { get; set; }
-        public float AchatsConsommes { get; set; }
-        public float ChargesExternes { get; set; }
-        public float ValeurAjoutee { get; set; }
-        public float SalairesChargesSociales { get; set; }
-        public float ExcedentBrutExploitation { get; set; }
-        public float AmortissementsProvisions { get; set; }
-        public float ResultatExploitation { get; set; }
-        public float IBS_IFU_IRG { get; set; }
-        public float ResultatNet { get; set; }
-        public float EvolutionChiffreAffaires { get; set; }
-        public float TauxVA { get; set; }
-        public float TauxEBE { get; set; }
-        public float CAF { get; set; }
+        public decimal ChiffreAffaires { get; set; }
+        public decimal AchatsConsommes { get; set; }
+        public decimal ChargesExternes { get; set; }
+        public decimal ValeurAjoutee { get; set; }
+        public decimal SalairesChargesSociales { get; set; }
+        public decimal ExcedentBrutExploitation { get; set; }
+        public decimal AmortissementsProvisions { get; set; }
+        public decimal ResultatExploitation { get; set; }
+        public decimal IBS_IFU_IRG { get; set; }
+        public decimal ResultatNet { get; set; }
+        public decimal EvolutionChiffreAffaires { get; set; }
+        public decimal TauxVA { get; set; }
+        public decimal TauxEBE { get; set; }
+        public decimal CAF { get; set; }
 
         public int AnneeId { get; set; }
         public int BusinessPlanId { get; set; }

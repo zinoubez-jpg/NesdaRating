@@ -10,8 +10,8 @@ namespace Anade.Khadamat.Domain
     {
         public int Id { get; set; }
         public float Quantite { get; set; }
-        public float PrixUnitaire { get; set; }
-        public float Montant { get; set; }
+        public decimal PrixUnitaire { get; set; }
+        public decimal Montant { get; set; }
 
         public int AnneeId { get; set; }
         public int BusinessPlanId { get; set; }

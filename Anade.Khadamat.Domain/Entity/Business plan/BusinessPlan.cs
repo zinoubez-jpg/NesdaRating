@@ -31,6 +31,9 @@ namespace Anade.Khadamat.Domain
         [Display(Name = "N° Dossier ")]
         public string NumeroSIEJE { get; set; }
 
+        public int EtapeId { get; set; }
+
+        public virtual Etape Etape { get; set; }
         public virtual InformationBase InformationBase { get; set; }
         public virtual StuctureInvestissement StuctureInvestissement { get; set; }
         public virtual StructureFinancement StructureFinancement { get; set; }

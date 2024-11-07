@@ -9,7 +9,7 @@ namespace Anade.Khadamat.Domain
     public partial class DetailChargesExternes : IEntity<int>
     {
         public int Id { get; set; }
-        public float Montant { get; set; }
+        public decimal Montant { get; set; }
 
         public int AnneeId { get; set; }
         public int BusinessPlanId { get; set; }

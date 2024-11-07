@@ -8,25 +8,25 @@ namespace Anade.Khadamat.Domain
     public partial class PlanTresorerieMensuel : IEntity<int>
     {
         public int Id { get; set; }
-        public float SoldeInitial { get; set; }
-        public float ApportSupplementaire { get; set; }
-        public float CMT { get; set; }
-        public float PNRClassique { get; set; }
-        public float ApportPersonnel { get; set; }
-        public float PNRLoyer { get; set; }
-        public float EncaissementRecusClients { get; set; }
-        public float TotalRecette { get; set; }
-        public float AcquisitionEquipementAmenagement { get; set; }
-        public float DecaissementFournisseurs { get; set; }
-        public float DecaissementPrestataires { get; set; }
-        public float PaiementFGAssurancesFraisLieesCreation { get; set; }
-        public float DecaissementSalairesNets { get; set; }
-        public float CotisationsSociales { get; set; }
-        public float IRGSalaires { get; set; }
-        public float TVAPayer { get; set; }
-        public float IBS_IFU { get; set; }
-        public float TotalDepense { get; set; }
-        public float SoldeFinal { get; set; }
+        public decimal SoldeInitial { get; set; }
+        public decimal ApportSupplementaire { get; set; }
+        public decimal CMT { get; set; }
+        public decimal PNRClassique { get; set; }
+        public decimal ApportPersonnel { get; set; }
+        public decimal PNRLoyer { get; set; }
+        public decimal EncaissementRecusClients { get; set; }
+        public decimal TotalRecette { get; set; }
+        public decimal AcquisitionEquipementAmenagement { get; set; }
+        public decimal DecaissementFournisseurs { get; set; }
+        public decimal DecaissementPrestataires { get; set; }
+        public decimal PaiementFGAssurancesFraisLieesCreation { get; set; }
+        public decimal DecaissementSalairesNets { get; set; }
+        public decimal CotisationsSociales { get; set; }
+        public decimal IRGSalaires { get; set; }
+        public decimal TVAPayer { get; set; }
+        public decimal IBS_IFU { get; set; }
+        public decimal TotalDepense { get; set; }
+        public decimal SoldeFinal { get; set; }
 
         public int MoisId { get; set; }
         public int BusinessPlanId { get; set; }

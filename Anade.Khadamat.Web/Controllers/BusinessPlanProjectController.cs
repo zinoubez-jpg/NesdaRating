@@ -6,6 +6,7 @@ using Anade.Khadamat.Web.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -290,7 +291,6 @@ namespace Anade.Khadamat.Web.Controllers
 
             var model = _businessPlanBusinessService.GetAllFiltered(x => x.NumeroSIEJE == promoteurId, _businessPlanBusinessService.GetDefaultLoadProperties());
 
-
             return PartialView($"_{nameof(InfosBusinessPlan)}", model);
         }
 
@@ -325,7 +325,7 @@ namespace Anade.Khadamat.Web.Controllers
             ViewData["DiffereEmpruntID"] = new SelectList(_differeEmpruntBusinessService.GetAll(), "Id", "DesignationFr");
             ViewData["ExonerationFiscaleID"] = new SelectList(_exonerationFiscaleBusinessService.GetAll(), "Id", "DesignationFr");
 
-            ViewData["CommuneBPID"] = new SelectList(_communeBPBusinessService.GetByCodeWilaya(promoteurId.Substring(0,2)), "Id", "DesignationFr");
+            ViewData["CommuneBPID"] = new SelectList(_communeBPBusinessService.GetByCodeWilaya(promoteurId.Substring(0, 2)), "Id", "DesignationFr");
 
             ViewData["NumeroSIEJE"] = promoteurId;
 
@@ -342,6 +342,26 @@ namespace Anade.Khadamat.Web.Controllers
             BusinessResult businessResult;
             var user = await _userService.GetUserEagerLoadedAsync(User);
             var structure = await _userService.GetStructureFromUserAsync(user.Id);
+
+            string CoutProjetstring;
+
+            try
+            {
+
+                model.InformationBase.CoutProjet = Math.Round(Convert.ToDecimal(model.InformationBase.CoutProjetString.Replace(".", ",")), 2);
+                model.StructureFinancement.ApportPersonnel = Math.Round(Convert.ToDecimal(model.StructureFinancement.ApportPersonnelString.Replace(".", ",")), 2);
+                model.StructureFinancement.CMT = Math.Round(Convert.ToDecimal(model.StructureFinancement.CMTString.Replace(".", ",")), 2);
+                model.StructureFinancement.PNRClassique = Math.Round(Convert.ToDecimal(model.StructureFinancement.PNRClassiqueString.Replace(".", ",")), 2);
+                model.StructureFinancement.PNRSupplementaire = Math.Round(Convert.ToDecimal(model.StructureFinancement.PNRSupplementaireString.Replace(".", ",")), 2);
+                model.StructureFinancement.ApportSupplementaire = Math.Round(Convert.ToDecimal(model.StructureFinancement.ApportSupplementaireString.Replace(".", ",")), 2);
+
+            }
+            catch (Exception e)
+            {
+                CoutProjetstring = e.Message;
+            }
+
+
             var designationToCode = new Dictionary<string, string>
             {
                 { "ANTENNE ROUIBA", "1606" },
@@ -368,8 +388,15 @@ namespace Anade.Khadamat.Web.Controllers
             var promoteur = await _promoteurApiService.GetByNumDossAsync(model.NumeroSIEJE);
             model.Date_Creation = System.DateTime.Now;
             model.Utilisateur = user.FullName;
+            model.EtapeId = 1;
 
-            var projetBusinessPlan = _businessPlanBusinessService.GetSingle(x => x.NumeroSIEJE == promoteurId);
+            //DiffereEmprunt differeEmprunt = new();
+            //ExonerationFiscale exonerationFiscale = new();
+
+            //differeEmprunt = _differeEmpruntBusinessService.GetById(1);
+            //exonerationFiscale = _exonerationFiscaleBusinessService.GetById(1);
+
+            //var projetBusinessPlan = _businessPlanBusinessService.GetSingle(x => x.NumeroSIEJE == promoteurId);
 
             var lastFiche = _ficheNotationBusinessService.GetAllFiltered(x => x.Annexe.Code == structure.CodeStructure, _ficheNotationBusinessService.GetDefaultLoadProperties()).Max(x => x.Numero);
 
@@ -621,16 +648,17 @@ namespace Anade.Khadamat.Web.Controllers
                 return NotFound();
             return View(promoteur);
         }
+
         [Route("{communeId}")]
         public virtual async Task<IActionResult> GetCommune(int communeId)
         {
-            return Json( _communeBPBusinessService.GetById(communeId, _communeBPBusinessService.GetDefaultLoadProperties()));
+            return Json(_communeBPBusinessService.GetById(communeId, _communeBPBusinessService.GetDefaultLoadProperties()));
         }
-
 
         public virtual async Task<IActionResult> GetCommuneAll()
         {
             return Json(_communeBPBusinessService.GetAll(_communeBPBusinessService.GetDefaultLoadProperties()));
         }
+
     }
 }

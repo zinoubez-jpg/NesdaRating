@@ -8,9 +8,9 @@ namespace Anade.Khadamat.Domain
     public partial class DetailEvaluationProjet : IEntity<int>
     {
         public int Id { get; set; }
-        public float MontantTresorerieNet { get; set; }
-        public float MontantCashFlowActualises { get; set; }
-        public float MontantCumulCFActualises { get; set; }
+        public decimal MontantTresorerieNet { get; set; }
+        public decimal MontantCashFlowActualises { get; set; }
+        public decimal MontantCumulCFActualises { get; set; }
 
         public int AnneeId { get; set; }
         public int EvaluationProjetId { get; set; }

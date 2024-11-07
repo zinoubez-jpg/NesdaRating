@@ -44,11 +44,24 @@
                     }
                     else
                     {
-                        <button data-bs-target="#modalBP" data-bs-toggle="modal" class="btn btn-dark btn-sm clignote"
-                                @*data-url="@Url.Action("EditBusinessPlan",new { id=item.Id})">*@
-                                data-url="@Url.Action("EditBusinessPlan", "BusinessPlanProject", new { id = item.NumeroSIEJE })">
-                            Compléter le business plan Edit
-                        </button>
+
+                        if (item.EtapeId == 1)
+                        {
+                            <button data-bs-target="#modalBP" data-bs-toggle="modal" class="btn btn-dark btn-sm clignote"
+                                    @*data-url="@Url.Action("EditBusinessPlan",new { id=item.Id})">*@
+                                    data-url="@Url.Action("EditBusinessPlan", "BusinessPlanProject", new { id = item.NumeroSIEJE })">
+                                Etape 02 Investissement
+                            </button>
+                        }
+                        else
+                        {
+                            <button data-bs-target="#modalBP" data-bs-toggle="modal" class="btn btn-dark btn-sm clignote"
+                                    @*data-url="@Url.Action("EditBusinessPlan",new { id=item.Id})">*@
+                                    data-url="@Url.Action("EditBusinessPlan", "BusinessPlanProject", new { id = item.NumeroSIEJE })">
+                                Compléter le business plan Edit
+                            </button>
+                        }
+
 
                     }
 
@@ -57,15 +70,6 @@
         }
     </tbody>
 </table>
-
-<!-- Modal -->
-<div class="modal fade" id="modalBP" tabindex="-1" aria-labelledby="modalLabel" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-
-        </div>
-    </div>
-</div>
 
 <script>
     window.setTimeout(function () {

@@ -32,8 +32,8 @@ namespace Anade.Khadamat.Data.Migrations
                     b.Property<int>("DetailInvestissementId")
                         .HasColumnType("int");
 
-                    b.Property<float>("Montant")
-                        .HasColumnType("real");
+                    b.Property<decimal>("Montant")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
@@ -163,6 +163,9 @@ namespace Anade.Khadamat.Data.Migrations
                     b.Property<DateTime?>("Date_Generation")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("EtapeId")
+                        .HasColumnType("int");
+
                     b.Property<string>("NumeroSIEJE")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -171,6 +174,8 @@ namespace Anade.Khadamat.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("EtapeId");
 
                     b.ToTable("BusinessPlan");
                 });
@@ -276,11 +281,11 @@ namespace Anade.Khadamat.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<float>("AchatsConsommes")
-                        .HasColumnType("real");
+                    b.Property<decimal>("AchatsConsommes")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<float>("AmortissementsProvisions")
-                        .HasColumnType("real");
+                    b.Property<decimal>("AmortissementsProvisions")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("AnneeId")
                         .HasColumnType("int");
@@ -288,41 +293,41 @@ namespace Anade.Khadamat.Data.Migrations
                     b.Property<int>("BusinessPlanId")
                         .HasColumnType("int");
 
-                    b.Property<float>("CAF")
-                        .HasColumnType("real");
+                    b.Property<decimal>("CAF")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<float>("ChargesExternes")
-                        .HasColumnType("real");
+                    b.Property<decimal>("ChargesExternes")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<float>("ChiffreAffaires")
-                        .HasColumnType("real");
+                    b.Property<decimal>("ChiffreAffaires")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<float>("EvolutionChiffreAffaires")
-                        .HasColumnType("real");
+                    b.Property<decimal>("EvolutionChiffreAffaires")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<float>("ExcedentBrutExploitation")
-                        .HasColumnType("real");
+                    b.Property<decimal>("ExcedentBrutExploitation")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<float>("IBS_IFU_IRG")
-                        .HasColumnType("real");
+                    b.Property<decimal>("IBS_IFU_IRG")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<float>("ResultatExploitation")
-                        .HasColumnType("real");
+                    b.Property<decimal>("ResultatExploitation")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<float>("ResultatNet")
-                        .HasColumnType("real");
+                    b.Property<decimal>("ResultatNet")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<float>("SalairesChargesSociales")
-                        .HasColumnType("real");
+                    b.Property<decimal>("SalairesChargesSociales")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<float>("TauxEBE")
-                        .HasColumnType("real");
+                    b.Property<decimal>("TauxEBE")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<float>("TauxVA")
-                        .HasColumnType("real");
+                    b.Property<decimal>("TauxVA")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<float>("ValeurAjoutee")
-                        .HasColumnType("real");
+                    b.Property<decimal>("ValeurAjoutee")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
@@ -407,11 +412,11 @@ namespace Anade.Khadamat.Data.Migrations
                     b.Property<int>("BusinessPlanId")
                         .HasColumnType("int");
 
-                    b.Property<float>("Montant")
-                        .HasColumnType("real");
+                    b.Property<decimal>("Montant")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<float>("PrixUnitaire")
-                        .HasColumnType("real");
+                    b.Property<decimal>("PrixUnitaire")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("ProduitServiceId")
                         .HasColumnType("int");
@@ -476,8 +481,8 @@ namespace Anade.Khadamat.Data.Migrations
                     b.Property<int>("BusinessPlanId")
                         .HasColumnType("int");
 
-                    b.Property<float>("Montant")
-                        .HasColumnType("real");
+                    b.Property<decimal>("Montant")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("RubriqueChargesExternesId")
                         .HasColumnType("int");
@@ -507,11 +512,11 @@ namespace Anade.Khadamat.Data.Migrations
                     b.Property<int>("BusinessPlanId")
                         .HasColumnType("int");
 
-                    b.Property<float>("Montant")
-                        .HasColumnType("real");
+                    b.Property<decimal>("Montant")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<float>("PrixUnitaire")
-                        .HasColumnType("real");
+                    b.Property<decimal>("PrixUnitaire")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("ProduitServiceId")
                         .HasColumnType("int");
@@ -544,14 +549,14 @@ namespace Anade.Khadamat.Data.Migrations
                     b.Property<int>("EvaluationProjetId")
                         .HasColumnType("int");
 
-                    b.Property<float>("MontantCashFlowActualises")
-                        .HasColumnType("real");
+                    b.Property<decimal>("MontantCashFlowActualises")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<float>("MontantCumulCFActualises")
-                        .HasColumnType("real");
+                    b.Property<decimal>("MontantCumulCFActualises")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<float>("MontantTresorerieNet")
-                        .HasColumnType("real");
+                    b.Property<decimal>("MontantTresorerieNet")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
@@ -645,6 +650,32 @@ namespace Anade.Khadamat.Data.Migrations
                     b.ToTable("Drs");
                 });
 
+            modelBuilder.Entity("Anade.Khadamat.Domain.Etape", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<string>("DesignationAr")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("DesignationFr")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Etape");
+                });
+
             modelBuilder.Entity("Anade.Khadamat.Domain.EvaluationProjet", b =>
                 {
                     b.Property<int>("Id")
@@ -658,11 +689,11 @@ namespace Anade.Khadamat.Data.Migrations
                     b.Property<int>("DelaiRecuperation")
                         .HasColumnType("int");
 
-                    b.Property<float>("InvestissementInitial")
-                        .HasColumnType("real");
+                    b.Property<decimal>("InvestissementInitial")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<float>("MontantValeurActuelleNette")
-                        .HasColumnType("real");
+                    b.Property<decimal>("MontantValeurActuelleNette")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
@@ -966,8 +997,8 @@ namespace Anade.Khadamat.Data.Migrations
                     b.Property<int>("CommuneBPId")
                         .HasColumnType("int");
 
-                    b.Property<float>("CoutProjet")
-                        .HasColumnType("real");
+                    b.Property<decimal>("CoutProjet")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("DelaiClient")
                         .HasColumnType("int");
@@ -1117,68 +1148,68 @@ namespace Anade.Khadamat.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<float>("AcquisitionEquipementAmenagement")
-                        .HasColumnType("real");
+                    b.Property<decimal>("AcquisitionEquipementAmenagement")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<float>("ApportPersonnel")
-                        .HasColumnType("real");
+                    b.Property<decimal>("ApportPersonnel")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<float>("ApportSupplementaire")
-                        .HasColumnType("real");
+                    b.Property<decimal>("ApportSupplementaire")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("BusinessPlanId")
                         .HasColumnType("int");
 
-                    b.Property<float>("CMT")
-                        .HasColumnType("real");
+                    b.Property<decimal>("CMT")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<float>("CotisationsSociales")
-                        .HasColumnType("real");
+                    b.Property<decimal>("CotisationsSociales")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<float>("DecaissementFournisseurs")
-                        .HasColumnType("real");
+                    b.Property<decimal>("DecaissementFournisseurs")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<float>("DecaissementPrestataires")
-                        .HasColumnType("real");
+                    b.Property<decimal>("DecaissementPrestataires")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<float>("DecaissementSalairesNets")
-                        .HasColumnType("real");
+                    b.Property<decimal>("DecaissementSalairesNets")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<float>("EncaissementRecusClients")
-                        .HasColumnType("real");
+                    b.Property<decimal>("EncaissementRecusClients")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<float>("IBS_IFU")
-                        .HasColumnType("real");
+                    b.Property<decimal>("IBS_IFU")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<float>("IRGSalaires")
-                        .HasColumnType("real");
+                    b.Property<decimal>("IRGSalaires")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("MoisId")
                         .HasColumnType("int");
 
-                    b.Property<float>("PNRClassique")
-                        .HasColumnType("real");
+                    b.Property<decimal>("PNRClassique")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<float>("PNRLoyer")
-                        .HasColumnType("real");
+                    b.Property<decimal>("PNRLoyer")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<float>("PaiementFGAssurancesFraisLieesCreation")
-                        .HasColumnType("real");
+                    b.Property<decimal>("PaiementFGAssurancesFraisLieesCreation")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<float>("SoldeFinal")
-                        .HasColumnType("real");
+                    b.Property<decimal>("SoldeFinal")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<float>("SoldeInitial")
-                        .HasColumnType("real");
+                    b.Property<decimal>("SoldeInitial")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<float>("TVAPayer")
-                        .HasColumnType("real");
+                    b.Property<decimal>("TVAPayer")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<float>("TotalDepense")
-                        .HasColumnType("real");
+                    b.Property<decimal>("TotalDepense")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<float>("TotalRecette")
-                        .HasColumnType("real");
+                    b.Property<decimal>("TotalRecette")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
@@ -1292,17 +1323,17 @@ namespace Anade.Khadamat.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<float>("ApportPersonnel")
-                        .HasColumnType("real");
+                    b.Property<decimal>("ApportPersonnel")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<float>("ApportSupplementaire")
-                        .HasColumnType("real");
+                    b.Property<decimal>("ApportSupplementaire")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("BusinessPlanId")
                         .HasColumnType("int");
 
-                    b.Property<float>("CMT")
-                        .HasColumnType("real");
+                    b.Property<decimal>("CMT")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("DiffereEmpruntId")
                         .HasColumnType("int");
@@ -1310,11 +1341,11 @@ namespace Anade.Khadamat.Data.Migrations
                     b.Property<int>("ExonerationFiscaleId")
                         .HasColumnType("int");
 
-                    b.Property<float>("PNRClassique")
-                        .HasColumnType("real");
+                    b.Property<decimal>("PNRClassique")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<float>("PNRSupplementaire")
-                        .HasColumnType("real");
+                    b.Property<decimal>("PNRSupplementaire")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<float>("TauxIBS")
                         .HasColumnType("real");
@@ -1346,53 +1377,53 @@ namespace Anade.Khadamat.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<float>("ActifsBiologique")
-                        .HasColumnType("real");
+                    b.Property<decimal>("ActifsBiologique")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<float>("Amenagement")
-                        .HasColumnType("real");
+                    b.Property<decimal>("Amenagement")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<float>("AssurancesLieesCreation")
-                        .HasColumnType("real");
+                    b.Property<decimal>("AssurancesLieesCreation")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("BusinessPlanId")
                         .HasColumnType("int");
 
-                    b.Property<float>("EquipementsImportes")
-                        .HasColumnType("real");
+                    b.Property<decimal>("EquipementsImportes")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<float>("FondsGarantie")
-                        .HasColumnType("real");
+                    b.Property<decimal>("FondsGarantie")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<float>("FondsRoulement")
-                        .HasColumnType("real");
+                    b.Property<decimal>("FondsRoulement")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<float>("FraisGeneraux")
-                        .HasColumnType("real");
+                    b.Property<decimal>("FraisGeneraux")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<float>("InstallationsEquipements")
-                        .HasColumnType("real");
+                    b.Property<decimal>("InstallationsEquipements")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<float>("MaterielAudioVisuel")
-                        .HasColumnType("real");
+                    b.Property<decimal>("MaterielAudioVisuel")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<float>("MaterielBureau")
-                        .HasColumnType("real");
+                    b.Property<decimal>("MaterielBureau")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<float>("MaterielCommunication")
-                        .HasColumnType("real");
+                    b.Property<decimal>("MaterielCommunication")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<float>("MaterielInformatique")
-                        .HasColumnType("real");
+                    b.Property<decimal>("MaterielInformatique")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<float>("MaterielProduction")
-                        .HasColumnType("real");
+                    b.Property<decimal>("MaterielProduction")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<float>("MaterielRoulant")
-                        .HasColumnType("real");
+                    b.Property<decimal>("MaterielRoulant")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<float>("Total")
-                        .HasColumnType("real");
+                    b.Property<decimal>("Total")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
@@ -1415,59 +1446,59 @@ namespace Anade.Khadamat.Data.Migrations
                     b.Property<int>("BusinessPlanId")
                         .HasColumnType("int");
 
-                    b.Property<float>("DecaissementAcquisitionEquipements")
-                        .HasColumnType("real");
+                    b.Property<decimal>("DecaissementAcquisitionEquipements")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<float>("DecaissementIBS_IFU_IRG")
-                        .HasColumnType("real");
+                    b.Property<decimal>("DecaissementIBS_IFU_IRG")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<float>("DecaissementTVAPayer")
-                        .HasColumnType("real");
+                    b.Property<decimal>("DecaissementTVAPayer")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<float>("EncaissementsProvenantEmprunts")
-                        .HasColumnType("real");
+                    b.Property<decimal>("EncaissementsProvenantEmprunts")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<float>("EncaissementsRecuClients")
-                        .HasColumnType("real");
+                    b.Property<decimal>("EncaissementsRecuClients")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<float>("EncaissementsSuiteApportPersonnel")
-                        .HasColumnType("real");
+                    b.Property<decimal>("EncaissementsSuiteApportPersonnel")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<float>("Equilibre")
-                        .HasColumnType("real");
+                    b.Property<decimal>("Equilibre")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<float>("FluxTresorerieNet")
-                        .HasColumnType("real");
+                    b.Property<decimal>("FluxTresorerieNet")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<float>("FluxTresorerieProvenantExploitation")
-                        .HasColumnType("real");
+                    b.Property<decimal>("FluxTresorerieProvenantExploitation")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<float>("FluxTresorerieProvenantFinancement")
-                        .HasColumnType("real");
+                    b.Property<decimal>("FluxTresorerieProvenantFinancement")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<float>("FluxTresorerieProvenantInvestissement")
-                        .HasColumnType("real");
+                    b.Property<decimal>("FluxTresorerieProvenantInvestissement")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<float>("RemboursementsEmpruntsCMT")
-                        .HasColumnType("real");
+                    b.Property<decimal>("RemboursementsEmpruntsCMT")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<float>("RemboursementsEmpruntsPNR")
-                        .HasColumnType("real");
+                    b.Property<decimal>("RemboursementsEmpruntsPNR")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<float>("SoldeFinal")
-                        .HasColumnType("real");
+                    b.Property<decimal>("SoldeFinal")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<float>("SoldeInitial")
-                        .HasColumnType("real");
+                    b.Property<decimal>("SoldeInitial")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<float>("SommesVerseesFournisseurs")
-                        .HasColumnType("real");
+                    b.Property<decimal>("SommesVerseesFournisseurs")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<float>("SommesVerseesPersonnelCNAS_IRG")
-                        .HasColumnType("real");
+                    b.Property<decimal>("SommesVerseesPersonnelCNAS_IRG")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<float>("SommesVerseesPrestataires")
-                        .HasColumnType("real");
+                    b.Property<decimal>("SommesVerseesPrestataires")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
@@ -1718,6 +1749,17 @@ namespace Anade.Khadamat.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Antenne");
+                });
+
+            modelBuilder.Entity("Anade.Khadamat.Domain.BusinessPlan", b =>
+                {
+                    b.HasOne("Anade.Khadamat.Domain.Etape", "Etape")
+                        .WithMany("BusinessPlans")
+                        .HasForeignKey("EtapeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Etape");
                 });
 
             modelBuilder.Entity("Anade.Khadamat.Domain.CommuneBP", b =>
@@ -2249,6 +2291,11 @@ namespace Anade.Khadamat.Data.Migrations
             modelBuilder.Entity("Anade.Khadamat.Domain.Dr", b =>
                 {
                     b.Navigation("FicheNotations");
+                });
+
+            modelBuilder.Entity("Anade.Khadamat.Domain.Etape", b =>
+                {
+                    b.Navigation("BusinessPlans");
                 });
 
             modelBuilder.Entity("Anade.Khadamat.Domain.EvaluationProjet", b =>

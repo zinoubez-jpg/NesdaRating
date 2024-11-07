@@ -15,12 +15,15 @@ namespace Anade.Khadamat.Domain
         }
 
         public int Id { get; set; }
-        public float CoutProjet { get; set; }
+        public decimal CoutProjet { get; set; }
         public bool SoumisImposition { get; set; }
         public bool ExonerationTVA { get; set; }
         public int DelaiClient { get; set; }
         public int DelaiFournisseur { get; set; }
         public int DelaiPrestataire { get; set; }
+        
+        [NotMapped]
+        public string CoutProjetString { get; set; }
 
         public int BusinessPlanId { get; set; }
         public int TauxTVAId { get; set; }
