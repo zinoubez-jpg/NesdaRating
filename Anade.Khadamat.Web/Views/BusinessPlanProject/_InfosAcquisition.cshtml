@@ -1,0 +1,37 @@
+﻿@model IEnumerable<Anade.Khadamat.Domain.Acquisition>
+<partial name="_Message" />
+
+<table class="table display compact">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Montant)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Montant)
+                </td>
+
+                <td>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    window.setTimeout(function () {
+        $(".alert").fadeTo(500, 0).slideUp(500, function () {
+            $(this).remove();
+        });
+    }, 2000);
+</script>
+

@@ -37,8 +37,7 @@ namespace Anade.Khadamat.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AnneeId")
-                        .IsUnique();
+                    b.HasIndex("AnneeId");
 
                     b.HasIndex("DetailInvestissementId");
 
@@ -52,20 +51,19 @@ namespace Anade.Khadamat.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AcquisitionId")
-                        .HasColumnType("int");
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
-                    b.Property<int>("DetailAchatsDirectsId")
-                        .HasColumnType("int");
+                    b.Property<string>("DesignationAr")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
-                    b.Property<int>("DetailChargesExternesId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("DetailChiffreAffaireId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Numero")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("DesignationFr")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
 
@@ -426,8 +424,7 @@ namespace Anade.Khadamat.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AnneeId")
-                        .IsUnique();
+                    b.HasIndex("AnneeId");
 
                     b.HasIndex("ApprovisionnementMatierePremiereId");
 
@@ -489,8 +486,7 @@ namespace Anade.Khadamat.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AnneeId")
-                        .IsUnique();
+                    b.HasIndex("AnneeId");
 
                     b.HasIndex("BusinessPlanId");
 
@@ -526,8 +522,7 @@ namespace Anade.Khadamat.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AnneeId")
-                        .IsUnique();
+                    b.HasIndex("AnneeId");
 
                     b.HasIndex("BusinessPlanId");
 
@@ -1724,8 +1719,8 @@ namespace Anade.Khadamat.Data.Migrations
             modelBuilder.Entity("Anade.Khadamat.Domain.Acquisition", b =>
                 {
                     b.HasOne("Anade.Khadamat.Domain.Annee", "Annee")
-                        .WithOne("Acquisition")
-                        .HasForeignKey("Anade.Khadamat.Domain.Acquisition", "AnneeId")
+                        .WithMany()
+                        .HasForeignKey("AnneeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1803,8 +1798,8 @@ namespace Anade.Khadamat.Data.Migrations
             modelBuilder.Entity("Anade.Khadamat.Domain.DetailAchatsDirects", b =>
                 {
                     b.HasOne("Anade.Khadamat.Domain.Annee", "Annee")
-                        .WithOne("DetailAchatsDirects")
-                        .HasForeignKey("Anade.Khadamat.Domain.DetailAchatsDirects", "AnneeId")
+                        .WithMany()
+                        .HasForeignKey("AnneeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1861,8 +1856,8 @@ namespace Anade.Khadamat.Data.Migrations
             modelBuilder.Entity("Anade.Khadamat.Domain.DetailChargesExternes", b =>
                 {
                     b.HasOne("Anade.Khadamat.Domain.Annee", "Annee")
-                        .WithOne("DetailChargesExternes")
-                        .HasForeignKey("Anade.Khadamat.Domain.DetailChargesExternes", "AnneeId")
+                        .WithMany()
+                        .HasForeignKey("AnneeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1888,8 +1883,8 @@ namespace Anade.Khadamat.Data.Migrations
             modelBuilder.Entity("Anade.Khadamat.Domain.DetailChiffreAffaire", b =>
                 {
                     b.HasOne("Anade.Khadamat.Domain.Annee", "Annee")
-                        .WithOne("DetailChiffreAffaire")
-                        .HasForeignKey("Anade.Khadamat.Domain.DetailChiffreAffaire", "AnneeId")
+                        .WithMany()
+                        .HasForeignKey("AnneeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -2206,15 +2201,7 @@ namespace Anade.Khadamat.Data.Migrations
 
             modelBuilder.Entity("Anade.Khadamat.Domain.Annee", b =>
                 {
-                    b.Navigation("Acquisition");
-
                     b.Navigation("ComptesResultatPrevisionnel");
-
-                    b.Navigation("DetailAchatsDirects");
-
-                    b.Navigation("DetailChargesExternes");
-
-                    b.Navigation("DetailChiffreAffaire");
 
                     b.Navigation("DetailsEvaluationProjet");
 

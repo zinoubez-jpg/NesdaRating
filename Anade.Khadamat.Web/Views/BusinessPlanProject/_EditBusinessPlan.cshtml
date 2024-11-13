@@ -1,6 +1,17 @@
 ﻿@model Anade.Khadamat.Domain.BusinessPlan
 
-
+<style>
+    fieldset {
+        display: block;
+        margin-left: 2px;
+        margin-right: 2px;
+        padding-top: 0.35em;
+        padding-bottom: 0.625em;
+        padding-left: 0.75em;
+        padding-right: 0.75em;
+        border: 2px groove;
+    }
+</style>
 
 <div class="modal-header">
     <h5 class="modal-title" id="modalLabel">Ajouter une Apréciation</h5>
@@ -8,6 +19,7 @@
         <span aria-hidden="true">&times;</span>
     </button>
 </div>
+
 <div class="modal-body">
     <div id="modalMessages"></div>
     <div id="booking" class="section">
@@ -16,37 +28,71 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="booking-form">
-                            <form asp-action="EditBusinessPlan" asp-controller="BusinessPlanProject"
-                                  data-ajax="true"
+                            @*<form asp-action="EditBusinessPlan" asp-controller="BusinessPlanProject"*@
+                            <form data-ajax="true"
                                   data-ajax-success="AddBusinessPlan">
-                                <input asp-for="Id" type="hidden" />
-                                <input asp-for="NumeroSIEJE" type="hidden" />
-                                <input asp-for="Code" type="hidden" />
-                                <input asp-for="Date_Generation" type="hidden" />
 
-                                @*<div class="row">
-                                   
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <span class="form-label">Score Total</span>
-                                            <input asp-for="ScoreTotal" class="form-control" readonly>
+                                <input asp-for="Id" />
+                                <input asp-for="NumeroSIEJE" />
+                                <input asp-for="Code" />
+                                <input asp-for="Date_Creation" />
+
+                                <div class="row">
+
+                                    <h3>Equipements</h3>
+                                    <fieldset>
+                                        <div class="row">
+                                            <div style="visibility: visible; animation-duration: 1000ms; animation-delay: 300ms; animation-name: fadeInDown;">
+                                                <table class="mon_ul" id="t_Equipements">
+                                                    <thead>
+
+                                                        <tr>
+                                                            <th>
+                                                                N°
+                                                            </th>
+                                                            <th>
+                                                                <span>Type materiel.</span>
+                                                                <select id="TypeMaterielId" asp-items="@ViewBag.TypeMaterielID as SelectList" class="select2" required onchange="FournisseurChamps();">
+                                                                    <option value="">- - - - - -</option>
+                                                                </select>
+                                                            </th>
+
+                                                            @*<th>
+                                                                    <input type="text" id="Ajt_Fr" />
+                                                                </th>*@
+
+                                                            <th>
+                                                                <input id="d" type="text" placeholder="Désignation " maxlength="200" />
+                                                            </th>
+                                                            <th>
+                                                                <input id="q" type="text" placeholder="Quantité" onkeyup="verif_nombre(this);" />
+                                                            </th>
+                                                            <th>
+                                                                <input id="p" type="text" class="slide-up" style="width:100%;" placeholder="Prix unitaire TTC (DA)" onkeyup="verif_nombre(this); $(this).val(montant($(this).val().replace(/ /g, '')))" />
+
+                                                            </th>
+                                                            <th>
+                                                                <h6>Prix Total TTC (DA)</h6>
+                                                            </th>
+                                                            <th>
+                                                                <button id="add1">Ajouter</button>
+                                                            </th>
+                                                            <th>
+                                                                <button class="btn btn-outline-danger" id="Sup_Equipements">Supprimer</button>
+                                                            </th>
+
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody></tbody>
+
+                                                </table>
+                                            </div>
+                                            <h3>Pour effectuer des modifications, cliquer sur la ligne de l’équipement.</h3>
                                         </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <span class="form-label">Délibération</span>
-                                            <input asp-for="Deliberation" class="form-control" readonly>
-                                        </div>
-                                    </div>
+
+                                    </fieldset>
+
                                 </div>
-
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <span class="form-label">Appreciation</span>
-                                        <textarea asp-for="appreciation" class="form-control" placeholder="Appreciation" required> </textarea>
-                                        <span asp-validation-for="appreciation" class="text-danger"></span>
-                                    </div>
-                                </div>*@
 
                                 <div class="form-group modal-footer">
                                     <input type="submit" class="btn btn-outline-primary" value="Soumettre" />
@@ -62,4 +108,136 @@
 
 </div>
 
+<script>
 
+    function FournisseurChamps() {
+
+        var e = document.getElementById("TypeMaterielId");
+
+        var TypeMaterielValue = e.value;
+        var TypeMaterielText = e.options[e.selectedIndex].text;
+
+        /*Ajt_Fr.value = "(" + TypeMaterielValue + ") " + TypeMaterielText;*/
+
+    }
+
+    $(function () {
+        //Ajouter un équipement
+        $("#add1").click(function () {
+
+            var e = document.getElementById("TypeMaterielId");
+
+            var TypeMaterielValue = e.value;
+            var TypeMaterielText = e.options[e.selectedIndex].text;
+
+            //En cas d'erreur
+            if (!$("#TypeMaterielId").val()) { $("#TypeMaterielId").addClass('error'); }
+            else { $("#TypeMaterielId").removeClass('error'); }
+
+            if (!$("#d").val() || $("#d").val().length < 3) { $("#d").addClass('error'); }
+            else { $("#d").removeClass('error'); }
+
+            if (!$("#q").val()) { $("#q").addClass('error'); }
+            else { $("#q").removeClass('error'); }
+
+            if (!$("#p").val()) { $("#p").addClass('error'); }
+            else { $("#p").removeClass('error'); }
+
+            //Get Fournisseur
+            var opt = $('option[value="' + $("#TypeMaterielId").val() + '"]');
+
+            //Si le fournisseur n'existe pas
+            if (TypeMaterielText.length > 0 && $("#p").val().length > 0 && $("#d").val().length > 2 && $("#q").val().length > 0) {
+
+                var i = document.getElementById('t_Equipements').getElementsByTagName('tr').length;
+                alert(i);
+                var prix = parseFloat($('#q').val().replace(/ /g, '') * $('#p').val().replace(/ /g, '')).toFixed(2);
+                $("#t_Equipements>tbody:last").append("<tr><td>" + i + "</td><td>" + $("#TypeMaterielId").val() + "</td><td>" + $("#d").val() + "</td><td>" + $("#q").val() + "</td><td>" + montant($('#p').val().replace(/ /g, '')) + "</td><td>" + montant(prix.toString()) + "</td><td><input class='ch' type='checkbox' /></td> </tr>");
+                $("#d").val('');
+                $("#q").val('');
+                $("#p").val('');
+                $("#total").val('');
+                alert("test 01");
+            }
+            //Sinon
+            else {
+                if ($("#p").val().length == 0 && $("#d").val().length == 0 && $("#q").val().length == 0) {
+                    $.confirm({
+                        title: "<p style='font-size: 30px;color: red;'>Erreur.</p>",
+                        content: "<p style='font-size: 18px;font-weight: 900;'>Un ou plusieurs champs vides.</p>",
+                        theme: 'material',
+                        buttons: {
+                            OK: function () {
+                            }
+                        }
+                    });
+                    alert("test 02");
+                }
+                else if (TypeMaterielText.length == 0 || TypeMaterielText.val().length < 11) {
+                    $.confirm({
+                        title: '<p style="font-size:45px">Attention.</p>',
+                        content: "<i class='fa fa-exclamation' style='font-size:70px;color:#ddab20'></i><p style='font-size:27px'>Le fournisseur n'existe pas.</p>",
+                        theme: 'material',
+                        buttons: {
+                            Ok: function () {
+                            }
+                        }
+                    });
+                    alert("test 03");
+                }
+                else {
+                    $.confirm({
+                        title: "<p style='font-size: 30px;color: red;'>Erreur.</p>",
+                        content: "<p style='font-size: 18px;font-weight: 900;'>Un ou plusieurs champs incorrects.</p>",
+                        theme: 'material',
+                        buttons: {
+                            OK: function () {
+                            }
+                        }
+                    });
+                    alert("test 04");
+                }
+            }
+        });
+
+        //Supprimer équipement
+        $("#Sup_Equipements").click(function () {
+            $.confirm({
+                title: 'Confirmation!',
+                content: 'voulez-vous supprimer',
+                theme: 'material',
+                buttons: {
+                    Oui: function () {
+                        $("#t_Equipements tbody tr:has(input:checked)").remove();
+                    },
+                    Non: function () {
+                    }
+                }
+            });
+
+        });
+
+    });
+
+    $("#t_Equipements").on("click", "tbody td", function () {
+
+        var column_num = parseInt($(this).index());
+        var row_num = parseInt($(this).parent().index()) + 1;
+        if (column_num != 6) {
+
+            $("#Mdf_Equip").modal({
+                escapeClose: false,
+                clickClose: false,
+                fadeDuration: 1000,
+                fadeDelay: 0.50
+            });
+
+            $("#Des_Equip").val(document.getElementById("t_Equipements").rows[row_num].cells.item(2).innerHTML);
+            $("#Quant_Equip").val(document.getElementById("t_Equipements").rows[row_num].cells.item(3).innerHTML);
+            $("#Prix_Unit").val(document.getElementById("t_Equipements").rows[row_num].cells.item(4).innerHTML);
+            Row_Index = $(this).parent().index();
+        }
+
+    });
+
+</script>

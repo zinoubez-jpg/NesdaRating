@@ -1,0 +1,30 @@
+﻿
+<table id="TableA">
+    <tr>
+        <td>Ancienne ligne supérieure</td>
+    </tr>
+</table>
+
+
+<button onclick="ajouteLigne('TableA');"></button>
+
+<script type="text/javascript">
+    function ajouteLigne(tableID) {
+        // Récupération d'une référence à la table
+        var refTable = document.getElementById(tableID);
+
+        // Insère une ligne dans la table à l'indice de ligne 0
+        var nouvelleLigne = refTable.insertRow(0);
+
+        // Insère une cellule dans la ligne à l'indice 0
+        var nouvelleCellule = nouvelleLigne.insertCell(0);
+
+        // Ajoute un nœud texte à la cellule
+        var nouveauTexte = document.createTextNode("Nouvelle ligne supérieure");
+        nouvelleCellule.appendChild(nouveauTexte);
+    }
+
+    // Appelle ajouteLigne() avec l'ID d'une table
+    ajouteLigne("TableA");
+
+</script>

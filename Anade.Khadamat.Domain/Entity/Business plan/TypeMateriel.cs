@@ -8,11 +8,17 @@ namespace Anade.Khadamat.Domain
 {
     public partial class TypeMateriel : Referentiel
     {
+        public string CodeDesignationFr { get => GetCodeDesignationFr(); }
         public TypeMateriel()
         {
             this.DetailsInvestissement = new HashSet<DetailInvestissement>();
         }
 
         public virtual ICollection<DetailInvestissement> DetailsInvestissement { get; set; }
+
+        public string GetCodeDesignationFr()
+        {
+            return "("+Code +") "+ DesignationFr;
+        }
     }
 }

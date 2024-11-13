@@ -1,0 +1,664 @@
+﻿@model Anade.Khadamat.Web.ViewModels.AcquisitionDetailInvestissementVM
+
+
+
+<head>
+    <title>Ajouter Investissement</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+
+        .accordionZn:hover {
+            background-color: #06BBCC;
+        }
+
+        .accordionZn:after {
+            content: '\002B';
+            color: #777;
+            font-weight: bold;
+            float: right;
+            margin-left: 5px;
+        }
+
+        .accordionZn {
+            background-color: #F0FBFC;
+            color: #444;
+            cursor: pointer;
+            padding: 18px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 15px;
+            transition: 0.4s;
+        }
+
+        .active:after {
+            content: "\2212";
+        }
+
+        .panel {
+            padding: 0 18px;
+            background-color: white;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.2s ease-out;
+        }
+    </style>
+
+</head>
+
+
+<div class="modal-header">
+    <h5 class="modal-title" id="modalLabel">Ajouter Business Plan</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<div class="modal-body">
+    <div id="modalMessages"></div>
+    <div id="booking" class="section">
+        <div class="section-center">
+            <div class="container" style="max-height: 100%">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="booking-form">
+
+                            <form asp-action="AddBusinessPlan" asp-controller="BusinessPlanProject"
+                                  data-ajax="true"
+                                  data-ajax-success="addBusinessPlan">
+
+                                <div class="container mt-3">
+
+                                    <h3>Informations de base</h3>
+                                    <br>
+
+                                    <div class="row">
+
+                                        <div class="col-sm-3 form-group">
+                                            <span class="form-label">Type materiel.</span>
+                                            <select id="TypeMaterielId" asp-for="detailInvestissement.TypeMaterielId" asp-items="@ViewBag.TypeMaterielID as SelectList" class="form-control select2" required onchange="InitChamps();">
+                                                <option value="">- - - - - -</option>
+                                            </select>
+                                            <span class="select-arrow"></span>
+                                            <span asp-validation-for="detailInvestissement.TypeMaterielId" class="text-danger"></span>
+                                            <div class="invalid-feedback">Sélectionner le Type de materiel.</div>
+                                        </div>
+
+                                        <div class="col-sm-3 form-group">
+                                            <span class="form-label">Année.</span>
+                                            <select id="AnneeId" asp-for="acquisition.AnneeId" asp-items="@ViewBag.AnneeID as SelectList" class="form-control select2" required onchange="InitChamps();">
+                                                <option value="">- - - - - -</option>
+                                            </select>
+                                            <span class="select-arrow"></span>
+                                            <span asp-validation-for="acquisition.AnneeId" class="text-danger"></span>
+                                            <div class="invalid-feedback">Sélectionner l'année.</div>
+                                        </div>
+
+                                    </div>
+
+                                    <br>
+
+                                    <div class="card text-bg-primary mb-3">
+
+                                        <div class="card-header">Simulation structure de financement</div>
+
+                                        <div class="card-body">
+                                            <table class="table display compact">
+                                                <thead>
+                                                    <tr>
+                                                        <th>
+                                                            @Html.DisplayNameFor(model => model.acquisition.Montant)
+                                                        </th>
+
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var item in Model.acquisitions)
+                                                    {
+                                                        <tr>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => item.Montant)
+                                                            </td>
+
+                                                            <td>
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group modal-footer">
+                                        <input type="submit" class="btn btn-outline-primary" value="Add" />
+                                        <button class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                                    </div>
+
+                                </div>
+
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+
+    var acc = document.getElementsByClassName("accordionZn");
+    var i;
+
+    for (i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function () {
+            this.classList.toggle("active");
+            var panel = this.nextElementSibling;
+            if (panel.style.maxHeight) {
+                panel.style.maxHeight = null;
+            } else {
+                panel.style.maxHeight = panel.scrollHeight + "px";
+            }
+        });
+    }
+
+</script>
+
+<script>
+
+    function setActive(buttonContainerId, inputId, value) {
+        // Désactiver tous les boutons dans le conteneur spécifié
+        var buttons = document.querySelectorAll('#' + buttonContainerId + ' .value-btn');
+        buttons.forEach(function (button) {
+            button.classList.remove('active');
+        });
+
+        // Activer le bouton cliqué
+        buttons[value].classList.add('active');
+
+        // Mettre la valeur dans l'input correspondant
+        document.getElementById(inputId).value = value;
+    }
+
+</script>
+
+<script>
+
+    $(document).ready(function () {
+        var i = 1;
+        $("#add_row").click(function () {
+            b = i - 1;
+            $('#addr' + i).html($('#addr' + b).html()).find('td:first-child').html(i + 1);
+            $('#tab_logic').append('<tr id="addr' + (i + 1) + '"></tr>');
+            i++;
+        });
+        $("#delete_row").click(function () {
+            if (i > 1) {
+                $("#addr" + (i - 1)).html('');
+                i--;
+            }
+        });
+
+    });
+
+</script>
+
+<script>
+
+    function SimulerStructure() {
+
+        if (Verif_Champs_Init() == true) {
+            return;
+        }
+
+        var e = document.getElementById("CategorieId");
+
+        var CategorieValue = e.value;
+        var CategorieText = e.options[e.selectedIndex].text;
+
+        e = document.getElementById("TypeActiviteId");
+        var TypeActiviteValue = e.value;
+        var TypeActiviteText = e.options[e.selectedIndex].text;
+
+        e = document.getElementById("FormeJuridiqueId");
+        var FormeJuridiqueValue = e.value;
+        var FormeJuridiqueText = e.options[e.selectedIndex].text;
+
+        e = document.getElementById("TypeFinancementId");
+        var TypeFinancementValue = e.value;
+        var TypeFinancementText = e.options[e.selectedIndex].text;
+
+        e = document.getElementById("RegimeImpositionId");
+        var RegimeImpositionValue = e.value;
+        var RegimeImpositionText = e.options[e.selectedIndex].text;
+
+        e = document.getElementById("CommuneBPId");
+        var CommuneBPValue = e.value;
+        var CommuneBPText = e.options[e.selectedIndex].text;
+
+        var x = document.getElementById("ExonerationTVAselect2");
+
+        if (TypeFinancementValue == 1) {
+
+            ApportPersonnel.value = CoutProjet.value;
+            TauxApportPersonnel.value = 100;
+            CMT.value = 0;
+            TauxCMT.value = 0;
+            PNRClassique.value = 0;
+            TauxPNRClassique.value = 0;
+
+            document.getElementById("TauxStructureFinancementID").value = 1;
+
+            SelectTauxStructureFinancement();
+        }
+        else {
+
+            ValeurCoutProjet = supp_espace_montant(CoutProjet.value);
+
+            if (TypeFinancementValue == 2) {
+
+                DiffereEmprunt.value = "1 an";
+
+                document.getElementById("DiffereEmpruntID").value = 1;
+
+                ApportPersonnel.value = parseFloat(ValeurCoutProjet) * 50 / 100;
+                TauxApportPersonnel.value = 50;
+                CMT.value = 0;
+                TauxCMT.value = 0;
+                PNRClassique.value = parseFloat(ValeurCoutProjet) * 50 / 100;
+                TauxPNRClassique.value = 50;
+
+                ApportPersonnel.value = montant(ApportPersonnel.value);
+                CMT.value = montant(CMT.value);
+                PNRClassique.value = montant(PNRClassique.value);
+
+                document.getElementById("TauxStructureFinancementID").value = 2;
+
+                SelectTauxStructureFinancement();
+            }
+            else {
+                if (TypeFinancementValue == 3) {
+
+                    DiffereEmprunt.value = "1 an et 6 mois";
+
+                    document.getElementById("DiffereEmpruntID").value = 2;
+
+                    if (CategorieValue == 1) {
+
+                        ApportPersonnel.value = parseFloat(ValeurCoutProjet) * 5 / 100;
+                        TauxApportPersonnel.value = 5;
+                        CMT.value = parseFloat(ValeurCoutProjet) * 70 / 100;
+                        TauxCMT.value = 70;
+                        PNRClassique.value = parseFloat(ValeurCoutProjet) * 25 / 100;
+                        TauxPNRClassique.value = 25;
+
+                        ApportPersonnel.value = montant(ApportPersonnel.value);
+                        CMT.value = montant(CMT.value);
+                        PNRClassique.value = montant(PNRClassique.value);
+
+                        document.getElementById("TauxStructureFinancementID").value = 3;
+
+                        SelectTauxStructureFinancement();
+                    }
+                    else {
+                        if (TypeZoneId.value == 1) {
+
+                            ApportPersonnel.value = parseFloat(ValeurCoutProjet) * 10 / 100;
+                            TauxApportPersonnel.value = 10;
+                            CMT.value = parseFloat(ValeurCoutProjet) * 70 / 100;
+                            TauxCMT.value = 70;
+                            PNRClassique.value = parseFloat(ValeurCoutProjet) * 20 / 100;
+                            TauxPNRClassique.value = 20;
+
+                            ApportPersonnel.value = montant(ApportPersonnel.value);
+                            CMT.value = montant(CMT.value);
+                            PNRClassique.value = montant(PNRClassique.value);
+
+                            document.getElementById("TauxStructureFinancementID").value = 4;
+
+                            SelectTauxStructureFinancement();
+                        }
+                        else {
+                            if (TypeZoneId.value == 2) {
+
+                                ApportPersonnel.value = parseFloat(ValeurCoutProjet) * 12 / 100;
+                                TauxApportPersonnel.value = 12
+                                CMT.value = parseFloat(ValeurCoutProjet) * 70 / 100;
+                                TauxCMT.value = 70;
+                                PNRClassique.value = parseFloat(ValeurCoutProjet) * 18 / 100;
+                                TauxPNRClassique.value = 18;
+
+                                ApportPersonnel.value = montant(ApportPersonnel.value);
+                                CMT.value = montant(CMT.value);
+                                PNRClassique.value = montant(PNRClassique.value);
+
+                                document.getElementById("TauxStructureFinancementID").value = 5;
+
+                                SelectTauxStructureFinancement();
+                            }
+                            else {
+
+                                ApportPersonnel.value = parseFloat(ValeurCoutProjet) * 15 / 100;
+                                TauxApportPersonnel.value = 15
+                                CMT.value = parseFloat(ValeurCoutProjet) * 70 / 100;
+                                TauxCMT.value = 70;
+                                PNRClassique.value = parseFloat(ValeurCoutProjet) * 15 / 100;
+                                TauxPNRClassique.value = 15;
+
+                                ApportPersonnel.value = montant(ApportPersonnel.value);
+                                CMT.value = montant(CMT.value);
+                                PNRClassique.value = montant(PNRClassique.value);
+
+                                document.getElementById("TauxStructureFinancementID").value = 6;
+
+                                SelectTauxStructureFinancement();
+                            }
+                        }
+                    }
+                }
+                /*Cas d'erreur affichage 0 par tous*/
+                else {
+
+                    ApportPersonnel.value = 0;
+                    TauxApportPersonnel.value = 0;
+                    CMT.value = 0;
+                    TauxCMT.value = 0;
+                    PNRClassique.value = 0;
+                    TauxPNRClassique.value = 0;
+                }
+            }
+        }
+
+        if (TypeZoneId.value == 1) {
+            if (RegimeImpositionId.value == 1) {
+
+                ExonerationFiscale.value = "10 ans";
+                document.getElementById("ExonerationFiscaleID").value = 3;
+            }
+            else {
+                if (ZonePromouvoir.value == "Oui") {
+
+                    ExonerationFiscale.value = "06 ans";
+                    document.getElementById("ExonerationFiscaleID").value = 2;
+                }
+                else {
+
+                    ExonerationFiscale.value = "03 ans";
+                    document.getElementById("ExonerationFiscaleID").value = 1;
+                }
+            }
+        }
+        else {
+            if (ZonePromouvoir.value == "Oui") {
+
+                ExonerationFiscale.value = "06 ans";
+                document.getElementById("ExonerationFiscaleID").value = 2;
+            }
+            else {
+
+                ExonerationFiscale.value = "03 ans";
+                document.getElementById("ExonerationFiscaleID").value = 1;
+            }
+        }
+
+        if (FormeJuridiqueValue == 1) {
+            if (RegimeImpositionId.value == 1) {
+
+                if (TypeActiviteValue == 1) {
+
+                    TauxIFU.value = "0 %";
+                    TauxIBS.value = "19 %";
+                }
+                else {
+                    if (TypeActiviteValue == 2) {
+
+                        TauxIFU.value = "0 %";
+                        TauxIBS.value = "23 %";
+                    }
+                    else {
+
+                        TauxIFU.value = "0 %";
+                        TauxIBS.value = "26 %";
+                    }
+                }
+            }
+            else {
+                if (TypeActiviteValue == 1) {
+
+                    TauxIBS.value = "0 %";
+                    TauxIFU.value = "05 %";
+                }
+                else {
+                    if (TypeActiviteValue == 3) {
+
+                        TauxIBS.value = "0 %";
+                        TauxIFU.value = "12 %";
+                    }
+                }
+            }
+        }
+        else {
+            TauxIFU.value = "0 %";
+            TauxIBS.value = "0 %";
+        }
+
+        GetValueStringModel();
+    }
+
+    $(document).ready(function () {
+        $('#CommuneBPId').on('change', function () {
+            const selectedId = $(this).val();
+            const _url = "/BusinessPlanProject/GetCommune/" + selectedId;
+            //console.log("Id : " + selectedId);
+            if (selectedId) {
+                $.ajax({
+                    type: "POST",
+                    url: _url,
+                    dataType: "json",
+                    success: function (result) {
+                        if (document.getElementById("TypeZoneId")) {
+                            document.getElementById("TypeZoneId").value = result.typeZone.designationFr;
+                        }
+                        if (document.getElementById("ZonePromouvoir")) {
+                            if (result.zonePromouvoir == true) {
+                                document.getElementById("ZonePromouvoir").value = "Oui";
+                            }
+                            else {
+                                document.getElementById("ZonePromouvoir").value = "Non";
+                            }
+                        }
+                        if (document.getElementById("GrandSud")) {
+                            if (result.wilayaBP.grandSud == true) {
+                                document.getElementById("GrandSud").value = "Oui";
+                            }
+                            else {
+                                document.getElementById("GrandSud").value = "Non";
+                            }
+                        }
+                    },
+                    error: function () {
+                        /*alert("Erreur : Choisir une commune");*/
+                        TypeZoneId.value = "- - - - - -";
+                        ZonePromouvoir.value = "- - - - - -";
+                    }
+                });
+            }
+            else {
+                TypeZoneId.value = "- - - - - -";
+                ZonePromouvoir.value = "- - - - - -";
+            }
+        });
+    });
+
+</script>
+
+<script>
+
+    function checkedExonerationTVA() {
+
+        InitChamps();
+
+        var e = document.getElementById("ExonerationTVAselect2");
+
+        var ExonerationTVAValue = e.value;
+        var ExonerationTVAText = e.options[e.selectedIndex].text;
+
+        if (ExonerationTVAValue == "true") {
+            document.getElementById("ExonerationTVA").checked = true;
+        }
+        else {
+            if (ExonerationTVAValue == "false") {
+                document.getElementById("ExonerationTVA").checked = false;
+            }
+            else {
+                document.getElementById("ExonerationTVA").checked = null;
+            }
+        }
+
+    }
+
+    function SelectTauxStructureFinancement() {
+
+        var e = document.getElementById("TauxStructureFinancementID");
+
+        var TauxStructureFinancementIdValue = e.value;
+        var TauxStructureFinancementIdText = e.options[e.selectedIndex].text;
+
+        const TauxApportPersonnelValue = TauxStructureFinancementIdText.substr(1, 3);
+        const TauxCMTValue = TauxStructureFinancementIdText.substr(5, 3);
+        const TauxPNRClassiqueValue = TauxStructureFinancementIdText.substr(9, 3);
+
+        TauxApportPersonnel.value = parseInt(TauxApportPersonnelValue);
+        TauxCMT.value = parseInt(TauxCMTValue);
+        TauxPNRClassique.value = parseInt(TauxPNRClassiqueValue);
+    }
+
+    function montant(val_montant) {
+        x = val_montant.split('.');
+        x1 = x[0];
+        x2 = x.length > 1 ? '.' + x[1] : '';
+        var rgx = /(\d+)(\d{3})/;
+        while (rgx.test(x1)) {
+            x1 = x1.replace(rgx, '$1' + ' ' + '$2');
+        }
+
+        return x1 + x2;
+    }
+
+    function verif_nombre(champ) {
+        var chiffres = new RegExp("[0-9]");
+        var verif;
+        var points = 0;
+
+        for (x = 0; x < champ.value.length; x++) {
+            verif = chiffres.test(champ.value.charAt(x));
+            if (champ.value.charAt(x) == "." && x != 0) { verif = true; points++; }
+            if (points > 1) { verif = false; points = 1; }
+            if (verif == false) { champ.value = champ.value.substr(0, x) + champ.value.substr(x + 1, champ.value.length - x + 1); x--; }
+        }
+    }
+
+    function supp_espace_montant(val_montant) {
+
+        val_montant_sans_espace = val_montant.replaceAll(" ", "");
+
+        return val_montant_sans_espace;
+    }
+
+    function InitChamps() {
+
+        CoutProjetModel.value = 0;
+
+        ApportPersonnelModel.value = 0;
+        CMTModel.value = 0;
+        PNRClassiqueModel.value = 0;
+        PNRSupplementaireModel.value = 0;
+        ApportSupplementaireModel.value = 0;
+
+        ApportPersonnel.value = 0;
+        TauxApportPersonnel.value = 0;
+
+        CMT.value = 0;
+        TauxCMT.value = 0;
+
+        PNRClassique.value = 0;
+        TauxPNRClassique.value = 0;
+
+        document.getElementById("TauxStructureFinancementID").value = 0;
+
+        DiffereEmprunt.value = "- - - - - -";
+        document.getElementById("DiffereEmpruntID").value = 0;
+
+        ExonerationFiscale.value = "- - - - - -";
+        document.getElementById("ExonerationFiscaleID").value = 0;
+
+        TauxIFU.value = "0 %";
+        TauxIBS.value = "0 %";
+    }
+
+    function Verif_Champs_Init() {
+
+        var e = document.getElementById("CategorieId");
+
+        var CategorieValue = e.value;
+
+        e = document.getElementById("TypeActiviteId");
+        var TypeActiviteValue = e.value;
+
+        e = document.getElementById("FormeJuridiqueId");
+        var FormeJuridiqueValue = e.value;
+
+        e = document.getElementById("TypeFinancementId");
+        var TypeFinancementValue = e.value;
+
+        e = document.getElementById("RegimeImpositionId");
+        var RegimeImpositionValue = e.value;
+
+        e = document.getElementById("CommuneBPId");
+        var CommuneBPValue = e.value;
+
+        e = document.getElementById("ExonerationTVAselect2");
+        var ExonerationTVAValue = e.value;
+
+        if (CoutProjet == "" || CategorieValue == ""
+            || TypeActiviteValue == ""
+            || FormeJuridiqueValue == ""
+            || TypeFinancementValue == ""
+            || RegimeImpositionValue == ""
+            || CommuneBPValue == ""
+            || ExonerationTVAValue == "") {
+
+            return true;
+        }
+        else {
+
+            return false;
+        }
+    }
+
+    function GetValueStringModel() {
+
+        CoutProjetModel.value = parseFloat(supp_espace_montant(CoutProjet.value));
+        ApportPersonnelModel.value = parseFloat(supp_espace_montant(ApportPersonnel.value));
+        CMTModel.value = parseFloat(supp_espace_montant(CMT.value));
+        PNRClassiqueModel.value = parseFloat(supp_espace_montant(PNRClassique.value));
+        PNRSupplementaireModel.value = parseFloat(supp_espace_montant(PNRSupplementaire.value));
+        ApportSupplementaireModel.value = parseFloat(supp_espace_montant(ApportSupplementaire.value));
+    }
+
+</script>
+
+<script>
+    window.setTimeout(function () {
+        $(".alert").fadeTo(500, 0).slideUp(500, function () {
+            $(this).remove();
+        });
+    }, 2000);
+</script>

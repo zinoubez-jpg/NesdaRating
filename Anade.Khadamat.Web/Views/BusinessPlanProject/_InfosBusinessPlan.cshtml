@@ -44,24 +44,72 @@
                     }
                     else
                     {
-
+                        <button data-bs-target="#modalBP" data-bs-toggle="modal" class="btn btn-secondary btn-sm"
+                                @*data-url="@Url.Action("EditBusinessPlan",new { id=item.Id})">*@
+                                data-url="@Url.Action("EditBusinessPlan", "BusinessPlanProject", new { id = item.Id })">
+                            Modifier le buisiness plan
+                        </button>
                         if (item.EtapeId == 1)
                         {
                             <button data-bs-target="#modalBP" data-bs-toggle="modal" class="btn btn-dark btn-sm clignote"
-                                    @*data-url="@Url.Action("EditBusinessPlan",new { id=item.Id})">*@
-                                    data-url="@Url.Action("EditBusinessPlan", "BusinessPlanProject", new { id = item.NumeroSIEJE })">
+                                    data-url="@Url.Action("AddInvestissement2", "BusinessPlanProject", new { id = item.Id })">
                                 Etape 02 Investissement
                             </button>
                         }
                         else
                         {
-                            <button data-bs-target="#modalBP" data-bs-toggle="modal" class="btn btn-dark btn-sm clignote"
-                                    @*data-url="@Url.Action("EditBusinessPlan",new { id=item.Id})">*@
-                                    data-url="@Url.Action("EditBusinessPlan", "BusinessPlanProject", new { id = item.NumeroSIEJE })">
-                                Compléter le business plan Edit
-                            </button>
-                        }
+                            if (item.EtapeId == 2)
+                            {
+                                <button data-bs-target="#modalBP" data-bs-toggle="modal" class="btn btn-dark btn-sm clignote"
+                                        @*data-url="@Url.Action("EditBusinessPlan",new { id=item.Id})">*@
+                                        data-url="@Url.Action("DetailInvestissement", "BusinessPlanProject", new { id = item.NumeroSIEJE })">
+                                    Etape 03 Chiffre d'affaires
+                                </button>
+                            }
+                            else
+                            {
+                                if (item.EtapeId == 3)
+                                {
+                                    <button data-bs-target="#modalBP" data-bs-toggle="modal" class="btn btn-dark btn-sm clignote"
+                                            @*data-url="@Url.Action("EditBusinessPlan",new { id=item.Id})">*@
+                                            data-url="@Url.Action("EditBusinessPlan", "BusinessPlanProject", new { id = item.Id })">
+                                        Etape 04 Achats directs
+                                    </button>
 
+                                    <a asp-action="index" asp-controller="home" target="_parent">Etape 04 Achats directs</a>
+                                }
+                                else
+                                {
+                                    if (item.EtapeId == 4)
+                                    {
+                                        <button data-bs-target="#modalBP" data-bs-toggle="modal" class="btn btn-dark btn-sm clignote"
+                                                @*data-url="@Url.Action("EditBusinessPlan",new { id=item.Id})">*@
+                                                data-url="@Url.Action("EditBusinessPlan", "BusinessPlanProject", new { id = item.Id })">
+                                            Etape 05 Masse salariale
+                                        </button>
+                                    }
+                                    else
+                                    {
+                                        if (item.EtapeId == 5)
+                                        {
+                                            <button data-bs-target="#modalBP" data-bs-toggle="modal" class="btn btn-dark btn-sm clignote"
+                                                    @*data-url="@Url.Action("EditBusinessPlan",new { id=item.Id})">*@
+                                                    data-url="@Url.Action("EditBusinessPlan", "BusinessPlanProject", new { id = item.Id })">
+                                                Etape 06 Charges externes
+                                            </button>
+                                        }
+                                        else
+                                        {
+                                            <button data-bs-target="#modalBP" data-bs-toggle="modal" class="btn btn-dark btn-sm clignote"
+                                                    @*data-url="@Url.Action("EditBusinessPlan",new { id=item.Id})">*@
+                                                    data-url="@Url.Action("EtatsSyntheseBusinessPlan", "BusinessPlanProject", new { id = item.Id })">
+                                                Etats de synthèse
+                                            </button>
+                                        }
+                                    }
+                                }
+                            }
+                        }
 
                     }
 

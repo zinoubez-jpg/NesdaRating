@@ -3,6 +3,7 @@ using Anade.Khadamat.Business;
 using Anade.Khadamat.Domain;
 using Anade.Khadamat.Identity;
 using Anade.Khadamat.Web.Services;
+using Anade.Khadamat.Web.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -51,6 +52,8 @@ namespace Anade.Khadamat.Web.Controllers
         private readonly ReferentielBusinessService<DiffereEmprunt, int> _differeEmpruntBusinessService;
         private readonly ReferentielBusinessService<ExonerationFiscale, int> _exonerationFiscaleBusinessService;
         private readonly TauxStructureFinancementBusinessService _tauxStructureFinancementBusinessService;
+        private readonly ReferentielBusinessService<TypeMateriel, int> _typeMaterielBusinessService;
+        private readonly ReferentielBusinessService<Annee, int> _anneeBusinessService;
 
         public BusinessPlanProjectController(UserService userService,
                                              AnnexeBusinessService annexeBusinessService,
@@ -82,7 +85,10 @@ namespace Anade.Khadamat.Web.Controllers
                                              ReferentielBusinessService<FrequenceActivite, int> frequenceActiviteBusinessService,
                                              ReferentielBusinessService<DiffereEmprunt, int> differeEmpruntBusinessService,
                                              ReferentielBusinessService<ExonerationFiscale, int> exonerationFiscaleBusinessService,
-                                             TauxStructureFinancementBusinessService tauxStructureFinancementBusinessService
+                                             TauxStructureFinancementBusinessService tauxStructureFinancementBusinessService,
+                                             ReferentielBusinessService<TypeMateriel, int> typeMaterielBusinessService,
+                                             ReferentielBusinessService<Annee, int> anneeBusinessService
+
                                              )
         {
             _userService = userService;
@@ -116,6 +122,8 @@ namespace Anade.Khadamat.Web.Controllers
             _differeEmpruntBusinessService = differeEmpruntBusinessService;
             _exonerationFiscaleBusinessService = exonerationFiscaleBusinessService;
             _tauxStructureFinancementBusinessService = tauxStructureFinancementBusinessService;
+            _typeMaterielBusinessService = typeMaterielBusinessService;
+            _anneeBusinessService = anneeBusinessService;
         }
 
         [Authorize(Roles = "Analyste,DG,Admin,AdminAgence,Utilisateur-Rating")]
@@ -219,6 +227,7 @@ namespace Anade.Khadamat.Web.Controllers
 
 
         }
+
         [Authorize(Roles = "Analyste")]
         [HttpGet]
         [Route("{promoteurId}")]
@@ -439,20 +448,25 @@ namespace Anade.Khadamat.Web.Controllers
         [Route("{id}")]
         public async Task<IActionResult> EditBusinessPlan(int id)
         {
-            var model = _ficheNotationBusinessService.GetById(id, _ficheNotationBusinessService.GetDefaultLoadProperties());
-            ViewData["AnnexeID"] = new SelectList(_annexeBusinessService.GetAll(), "Id", "DesignationFr");
-            ViewData["AntenneID"] = new SelectList(_antenneBusinessService.GetAll(), "Id", "DesignationFr");
-            ViewData["ClientID"] = new SelectList(_clientBusinessService.GetAll(), "Id", "DesignationFr");
-            ViewData["ContributionFinanciereID"] = new SelectList(_contributionFinanciereBusinessService.GetAll(), "Id", "DesignationFr");
-            ViewData["ExperienceProfessionnelID"] = new SelectList(_experienceProfessionnelBusinessService.GetAll(), "Id", "DesignationFr");
-            ViewData["DrID"] = new SelectList(_drBusinessService.GetAll(), "Id", "DesignationFr");
-            ViewData["MarketingID"] = new SelectList(_marketingBusinessService.GetAll(), "Id", "DesignationFr");
-            ViewData["VanID"] = new SelectList(_vanBusinessService.GetAll(), "Id", "DesignationFr");
-            ViewData["NiveauFormationID"] = new SelectList(_niveauFormationBusinessService.GetAll(), "Id", "DesignationFr");
-            ViewData["PricingID"] = new SelectList(_pricingBusinessService.GetAll(), "Id", "DesignationFr");
-            ViewData["ConcorrdenceID"] = new SelectList(_concorrdenceBusinessService.GetAll(), "Id", "DesignationFr");
+            //var model = _ficheNotationBusinessService.GetById(id, _ficheNotationBusinessService.GetDefaultLoadProperties());
+            var modelBusinessPlan = _businessPlanBusinessService.GetById(id);
 
-            return PartialView($"_{nameof(EditBusinessPlan)}", model);
+            ViewData["TypeMaterielID"] = new SelectList(_typeMaterielBusinessService.GetAll(), "Id", "DesignationFr");
+
+            var listeAnnee = new SelectList(_anneeBusinessService.GetAll(), "Id", "DesignationFr");
+
+            ViewData["AnneeID"] = listeAnnee;
+
+            if (modelBusinessPlan.Complet)
+            {
+                ViewData["CompletOuiNon"] = "Oui";
+            }
+            else
+            {
+                ViewData["CompletOuiNon"] = "Non";
+            }
+
+            return PartialView($"_{nameof(EditBusinessPlan)}", modelBusinessPlan);
         }
 
         [Authorize(Roles = "Analyste")]
@@ -660,5 +674,254 @@ namespace Anade.Khadamat.Web.Controllers
             return Json(_communeBPBusinessService.GetAll(_communeBPBusinessService.GetDefaultLoadProperties()));
         }
 
+
+
+
+
+
+
+        [Authorize(Roles = "Analyste")]
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> AddInvestissement(int id)
+        {
+            //var model = _ficheNotationBusinessService.GetById(id, _ficheNotationBusinessService.GetDefaultLoadProperties());
+            var modelBusinessPlan = _businessPlanBusinessService.GetById(id);
+
+            ViewData["TypeMaterielID"] = new SelectList(_typeMaterielBusinessService.GetAll(), "Id", "DesignationFr");
+
+            var listeAnnee = new SelectList(_anneeBusinessService.GetAll(), "Id", "DesignationFr");
+
+            ViewData["AnneeID"] = listeAnnee;
+
+            if (modelBusinessPlan.Complet)
+            {
+                ViewData["CompletOuiNon"] = "Oui";
+            }
+            else
+            {
+                ViewData["CompletOuiNon"] = "Non";
+            }
+
+
+
+
+
+
+            AcquisitionDetailInvestissementVM model = new();
+            DetailInvestissement detailInvestissement = new();
+            Acquisition acquisition1 = new();
+            Acquisition acquisition2 = new();
+            Acquisition acquisition3 = new();
+            List<Acquisition> acquisitions = new();
+
+            detailInvestissement.DesignationMateriel = "test";
+            detailInvestissement.DureeAmortissement = 10;
+            detailInvestissement.BusinessPlan = modelBusinessPlan;
+            detailInvestissement.BusinessPlanId = id;
+
+            acquisition1.Montant = 10;
+            acquisition1.DetailInvestissement = detailInvestissement;
+
+            model.acquisition = acquisition1;
+            model.detailInvestissement = detailInvestissement;
+
+            acquisitions.Add(acquisition1);
+
+            acquisition2.Montant = 20;
+            acquisition2.AnneeId = 1;
+            acquisition2.DetailInvestissement = detailInvestissement;
+            acquisitions.Add(acquisition2);
+
+            acquisition3.Montant = 30;
+            acquisition3.AnneeId = 1;
+            acquisition3.DetailInvestissement = detailInvestissement;
+            acquisitions.Add(acquisition3);
+            acquisitions.Add(acquisition3);
+            acquisitions.Add(acquisition3);
+            acquisitions.Add(acquisition3);
+            acquisitions.Add(acquisition3);
+            acquisitions.Add(acquisition3);
+            acquisitions.Add(acquisition3);
+            acquisitions.Add(acquisition3);
+            acquisitions.Add(acquisition3);
+            acquisitions.Add(acquisition3);
+            acquisitions.Add(acquisition3);
+            acquisitions.Add(acquisition3);
+            acquisitions.Add(acquisition3);
+            acquisitions.Add(acquisition3);
+            acquisitions.Add(acquisition3);
+            acquisitions.Add(acquisition3);
+
+            model.acquisitions = acquisitions;
+
+            return PartialView($"_{nameof(AddInvestissement)}", model);
+
+        }
+
+
+
+        [Authorize(Roles = "Analyste")]
+        [HttpGet]
+        [Route("{promoteurId}")]
+        public async Task<IActionResult> DetailInvestissement(string promoteurId)
+        {
+
+            ViewData["AnnexeID"] = new SelectList(_annexeBusinessService.GetAll(), "Id", "DesignationFr");
+            ViewData["AntenneID"] = new SelectList(_antenneBusinessService.GetAll(), "Id", "DesignationFr");
+
+            var user = await _userService.GetUserEagerLoadedAsync(User);
+            var structure = _userService.GetStructureFromUserAsync(user.Id).Result;
+            var designationToCode = new Dictionary<string, string>
+            {
+                { "ANTENNE ROUIBA", "1606" },
+                { "ANTENNE EL HARRACH", "1607" },
+                { "ANTENNE HUSSEIN DEY", "1604" },
+                { "ANTENNE DAR EL BEIDA", "1614" },
+                { "ANTENNE SIDI M''HAMED", "1602" },
+                { "ANTENNE BOUZAREAH", "1612" },
+                { "ANTENNE BAB EL OUED", "1609" },
+                { "ANTENNE ZERALDA", "1605" },
+                { "ANTENNE CHERAGA", "1610" },
+                { "ANTENNE DRARIA", "1611" },
+                { "ANTENNE BIRTOUTA", "1603" },
+                { "ANTENNE BIR MOURAD RAIS", "1608" },
+                { "ANTENNE BARAKI", "1613" }
+            };
+
+            if (designationToCode.TryGetValue(structure.Designation, out var code))
+            {
+                structure.CodeStructure = code;
+            }
+
+            DetailInvestissement detailInvestissement = new();
+            Acquisition acquisition = new();
+
+            acquisition.DetailInvestissement = detailInvestissement;
+
+            var model = detailInvestissement;
+
+            return PartialView($"_{nameof(DetailInvestissement)}");
+        }
+
+        [Authorize(Roles = "Analyste")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Route("{promoteurId}")]
+        public async Task<IActionResult> DetailInvestissement(int Id)
+        {
+            DetailInvestissement detailInvestissement = new();
+            Acquisition acquisition = new();
+
+            acquisition.DetailInvestissement = detailInvestissement;
+
+            var model = detailInvestissement;
+            return PartialView($"_{nameof(DetailInvestissement)}", model);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        [Authorize(Roles = "Analyste")]
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> AddInvestissement2(int id)
+        {
+            var modelBusinessPlan = _businessPlanBusinessService.GetById(id);
+
+            ViewData["TypeMaterielID"] = new SelectList(_typeMaterielBusinessService.GetAll(), "Id", "CodeDesignationFr");
+            ViewData["BusinessPlanID"] = id;
+
+            var listeAnnee = new SelectList(_anneeBusinessService.GetAll(), "Id", "DesignationFr");
+
+            ViewData["AnneeID"] = listeAnnee;
+
+            if (modelBusinessPlan.Complet)
+            {
+                ViewData["CompletOuiNon"] = "Oui";
+            }
+            else
+            {
+                ViewData["CompletOuiNon"] = "Non";
+            }
+
+
+
+
+
+
+            Investissement model1 = new();
+            //Investissement model2 = new();
+
+            //DetailInvestissement detailInvestissement = new();
+            //Acquisition acquisition1 = new();
+            //Acquisition acquisition2 = new();
+            //Acquisition acquisition3 = new();
+            //List<Acquisition> acquisitions = new();
+
+            //detailInvestissement.DesignationMateriel = "test";
+            //detailInvestissement.DureeAmortissement = 10;
+            //detailInvestissement.BusinessPlan = modelBusinessPlan;
+            //detailInvestissement.BusinessPlanId = id;
+
+            //acquisition1.Montant = 10;
+            //acquisition1.DetailInvestissement = detailInvestissement;
+
+            //model1.DesignationMateriel = "Test";
+            //model1.DureeAmortissement = 0;
+            //model1.Montant01 = 10;
+            //model1.Montant02 = 20;
+            //model1.Montant03 = 30;
+            //model1.Montant04 = 40;
+            //model1.Montant05 = 50;
+            //model1.Montant06 = 60;
+            //model1.Montant07 = 70;
+            //model1.TypeMaterielId = 1;
+            //model1.TypeMateriel = _typeMaterielBusinessService.GetById(1);
+            model1.Investissements = new List<Investissement>();
+
+            //model2.DesignationMateriel = "Test";
+            //model2.DureeAmortissement = 0;
+            //model2.Montant01 = 10;
+            //model2.Montant02 = 20;
+            //model2.Montant03 = 30;
+            //model2.Montant04 = 40;
+            //model2.Montant05 = 50;
+            //model2.Montant06 = 60;
+            //model2.Montant07 = 70;
+            //model2.TypeMaterielId = 1;
+            //model2.TypeMateriel = _typeMaterielBusinessService.GetById(1);
+            //model2.Investissements = new List<Investissement>();
+
+            //model1.Investissements.Add(model2);
+
+            return PartialView($"_{nameof(AddInvestissement2)}", model1);
+
+        }
+
+        [Authorize(Roles = "Analyste")]
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        //[Route("{id}")]
+        public async Task<IActionResult> AddInvestissement2([FromBody] string[] model)
+        {
+           
+            Investissement model1 = new();
+
+            model1.Investissements = new List<Investissement>();
+
+            return PartialView($"_{nameof(AddInvestissement2)}", model1);
+
+        }
     }
 }
