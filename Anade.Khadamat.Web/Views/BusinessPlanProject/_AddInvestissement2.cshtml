@@ -78,6 +78,10 @@
                                             <span class="form-label">Coût du projet Model</span>
                                             <input id="BusinessPlanID" value="@(ViewBag.BusinessPlanID)" class="form-control">
                                         </div>
+                                        <div class="form-group">
+                                            <span class="form-label">Coût du projet Model</span>
+                                            <input id="NumeroSIEJE" value="@(ViewBag.NumeroSIEJE)" class="form-control">
+                                        </div>
                                     </div>
 
                                     <div class="row">
@@ -260,7 +264,7 @@
                                                     }
                                                 </tbody>
                                             </table>
-                                        </div>                                       
+                                        </div>
                                     </div>
 
                                     <div class="form-group modal-footer">
@@ -603,13 +607,17 @@
                 for (var i = 1; i < rowCount; i++) {
                     var row = table.rows[i];
 
-                    postData.push(row.cells[1].innerHTML);
-                    postData.push(row.cells[2].innerHTML);
-                    postData.push(row.cells[3].innerHTML);
-                    postData.push(row.cells[4].innerHTML);
-
+                    postData.push(row.cells[1].innerText);
+                    postData.push(row.cells[2].innerText);
+                    postData.push(row.cells[3].innerText);
+                    postData.push(row.cells[4].innerText);
+                    postData.push(row.cells[5].innerText);
+                    postData.push(row.cells[6].innerText);
+                    postData.push(row.cells[7].innerText);
+                    postData.push(row.cells[8].innerText);
+                    postData.push(row.cells[9].innerText);
+                    postData.push(row.cells[10].innerText);
                 }
-
             }
 
             var postData1 = {
@@ -634,12 +642,17 @@
                 dataType: "json",
                 data: JSON.stringify(postData),
                 success: function (result) {
-                    alert("Success : Add Investissement2");
+                    $("#modalMessages").html(result.messages);
+                    $('#modalBP').modal('hide');
+                    location.reload();
+                    /*window.location = "/BusinessPlanProject/Details?id=" + NumeroSIEJE.value;*/
+                    @*window.location ='@Url.Action("Details", "BusinessPlanProject", new { id = NumeroSIEJE.value })';*@
                 },
                 error: function () {
                     alert("Erreur : Add Investissement2");
                 }
             });
+
         });
     });
 
@@ -734,46 +747,6 @@
 
     }
 
-    function Verif_Champs_Init() {
-
-        var e = document.getElementById("CategorieId");
-
-        var CategorieValue = e.value;
-
-        e = document.getElementById("TypeActiviteId");
-        var TypeActiviteValue = e.value;
-
-        e = document.getElementById("FormeJuridiqueId");
-        var FormeJuridiqueValue = e.value;
-
-        e = document.getElementById("TypeFinancementId");
-        var TypeFinancementValue = e.value;
-
-        e = document.getElementById("RegimeImpositionId");
-        var RegimeImpositionValue = e.value;
-
-        e = document.getElementById("CommuneBPId");
-        var CommuneBPValue = e.value;
-
-        e = document.getElementById("ExonerationTVAselect2");
-        var ExonerationTVAValue = e.value;
-
-        if (CoutProjet == "" || CategorieValue == ""
-            || TypeActiviteValue == ""
-            || FormeJuridiqueValue == ""
-            || TypeFinancementValue == ""
-            || RegimeImpositionValue == ""
-            || CommuneBPValue == ""
-            || ExonerationTVAValue == "") {
-
-            return true;
-        }
-        else {
-
-            return false;
-        }
-    }
-
     function GetValueStringModel() {
 
         CoutProjetModel.value = parseFloat(supp_espace_montant(CoutProjet.value));
@@ -798,7 +771,38 @@
 
 <script language="javascript">
 
+    function Verif_Champs_Init() {
+
+        var e = document.getElementById("TypeMaterielId");
+
+        var TypeMaterielValue = e.value;
+
+        if (TypeMaterielValue == "0"
+            || DesignationMateriel.value == ""
+            || DureeAmortissement.value == ""
+            || MontantAcqui01.value == ""
+            || MontantAcqui02.value == ""
+            || MontantAcqui03.value == ""
+            || MontantAcqui04.value == ""
+            || MontantAcqui05.value == ""
+            || MontantAcqui06.value == ""
+            || MontantAcqui07.value == ""
+        ) {
+            return true;
+        }
+        else {
+
+            return false;
+        }
+    }
+
     function addRow(tableAID) {
+
+        if (Verif_Champs_Init() == true) {
+            return;
+        }
+
+
 
         var table = document.getElementById(tableAID);
 
@@ -839,7 +843,7 @@
 
         var cell3 = row.insertCell(3);
         var element3 = document.createElement("td");
-        var da = document.createTextNode(DureeAmortissement.value);
+        var da = document.createTextNode(supp_espace_montant(DureeAmortissement.value));
 
         element3.appendChild(da);
         cell3.appendChild(element3);
@@ -847,7 +851,7 @@
         var cell4 = row.insertCell(4);
         var element4 = document.createElement("td");
 
-        var mm = document.createTextNode(MontantAcqui01.value);
+        var mm = document.createTextNode(supp_espace_montant(MontantAcqui01.value));
 
         element4.appendChild(mm);
         cell4.appendChild(element4);
@@ -855,7 +859,7 @@
         var cell5 = row.insertCell(5);
         var element5 = document.createElement("td");
 
-        var mt02 = document.createTextNode(MontantAcqui02.value);
+        var mt02 = document.createTextNode(supp_espace_montant(MontantAcqui02.value));
 
         element5.appendChild(mt02);
         cell5.appendChild(element5);
@@ -863,7 +867,7 @@
         var cell6 = row.insertCell(6);
         var element6 = document.createElement("td");
 
-        var mt03 = document.createTextNode(MontantAcqui03.value);
+        var mt03 = document.createTextNode(supp_espace_montant(MontantAcqui03.value));
 
         element6.appendChild(mt03);
         cell6.appendChild(element6);
@@ -871,7 +875,7 @@
         var cell7 = row.insertCell(7);
         var element7 = document.createElement("td");
 
-        var mt04 = document.createTextNode(MontantAcqui04.value);
+        var mt04 = document.createTextNode(supp_espace_montant(MontantAcqui04.value));
 
         element7.appendChild(mt04);
         cell7.appendChild(element7);
@@ -879,7 +883,7 @@
         var cell8 = row.insertCell(8);
         var element8 = document.createElement("td");
 
-        var mt05 = document.createTextNode(MontantAcqui05.value);
+        var mt05 = document.createTextNode(supp_espace_montant(MontantAcqui05.value));
 
         element8.appendChild(mt05);
         cell8.appendChild(element8);
@@ -887,7 +891,7 @@
         var cell9 = row.insertCell(9);
         var element9 = document.createElement("td");
 
-        var mt06 = document.createTextNode(MontantAcqui06.value);
+        var mt06 = document.createTextNode(supp_espace_montant(MontantAcqui06.value));
 
         element9.appendChild(mt06);
         cell9.appendChild(element9);
@@ -895,7 +899,7 @@
         var cell10 = row.insertCell(10);
         var element10 = document.createElement("td");
 
-        var mt07 = document.createTextNode(MontantAcqui07.value);
+        var mt07 = document.createTextNode(supp_espace_montant(MontantAcqui07.value));
 
         element10.appendChild(mt07);
         cell10.appendChild(element10);
