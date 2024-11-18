@@ -967,5 +967,104 @@ namespace Anade.Khadamat.Web.Controllers
 
             
         }
+
+
+
+
+
+
+
+        [Authorize(Roles = "Analyste")]
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> AddChiffreAcffaires(int id)
+        {
+            var modelBusinessPlan = _businessPlanBusinessService.GetById(id);
+
+
+            ViewData["BusinessPlanID"] = id;
+            ViewData["NumeroSIEJE"] = modelBusinessPlan.NumeroSIEJE;
+
+            var listeAnnee = new SelectList(_anneeBusinessService.GetAll(), "Id", "DesignationFr");
+
+            ViewData["AnneeID"] = listeAnnee;
+
+            if (modelBusinessPlan.Complet)
+            {
+                ViewData["CompletOuiNon"] = "Oui";
+            }
+            else
+            {
+                ViewData["CompletOuiNon"] = "Non";
+            }
+
+
+            ChiffreAffaire model = new();
+
+            model.ChiffresAffaire = new List<ChiffreAffaire>();
+
+            return PartialView($"_{nameof(AddChiffreAcffaires)}", model);
+
+        }
+
+        [Authorize(Roles = "Analyste")]
+        [HttpPost]
+        public async Task<IActionResult> AddChiffreAcffaires([FromBody] string[] model)
+        {
+            int businessPlanId = Int32.Parse(model[0]);
+            BusinessPlan businessPlan = _businessPlanBusinessService.GetById(businessPlanId);
+
+            BusinessResult businessResult;
+
+
+            List<DetailInvestissement> detailsInvestissement = new();
+
+            for (int i = 1; i < model.Length; i += 10)
+            {
+                TypeMateriel typesMateriel = new();
+                DetailInvestissement detailInvestissement = new();
+                List<Acquisition> acquisitions = new();
+
+                typesMateriel = _typeMaterielBusinessService.GetSingle(x => x.Code == model[i].Substring(1, 2));
+
+                detailInvestissement.BusinessPlanId = businessPlanId;
+                detailInvestissement.TypeMaterielId = typesMateriel.Id;
+                detailInvestissement.DesignationMateriel = model[i + 1];
+                detailInvestissement.DureeAmortissement = Int32.Parse(model[i + 2]);
+
+                for (int j = 0; j < 7; j++)
+                {
+                    Acquisition acquisitionItem = new();
+
+                    acquisitionItem.AnneeId = j + 1;
+                    acquisitionItem.Montant = Int32.Parse(model[i + 3 + j]);
+                    acquisitions.Add(acquisitionItem);
+                }
+
+                detailInvestissement.Acquisitions = acquisitions;
+
+                detailsInvestissement.Add(detailInvestissement);
+            }
+
+            businessPlan.EtapeId = 2;
+            businessPlan.DetailsInvestissement = detailsInvestissement;
+
+            businessResult = _businessPlanBusinessService.Update(businessPlan);
+
+            if (businessResult.Succeeded)
+            {
+                TempData["Message"] = businessResult.ToBootstrapAlerts();
+                //return RedirectToAction(nameof(InfosBusinessPlan), new { id = businessPlan.NumeroSIEJE });
+                return Json(new { messages = businessResult.ToBootstrapAlerts() });
+            }
+            else
+            {
+                return Json(new { messages = businessResult.ToBootstrapAlerts() });
+            }
+
+            
+        }
+
+
     }
 }

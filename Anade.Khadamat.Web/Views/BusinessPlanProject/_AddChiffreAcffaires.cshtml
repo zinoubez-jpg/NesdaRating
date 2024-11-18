@@ -1,0 +1,1242 @@
+﻿@model Anade.Khadamat.Domain.ChiffreAffaire
+
+<head>
+    <title>Compléter Business Plan</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+
+        .accordionZn:hover {
+            background-color: #06BBCC;
+        }
+
+        .accordionZn:after {
+            content: '\002B';
+            color: #777;
+            font-weight: bold;
+            float: right;
+            margin-left: 5px;
+        }
+
+        .accordionZn {
+            background-color: #F0FBFC;
+            color: #444;
+            cursor: pointer;
+            padding: 18px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 15px;
+            transition: 0.4s;
+        }
+
+        .active:after {
+            content: "\2212";
+        }
+
+        .panel {
+            padding: 0 18px;
+            background-color: white;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.2s ease-out;
+        }
+    </style>
+
+</head>
+
+
+<div class="modal-header">
+    <h5 class="modal-title" id="modalLabel">Compléter Business Plan</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<div class="modal-body">
+    <div id="modalMessages"></div>
+    <div id="booking" class="section">
+        <div class="section-center">
+            <div class="container" style="max-height: 100%">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="booking-form">
+
+                            <form asp-action="AddChiffreAcffaires" asp-controller="BusinessPlanProject"
+                                  data-ajax="true"
+                                  data-ajax-success="AddChiffreAcffaires">
+
+                                <div class="container mt-3">
+
+                                    <h3>Ajouter Chiffre d'acffaires</h3>
+                                    <br>
+
+                                    <div class="col-sm-3" hidden="hidden">
+                                        <div class="form-group">
+                                            <span class="form-label">Coût du projet Model</span>
+                                            <input id="BusinessPlanID" value="@(ViewBag.BusinessPlanID)" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <span class="form-label">Coût du projet Model</span>
+                                            <input id="NumeroSIEJE" value="@(ViewBag.NumeroSIEJE)" class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <span class="form-label">Désignation du Produit/Service</span>
+                                                <input id="DesignationProduitService" asp-for="DesignationProduitService" placeholder="Désignation matériel" class="form-control">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-2">
+                                            <div class="form-group center">
+                                                <button type="button" class="btn btn-outline-success" onclick="addRow('TableA');">Ajouter matériel</button>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-2">
+                                            <div class="form-group center">
+                                                <button type="button" class="btn btn-outline-warning" onclick="InitChamps();">Effacer les données</button>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-2">
+                                            <div class="form-group center">
+                                                <button type="button" class="btn btn-outline-danger" onclick="deleteRow('TableA');">Supprimer matériel</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row">
+
+                                        <div class="col-sm-2">
+                                            <input size="6" id="Annee01" value="Année 01" disabled>
+                                        </div>
+
+                                        <div class="col-sm-3">
+                                            Quantité :
+                                            <input size="6" id="Quantite01" placeholder="0" onkeyup="verif_nombre(this); $(this).val(montant($(this).val().replace(/ /g, '')))">
+                                        </div>
+
+                                        <div class="col-sm-3">
+                                            Prix unitaire :
+                                            <input size="10" id="PrixUnitaire01" placeholder="0.00" onkeyup="verif_nombre(this); $(this).val(montant($(this).val().replace(/ /g, '')))">
+                                        </div>
+
+                                        <div class="col-sm-4">
+                                            Chiffre Affaires :
+                                            <input size="18" id="ChiffreAffaires01" placeholder="0.00" onkeyup="verif_nombre(this); $(this).val(montant($(this).val().replace(/ /g, '')))">
+                                        </div>
+
+                                    </div>
+                                    <br>
+                                    <div class="row">
+
+                                        <div class="col-sm-2">
+                                            <input size="6" id="Annee02" value="Année 02" disabled>
+                                        </div>
+
+                                        <div class="col-sm-3">
+                                            Quantité :
+                                            <input size="6" id="Quantite02" placeholder="0" onkeyup="verif_nombre(this); $(this).val(montant($(this).val().replace(/ /g, '')))">
+                                        </div>
+
+                                        <div class="col-sm-3">
+                                            Prix unitaire :
+                                            <input size="10" id="PrixUnitaire02" placeholder="0.00" onkeyup="verif_nombre(this); $(this).val(montant($(this).val().replace(/ /g, '')))">
+                                        </div>
+
+                                        <div class="col-sm-4">
+                                            Chiffre Affaires :
+                                            <input size="18" id="ChiffreAffaires02" placeholder="0.00" onkeyup="verif_nombre(this); $(this).val(montant($(this).val().replace(/ /g, '')))">
+                                        </div>
+
+                                    </div>
+                                    <br>
+                                    <div class="row">
+
+                                        <div class="col-sm-2">
+                                            <input size="6" id="Annee03" value="Année 03" disabled>
+                                        </div>
+
+                                        <div class="col-sm-3">
+                                            Quantité :
+                                            <input size="6" id="Quantite03" placeholder="0" onkeyup="verif_nombre(this); $(this).val(montant($(this).val().replace(/ /g, '')))">
+                                        </div>
+
+                                        <div class="col-sm-3">
+                                            Prix unitaire :
+                                            <input size="10" id="PrixUnitaire03" placeholder="0.00" onkeyup="verif_nombre(this); $(this).val(montant($(this).val().replace(/ /g, '')))">
+                                        </div>
+
+                                        <div class="col-sm-4">
+                                            Chiffre Affaires :
+                                            <input size="18" id="ChiffreAffaires03" placeholder="0.00" onkeyup="verif_nombre(this); $(this).val(montant($(this).val().replace(/ /g, '')))">
+                                        </div>
+
+                                    </div>
+                                    <br>
+                                    <div class="row">
+
+                                        <div class="col-sm-2">
+                                            <input size="6" id="Annee04" value="Année 04" disabled>
+                                        </div>
+
+                                        <div class="col-sm-3">
+                                            Quantité :
+                                            <input size="6" id="Quantite04" placeholder="0" onkeyup="verif_nombre(this); $(this).val(montant($(this).val().replace(/ /g, '')))">
+                                        </div>
+
+                                        <div class="col-sm-3">
+                                            Prix unitaire :
+                                            <input size="10" id="PrixUnitaire04" placeholder="0.00" onkeyup="verif_nombre(this); $(this).val(montant($(this).val().replace(/ /g, '')))">
+                                        </div>
+
+                                        <div class="col-sm-4">
+                                            Chiffre Affaires :
+                                            <input size="18" id="ChiffreAffaires04" placeholder="0.00" onkeyup="verif_nombre(this); $(this).val(montant($(this).val().replace(/ /g, '')))">
+                                        </div>
+
+                                    </div>
+                                    <br>
+                                    <div class="row">
+
+                                        <div class="col-sm-2">
+                                            <input size="6" id="Annee05" value="Année 05" disabled>
+                                        </div>
+
+                                        <div class="col-sm-3">
+                                            Quantité :
+                                            <input size="6" id="Quantite05" placeholder="0" onkeyup="verif_nombre(this); $(this).val(montant($(this).val().replace(/ /g, '')))">
+                                        </div>
+
+                                        <div class="col-sm-3">
+                                            Prix unitaire :
+                                            <input size="10" id="PrixUnitaire05" placeholder="0.00" onkeyup="verif_nombre(this); $(this).val(montant($(this).val().replace(/ /g, '')))">
+                                        </div>
+
+                                        <div class="col-sm-4">
+                                            Chiffre Affaires :
+                                            <input size="18" id="ChiffreAffaires05" placeholder="0.00" onkeyup="verif_nombre(this); $(this).val(montant($(this).val().replace(/ /g, '')))">
+                                        </div>
+
+                                    </div>
+                                    <br>
+                                    <div class="row">
+
+                                        <div class="col-sm-2">
+                                            <input size="6" id="Annee06" value="Année 06" disabled>
+                                        </div>
+
+                                        <div class="col-sm-3">
+                                            Quantité :
+                                            <input size="6" id="Quantite06" placeholder="0" onkeyup="verif_nombre(this); $(this).val(montant($(this).val().replace(/ /g, '')))">
+                                        </div>
+
+                                        <div class="col-sm-3">
+                                            Prix unitaire :
+                                            <input size="10" id="PrixUnitaire06" placeholder="0.00" onkeyup="verif_nombre(this); $(this).val(montant($(this).val().replace(/ /g, '')))">
+                                        </div>
+
+                                        <div class="col-sm-4">
+                                            Chiffre Affaires :
+                                            <input size="18" id="ChiffreAffaires06" placeholder="0.00" onkeyup="verif_nombre(this); $(this).val(montant($(this).val().replace(/ /g, '')))">
+                                        </div>
+
+                                    </div>
+                                    <br>
+                                    <div class="row">
+
+                                        <div class="col-sm-2">
+                                            <input size="6" id="Annee07" value="Année 07" disabled>
+                                        </div>
+
+                                        <div class="col-sm-3">
+                                            Quantité :
+                                            <input size="6" id="Quantite07" placeholder="0" onkeyup="verif_nombre(this); $(this).val(montant($(this).val().replace(/ /g, '')))">
+                                        </div>
+
+                                        <div class="col-sm-3">
+                                            Prix unitaire :
+                                            <input size="10" id="PrixUnitaire07" placeholder="0.00" onkeyup="verif_nombre(this); $(this).val(montant($(this).val().replace(/ /g, '')))">
+                                        </div>
+
+                                        <div class="col-sm-4">
+                                            Chiffre Affaires :
+                                            <input size="18" id="ChiffreAffaires07" placeholder="0.00" onkeyup="verif_nombre(this); $(this).val(montant($(this).val().replace(/ /g, '')))">
+                                        </div>
+
+                                    </div>
+                                    <br>
+
+                                    <div class="card text-bg-primary mb-3">
+
+                                        <div class="card-header">Liste de materiel</div>
+
+                                        <div class="card-body">
+                                            <table class="table display compact" id="TableA">
+                                                <thead>
+                                                    <tr>
+                                                        <th></th>
+                                                        <th>
+                                                            Désignation
+                                                        </th>
+                                                        <th>
+                                                            Année
+                                                        </th>
+                                                        <th>
+                                                            Quantité
+                                                        </th>
+                                                        <th>
+                                                            Prix unitaire
+                                                        </th>
+                                                        <th>
+                                                            Chiffre d'affaires
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var item in Model.ChiffresAffaire)
+                                                    {
+                                                        <tr>
+                                                            <td rowspan="7">
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td rowspan="7">
+                                                                @Html.DisplayFor(modelItem => item.DesignationProduitService)
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td>
+                                                                01
+                                                            </td>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => item.Quantite01)
+                                                            </td>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => item.PrixUnitaire01)
+                                                            </td>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => item.ChiffreAffaire01)
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td>
+                                                                02
+                                                            </td>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => item.Quantite02)
+                                                            </td>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => item.PrixUnitaire02)
+                                                            </td>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => item.ChiffreAffaire02)
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td>
+                                                                03
+                                                            </td>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => item.Quantite03)
+                                                            </td>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => item.PrixUnitaire03)
+                                                            </td>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => item.ChiffreAffaire03)
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td>
+                                                                04
+                                                            </td>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => item.Quantite04)
+                                                            </td>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => item.PrixUnitaire04)
+                                                            </td>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => item.ChiffreAffaire04)
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td>
+                                                                05
+                                                            </td>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => item.Quantite05)
+                                                            </td>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => item.PrixUnitaire05)
+                                                            </td>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => item.ChiffreAffaire05)
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td>
+                                                                06
+                                                            </td>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => item.Quantite06)
+                                                            </td>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => item.PrixUnitaire06)
+                                                            </td>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => item.ChiffreAffaire06)
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td>
+                                                                07
+                                                            </td>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => item.Quantite07)
+                                                            </td>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => item.PrixUnitaire07)
+                                                            </td>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => item.ChiffreAffaire07)
+                                                            </td>
+                                                        </tr>
+
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group modal-footer">
+                                        <button id="EnvoyerId" type="button" class="btn btn-outline-success">Envoyer</button>
+                                        <button class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                                    </div>
+
+                                </div>
+
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+
+    var acc = document.getElementsByClassName("accordionZn");
+    var i;
+
+    for (i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function () {
+            this.classList.toggle("active");
+            var panel = this.nextElementSibling;
+            if (panel.style.maxHeight) {
+                panel.style.maxHeight = null;
+            } else {
+                panel.style.maxHeight = panel.scrollHeight + "px";
+            }
+        });
+    }
+
+</script>
+
+<script>
+
+    function setActive(buttonContainerId, inputId, value) {
+        // Désactiver tous les boutons dans le conteneur spécifié
+        var buttons = document.querySelectorAll('#' + buttonContainerId + ' .value-btn');
+        buttons.forEach(function (button) {
+            button.classList.remove('active');
+        });
+
+        // Activer le bouton cliqué
+        buttons[value].classList.add('active');
+
+        // Mettre la valeur dans l'input correspondant
+        document.getElementById(inputId).value = value;
+    }
+
+</script>
+
+<script>
+
+    $(document).ready(function () {
+        var i = 1;
+        $("#add_row").click(function () {
+            b = i - 1;
+            $('#addr' + i).html($('#addr' + b).html()).find('td:first-child').html(i + 1);
+            $('#tab_logic').append('<tr id="addr' + (i + 1) + '"></tr>');
+            i++;
+        });
+        $("#delete_row").click(function () {
+            if (i > 1) {
+                $("#addr" + (i - 1)).html('');
+                i--;
+            }
+        });
+
+    });
+
+</script>
+
+<script>
+
+    function SimulerStructure() {
+
+        if (Verif_Champs_Init() == true) {
+            return;
+        }
+
+        var e = document.getElementById("CategorieId");
+
+        var CategorieValue = e.value;
+        var CategorieText = e.options[e.selectedIndex].text;
+
+        e = document.getElementById("TypeActiviteId");
+        var TypeActiviteValue = e.value;
+        var TypeActiviteText = e.options[e.selectedIndex].text;
+
+        e = document.getElementById("FormeJuridiqueId");
+        var FormeJuridiqueValue = e.value;
+        var FormeJuridiqueText = e.options[e.selectedIndex].text;
+
+        e = document.getElementById("TypeFinancementId");
+        var TypeFinancementValue = e.value;
+        var TypeFinancementText = e.options[e.selectedIndex].text;
+
+        e = document.getElementById("RegimeImpositionId");
+        var RegimeImpositionValue = e.value;
+        var RegimeImpositionText = e.options[e.selectedIndex].text;
+
+        e = document.getElementById("CommuneBPId");
+        var CommuneBPValue = e.value;
+        var CommuneBPText = e.options[e.selectedIndex].text;
+
+        var x = document.getElementById("ExonerationTVAselect2");
+
+        if (TypeFinancementValue == 1) {
+
+            ApportPersonnel.value = CoutProjet.value;
+            TauxApportPersonnel.value = 100;
+            CMT.value = 0;
+            TauxCMT.value = 0;
+            PNRClassique.value = 0;
+            TauxPNRClassique.value = 0;
+
+            document.getElementById("TauxStructureFinancementID").value = 1;
+
+            SelectTauxStructureFinancement();
+        }
+        else {
+
+            ValeurCoutProjet = supp_espace_montant(CoutProjet.value);
+
+            if (TypeFinancementValue == 2) {
+
+                DiffereEmprunt.value = "1 an";
+
+                document.getElementById("DiffereEmpruntID").value = 1;
+
+                ApportPersonnel.value = parseFloat(ValeurCoutProjet) * 50 / 100;
+                TauxApportPersonnel.value = 50;
+                CMT.value = 0;
+                TauxCMT.value = 0;
+                PNRClassique.value = parseFloat(ValeurCoutProjet) * 50 / 100;
+                TauxPNRClassique.value = 50;
+
+                ApportPersonnel.value = montant(ApportPersonnel.value);
+                CMT.value = montant(CMT.value);
+                PNRClassique.value = montant(PNRClassique.value);
+
+                document.getElementById("TauxStructureFinancementID").value = 2;
+
+                SelectTauxStructureFinancement();
+            }
+            else {
+                if (TypeFinancementValue == 3) {
+
+                    DiffereEmprunt.value = "1 an et 6 mois";
+
+                    document.getElementById("DiffereEmpruntID").value = 2;
+
+                    if (CategorieValue == 1) {
+
+                        ApportPersonnel.value = parseFloat(ValeurCoutProjet) * 5 / 100;
+                        TauxApportPersonnel.value = 5;
+                        CMT.value = parseFloat(ValeurCoutProjet) * 70 / 100;
+                        TauxCMT.value = 70;
+                        PNRClassique.value = parseFloat(ValeurCoutProjet) * 25 / 100;
+                        TauxPNRClassique.value = 25;
+
+                        ApportPersonnel.value = montant(ApportPersonnel.value);
+                        CMT.value = montant(CMT.value);
+                        PNRClassique.value = montant(PNRClassique.value);
+
+                        document.getElementById("TauxStructureFinancementID").value = 3;
+
+                        SelectTauxStructureFinancement();
+                    }
+                    else {
+                        if (TypeZoneId.value == 1) {
+
+                            ApportPersonnel.value = parseFloat(ValeurCoutProjet) * 10 / 100;
+                            TauxApportPersonnel.value = 10;
+                            CMT.value = parseFloat(ValeurCoutProjet) * 70 / 100;
+                            TauxCMT.value = 70;
+                            PNRClassique.value = parseFloat(ValeurCoutProjet) * 20 / 100;
+                            TauxPNRClassique.value = 20;
+
+                            ApportPersonnel.value = montant(ApportPersonnel.value);
+                            CMT.value = montant(CMT.value);
+                            PNRClassique.value = montant(PNRClassique.value);
+
+                            document.getElementById("TauxStructureFinancementID").value = 4;
+
+                            SelectTauxStructureFinancement();
+                        }
+                        else {
+                            if (TypeZoneId.value == 2) {
+
+                                ApportPersonnel.value = parseFloat(ValeurCoutProjet) * 12 / 100;
+                                TauxApportPersonnel.value = 12
+                                CMT.value = parseFloat(ValeurCoutProjet) * 70 / 100;
+                                TauxCMT.value = 70;
+                                PNRClassique.value = parseFloat(ValeurCoutProjet) * 18 / 100;
+                                TauxPNRClassique.value = 18;
+
+                                ApportPersonnel.value = montant(ApportPersonnel.value);
+                                CMT.value = montant(CMT.value);
+                                PNRClassique.value = montant(PNRClassique.value);
+
+                                document.getElementById("TauxStructureFinancementID").value = 5;
+
+                                SelectTauxStructureFinancement();
+                            }
+                            else {
+
+                                ApportPersonnel.value = parseFloat(ValeurCoutProjet) * 15 / 100;
+                                TauxApportPersonnel.value = 15
+                                CMT.value = parseFloat(ValeurCoutProjet) * 70 / 100;
+                                TauxCMT.value = 70;
+                                PNRClassique.value = parseFloat(ValeurCoutProjet) * 15 / 100;
+                                TauxPNRClassique.value = 15;
+
+                                ApportPersonnel.value = montant(ApportPersonnel.value);
+                                CMT.value = montant(CMT.value);
+                                PNRClassique.value = montant(PNRClassique.value);
+
+                                document.getElementById("TauxStructureFinancementID").value = 6;
+
+                                SelectTauxStructureFinancement();
+                            }
+                        }
+                    }
+                }
+                /*Cas d'erreur affichage 0 par tous*/
+                else {
+
+                    ApportPersonnel.value = 0;
+                    TauxApportPersonnel.value = 0;
+                    CMT.value = 0;
+                    TauxCMT.value = 0;
+                    PNRClassique.value = 0;
+                    TauxPNRClassique.value = 0;
+                }
+            }
+        }
+
+        if (TypeZoneId.value == 1) {
+            if (RegimeImpositionId.value == 1) {
+
+                ExonerationFiscale.value = "10 ans";
+                document.getElementById("ExonerationFiscaleID").value = 3;
+            }
+            else {
+                if (ZonePromouvoir.value == "Oui") {
+
+                    ExonerationFiscale.value = "06 ans";
+                    document.getElementById("ExonerationFiscaleID").value = 2;
+                }
+                else {
+
+                    ExonerationFiscale.value = "03 ans";
+                    document.getElementById("ExonerationFiscaleID").value = 1;
+                }
+            }
+        }
+        else {
+            if (ZonePromouvoir.value == "Oui") {
+
+                ExonerationFiscale.value = "06 ans";
+                document.getElementById("ExonerationFiscaleID").value = 2;
+            }
+            else {
+
+                ExonerationFiscale.value = "03 ans";
+                document.getElementById("ExonerationFiscaleID").value = 1;
+            }
+        }
+
+        if (FormeJuridiqueValue == 1) {
+            if (RegimeImpositionId.value == 1) {
+
+                if (TypeActiviteValue == 1) {
+
+                    TauxIFU.value = "0 %";
+                    TauxIBS.value = "19 %";
+                }
+                else {
+                    if (TypeActiviteValue == 2) {
+
+                        TauxIFU.value = "0 %";
+                        TauxIBS.value = "23 %";
+                    }
+                    else {
+
+                        TauxIFU.value = "0 %";
+                        TauxIBS.value = "26 %";
+                    }
+                }
+            }
+            else {
+                if (TypeActiviteValue == 1) {
+
+                    TauxIBS.value = "0 %";
+                    TauxIFU.value = "05 %";
+                }
+                else {
+                    if (TypeActiviteValue == 3) {
+
+                        TauxIBS.value = "0 %";
+                        TauxIFU.value = "12 %";
+                    }
+                }
+            }
+        }
+        else {
+            TauxIFU.value = "0 %";
+            TauxIBS.value = "0 %";
+        }
+
+        GetValueStringModel();
+    }
+
+    $(document).ready(function () {
+        $('#EnvoyerId').on('click', function () {
+
+            const _url = "/BusinessPlanProject/AddChiffreAcffaires";
+
+            var table = document.getElementById("TableA");
+
+            var rowCount = table.rows.length;
+
+            if (rowCount == 1) {
+                return;
+            }
+            else {
+                var postData = [];
+                postData.push(BusinessPlanID.value);
+
+                for (var j = 1; j <= rowCount - 7; j = j + 7) {
+
+                    var row_j = table.rows[j];
+
+                    postData.push(row_j.cells[1].innerText);
+                    postData.push(row_j.cells[2].innerText);
+                    postData.push(row_j.cells[3].innerText);
+                    postData.push(row_j.cells[4].innerText);
+                    postData.push(row_j.cells[5].innerText);
+
+                    for (var i = j + 1; i < j + 7; i++) {
+
+                        var row_i = table.rows[i];
+
+                        postData.push(row_i.cells[0].innerText);
+                        postData.push(row_i.cells[1].innerText);
+                        postData.push(row_i.cells[2].innerText);
+                        postData.push(row_i.cells[3].innerText);
+
+                    }
+                }
+            }
+
+            $.ajax({
+                type: "POST",
+                url: _url,
+                contentType: 'application/json; charset=utf-8',
+                dataType: "json",
+                data: JSON.stringify(postData),
+                success: function (result) {
+                    $("#modalMessages").html(result.messages);
+                    $('#modalBP').modal('hide');
+                    location.reload();
+                },
+                error: function () {
+                    alert("Erreur : Add ChiffreAcffaires");
+                }
+            });
+
+        });
+    });
+
+</script>
+
+<script>
+
+    function checkedExonerationTVA() {
+
+        InitChamps();
+
+        var e = document.getElementById("ExonerationTVAselect2");
+
+        var ExonerationTVAValue = e.value;
+        var ExonerationTVAText = e.options[e.selectedIndex].text;
+
+        if (ExonerationTVAValue == "true") {
+            document.getElementById("ExonerationTVA").checked = true;
+        }
+        else {
+            if (ExonerationTVAValue == "false") {
+                document.getElementById("ExonerationTVA").checked = false;
+            }
+            else {
+                document.getElementById("ExonerationTVA").checked = null;
+            }
+        }
+
+    }
+
+    function SelectTauxStructureFinancement() {
+
+        var e = document.getElementById("TauxStructureFinancementID");
+
+        var TauxStructureFinancementIdValue = e.value;
+        var TauxStructureFinancementIdText = e.options[e.selectedIndex].text;
+
+        const TauxApportPersonnelValue = TauxStructureFinancementIdText.substr(1, 3);
+        const TauxCMTValue = TauxStructureFinancementIdText.substr(5, 3);
+        const TauxPNRClassiqueValue = TauxStructureFinancementIdText.substr(9, 3);
+
+        TauxApportPersonnel.value = parseInt(TauxApportPersonnelValue);
+        TauxCMT.value = parseInt(TauxCMTValue);
+        TauxPNRClassique.value = parseInt(TauxPNRClassiqueValue);
+    }
+
+    function montant(val_montant) {
+        x = val_montant.split('.');
+        x1 = x[0];
+        x2 = x.length > 1 ? '.' + x[1] : '';
+        var rgx = /(\d+)(\d{3})/;
+        while (rgx.test(x1)) {
+            x1 = x1.replace(rgx, '$1' + ' ' + '$2');
+        }
+
+        return x1 + x2;
+    }
+
+    function verif_nombre(champ) {
+        var chiffres = new RegExp("[0-9]");
+        var verif;
+        var points = 0;
+
+        for (x = 0; x < champ.value.length; x++) {
+            verif = chiffres.test(champ.value.charAt(x));
+            if (champ.value.charAt(x) == "." && x != 0) { verif = true; points++; }
+            if (points > 1) { verif = false; points = 1; }
+            if (verif == false) { champ.value = champ.value.substr(0, x) + champ.value.substr(x + 1, champ.value.length - x + 1); x--; }
+        }
+    }
+
+    function supp_espace_montant(val_montant) {
+
+        val_montant_sans_espace = val_montant.replaceAll(" ", "");
+
+        return val_montant_sans_espace;
+    }
+
+    function InitChamps() {
+
+        DesignationMateriel.value = "";
+        DureeAmortissement.value = "";
+        MontantAcqui01.value = "";
+        MontantAcqui02.value = "";
+        MontantAcqui03.value = "";
+        MontantAcqui04.value = "";
+        MontantAcqui05.value = "";
+        MontantAcqui06.value = "";
+        MontantAcqui07.value = "";
+
+    }
+
+    function GetValueStringModel() {
+
+        CoutProjetModel.value = parseFloat(supp_espace_montant(CoutProjet.value));
+        ApportPersonnelModel.value = parseFloat(supp_espace_montant(ApportPersonnel.value));
+        CMTModel.value = parseFloat(supp_espace_montant(CMT.value));
+        PNRClassiqueModel.value = parseFloat(supp_espace_montant(PNRClassique.value));
+        PNRSupplementaireModel.value = parseFloat(supp_espace_montant(PNRSupplementaire.value));
+        ApportSupplementaireModel.value = parseFloat(supp_espace_montant(ApportSupplementaire.value));
+    }
+
+</script>
+
+<script>
+
+    window.setTimeout(function () {
+        $(".alert").fadeTo(500, 0).slideUp(500, function () {
+            $(this).remove();
+        });
+    }, 2000);
+
+</script>
+
+<script language="javascript">
+
+    function Verif_Champs_Init() {
+
+        if (DesignationProduitService.value == ""
+
+            || Quantite01.value == ""
+            || PrixUnitaire01.value == ""
+            || ChiffreAffaires01.value == ""
+
+            || Quantite02.value == ""
+            || PrixUnitaire02.value == ""
+            || ChiffreAffaires02.value == ""
+
+            || Quantite03.value == ""
+            || PrixUnitaire03.value == ""
+            || ChiffreAffaires03.value == ""
+
+            || Quantite04.value == ""
+            || PrixUnitaire04.value == ""
+            || ChiffreAffaires04.value == ""
+
+            || Quantite05.value == ""
+            || PrixUnitaire05.value == ""
+            || ChiffreAffaires05.value == ""
+
+            || Quantite06.value == ""
+            || PrixUnitaire06.value == ""
+            || ChiffreAffaires06.value == ""
+
+            || Quantite07.value == ""
+            || PrixUnitaire07.value == ""
+            || ChiffreAffaires07.value == ""
+        ) {
+            return true;
+        }
+        else {
+
+            return false;
+        }
+    }
+
+    function addRow(tableAID) {
+
+        if (Verif_Champs_Init() == true) {
+            return;
+        }
+
+        var table = document.getElementById(tableAID);
+
+        var rowCount = table.rows.length;
+
+        if (rowCount == 1) {
+            var tbodyRef = document.getElementById(tableAID).getElementsByTagName('tbody')[0];
+            var row = tbodyRef.insertRow();
+        }
+        else {
+            var row = table.insertRow(rowCount);
+        }
+
+        var cell0 = row.insertCell(0);
+        var element0 = document.createElement("input");
+        element0.type = "checkbox";
+        element0.name = "chkbox[]";
+        cell0.setAttribute('rowSpan', '7');
+        cell0.appendChild(element0);
+
+        var cell1 = row.insertCell(1);
+        var element1 = document.createElement("td");
+        var dps = document.createTextNode(DesignationProduitService.value);
+
+        element1.appendChild(dps);
+        cell1.setAttribute('rowSpan', '7');
+        cell1.appendChild(element1);
+
+
+        var cell2 = row.insertCell(2);
+        var element2 = document.createElement("td");
+        var a01 = document.createTextNode(Annee01.value);
+
+        element2.appendChild(a01);
+        cell2.appendChild(element2);
+
+        var cell3 = row.insertCell(3);
+        var element3 = document.createElement("td");
+        var q01 = document.createTextNode(Quantite01.value);
+
+        element3.appendChild(q01);
+        cell3.appendChild(element3);
+
+        var cell4 = row.insertCell(4);
+        var element4 = document.createElement("td");
+        var pu01 = document.createTextNode(supp_espace_montant(PrixUnitaire01.value));
+
+        element4.appendChild(pu01);
+        cell4.appendChild(element4);
+
+        var cell5 = row.insertCell(5);
+        var element5 = document.createElement("td");
+        var ca01 = document.createTextNode(supp_espace_montant(ChiffreAffaires01.value));
+
+        element5.appendChild(ca01);
+        cell5.appendChild(element5);
+
+
+        var row2 = table.insertRow(rowCount + 1);
+
+
+        var cell6 = row2.insertCell(0);
+        var element6 = document.createElement("td");
+        var a02 = document.createTextNode(Annee02.value);
+
+        element6.appendChild(a02);
+        cell6.appendChild(element6);
+
+        var cell7 = row2.insertCell(1);
+        var element7 = document.createElement("td");
+        var q02 = document.createTextNode(Quantite02.value);
+
+        element7.appendChild(q02);
+        cell7.appendChild(element7);
+
+        var cell8 = row2.insertCell(2);
+        var element8 = document.createElement("td");
+        var pu02 = document.createTextNode(supp_espace_montant(PrixUnitaire02.value));
+
+        element8.appendChild(pu02);
+        cell8.appendChild(element8);
+
+        var cell9 = row2.insertCell(3);
+        var element9 = document.createElement("td");
+        var ca02 = document.createTextNode(supp_espace_montant(ChiffreAffaires02.value));
+
+        element9.appendChild(ca02);
+        cell9.appendChild(element9);
+
+
+        var row3 = table.insertRow(rowCount + 2);
+
+
+        var cell10 = row3.insertCell(0);
+        var element10 = document.createElement("td");
+        var a03 = document.createTextNode(Annee03.value);
+
+        element10.appendChild(a03);
+        cell10.appendChild(element10);
+
+        var cell11 = row3.insertCell(1);
+        var element11 = document.createElement("td");
+        var q03 = document.createTextNode(Quantite03.value);
+
+        element11.appendChild(q03);
+        cell11.appendChild(element11);
+
+        var cell12 = row3.insertCell(2);
+        var element12 = document.createElement("td");
+        var pu03 = document.createTextNode(supp_espace_montant(PrixUnitaire03.value));
+
+        element12.appendChild(pu03);
+        cell12.appendChild(element12);
+
+        var cell13 = row3.insertCell(3);
+        var element13 = document.createElement("td");
+        var ca03 = document.createTextNode(supp_espace_montant(ChiffreAffaires03.value));
+
+        element13.appendChild(ca03);
+        cell13.appendChild(element13);
+
+
+        var row4 = table.insertRow(rowCount + 3);
+
+
+        var cell14 = row4.insertCell(0);
+        var element14 = document.createElement("td");
+        var a04 = document.createTextNode(Annee04.value);
+
+        element14.appendChild(a04);
+        cell14.appendChild(element14);
+
+        var cell15 = row4.insertCell(1);
+        var element15 = document.createElement("td");
+        var q04 = document.createTextNode(Quantite04.value);
+
+        element15.appendChild(q04);
+        cell15.appendChild(element15);
+
+        var cell16 = row4.insertCell(2);
+        var element16 = document.createElement("td");
+        var pu04 = document.createTextNode(supp_espace_montant(PrixUnitaire04.value));
+
+        element16.appendChild(pu04);
+        cell16.appendChild(element16);
+
+        var cell17 = row4.insertCell(3);
+        var element17 = document.createElement("td");
+        var ca04 = document.createTextNode(supp_espace_montant(ChiffreAffaires04.value));
+
+        element17.appendChild(ca04);
+        cell17.appendChild(element17);
+
+
+        var row5 = table.insertRow(rowCount + 4);
+
+
+        var cell18 = row5.insertCell(0);
+        var element18 = document.createElement("td");
+        var a05 = document.createTextNode(Annee05.value);
+
+        element18.appendChild(a05);
+        cell18.appendChild(element18);
+
+        var cell19 = row5.insertCell(1);
+        var element19 = document.createElement("td");
+        var q05 = document.createTextNode(Quantite05.value);
+
+        element19.appendChild(q05);
+        cell19.appendChild(element19);
+
+        var cell20 = row5.insertCell(2);
+        var element20 = document.createElement("td");
+        var pu05 = document.createTextNode(supp_espace_montant(PrixUnitaire05.value));
+
+        element20.appendChild(pu05);
+        cell20.appendChild(element20);
+
+        var cell21 = row5.insertCell(3);
+        var element21 = document.createElement("td");
+        var ca05 = document.createTextNode(supp_espace_montant(ChiffreAffaires05.value));
+
+        element21.appendChild(ca05);
+        cell21.appendChild(element21);
+
+
+        var row6 = table.insertRow(rowCount + 5);
+
+
+        var cell22 = row6.insertCell(0);
+        var element22 = document.createElement("td");
+        var a06 = document.createTextNode(Annee06.value);
+
+        element22.appendChild(a06);
+        cell22.appendChild(element22);
+
+        var cell23 = row6.insertCell(1);
+        var element23 = document.createElement("td");
+        var q06 = document.createTextNode(Quantite06.value);
+
+        element23.appendChild(q06);
+        cell23.appendChild(element23);
+
+        var cell24 = row6.insertCell(2);
+        var element24 = document.createElement("td");
+        var pu06 = document.createTextNode(supp_espace_montant(PrixUnitaire06.value));
+
+        element24.appendChild(pu06);
+        cell24.appendChild(element24);
+
+        var cell25 = row6.insertCell(3);
+        var element25 = document.createElement("td");
+        var ca06 = document.createTextNode(supp_espace_montant(ChiffreAffaires06.value));
+
+        element25.appendChild(ca06);
+        cell25.appendChild(element25);
+
+
+        var row7 = table.insertRow(rowCount + 6);
+
+
+        var cell26 = row7.insertCell(0);
+        var element26 = document.createElement("td");
+        var a07 = document.createTextNode(Annee07.value);
+
+        element26.appendChild(a07);
+        cell26.appendChild(element26);
+
+        var cell27 = row7.insertCell(1);
+        var element27 = document.createElement("td");
+        var q07 = document.createTextNode(Quantite07.value);
+
+        element27.appendChild(q07);
+        cell27.appendChild(element27);
+
+        var cell28 = row7.insertCell(2);
+        var element28 = document.createElement("td");
+        var pu07 = document.createTextNode(supp_espace_montant(PrixUnitaire07.value));
+
+        element28.appendChild(pu07);
+        cell28.appendChild(element28);
+
+        var cell29 = row7.insertCell(3);
+        var element29 = document.createElement("td");
+        var ca07 = document.createTextNode(supp_espace_montant(ChiffreAffaires07.value));
+
+        element29.appendChild(ca07);
+        cell29.appendChild(element29);
+
+    }
+
+    function deleteRow(tableAID) {
+        try {
+            var table = document.getElementById(tableAID);
+
+            var rowCount = table.rows.length;
+
+            for (var i = 1; i < rowCount; i++) {
+
+                var row = table.rows[i];
+
+                var chkbox = row.cells[0].childNodes[0];
+
+                if (null != chkbox && true == chkbox.checked) {
+
+                    for (var j = i + 6; j >= i; j--) {
+
+                        table.deleteRow(j);
+                        rowCount--;
+                    }
+                }
+            }
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+</script>

@@ -62,7 +62,7 @@
                             {
                                 <button data-bs-target="#modalBP" data-bs-toggle="modal" class="btn btn-dark btn-sm clignote"
                                         @*data-url="@Url.Action("EditBusinessPlan",new { id=item.Id})">*@
-                                        data-url="@Url.Action("DetailInvestissement", "BusinessPlanProject", new { id = item.NumeroSIEJE })">
+                                        data-url="@Url.Action("AddChiffreAcffaires", "BusinessPlanProject", new { id = item.Id })">
                                     Etape 03 Chiffre d'affaires
                                 </button>
                             }
