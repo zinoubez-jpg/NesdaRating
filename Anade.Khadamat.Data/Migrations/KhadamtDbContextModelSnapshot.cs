@@ -127,21 +127,6 @@ namespace Anade.Khadamat.Data.Migrations
                     b.ToTable("Antenne");
                 });
 
-            modelBuilder.Entity("Anade.Khadamat.Domain.ApprovisionnementMatierePremiere", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Designation")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ApprovisionnementMatierePremiere");
-                });
-
             modelBuilder.Entity("Anade.Khadamat.Domain.BusinessPlan", b =>
                 {
                     b.Property<int>("Id")
@@ -404,10 +389,10 @@ namespace Anade.Khadamat.Data.Migrations
                     b.Property<int>("AnneeId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ApprovisionnementMatierePremiereId")
+                    b.Property<int>("BusinessPlanId")
                         .HasColumnType("int");
 
-                    b.Property<int>("BusinessPlanId")
+                    b.Property<int>("MatierePremiereApprovisionnementId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Montant")
@@ -416,9 +401,6 @@ namespace Anade.Khadamat.Data.Migrations
                     b.Property<decimal>("PrixUnitaire")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("ProduitServiceId")
-                        .HasColumnType("int");
-
                     b.Property<float>("Quantite")
                         .HasColumnType("real");
 
@@ -426,11 +408,9 @@ namespace Anade.Khadamat.Data.Migrations
 
                     b.HasIndex("AnneeId");
 
-                    b.HasIndex("ApprovisionnementMatierePremiereId");
-
                     b.HasIndex("BusinessPlanId");
 
-                    b.HasIndex("ProduitServiceId");
+                    b.HasIndex("MatierePremiereApprovisionnementId");
 
                     b.ToTable("DetailAchatsDirects");
                 });
@@ -1076,6 +1056,24 @@ namespace Anade.Khadamat.Data.Migrations
                     b.ToTable("Marketings");
                 });
 
+            modelBuilder.Entity("Anade.Khadamat.Domain.MatierePremiereApprovisionnement", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Code")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Designation")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MatierePremiereApprovisionnement");
+                });
+
             modelBuilder.Entity("Anade.Khadamat.Domain.Mois", b =>
                 {
                     b.Property<int>("Id")
@@ -1250,6 +1248,9 @@ namespace Anade.Khadamat.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Code")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Designation")
                         .HasColumnType("nvarchar(max)");
@@ -1803,19 +1804,15 @@ namespace Anade.Khadamat.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Anade.Khadamat.Domain.ApprovisionnementMatierePremiere", null)
-                        .WithMany("DetailsAchatsDirects")
-                        .HasForeignKey("ApprovisionnementMatierePremiereId");
-
                     b.HasOne("Anade.Khadamat.Domain.BusinessPlan", "BusinessPlan")
                         .WithMany("DetailsAchatsDirects")
                         .HasForeignKey("BusinessPlanId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Anade.Khadamat.Domain.ProduitService", "ProduitService")
-                        .WithMany()
-                        .HasForeignKey("ProduitServiceId")
+                    b.HasOne("Anade.Khadamat.Domain.MatierePremiereApprovisionnement", "MatierePremiereApprovisionnement")
+                        .WithMany("DetailsAchatsDirects")
+                        .HasForeignKey("MatierePremiereApprovisionnementId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1823,7 +1820,7 @@ namespace Anade.Khadamat.Data.Migrations
 
                     b.Navigation("BusinessPlan");
 
-                    b.Navigation("ProduitService");
+                    b.Navigation("MatierePremiereApprovisionnement");
                 });
 
             modelBuilder.Entity("Anade.Khadamat.Domain.DetailActiviteMois", b =>
@@ -2220,11 +2217,6 @@ namespace Anade.Khadamat.Data.Migrations
                     b.Navigation("Annexes");
                 });
 
-            modelBuilder.Entity("Anade.Khadamat.Domain.ApprovisionnementMatierePremiere", b =>
-                {
-                    b.Navigation("DetailsAchatsDirects");
-                });
-
             modelBuilder.Entity("Anade.Khadamat.Domain.BusinessPlan", b =>
                 {
                     b.Navigation("ComptesResultatPrevisionnel");
@@ -2308,6 +2300,11 @@ namespace Anade.Khadamat.Data.Migrations
             modelBuilder.Entity("Anade.Khadamat.Domain.Marketing", b =>
                 {
                     b.Navigation("FicheNotations");
+                });
+
+            modelBuilder.Entity("Anade.Khadamat.Domain.MatierePremiereApprovisionnement", b =>
+                {
+                    b.Navigation("DetailsAchatsDirects");
                 });
 
             modelBuilder.Entity("Anade.Khadamat.Domain.Mois", b =>

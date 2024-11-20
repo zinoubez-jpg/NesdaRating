@@ -72,11 +72,9 @@
                                 {
                                     <button data-bs-target="#modalBP" data-bs-toggle="modal" class="btn btn-dark btn-sm clignote"
                                             @*data-url="@Url.Action("EditBusinessPlan",new { id=item.Id})">*@
-                                            data-url="@Url.Action("EditBusinessPlan", "BusinessPlanProject", new { id = item.Id })">
+                                            data-url="@Url.Action("AddAchatsDirects", "BusinessPlanProject", new { id = item.Id })">
                                         Etape 04 Achats directs
                                     </button>
-
-                                    <a asp-action="index" asp-controller="home" target="_parent">Etape 04 Achats directs</a>
                                 }
                                 else
                                 {

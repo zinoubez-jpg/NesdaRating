@@ -15,12 +15,12 @@ namespace Anade.Khadamat.Domain
 
         public int AnneeId { get; set; }
         public int BusinessPlanId { get; set; }
-        public int ProduitServiceId { get; set; }
+        public int MatierePremiereApprovisionnementId { get; set; }
 
         [ForeignKey("AnneeId")]
         public virtual Annee Annee { get; set; }
         public virtual BusinessPlan BusinessPlan { get; set; }
-        public virtual ProduitService ProduitService { get; set; }
+        public virtual MatierePremiereApprovisionnement MatierePremiereApprovisionnement { get; set; }
 
     }
 }

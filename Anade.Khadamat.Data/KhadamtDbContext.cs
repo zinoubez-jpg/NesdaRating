@@ -43,7 +43,6 @@ namespace Anade.Khadamat.Data
         // Dbset Business Plan
         public virtual DbSet<Acquisition> Acquisition { get; set; }
         public virtual DbSet<Annee> Annee { get; set; }
-        public virtual DbSet<ApprovisionnementMatierePremiere> ApprovisionnementMatierePremiere { get; set; }
         public virtual DbSet<BusinessPlan> BusinessPlan { get; set; }
         public virtual DbSet<Categorie> Categorie { get; set; }
         public virtual DbSet<CommuneBP> CommuneBP { get; set; }
@@ -61,6 +60,7 @@ namespace Anade.Khadamat.Data
         public virtual DbSet<FormeJuridique> FormeJuridique { get; set; }
         public virtual DbSet<FrequenceActivite> FrequenceActivite { get; set; }
         public virtual DbSet<InformationBase> InformationBase { get; set; }
+        public virtual DbSet<MatierePremiereApprovisionnement> MatierePremiereApprovisionnement { get; set; }
         public virtual DbSet<Mois> Mois { get; set; }
         public virtual DbSet<PlanTresorerieMensuel> PlanTresorerieMensuel { get; set; }
         public virtual DbSet<ProduitService> ProduitService { get; set; }
