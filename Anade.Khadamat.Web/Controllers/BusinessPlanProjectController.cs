@@ -54,6 +54,7 @@ namespace Anade.Khadamat.Web.Controllers
         private readonly TauxStructureFinancementBusinessService _tauxStructureFinancementBusinessService;
         private readonly ReferentielBusinessService<TypeMateriel, int> _typeMaterielBusinessService;
         private readonly ReferentielBusinessService<Annee, int> _anneeBusinessService;
+        private readonly ReferentielBusinessService<RubriqueChargesExternes, int> _rubriqueChargesExternesBusinessService;
 
         public BusinessPlanProjectController(UserService userService,
                                              AnnexeBusinessService annexeBusinessService,
@@ -87,7 +88,8 @@ namespace Anade.Khadamat.Web.Controllers
                                              ReferentielBusinessService<ExonerationFiscale, int> exonerationFiscaleBusinessService,
                                              TauxStructureFinancementBusinessService tauxStructureFinancementBusinessService,
                                              ReferentielBusinessService<TypeMateriel, int> typeMaterielBusinessService,
-                                             ReferentielBusinessService<Annee, int> anneeBusinessService
+                                             ReferentielBusinessService<Annee, int> anneeBusinessService,
+                                             ReferentielBusinessService<RubriqueChargesExternes, int> rubriqueChargesExternesBusinessService
 
                                              )
         {
@@ -124,6 +126,7 @@ namespace Anade.Khadamat.Web.Controllers
             _tauxStructureFinancementBusinessService = tauxStructureFinancementBusinessService;
             _typeMaterielBusinessService = typeMaterielBusinessService;
             _anneeBusinessService = anneeBusinessService;
+            _rubriqueChargesExternesBusinessService = rubriqueChargesExternesBusinessService;
         }
 
         [Authorize(Roles = "Analyste,DG,Admin,AdminAgence,Utilisateur-Rating")]
@@ -1114,9 +1117,9 @@ namespace Anade.Khadamat.Web.Controllers
             ViewData["BusinessPlanID"] = id;
             ViewData["NumeroSIEJE"] = modelBusinessPlan.NumeroSIEJE;
 
-            var listeAnnee = new SelectList(_anneeBusinessService.GetAll(), "Id", "DesignationFr");
+            var listeRubriqueChargesExternes = new SelectList(_rubriqueChargesExternesBusinessService.GetAll(), "Id", "CodeDesignationFr");
 
-            ViewData["AnneeID"] = listeAnnee;
+            ViewData["RubriqueChargesExternesID"] = listeRubriqueChargesExternes;
 
             if (modelBusinessPlan.Complet)
             {
@@ -1128,11 +1131,11 @@ namespace Anade.Khadamat.Web.Controllers
             }
 
 
-            AchatsDirects model = new();
+            ChargeExterne model = new();
 
-            model.AchatssDirectss = new List<AchatsDirects>();
+            model.ChargesExternes = new List<ChargeExterne>();
 
-            return PartialView($"_{nameof(AddAchatsDirects)}", model);
+            return PartialView($"_{nameof(AddChargesExternes)}", model);
 
         }
 
@@ -1193,5 +1196,6 @@ namespace Anade.Khadamat.Web.Controllers
             }
 
         }
+
     }
 }
