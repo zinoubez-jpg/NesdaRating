@@ -63,6 +63,7 @@ namespace Anade.Khadamat.Web
             services.AddTransient<BusinessPlanBusinessService>();
             services.AddTransient<TauxStructureFinancementBusinessService>();
             services.AddTransient<CommuneBPBusinessService>();
+            services.AddTransient<PosteBusinessService>();
 
             AppSettings appSettings = Configuration.GetSection(nameof(AppSettings)).Get<AppSettings>();
 

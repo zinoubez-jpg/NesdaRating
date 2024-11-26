@@ -307,31 +307,25 @@
                                                 </div>
 
                                                 <div class="col-md-6">
+                                                                                                        
+                                                    <div class="row">
 
-                                                    <div class="row" disabled>
-
-                                                        <div class="col form-group" disabled>
-                                                            <span class="form-label">Différé emprunt</span>
-                                                            <select id="DiffereEmpruntID" asp-for="StructureFinancement.DiffereEmpruntId" asp-items="@ViewBag.DiffereEmpruntID as SelectList" class="form-control select2">
-                                                                <option value="">- - - - - -</option>
-                                                            </select>
-                                                            <span class="select-arrow"></span>
-                                                            <span asp-validation-for="StructureFinancement.DiffereEmpruntId" class="text-danger"></span>
-                                                            <div class="invalid-feedback">Sélectionner le Différé emprunt.</div>
+                                                        <div class="col form-group">
+                                                            <div class="form-group">
+                                                                <span class="form-label">Différé emprunt</span>
+                                                                <input id="DiffereEmprunt" class="form-control" value="- - - - - -" disabled>
+                                                            </div>
                                                         </div>
 
                                                     </div>
 
-                                                    <div class="row" disabled>
+                                                    <div class="row">
 
-                                                        <div class="col form-group" disabled>
-                                                            <span class="form-label">Exonération fiscale</span>
-                                                            <select id="ExonerationFiscaleID" asp-for="StructureFinancement.ExonerationFiscaleId" asp-items="@ViewBag.ExonerationFiscaleID as SelectList" class="form-control select2">
-                                                                <option value="">- - - - - -</option>
-                                                            </select>
-                                                            <span class="select-arrow"></span>
-                                                            <span asp-validation-for="StructureFinancement.ExonerationFiscaleId" class="text-danger"></span>
-                                                            <div class="invalid-feedback">Sélectionner l'exonération fiscale.</div>
+                                                        <div class="col form-group">
+                                                            <div class="form-group">
+                                                                <span class="form-label">Exonération fiscale</span>
+                                                                <input id="ExonerationFiscale" class="form-control" value="- - - - - -" disabled>
+                                                            </div>
                                                         </div>
 
                                                     </div>
@@ -424,25 +418,32 @@
                                                     </div>
                                                 </div>
 
-                                                @*<div class="col-sm-3 form-group">
-                                                        <label asp-for="InformationBase.ExonerationTVA">
-                                                            <input id="ExonerationTVA" asp-for="InformationBase.ExonerationTVA" type="checkbox">
-                                                            <span></span>Exonération TVA
-                                                        </label>
-                                                    </div>*@
+                                                <div class="row">
 
-                                                <div class="col form-group">
-                                                    <div class="form-group">
+                                                    <div class="col form-group">
                                                         <span class="form-label">Différé emprunt</span>
-                                                        <input id="DiffereEmprunt" class="form-control" value="- - - - - -" disabled>
+                                                        <select id="DiffereEmpruntID" asp-for="StructureFinancement.DiffereEmpruntId" asp-items="@ViewBag.DiffereEmpruntID as SelectList" class="form-control select2">
+                                                            <option value="">- - - - - -</option>
+                                                        </select>
+                                                        <span class="select-arrow"></span>
+                                                        <span asp-validation-for="StructureFinancement.DiffereEmpruntId" class="text-danger"></span>
+                                                        <div class="invalid-feedback">Sélectionner le Différé emprunt.</div>
                                                     </div>
+
                                                 </div>
 
-                                                <div class="col form-group">
-                                                    <div class="form-group">
+                                                <div class="row">
+
+                                                    <div class="col form-group">
                                                         <span class="form-label">Exonération fiscale</span>
-                                                        <input id="ExonerationFiscale" class="form-control" value="- - - - - -" disabled>
+                                                        <select id="ExonerationFiscaleID" asp-for="StructureFinancement.ExonerationFiscaleId" asp-items="@ViewBag.ExonerationFiscaleID as SelectList" class="form-control select2">
+                                                            <option value="">- - - - - -</option>
+                                                        </select>
+                                                        <span class="select-arrow"></span>
+                                                        <span asp-validation-for="StructureFinancement.ExonerationFiscaleId" class="text-danger"></span>
+                                                        <div class="invalid-feedback">Sélectionner l'exonération fiscale.</div>
                                                     </div>
+
                                                 </div>
 
                                             </div>

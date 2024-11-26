@@ -56,6 +56,8 @@ namespace Anade.Khadamat.Web.Controllers
         private readonly ReferentielBusinessService<Annee, int> _anneeBusinessService;
         private readonly ReferentielBusinessService<RubriqueChargesExternes, int> _rubriqueChargesExternesBusinessService;
 
+        private readonly PosteBusinessService _PosteBusinessService;
+
         public BusinessPlanProjectController(UserService userService,
                                              AnnexeBusinessService annexeBusinessService,
                                              ReferentielBusinessService<Antenne, int> antenneBusinessService,
@@ -822,10 +824,6 @@ namespace Anade.Khadamat.Web.Controllers
 
 
 
-
-
-
-
         [Authorize(Roles = "Analyste")]
         [HttpGet]
         [Route("{id}")]
@@ -1103,13 +1101,10 @@ namespace Anade.Khadamat.Web.Controllers
 
 
 
-
-
-
         [Authorize(Roles = "Analyste")]
         [HttpGet]
         [Route("{id}")]
-        public async Task<IActionResult> AddChargesExternes(int id)
+        public async Task<IActionResult> AddMasseSalariale(int id)
         {
             var modelBusinessPlan = _businessPlanBusinessService.GetById(id);
 
@@ -1117,9 +1112,9 @@ namespace Anade.Khadamat.Web.Controllers
             ViewData["BusinessPlanID"] = id;
             ViewData["NumeroSIEJE"] = modelBusinessPlan.NumeroSIEJE;
 
-            var listeRubriqueChargesExternes = new SelectList(_rubriqueChargesExternesBusinessService.GetAll(), "Id", "CodeDesignationFr");
+            var listeAnnee = new SelectList(_anneeBusinessService.GetAll(), "Id", "DesignationFr");
 
-            ViewData["RubriqueChargesExternesID"] = listeRubriqueChargesExternes;
+            ViewData["AnneeID"] = listeAnnee;
 
             if (modelBusinessPlan.Complet)
             {
@@ -1130,18 +1125,16 @@ namespace Anade.Khadamat.Web.Controllers
                 ViewData["CompletOuiNon"] = "Non";
             }
 
+            Poste model = new();
+            DetailPoste detailPoste = new();
 
-            ChargeExterne model = new();
-
-            model.ChargesExternes = new List<ChargeExterne>();
-
-            return PartialView($"_{nameof(AddChargesExternes)}", model);
+            return PartialView($"_{nameof(AddMasseSalariale)}", detailPoste);
 
         }
 
         [Authorize(Roles = "Analyste")]
         [HttpPost]
-        public async Task<IActionResult> AddChargesExternes([FromBody] string[] model)
+        public async Task<IActionResult> AddMasseSalariale([FromBody] string[] model)
         {
             int businessPlanId = Int32.Parse(model[0]);
             BusinessPlan businessPlan = _businessPlanBusinessService.GetById(businessPlanId);
@@ -1196,6 +1189,118 @@ namespace Anade.Khadamat.Web.Controllers
             }
 
         }
+
+
+
+
+
+
+
+
+        [Authorize(Roles = "Analyste")]
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> AddChargesExternes(int id)
+        {
+            var modelBusinessPlan = _businessPlanBusinessService.GetById(id);
+
+            ViewData["BusinessPlanID"] = id;
+            ViewData["NumeroSIEJE"] = modelBusinessPlan.NumeroSIEJE;
+
+            var listeRubriqueChargesExternes = new SelectList(_rubriqueChargesExternesBusinessService.GetAll(), "Id", "CodeDesignationFr");
+
+            ViewData["RubriqueChargesExternesID"] = listeRubriqueChargesExternes;
+
+            if (modelBusinessPlan.Complet)
+            {
+                ViewData["CompletOuiNon"] = "Oui";
+            }
+            else
+            {
+                ViewData["CompletOuiNon"] = "Non";
+            }
+
+            ChargeExterne model = new();
+
+            model.ChargesExternes = new List<ChargeExterne>();
+
+            return PartialView($"_{nameof(AddChargesExternes)}", model);
+        }
+
+        [Authorize(Roles = "Analyste")]
+        [HttpPost]
+        public async Task<IActionResult> AddChargesExternes([FromBody] string[] model)
+        {
+            int businessPlanId = Int32.Parse(model[0]);
+            BusinessPlan businessPlan = _businessPlanBusinessService.GetById(businessPlanId);
+
+            BusinessResult businessResult;
+
+            List<DetailChargesExternes> DetailsChargesExternes = new();
+
+            for (int i = 1; i < model.Length; i += 8)
+            {
+                RubriqueChargesExternes rubriqueChargesExternes = new();
+                rubriqueChargesExternes = _rubriqueChargesExternesBusinessService.GetSingle(x => x.Code == model[i].Substring(1, 2));
+                
+                for (int j = 0; j < 7; j++)
+                {
+                    DetailChargesExternes detailChargesExternes = new();
+
+                    detailChargesExternes.BusinessPlanId = businessPlanId;
+                    detailChargesExternes.RubriqueChargesExternesId = rubriqueChargesExternes.Id;
+                    detailChargesExternes.AnneeId = j + 1;
+                    detailChargesExternes.Montant = Math.Round(Convert.ToDecimal(model[i + j + 1].Replace(".", ",")), 2);
+                    DetailsChargesExternes.Add(detailChargesExternes);
+                }
+            }
+
+            businessPlan.EtapeId = 6;
+            businessPlan.Complet = true;
+            businessPlan.DetailsChargesExternes = DetailsChargesExternes;
+
+            businessResult = _businessPlanBusinessService.Update(businessPlan);
+
+            if (businessResult.Succeeded)
+            {
+                TempData["Message"] = businessResult.ToBootstrapAlerts();
+                return Json(new { messages = businessResult.ToBootstrapAlerts() });
+            }
+
+            else
+            {
+                return Json(new { messages = businessResult.ToBootstrapAlerts() });
+            }
+
+        }
+
+        [Authorize(Roles = "Analyste")]
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> EtatsSyntheseBusinessPlan(int id)
+        {
+            //var modelBusinessPlan = _businessPlanBusinessService.GetById(id);
+            var modelBusinessPlan = _businessPlanBusinessService.GetById(id, _businessPlanBusinessService.GetDefaultLoadProperties());
+
+            ViewData["BusinessPlanID"] = id;
+            ViewData["NumeroSIEJE"] = modelBusinessPlan.NumeroSIEJE;
+
+            var listeRubriqueChargesExternes = new SelectList(_rubriqueChargesExternesBusinessService.GetAll(), "Id", "CodeDesignationFr");
+
+            ViewData["RubriqueChargesExternesID"] = listeRubriqueChargesExternes;
+
+            if (modelBusinessPlan.Complet)
+            {
+                ViewData["CompletOuiNon"] = "Oui";
+            }
+            else
+            {
+                ViewData["CompletOuiNon"] = "Non";
+            }
+
+            return PartialView($"_{nameof(EtatsSyntheseBusinessPlan)}", modelBusinessPlan);
+        }
+
 
     }
 }

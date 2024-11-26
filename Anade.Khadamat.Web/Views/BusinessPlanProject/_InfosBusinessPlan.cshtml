@@ -2,7 +2,9 @@
 <partial name="_Message" />
 
 <table class="table display compact">
+
     <thead>
+
         <tr>
             <th>
                 N° Business plan
@@ -19,8 +21,11 @@
 
             <th></th>
         </tr>
+
     </thead>
+
     <tbody>
+
         @foreach (var item in Model)
         {
             <tr>
@@ -80,9 +85,9 @@
                                 {
                                     if (item.EtapeId == 4)
                                     {
-                                        <button data-bs-target="#modalBP" data-bs-toggle="modal" class="btn btn-dark btn-sm clignote"
+                                        <button data-bs-target="#modalBP_Full" data-bs-toggle="modal" class="btn btn-dark btn-sm clignote"
                                                 @*data-url="@Url.Action("EditBusinessPlan",new { id=item.Id})">*@
-                                                data-url="@Url.Action("EditBusinessPlan", "BusinessPlanProject", new { id = item.Id })">
+                                                data-url="@Url.Action("AddMasseSalariale", "BusinessPlanProject", new { id = item.Id })">
                                             Etape 05 Masse salariale
                                         </button>
                                     }
@@ -98,7 +103,7 @@
                                         }
                                         else
                                         {
-                                            <button data-bs-target="#modalBP" data-bs-toggle="modal" class="btn btn-dark btn-sm clignote"
+                                            <button data-bs-target="#modalBP" data-bs-toggle="modal" class="btn btn-secondary btn-sm"
                                                     @*data-url="@Url.Action("EditBusinessPlan",new { id=item.Id})">*@
                                                     data-url="@Url.Action("EtatsSyntheseBusinessPlan", "BusinessPlanProject", new { id = item.Id })">
                                                 Etats de synthèse
@@ -114,7 +119,9 @@
                 </td>
             </tr>
         }
+
     </tbody>
+
 </table>
 
 <script>

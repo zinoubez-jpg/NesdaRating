@@ -13,6 +13,17 @@ namespace Anade.Khadamat.Business
 
         }
 
+        public override Expression<Func<BusinessPlan, object>>[] GetDefaultLoadProperties()
+        {
+            Expression<Func<BusinessPlan, object>> loadEtape = x => x.Etape;
+            Expression<Func<BusinessPlan, object>> loadInformationBase = x => x.InformationBase;
+            Expression<Func<BusinessPlan, object>> loadStuctureInvestissement = x => x.StuctureInvestissement;
+            Expression<Func<BusinessPlan, object>> loadStructureFinancement = x => x.StructureFinancement;
+            Expression<Func<BusinessPlan, object>> loadEvaluationProjet = x => x.EvaluationProjet;
+
+            return new Expression<Func<BusinessPlan, object>>[] { loadEtape, loadInformationBase, loadStuctureInvestissement, loadStructureFinancement , loadEvaluationProjet };
+        }
+
         public string GenererNumero(string codeStructure, int numSequ)
         {
             var numeroSequentiel = numSequ + 1;

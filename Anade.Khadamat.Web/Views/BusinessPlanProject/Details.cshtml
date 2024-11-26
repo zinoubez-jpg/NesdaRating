@@ -148,9 +148,18 @@
     </div>
 </div>
 
-<!-- Modal -->
+<!-- Modal xl -->
 <div class="modal fade" id="modalBP" tabindex="-1" aria-labelledby="modalLabel" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
     <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+
+        </div>
+    </div>
+</div>
+
+<!-- Modal fullscreen-->
+<div class="modal fade" id="modalBP_Full" tabindex="-1" aria-labelledby="modalLabel" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen">
         <div class="modal-content">
 
         </div>
@@ -167,6 +176,7 @@
     <partial name="_sweetalert2.script" />
 
     <script>
+
         $(function () {
 
             $('#modalBP').on('shown.bs.modal', function (e) {
@@ -184,12 +194,27 @@
 
         });
 
+        $(function () {
+
+            $('#modalBP_Full').on('shown.bs.modal', function (e) {
+
+                var btn = e.relatedTarget;
+                var url = $(btn).data("url");
+
+                $.get(url, function (response) {
+
+                    $("#modalBP_Full").find(".modal-content").html(response);
+
+                    addbusinessPlanPopupShown();
+                });
+            });
+
+        });
+
         function addbusinessPlanPopupShown() {
             $.validator.setDefaults({ ignore: '' });
             $.validator.unobtrusive.parse($('form'));
-
         }
-
 
         function addBusinessPlan(data) {
 
@@ -249,5 +274,5 @@
 
         });
     </script>
-
+   
 }

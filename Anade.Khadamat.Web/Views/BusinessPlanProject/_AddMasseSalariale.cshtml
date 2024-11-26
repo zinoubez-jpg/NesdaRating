@@ -1,0 +1,1098 @@
+﻿@model Anade.Khadamat.Domain.DetailPoste
+
+<head>
+    <title>Ajouter Masse Salariale</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+
+        .accordionZn:hover {
+            background-color: #06BBCC;
+        }
+
+        .accordionZn:after {
+            content: '\002B';
+            color: #777;
+            font-weight: bold;
+            float: right;
+            margin-left: 5px;
+        }
+
+        .accordionZn {
+            background-color: #F0FBFC;
+            color: #444;
+            cursor: pointer;
+            padding: 18px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 15px;
+            transition: 0.4s;
+        }
+
+        .active:after {
+            content: "\2212";
+        }
+
+        .panel {
+            padding: 0 18px;
+            background-color: white;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.2s ease-out;
+        }
+    </style>
+
+</head>
+
+<div class="modal-header">
+    <h5 class="modal-title" id="modalLabel">Ajouter Masse Salariale</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<div class="modal-body">
+    <div id="modalMessages"></div>
+    <div id="booking" class="section">
+        <div class="section-center">
+            <div class="container" style="max-height: 100%; max-width:100%">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="booking-form">
+
+                            <form asp-action="EtatsSyntheseBusinessPlan" asp-controller="BusinessPlanProject"
+                                  data-ajax="true"
+                                  data-ajax-success="EtatsSyntheseBusinessPlan">
+
+                                <div class="container" style="max-height: 100%; max-width:100%">
+
+                                    <h3>Masse Salariale</h3>
+                                    <br>
+
+                                    <div class="row" hidden="hidden">
+
+                                        <div class="form-group">
+                                            <span class="form-label">BusinessPlanID</span>
+                                            <input id="BusinessPlanID" value="@(ViewBag.BusinessPlanID)" class="form-control">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <span class="form-label">NumeroSIEJE</span>
+                                            <input id="NumeroSIEJE" value="@(ViewBag.NumeroSIEJE)" class="form-control">
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row">
+
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">Désignation poste</span>
+                                                <input id="DesignationPosteId" asp-for="Poste.Designation" placeholder="Désignation" class="form-control" onchange="InitChamps();">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-2">
+                                            <div class="form-group">
+                                                <span class="form-label">Salaire base</span>
+                                                <input id="SalaireBaseId" asp-for="Poste.SalaireBase" placeholder="0.00" class="form-control" onkeyup="verif_nombre(this); $(this).val(montant($(this).val().replace(/ /g, '')))">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-2">
+                                            <div class="form-group">
+                                                <span class="form-label">Indemnités primes cotisables</span>
+                                                <input id="IndemnitesPrimesCotisablesId" asp-for="Poste.IndemnitesPrimesCotisables" placeholder="0.00" class="form-control" onkeyup="verif_nombre(this); $(this).val(montant($(this).val().replace(/ /g, '')))">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-2">
+                                            <div class="form-group">
+                                                <span class="form-label">Indemnités primes imposables</span>
+                                                <input id="IndemnitesPrimesImposablesId" asp-for="Poste.IndemnitesPrimesImposables" placeholder="0.00" class="form-control" onkeyup="verif_nombre(this); $(this).val(montant($(this).val().replace(/ /g, '')))">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">SLR, Indemnités, Primes non imposables non cotisables</span>
+                                                <input id="SLR_Indemnites_PrimesNonImplCotlId" asp-for="Poste.SLR_Indemnites_PrimesNonImplCotl" placeholder="0.00" class="form-control" onkeyup="verif_nombre(this); $(this).val(montant($(this).val().replace(/ /g, '')))">
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row">
+
+                                        <div class="col-sm-4">
+
+                                            <div class="row">
+
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                        <span class="form-label">Nb emploi année 01</span>
+                                                        <input id="NbEmploi01Id" placeholder="0" class="form-control" onkeyup="verif_nombre(this); $(this).val(montant($(this).val().replace(/ /g, '')))">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-8">
+                                                    <div class="form-group">
+                                                        <span class="form-label">Net à payer année 01</span>
+                                                        <input id="NetPayer01Id" placeholder="0.00" class="form-control" onkeyup="verif_nombre(this); $(this).val(montant($(this).val().replace(/ /g, '')))">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                        <span class="form-label">Nb emploi année 02</span>
+                                                        <input id="NbEmploi02Id" placeholder="0" class="form-control" onkeyup="verif_nombre(this); $(this).val(montant($(this).val().replace(/ /g, '')))">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-8">
+                                                    <div class="form-group">
+                                                        <span class="form-label">Net à payer année 02</span>
+                                                        <input id="NetPayer02Id" placeholder="0.00" class="form-control" onkeyup="verif_nombre(this); $(this).val(montant($(this).val().replace(/ /g, '')))">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                        <span class="form-label">Nb emploi année 03</span>
+                                                        <input id="NbEmploi03Id" placeholder="0" class="form-control" onkeyup="verif_nombre(this); $(this).val(montant($(this).val().replace(/ /g, '')))">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-8">
+                                                    <div class="form-group">
+                                                        <span class="form-label">Net à payer année 03</span>
+                                                        <input id="NetPayer03Id" placeholder="0.00" class="form-control" onkeyup="verif_nombre(this); $(this).val(montant($(this).val().replace(/ /g, '')))">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                        <span class="form-label">Nb emploi année 04</span>
+                                                        <input id="NbEmploi04Id" placeholder="0" class="form-control" onkeyup="verif_nombre(this); $(this).val(montant($(this).val().replace(/ /g, '')))">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-8">
+                                                    <div class="form-group">
+                                                        <span class="form-label">Net à payer année 04</span>
+                                                        <input id="NetPayer04Id" placeholder="0.00" class="form-control" onkeyup="verif_nombre(this); $(this).val(montant($(this).val().replace(/ /g, '')))">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                        <span class="form-label">Nb emploi année 05</span>
+                                                        <input id="NbEmploi05Id" placeholder="0" class="form-control" onkeyup="verif_nombre(this); $(this).val(montant($(this).val().replace(/ /g, '')))">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-8">
+                                                    <div class="form-group">
+                                                        <span class="form-label">Net à payer année 05</span>
+                                                        <input id="NetPayer05Id" placeholder="0.00" class="form-control" onkeyup="verif_nombre(this); $(this).val(montant($(this).val().replace(/ /g, '')))">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                        <span class="form-label">Nb emploi année 06</span>
+                                                        <input id="NbEmploi06Id" placeholder="0" class="form-control" onkeyup="verif_nombre(this); $(this).val(montant($(this).val().replace(/ /g, '')))">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-8">
+                                                    <div class="form-group">
+                                                        <span class="form-label">Net à payer année 06</span>
+                                                        <input id="NetPayer06Id" placeholder="0.00" class="form-control" onkeyup="verif_nombre(this); $(this).val(montant($(this).val().replace(/ /g, '')))">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                        <span class="form-label">Nb emploi année 07</span>
+                                                        <input id="NbEmploi07Id" placeholder="0" class="form-control" onkeyup="verif_nombre(this); $(this).val(montant($(this).val().replace(/ /g, '')))">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-8">
+                                                    <div class="form-group">
+                                                        <span class="form-label">Net à payer année 07</span>
+                                                        <input id="NetPayer07Id" placeholder="0.00" class="form-control" onkeyup="verif_nombre(this); $(this).val(montant($(this).val().replace(/ /g, '')))">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-3">
+                                                    <div class="form-group center">
+                                                        <button type="button" class="btn btn-outline-primary" onclick="InitChamps();">Calculer la paie</button>
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-3">
+                                                    <div class="form-group center">
+                                                        <button type="button" class="btn btn-outline-success" onclick="addRow('TableA');">Ajouter Poste</button>
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-3">
+                                                    <div class="form-group center">
+                                                        <button type="button" class="btn btn-outline-warning" onclick="InitChamps();">Effacer les données</button>
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-3">
+                                                    <div class="form-group center">
+                                                        <button type="button" class="btn btn-outline-danger" onclick="deleteRow('TableA');">Supprimer Poste</button>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-sm-8">
+                                            <div class="card text-bg-primary mb-3">
+
+                                                <div class="card-header">Fiche de paie</div>
+
+                                                <div class="card-body">
+
+                                                    <div class="row">
+                                                        <div class="card-body">
+                                                            <table class="table display compact" id="TableB">
+                                                                <tr>
+                                                                    <th>Rubrique</th>
+                                                                    <th>Gain</th>
+                                                                    <th>Retenue</th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Salaire de base</td>
+                                                                    <td>100 000.00</td>
+                                                                    <td>-</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Indemnités primes cotisables</td>
+                                                                    <td>20 000.00</td>
+                                                                    <td>-</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Sécurité sociale 9%</td>
+                                                                    <td>-</td>
+                                                                    <td>10 800.00</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Indemnités primes imposables</td>
+                                                                    <td>30 000.00</td>
+                                                                    <td>-</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>I.R.G</td>
+                                                                    <td>-</td>
+                                                                    <td>31 660.00</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Indemnités primes non imposables non cotisables</td>
+                                                                    <td>26 000.00</td>
+                                                                    <td>-</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Totaux</td>
+                                                                    <td>176 000.00</td>
+                                                                    <td>42 460.00</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Net à payer</td>
+                                                                    <td colspan="2">176 000.00</td>
+                                                                </tr>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+
+                                                    <hr>
+
+                                                    <div class="row">
+                                                        <div class="card-body">
+                                                            <table class="table display compact" id="TableB">
+                                                                <tr>
+                                                                    <th>S/Poste (Cotisable)</th>
+                                                                    <th>S/Imposable</th>
+                                                                    <th>Charges patronales</th>
+                                                                    <th>Net à payer</th>
+                                                                    <th>Masse salarialle annuelle</th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th>120 000.00</th>
+                                                                    <th>139 200.00</th>
+                                                                    <th>31 200.00</th>
+                                                                    <th>133 540.00</th>
+                                                                    <th>2 486 400.00</th>
+                                                                </tr>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <br>
+
+                                    <div class="row">
+
+                                        <div class="card text-bg-primary mb-3">
+
+                                            <div class="card-header">Liste de materiel</div>
+
+                                            <div class="card-body">
+                                                <table class="table display compact" id="TableA">
+                                                    <thead>
+                                                        <tr>
+                                                            <th></th>
+                                                            <th>
+                                                                Type M
+                                                            </th>
+                                                            <th>
+                                                                Materiel
+                                                            </th>
+                                                            <th>
+                                                                Duree
+                                                            </th>
+                                                            <th>
+                                                                Année1
+                                                            </th>
+                                                            <th>
+                                                                Année2
+                                                            </th>
+                                                            <th>
+                                                                Année3
+                                                            </th>
+                                                            <th>
+                                                                Année4
+                                                            </th>
+                                                            <th>
+                                                                Année5
+                                                            </th>
+                                                            <th>
+                                                                Année6
+                                                            </th>
+                                                            <th>
+                                                                Année7
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @*@foreach (var item in Model)
+                                                            {
+                                                            <tr>
+                                                                <td>
+                                                                </td>
+                                                                <td>
+                                                                    @Html.DisplayFor(modelItem => item.TypeMateriel.DesignationFr)
+                                                                </td>
+                                                                <td>
+                                                                    @Html.DisplayFor(modelItem => item.DesignationMateriel)
+                                                                </td>
+                                                                <td>
+                                                                    @Html.DisplayFor(modelItem => item.DureeAmortissement)
+                                                                </td>
+                                                                <td>
+                                                                    @Html.DisplayFor(modelItem => item.Montant01)
+                                                                </td>
+                                                                <td>
+                                                                    @Html.DisplayFor(modelItem => item.Montant02)
+                                                                </td>
+                                                                <td>
+                                                                    @Html.DisplayFor(modelItem => item.Montant03)
+                                                                </td>
+                                                                <td>
+                                                                    @Html.DisplayFor(modelItem => item.Montant04)
+                                                                </td>
+                                                                <td>
+                                                                    @Html.DisplayFor(modelItem => item.Montant05)
+                                                                </td>
+                                                                <td>
+                                                                    @Html.DisplayFor(modelItem => item.Montant06)
+                                                                </td>
+                                                                <td>
+                                                                    @Html.DisplayFor(modelItem => item.Montant07)
+                                                                </td>
+                                                            </tr>
+                                                            }*@
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group modal-footer">
+                                        <button id="EnvoyerId" type="button" class="btn btn-outline-success">Envoyer</button>
+                                        <button class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                                    </div>
+
+                                </div>
+
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+
+    var acc = document.getElementsByClassName("accordionZn");
+    var i;
+
+    for (i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function () {
+            this.classList.toggle("active");
+            var panel = this.nextElementSibling;
+            if (panel.style.maxHeight) {
+                panel.style.maxHeight = null;
+            } else {
+                panel.style.maxHeight = panel.scrollHeight + "px";
+            }
+        });
+    }
+
+</script>
+
+<script>
+
+    function setActive(buttonContainerId, inputId, value) {
+        // Désactiver tous les boutons dans le conteneur spécifié
+        var buttons = document.querySelectorAll('#' + buttonContainerId + ' .value-btn');
+        buttons.forEach(function (button) {
+            button.classList.remove('active');
+        });
+
+        // Activer le bouton cliqué
+        buttons[value].classList.add('active');
+
+        // Mettre la valeur dans l'input correspondant
+        document.getElementById(inputId).value = value;
+    }
+
+</script>
+
+<script>
+
+    $(document).ready(function () {
+        var i = 1;
+        $("#add_row").click(function () {
+            b = i - 1;
+            $('#addr' + i).html($('#addr' + b).html()).find('td:first-child').html(i + 1);
+            $('#tab_logic').append('<tr id="addr' + (i + 1) + '"></tr>');
+            i++;
+        });
+        $("#delete_row").click(function () {
+            if (i > 1) {
+                $("#addr" + (i - 1)).html('');
+                i--;
+            }
+        });
+
+    });
+
+</script>
+
+<script>
+
+    function SimulerStructure() {
+
+        if (Verif_Champs_Init() == true) {
+            return;
+        }
+
+        var e = document.getElementById("CategorieId");
+
+        var CategorieValue = e.value;
+        var CategorieText = e.options[e.selectedIndex].text;
+
+        e = document.getElementById("TypeActiviteId");
+        var TypeActiviteValue = e.value;
+        var TypeActiviteText = e.options[e.selectedIndex].text;
+
+        e = document.getElementById("FormeJuridiqueId");
+        var FormeJuridiqueValue = e.value;
+        var FormeJuridiqueText = e.options[e.selectedIndex].text;
+
+        e = document.getElementById("TypeFinancementId");
+        var TypeFinancementValue = e.value;
+        var TypeFinancementText = e.options[e.selectedIndex].text;
+
+        e = document.getElementById("RegimeImpositionId");
+        var RegimeImpositionValue = e.value;
+        var RegimeImpositionText = e.options[e.selectedIndex].text;
+
+        e = document.getElementById("CommuneBPId");
+        var CommuneBPValue = e.value;
+        var CommuneBPText = e.options[e.selectedIndex].text;
+
+        var x = document.getElementById("ExonerationTVAselect2");
+
+        if (TypeFinancementValue == 1) {
+
+            ApportPersonnel.value = CoutProjet.value;
+            TauxApportPersonnel.value = 100;
+            CMT.value = 0;
+            TauxCMT.value = 0;
+            PNRClassique.value = 0;
+            TauxPNRClassique.value = 0;
+
+            document.getElementById("TauxStructureFinancementID").value = 1;
+
+            SelectTauxStructureFinancement();
+        }
+        else {
+
+            ValeurCoutProjet = supp_espace_montant(CoutProjet.value);
+
+            if (TypeFinancementValue == 2) {
+
+                DiffereEmprunt.value = "1 an";
+
+                document.getElementById("DiffereEmpruntID").value = 1;
+
+                ApportPersonnel.value = parseFloat(ValeurCoutProjet) * 50 / 100;
+                TauxApportPersonnel.value = 50;
+                CMT.value = 0;
+                TauxCMT.value = 0;
+                PNRClassique.value = parseFloat(ValeurCoutProjet) * 50 / 100;
+                TauxPNRClassique.value = 50;
+
+                ApportPersonnel.value = montant(ApportPersonnel.value);
+                CMT.value = montant(CMT.value);
+                PNRClassique.value = montant(PNRClassique.value);
+
+                document.getElementById("TauxStructureFinancementID").value = 2;
+
+                SelectTauxStructureFinancement();
+            }
+            else {
+                if (TypeFinancementValue == 3) {
+
+                    DiffereEmprunt.value = "1 an et 6 mois";
+
+                    document.getElementById("DiffereEmpruntID").value = 2;
+
+                    if (CategorieValue == 1) {
+
+                        ApportPersonnel.value = parseFloat(ValeurCoutProjet) * 5 / 100;
+                        TauxApportPersonnel.value = 5;
+                        CMT.value = parseFloat(ValeurCoutProjet) * 70 / 100;
+                        TauxCMT.value = 70;
+                        PNRClassique.value = parseFloat(ValeurCoutProjet) * 25 / 100;
+                        TauxPNRClassique.value = 25;
+
+                        ApportPersonnel.value = montant(ApportPersonnel.value);
+                        CMT.value = montant(CMT.value);
+                        PNRClassique.value = montant(PNRClassique.value);
+
+                        document.getElementById("TauxStructureFinancementID").value = 3;
+
+                        SelectTauxStructureFinancement();
+                    }
+                    else {
+                        if (TypeZoneId.value == 1) {
+
+                            ApportPersonnel.value = parseFloat(ValeurCoutProjet) * 10 / 100;
+                            TauxApportPersonnel.value = 10;
+                            CMT.value = parseFloat(ValeurCoutProjet) * 70 / 100;
+                            TauxCMT.value = 70;
+                            PNRClassique.value = parseFloat(ValeurCoutProjet) * 20 / 100;
+                            TauxPNRClassique.value = 20;
+
+                            ApportPersonnel.value = montant(ApportPersonnel.value);
+                            CMT.value = montant(CMT.value);
+                            PNRClassique.value = montant(PNRClassique.value);
+
+                            document.getElementById("TauxStructureFinancementID").value = 4;
+
+                            SelectTauxStructureFinancement();
+                        }
+                        else {
+                            if (TypeZoneId.value == 2) {
+
+                                ApportPersonnel.value = parseFloat(ValeurCoutProjet) * 12 / 100;
+                                TauxApportPersonnel.value = 12
+                                CMT.value = parseFloat(ValeurCoutProjet) * 70 / 100;
+                                TauxCMT.value = 70;
+                                PNRClassique.value = parseFloat(ValeurCoutProjet) * 18 / 100;
+                                TauxPNRClassique.value = 18;
+
+                                ApportPersonnel.value = montant(ApportPersonnel.value);
+                                CMT.value = montant(CMT.value);
+                                PNRClassique.value = montant(PNRClassique.value);
+
+                                document.getElementById("TauxStructureFinancementID").value = 5;
+
+                                SelectTauxStructureFinancement();
+                            }
+                            else {
+
+                                ApportPersonnel.value = parseFloat(ValeurCoutProjet) * 15 / 100;
+                                TauxApportPersonnel.value = 15
+                                CMT.value = parseFloat(ValeurCoutProjet) * 70 / 100;
+                                TauxCMT.value = 70;
+                                PNRClassique.value = parseFloat(ValeurCoutProjet) * 15 / 100;
+                                TauxPNRClassique.value = 15;
+
+                                ApportPersonnel.value = montant(ApportPersonnel.value);
+                                CMT.value = montant(CMT.value);
+                                PNRClassique.value = montant(PNRClassique.value);
+
+                                document.getElementById("TauxStructureFinancementID").value = 6;
+
+                                SelectTauxStructureFinancement();
+                            }
+                        }
+                    }
+                }
+                /*Cas d'erreur affichage 0 par tous*/
+                else {
+
+                    ApportPersonnel.value = 0;
+                    TauxApportPersonnel.value = 0;
+                    CMT.value = 0;
+                    TauxCMT.value = 0;
+                    PNRClassique.value = 0;
+                    TauxPNRClassique.value = 0;
+                }
+            }
+        }
+
+        if (TypeZoneId.value == 1) {
+            if (RegimeImpositionId.value == 1) {
+
+                ExonerationFiscale.value = "10 ans";
+                document.getElementById("ExonerationFiscaleID").value = 3;
+            }
+            else {
+                if (ZonePromouvoir.value == "Oui") {
+
+                    ExonerationFiscale.value = "06 ans";
+                    document.getElementById("ExonerationFiscaleID").value = 2;
+                }
+                else {
+
+                    ExonerationFiscale.value = "03 ans";
+                    document.getElementById("ExonerationFiscaleID").value = 1;
+                }
+            }
+        }
+        else {
+            if (ZonePromouvoir.value == "Oui") {
+
+                ExonerationFiscale.value = "06 ans";
+                document.getElementById("ExonerationFiscaleID").value = 2;
+            }
+            else {
+
+                ExonerationFiscale.value = "03 ans";
+                document.getElementById("ExonerationFiscaleID").value = 1;
+            }
+        }
+
+        if (FormeJuridiqueValue == 1) {
+            if (RegimeImpositionId.value == 1) {
+
+                if (TypeActiviteValue == 1) {
+
+                    TauxIFU.value = "0 %";
+                    TauxIBS.value = "19 %";
+                }
+                else {
+                    if (TypeActiviteValue == 2) {
+
+                        TauxIFU.value = "0 %";
+                        TauxIBS.value = "23 %";
+                    }
+                    else {
+
+                        TauxIFU.value = "0 %";
+                        TauxIBS.value = "26 %";
+                    }
+                }
+            }
+            else {
+                if (TypeActiviteValue == 1) {
+
+                    TauxIBS.value = "0 %";
+                    TauxIFU.value = "05 %";
+                }
+                else {
+                    if (TypeActiviteValue == 3) {
+
+                        TauxIBS.value = "0 %";
+                        TauxIFU.value = "12 %";
+                    }
+                }
+            }
+        }
+        else {
+            TauxIFU.value = "0 %";
+            TauxIBS.value = "0 %";
+        }
+
+        GetValueStringModel();
+    }
+
+    $(document).ready(function () {
+        $('#EnvoyerId').on('click', function () {
+
+            const _url = "/BusinessPlanProject/AddInvestissement2";
+
+            var table = document.getElementById("TableA");
+
+            var rowCount = table.rows.length;
+
+            if (rowCount == 1) {
+                return;
+            }
+            else {
+                var postData = [];
+                postData.push(BusinessPlanID.value);
+
+                for (var i = 1; i < rowCount; i++) {
+                    var row = table.rows[i];
+
+                    postData.push(row.cells[1].innerText);
+                    postData.push(row.cells[2].innerText);
+                    postData.push(row.cells[3].innerText);
+                    postData.push(row.cells[4].innerText);
+                    postData.push(row.cells[5].innerText);
+                    postData.push(row.cells[6].innerText);
+                    postData.push(row.cells[7].innerText);
+                    postData.push(row.cells[8].innerText);
+                    postData.push(row.cells[9].innerText);
+                    postData.push(row.cells[10].innerText);
+                }
+            }
+
+            var postData1 = {
+                "id": '1',
+                "designationFr": 'TestDesignation',
+                "designationMateriel": 'TestDesignationMateriel',
+                "dureeAmortissement": '1000',
+                "montant01": '1010',
+                "montant02": '2020',
+                "montant03": '3030',
+                "montant04": '4040',
+                "montant05": '5050',
+                "montant06": '6060',
+                "montant07": '7070',
+                "investissements": [{ 'designationFr': 'TestDesignationinvestissements', 'designationMateriel': 'TestDesignationMaterielinvestissements', 'dureeAmortissement': '10100', 'montant01': '10100' }]
+            };
+
+            $.ajax({
+                type: "POST",
+                url: _url,
+                contentType: 'application/json; charset=utf-8',
+                dataType: "json",
+                data: JSON.stringify(postData),
+                success: function (result) {
+                    $("#modalMessages").html(result.messages);
+                    $('#modalBP').modal('hide');
+                    location.reload();
+                    /*window.location = "/BusinessPlanProject/Details?id=" + NumeroSIEJE.value;*/
+                    @* window.location ='@Url.Action("Details", "BusinessPlanProject", new { id = NumeroSIEJE.value })';*@
+                },
+                error: function () {
+                    alert("Erreur : Add Investissement2");
+                }
+            });
+
+        });
+    });
+
+</script>
+
+<script>
+
+    function checkedExonerationTVA() {
+
+        InitChamps();
+
+        var e = document.getElementById("ExonerationTVAselect2");
+
+        var ExonerationTVAValue = e.value;
+        var ExonerationTVAText = e.options[e.selectedIndex].text;
+
+        if (ExonerationTVAValue == "true") {
+            document.getElementById("ExonerationTVA").checked = true;
+        }
+        else {
+            if (ExonerationTVAValue == "false") {
+                document.getElementById("ExonerationTVA").checked = false;
+            }
+            else {
+                document.getElementById("ExonerationTVA").checked = null;
+            }
+        }
+
+    }
+
+    function SelectTauxStructureFinancement() {
+
+        var e = document.getElementById("TauxStructureFinancementID");
+
+        var TauxStructureFinancementIdValue = e.value;
+        var TauxStructureFinancementIdText = e.options[e.selectedIndex].text;
+
+        const TauxApportPersonnelValue = TauxStructureFinancementIdText.substr(1, 3);
+        const TauxCMTValue = TauxStructureFinancementIdText.substr(5, 3);
+        const TauxPNRClassiqueValue = TauxStructureFinancementIdText.substr(9, 3);
+
+        TauxApportPersonnel.value = parseInt(TauxApportPersonnelValue);
+        TauxCMT.value = parseInt(TauxCMTValue);
+        TauxPNRClassique.value = parseInt(TauxPNRClassiqueValue);
+    }
+
+    function montant(val_montant) {
+        x = val_montant.split('.');
+        x1 = x[0];
+        x2 = x.length > 1 ? '.' + x[1] : '';
+        var rgx = /(\d+)(\d{3})/;
+        while (rgx.test(x1)) {
+            x1 = x1.replace(rgx, '$1' + ' ' + '$2');
+        }
+
+        return x1 + x2;
+    }
+
+    function verif_nombre(champ) {
+        var chiffres = new RegExp("[0-9]");
+        var verif;
+        var points = 0;
+
+        for (x = 0; x < champ.value.length; x++) {
+            verif = chiffres.test(champ.value.charAt(x));
+            if (champ.value.charAt(x) == "." && x != 0) { verif = true; points++; }
+            if (points > 1) { verif = false; points = 1; }
+            if (verif == false) { champ.value = champ.value.substr(0, x) + champ.value.substr(x + 1, champ.value.length - x + 1); x--; }
+        }
+    }
+
+    function supp_espace_montant(val_montant) {
+
+        val_montant_sans_espace = val_montant.replaceAll(" ", "");
+
+        return val_montant_sans_espace;
+    }
+
+    function InitChamps() {
+
+        document.getElementById("TypeMaterielId").value = 0;
+
+        DesignationMateriel.value = "";
+        DureeAmortissement.value = "";
+        MontantAcqui01.value = "";
+        MontantAcqui02.value = "";
+        MontantAcqui03.value = "";
+        MontantAcqui04.value = "";
+        MontantAcqui05.value = "";
+        MontantAcqui06.value = "";
+        MontantAcqui07.value = "";
+
+    }
+
+    function GetValueStringModel() {
+
+        CoutProjetModel.value = parseFloat(supp_espace_montant(CoutProjet.value));
+        ApportPersonnelModel.value = parseFloat(supp_espace_montant(ApportPersonnel.value));
+        CMTModel.value = parseFloat(supp_espace_montant(CMT.value));
+        PNRClassiqueModel.value = parseFloat(supp_espace_montant(PNRClassique.value));
+        PNRSupplementaireModel.value = parseFloat(supp_espace_montant(PNRSupplementaire.value));
+        ApportSupplementaireModel.value = parseFloat(supp_espace_montant(ApportSupplementaire.value));
+    }
+
+</script>
+
+<script>
+
+    window.setTimeout(function () {
+        $(".alert").fadeTo(500, 0).slideUp(500, function () {
+            $(this).remove();
+        });
+    }, 2000);
+
+</script>
+
+<script language="javascript">
+
+    function Verif_Champs_Init() {
+
+        var e = document.getElementById("TypeMaterielId");
+
+        var TypeMaterielValue = e.value;
+
+        if (TypeMaterielValue == "0"
+            || DesignationMateriel.value == ""
+            || DureeAmortissement.value == ""
+            || MontantAcqui01.value == ""
+            || MontantAcqui02.value == ""
+            || MontantAcqui03.value == ""
+            || MontantAcqui04.value == ""
+            || MontantAcqui05.value == ""
+            || MontantAcqui06.value == ""
+            || MontantAcqui07.value == ""
+        ) {
+            return true;
+        }
+        else {
+
+            return false;
+        }
+    }
+
+    function addRow(tableAID) {
+
+        if (Verif_Champs_Init() == true) {
+            return;
+        }
+
+
+
+        var table = document.getElementById(tableAID);
+
+        var e = document.getElementById("TypeMaterielId");
+
+        var TypeMaterielValue = e.value;
+        var TypeMaterielText = e.options[e.selectedIndex].text;
+
+        var rowCount = table.rows.length;
+
+        if (rowCount == 1) {
+            var tbodyRef = document.getElementById(tableAID).getElementsByTagName('tbody')[0];
+            var row = tbodyRef.insertRow();
+        }
+        else {
+            var row = table.insertRow(rowCount);
+        }
+
+        var cell0 = row.insertCell(0);
+        var element0 = document.createElement("input");
+        element0.type = "checkbox";
+        element0.name = "chkbox[]";
+        cell0.appendChild(element0);
+
+        var cell1 = row.insertCell(1);
+        var element1 = document.createElement("td");
+        var tm = document.createTextNode(TypeMaterielText);
+
+        element1.appendChild(tm);
+        cell1.appendChild(element1);
+
+        var cell2 = row.insertCell(2);
+        var element2 = document.createElement("td");
+        var dm = document.createTextNode(DesignationMateriel.value);
+
+        element2.appendChild(dm);
+        cell2.appendChild(element2);
+
+        var cell3 = row.insertCell(3);
+        var element3 = document.createElement("td");
+        var da = document.createTextNode(supp_espace_montant(DureeAmortissement.value));
+
+        element3.appendChild(da);
+        cell3.appendChild(element3);
+
+        var cell4 = row.insertCell(4);
+        var element4 = document.createElement("td");
+
+        var mm = document.createTextNode(supp_espace_montant(MontantAcqui01.value));
+
+        element4.appendChild(mm);
+        cell4.appendChild(element4);
+
+        var cell5 = row.insertCell(5);
+        var element5 = document.createElement("td");
+
+        var mt02 = document.createTextNode(supp_espace_montant(MontantAcqui02.value));
+
+        element5.appendChild(mt02);
+        cell5.appendChild(element5);
+
+        var cell6 = row.insertCell(6);
+        var element6 = document.createElement("td");
+
+        var mt03 = document.createTextNode(supp_espace_montant(MontantAcqui03.value));
+
+        element6.appendChild(mt03);
+        cell6.appendChild(element6);
+
+        var cell7 = row.insertCell(7);
+        var element7 = document.createElement("td");
+
+        var mt04 = document.createTextNode(supp_espace_montant(MontantAcqui04.value));
+
+        element7.appendChild(mt04);
+        cell7.appendChild(element7);
+
+        var cell8 = row.insertCell(8);
+        var element8 = document.createElement("td");
+
+        var mt05 = document.createTextNode(supp_espace_montant(MontantAcqui05.value));
+
+        element8.appendChild(mt05);
+        cell8.appendChild(element8);
+
+        var cell9 = row.insertCell(9);
+        var element9 = document.createElement("td");
+
+        var mt06 = document.createTextNode(supp_espace_montant(MontantAcqui06.value));
+
+        element9.appendChild(mt06);
+        cell9.appendChild(element9);
+
+        var cell10 = row.insertCell(10);
+        var element10 = document.createElement("td");
+
+        var mt07 = document.createTextNode(supp_espace_montant(MontantAcqui07.value));
+
+        element10.appendChild(mt07);
+        cell10.appendChild(element10);
+
+    }
+
+    function deleteRow(tableAID) {
+        try {
+            var table = document.getElementById(tableAID);
+
+            var rowCount = table.rows.length;
+
+            for (var i = 0; i < rowCount; i++) {
+                var row = table.rows[i];
+                var chkbox = row.cells[0].childNodes[0];
+                if (null != chkbox && true == chkbox.checked) {
+                    table.deleteRow(i);
+                    rowCount--;
+                    i--;
+                }
+            }
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+</script>
