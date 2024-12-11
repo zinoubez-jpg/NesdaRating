@@ -1096,11 +1096,6 @@ namespace Anade.Khadamat.Web.Controllers
 
         }
 
-
-
-
-
-
         [Authorize(Roles = "Analyste")]
         [HttpGet]
         [Route("{id}")]
@@ -1141,39 +1136,44 @@ namespace Anade.Khadamat.Web.Controllers
 
             BusinessResult businessResult;
 
-            List<DetailAchatsDirects> detailsAchatsDirects = new();
+            List<DetailPoste> detailsPoste = new();
 
-            int indexCodeMatiereApprov = 1;
+            int indexCodePoste = 1;
 
-            for (int i = 1; i < model.Length; i += 29)
+            for (int i = 1; i < model.Length; i += 14)
             {
                 int anneeIndex = 1;
 
-                MatierePremiereApprovisionnement matierePremiereApprovisionnement = new();
+                Poste poste = new();
 
-                matierePremiereApprovisionnement.Code = matierePremiereApprovisionnement.GetCode(businessPlan.Code, indexCodeMatiereApprov);
+                poste.Code = poste.GetCode(businessPlan.Code, indexCodePoste);
 
-                matierePremiereApprovisionnement.Designation = model[i];
+                poste.Designation = model[i];
+                poste.SalaireBase = Math.Round(Convert.ToDecimal(model[i + 1].Replace(".", ",")), 2);
+                poste.IndemnitesPrimesCotisables = Math.Round(Convert.ToDecimal(model[i + 2].Replace(".", ",")), 2);
+                poste.IndemnitesPrimesImposables = Math.Round(Convert.ToDecimal(model[i + 3].Replace(".", ",")), 2);
+                poste.SLR_Indemnites_PrimesNonImplCotl = Math.Round(Convert.ToDecimal(model[i + 4].Replace(".", ",")), 2);
+                poste.NetPayer = Math.Round(Convert.ToDecimal(model[i + 5].Replace(".", ",")), 2);
+                poste.RetenueIRG = Math.Round(Convert.ToDecimal(model[i + 6].Replace(".", ",")), 2);
 
-                for (int j = 0; j < 27; j += 4)
+                for (int j = 0; j < 6; j++)
                 {
-                    DetailAchatsDirects detailAchatsDirects = new();
-                    detailAchatsDirects.BusinessPlanId = businessPlanId;
-                    detailAchatsDirects.AnneeId = anneeIndex;
-                    detailAchatsDirects.Quantite = (float)Math.Round(Convert.ToDouble(model[i + 2 + j].Replace(".", ",")), 2);
-                    detailAchatsDirects.PrixUnitaire = Math.Round(Convert.ToDecimal(model[i + 3 + j].Replace(".", ",")), 2);
-                    detailAchatsDirects.Montant = Math.Round(Convert.ToDecimal(model[i + 4 + j].Replace(".", ",")), 2);
-                    detailAchatsDirects.MatierePremiereApprovisionnement = matierePremiereApprovisionnement;
+                    DetailPoste detailPoste = new();
+                    detailPoste.BusinessPlanId = businessPlanId;
+                    detailPoste.AnneeId = anneeIndex;
+                    detailPoste.NombreEmploi = Convert.ToInt32(model[i + 7 + j]);
+                    detailPoste.Poste = poste;
 
-                    detailsAchatsDirects.Add(detailAchatsDirects);
+                    detailsPoste.Add(detailPoste);
                     anneeIndex++;
                 }
-                indexCodeMatiereApprov++;
+
+                indexCodePoste++;
             }
 
-            businessPlan.EtapeId = 4;
+            businessPlan.EtapeId = 5;
 
-            businessPlan.DetailsAchatsDirects = detailsAchatsDirects;
+            businessPlan.DetailsPoste = detailsPoste;
 
             businessResult = _businessPlanBusinessService.Update(businessPlan);
 
@@ -1189,13 +1189,6 @@ namespace Anade.Khadamat.Web.Controllers
             }
 
         }
-
-
-
-
-
-
-
 
         [Authorize(Roles = "Analyste")]
         [HttpGet]
@@ -1242,7 +1235,7 @@ namespace Anade.Khadamat.Web.Controllers
             {
                 RubriqueChargesExternes rubriqueChargesExternes = new();
                 rubriqueChargesExternes = _rubriqueChargesExternesBusinessService.GetSingle(x => x.Code == model[i].Substring(1, 2));
-                
+
                 for (int j = 0; j < 7; j++)
                 {
                     DetailChargesExternes detailChargesExternes = new();

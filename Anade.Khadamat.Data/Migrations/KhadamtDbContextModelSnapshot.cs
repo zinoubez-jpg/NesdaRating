@@ -163,6 +163,867 @@ namespace Anade.Khadamat.Data.Migrations
                     b.ToTable("BusinessPlan");
                 });
 
+            modelBuilder.Entity("Anade.Khadamat.Domain.BusinessPlanReport", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<decimal>("AchatsConsommesAnnee01")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("AchatsConsommesAnnee02")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("AchatsConsommesAnnee03")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("AchatsConsommesAnnee04")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("AchatsConsommesAnnee05")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("AchatsConsommesAnnee06")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("AchatsConsommesAnnee07")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("ActifsBiologique")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Amenagement")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("AmortissementsProvisionsAnnee01")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("AmortissementsProvisionsAnnee02")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("AmortissementsProvisionsAnnee03")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("AmortissementsProvisionsAnnee04")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("AmortissementsProvisionsAnnee05")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("AmortissementsProvisionsAnnee06")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("AmortissementsProvisionsAnnee07")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("ApportPersonnel")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("ApportSupplementaire")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("AssurancesLieesCreation")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("BusinessPlanId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("CAFAnnee01")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("CAFAnnee02")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("CAFAnnee03")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("CAFAnnee04")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("CAFAnnee05")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("CAFAnnee06")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("CAFAnnee07")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("CMT")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("ChargesExternesAnnee01")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("ChargesExternesAnnee02")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("ChargesExternesAnnee03")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("ChargesExternesAnnee04")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("ChargesExternesAnnee05")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("ChargesExternesAnnee06")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("ChargesExternesAnnee07")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("ChiffreAffairesAnnee01")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("ChiffreAffairesAnnee02")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("ChiffreAffairesAnnee03")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("ChiffreAffairesAnnee04")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("ChiffreAffairesAnnee05")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("ChiffreAffairesAnnee06")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("ChiffreAffairesAnnee07")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Code")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Complet")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("Date_Creation")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("Date_Generation")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("DecaissementAcquisitionEquipementsAnnee01")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("DecaissementAcquisitionEquipementsAnnee02")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("DecaissementAcquisitionEquipementsAnnee03")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("DecaissementAcquisitionEquipementsAnnee04")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("DecaissementAcquisitionEquipementsAnnee05")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("DecaissementAcquisitionEquipementsAnnee06")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("DecaissementAcquisitionEquipementsAnnee07")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("DecaissementIBS_IFU_IRGAnnee01")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("DecaissementIBS_IFU_IRGAnnee02")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("DecaissementIBS_IFU_IRGAnnee03")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("DecaissementIBS_IFU_IRGAnnee04")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("DecaissementIBS_IFU_IRGAnnee05")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("DecaissementIBS_IFU_IRGAnnee06")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("DecaissementIBS_IFU_IRGAnnee07")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("DecaissementTVAPayerAnnee01")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("DecaissementTVAPayerAnnee02")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("DecaissementTVAPayerAnnee03")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("DecaissementTVAPayerAnnee04")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("DecaissementTVAPayerAnnee05")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("DecaissementTVAPayerAnnee06")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("DecaissementTVAPayerAnnee07")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("DelaiRecuperation")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DiffereEmprunt")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("EncaissementsProvenantEmpruntsAnnee01")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("EncaissementsProvenantEmpruntsAnnee02")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("EncaissementsProvenantEmpruntsAnnee03")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("EncaissementsProvenantEmpruntsAnnee04")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("EncaissementsProvenantEmpruntsAnnee05")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("EncaissementsProvenantEmpruntsAnnee06")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("EncaissementsProvenantEmpruntsAnnee07")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("EncaissementsRecuClientsAnnee01")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("EncaissementsRecuClientsAnnee02")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("EncaissementsRecuClientsAnnee03")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("EncaissementsRecuClientsAnnee04")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("EncaissementsRecuClientsAnnee05")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("EncaissementsRecuClientsAnnee06")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("EncaissementsRecuClientsAnnee07")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("EncaissementsSuiteApportPersonnelAnnee01")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("EncaissementsSuiteApportPersonnelAnnee02")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("EncaissementsSuiteApportPersonnelAnnee03")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("EncaissementsSuiteApportPersonnelAnnee04")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("EncaissementsSuiteApportPersonnelAnnee05")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("EncaissementsSuiteApportPersonnelAnnee06")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("EncaissementsSuiteApportPersonnelAnnee07")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("EquilibreAnnee01")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("EquilibreAnnee02")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("EquilibreAnnee03")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("EquilibreAnnee04")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("EquilibreAnnee05")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("EquilibreAnnee06")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("EquilibreAnnee07")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("EquipementsImportes")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("EvolutionChiffreAffairesAnnee01")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("EvolutionChiffreAffairesAnnee02")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("EvolutionChiffreAffairesAnnee03")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("EvolutionChiffreAffairesAnnee04")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("EvolutionChiffreAffairesAnnee05")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("EvolutionChiffreAffairesAnnee06")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("EvolutionChiffreAffairesAnnee07")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("ExcedentBrutExploitationAnnee01")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("ExcedentBrutExploitationAnnee02")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("ExcedentBrutExploitationAnnee03")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("ExcedentBrutExploitationAnnee04")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("ExcedentBrutExploitationAnnee05")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("ExcedentBrutExploitationAnnee06")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("ExcedentBrutExploitationAnnee07")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("ExonerationFiscale")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("FluxTresorerieNetAnnee01")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("FluxTresorerieNetAnnee02")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("FluxTresorerieNetAnnee03")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("FluxTresorerieNetAnnee04")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("FluxTresorerieNetAnnee05")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("FluxTresorerieNetAnnee06")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("FluxTresorerieNetAnnee07")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("FluxTresorerieProvenantExploitationAnnee01")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("FluxTresorerieProvenantExploitationAnnee02")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("FluxTresorerieProvenantExploitationAnnee03")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("FluxTresorerieProvenantExploitationAnnee04")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("FluxTresorerieProvenantExploitationAnnee05")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("FluxTresorerieProvenantExploitationAnnee06")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("FluxTresorerieProvenantExploitationAnnee07")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("FluxTresorerieProvenantFinancementAnnee01")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("FluxTresorerieProvenantFinancementAnnee02")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("FluxTresorerieProvenantFinancementAnnee03")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("FluxTresorerieProvenantFinancementAnnee04")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("FluxTresorerieProvenantFinancementAnnee05")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("FluxTresorerieProvenantFinancementAnnee06")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("FluxTresorerieProvenantFinancementAnnee07")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("FluxTresorerieProvenantInvestissementAnnee01")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("FluxTresorerieProvenantInvestissementAnnee02")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("FluxTresorerieProvenantInvestissementAnnee03")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("FluxTresorerieProvenantInvestissementAnnee04")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("FluxTresorerieProvenantInvestissementAnnee05")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("FluxTresorerieProvenantInvestissementAnnee06")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("FluxTresorerieProvenantInvestissementAnnee07")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("FondsGarantie")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("FondsRoulement")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("FraisGeneraux")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("IBS_IFU_IRGAnnee01")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("IBS_IFU_IRGAnnee02")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("IBS_IFU_IRGAnnee03")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("IBS_IFU_IRGAnnee04")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("IBS_IFU_IRGAnnee05")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("IBS_IFU_IRGAnnee06")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("IBS_IFU_IRGAnnee07")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("InstallationsEquipements")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("InvestissementInitial")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("MaterielAudioVisuel")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("MaterielBureau")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("MaterielCommunication")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("MaterielInformatique")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("MaterielProduction")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("MaterielRoulant")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("MontantCashFlowActualisesAnnee01")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("MontantCashFlowActualisesAnnee02")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("MontantCashFlowActualisesAnnee03")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("MontantCashFlowActualisesAnnee04")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("MontantCashFlowActualisesAnnee05")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("MontantCashFlowActualisesAnnee06")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("MontantCashFlowActualisesAnnee07")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("MontantCumulCFActualisesAnnee01")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("MontantCumulCFActualisesAnnee02")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("MontantCumulCFActualisesAnnee03")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("MontantCumulCFActualisesAnnee04")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("MontantCumulCFActualisesAnnee05")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("MontantCumulCFActualisesAnnee06")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("MontantCumulCFActualisesAnnee07")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("MontantTresorerieNetAnnee01")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("MontantTresorerieNetAnnee02")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("MontantTresorerieNetAnnee03")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("MontantTresorerieNetAnnee04")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("MontantTresorerieNetAnnee05")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("MontantTresorerieNetAnnee06")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("MontantTresorerieNetAnnee07")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("MontantValeurActuelleNette")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("NomPrenom")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NumeroSIEJE")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("PNRClassique")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("PNRSupplementaire")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("RemboursementsEmpruntsCMTAnnee01")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("RemboursementsEmpruntsCMTAnnee02")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("RemboursementsEmpruntsCMTAnnee03")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("RemboursementsEmpruntsCMTAnnee04")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("RemboursementsEmpruntsCMTAnnee05")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("RemboursementsEmpruntsCMTAnnee06")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("RemboursementsEmpruntsCMTAnnee07")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("RemboursementsEmpruntsPNRAnnee01")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("RemboursementsEmpruntsPNRAnnee02")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("RemboursementsEmpruntsPNRAnnee03")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("RemboursementsEmpruntsPNRAnnee04")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("RemboursementsEmpruntsPNRAnnee05")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("RemboursementsEmpruntsPNRAnnee06")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("RemboursementsEmpruntsPNRAnnee07")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("ResultatExploitationAnnee01")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("ResultatExploitationAnnee02")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("ResultatExploitationAnnee03")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("ResultatExploitationAnnee04")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("ResultatExploitationAnnee05")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("ResultatExploitationAnnee06")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("ResultatExploitationAnnee07")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("ResultatNetAnnee01")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("ResultatNetAnnee02")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("ResultatNetAnnee03")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("ResultatNetAnnee04")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("ResultatNetAnnee05")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("ResultatNetAnnee06")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("ResultatNetAnnee07")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("SalairesChargesSocialesAnnee01")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("SalairesChargesSocialesAnnee02")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("SalairesChargesSocialesAnnee03")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("SalairesChargesSocialesAnnee04")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("SalairesChargesSocialesAnnee05")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("SalairesChargesSocialesAnnee06")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("SalairesChargesSocialesAnnee07")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("SoldeFinalAnnee01")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("SoldeFinalAnnee02")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("SoldeFinalAnnee03")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("SoldeFinalAnnee04")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("SoldeFinalAnnee05")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("SoldeFinalAnnee06")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("SoldeFinalAnnee07")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("SoldeInitialAnnee01")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("SoldeInitialAnnee02")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("SoldeInitialAnnee03")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("SoldeInitialAnnee04")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("SoldeInitialAnnee05")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("SoldeInitialAnnee06")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("SoldeInitialAnnee07")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("SommesVerseesFournisseursAnnee01")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("SommesVerseesFournisseursAnnee02")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("SommesVerseesFournisseursAnnee03")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("SommesVerseesFournisseursAnnee04")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("SommesVerseesFournisseursAnnee05")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("SommesVerseesFournisseursAnnee06")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("SommesVerseesFournisseursAnnee07")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("SommesVerseesPersonnelCNAS_IRGAnnee01")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("SommesVerseesPersonnelCNAS_IRGAnnee02")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("SommesVerseesPersonnelCNAS_IRGAnnee03")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("SommesVerseesPersonnelCNAS_IRGAnnee04")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("SommesVerseesPersonnelCNAS_IRGAnnee05")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("SommesVerseesPersonnelCNAS_IRGAnnee06")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("SommesVerseesPersonnelCNAS_IRGAnnee07")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("SommesVerseesPrestatairesAnnee01")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("SommesVerseesPrestatairesAnnee02")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("SommesVerseesPrestatairesAnnee03")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("SommesVerseesPrestatairesAnnee04")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("SommesVerseesPrestatairesAnnee05")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("SommesVerseesPrestatairesAnnee06")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("SommesVerseesPrestatairesAnnee07")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("TauxApportPersonnel")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TauxCMT")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("TauxEBEAnnee01")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("TauxEBEAnnee02")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("TauxEBEAnnee03")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("TauxEBEAnnee04")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("TauxEBEAnnee05")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("TauxEBEAnnee06")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("TauxEBEAnnee07")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("TauxPNRClassique")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("TauxVAAnnee01")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("TauxVAAnnee02")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("TauxVAAnnee03")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("TauxVAAnnee04")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("TauxVAAnnee05")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("TauxVAAnnee06")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("TauxVAAnnee07")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("TauxValeurActuelleNette")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Total")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("TypeFinancement")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Utilisateur")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("ValeurAjouteeAnnee01")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("ValeurAjouteeAnnee02")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("ValeurAjouteeAnnee03")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("ValeurAjouteeAnnee04")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("ValeurAjouteeAnnee05")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("ValeurAjouteeAnnee06")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("ValeurAjouteeAnnee07")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BusinessPlanReport");
+                });
+
             modelBuilder.Entity("Anade.Khadamat.Domain.Categorie", b =>
                 {
                     b.Property<int>("Id")
@@ -568,6 +1429,36 @@ namespace Anade.Khadamat.Data.Migrations
                     b.HasIndex("TypeMaterielId");
 
                     b.ToTable("DetailInvestissement");
+                });
+
+            modelBuilder.Entity("Anade.Khadamat.Domain.DetailPoste", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AnneeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BusinessPlanId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NombreEmploi")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PosteId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AnneeId");
+
+                    b.HasIndex("BusinessPlanId");
+
+                    b.HasIndex("PosteId");
+
+                    b.ToTable("DetailPoste");
                 });
 
             modelBuilder.Entity("Anade.Khadamat.Domain.DiffereEmprunt", b =>
@@ -1211,6 +2102,42 @@ namespace Anade.Khadamat.Data.Migrations
                     b.HasIndex("MoisId");
 
                     b.ToTable("PlanTresorerieMensuel");
+                });
+
+            modelBuilder.Entity("Anade.Khadamat.Domain.Poste", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Code")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Designation")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("IndemnitesPrimesCotisables")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("IndemnitesPrimesImposables")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("NetPayer")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("RetenueIRG")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("SLR_Indemnites_PrimesNonImplCotl")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("SalaireBase")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Poste");
                 });
 
             modelBuilder.Entity("Anade.Khadamat.Domain.Pricing", b =>
@@ -1942,6 +2869,33 @@ namespace Anade.Khadamat.Data.Migrations
                     b.Navigation("TypeMateriel");
                 });
 
+            modelBuilder.Entity("Anade.Khadamat.Domain.DetailPoste", b =>
+                {
+                    b.HasOne("Anade.Khadamat.Domain.Annee", "Annee")
+                        .WithMany("DetailsPoste")
+                        .HasForeignKey("AnneeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Anade.Khadamat.Domain.BusinessPlan", "BusinessPlan")
+                        .WithMany("DetailsPoste")
+                        .HasForeignKey("BusinessPlanId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Anade.Khadamat.Domain.Poste", "Poste")
+                        .WithMany("DetailsPoste")
+                        .HasForeignKey("PosteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Annee");
+
+                    b.Navigation("BusinessPlan");
+
+                    b.Navigation("Poste");
+                });
+
             modelBuilder.Entity("Anade.Khadamat.Domain.EvaluationProjet", b =>
                 {
                     b.HasOne("Anade.Khadamat.Domain.BusinessPlan", "BusinessPlan")
@@ -2202,6 +3156,8 @@ namespace Anade.Khadamat.Data.Migrations
 
                     b.Navigation("DetailsEvaluationProjet");
 
+                    b.Navigation("DetailsPoste");
+
                     b.Navigation("Mois");
 
                     b.Navigation("TableauxFluxTresorerie");
@@ -2228,6 +3184,8 @@ namespace Anade.Khadamat.Data.Migrations
                     b.Navigation("DetailsChiffreAffaire");
 
                     b.Navigation("DetailsInvestissement");
+
+                    b.Navigation("DetailsPoste");
 
                     b.Navigation("EvaluationProjet");
 
@@ -2317,6 +3275,11 @@ namespace Anade.Khadamat.Data.Migrations
             modelBuilder.Entity("Anade.Khadamat.Domain.NiveauFormation", b =>
                 {
                     b.Navigation("FicheNotations");
+                });
+
+            modelBuilder.Entity("Anade.Khadamat.Domain.Poste", b =>
+                {
+                    b.Navigation("DetailsPoste");
                 });
 
             modelBuilder.Entity("Anade.Khadamat.Domain.Pricing", b =>

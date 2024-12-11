@@ -15,6 +15,7 @@ namespace Anade.Khadamat.Domain
             this.DetailsInvestissement = new HashSet<DetailInvestissement>();
             this.DetailsChiffreAffaire = new HashSet<DetailChiffreAffaire>();
             this.DetailsAchatsDirects = new HashSet<DetailAchatsDirects>();
+            this.DetailsPoste = new HashSet<DetailPoste>();
             this.DetailsChargesExternes = new HashSet<DetailChargesExternes>();
         }
 
@@ -44,6 +45,7 @@ namespace Anade.Khadamat.Domain
         public virtual ICollection<DetailInvestissement> DetailsInvestissement { get; set; }
         public virtual ICollection<DetailChiffreAffaire> DetailsChiffreAffaire { get; set; }
         public virtual ICollection<DetailAchatsDirects> DetailsAchatsDirects { get; set; }
+        public virtual ICollection<DetailPoste> DetailsPoste { get; set; }
         public virtual ICollection<DetailChargesExternes> DetailsChargesExternes { get; set; }
 
     }

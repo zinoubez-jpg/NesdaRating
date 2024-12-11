@@ -140,7 +140,7 @@
 
                                                 <div class="col-sm-8">
                                                     <div class="form-group">
-                                                        <span class="form-label">Net à payer année 01</span>
+                                                        <span class="form-label">Masse salarialle année 01</span>
                                                         <input disabled id="NetPayer01Id" placeholder="0.00" class="form-control" onkeyup="verif_nombre(this); $(this).val(montant($(this).val().replace(/ /g, '')))">
                                                     </div>
                                                 </div>
@@ -154,7 +154,7 @@
 
                                                 <div class="col-sm-8">
                                                     <div class="form-group">
-                                                        <span class="form-label">Net à payer année 02</span>
+                                                        <span class="form-label">Masse salarialle année 02</span>
                                                         <input disabled id="NetPayer02Id" placeholder="0.00" class="form-control" onkeyup="verif_nombre(this); $(this).val(montant($(this).val().replace(/ /g, '')))">
                                                     </div>
                                                 </div>
@@ -168,7 +168,7 @@
 
                                                 <div class="col-sm-8">
                                                     <div class="form-group">
-                                                        <span class="form-label">Net à payer année 03</span>
+                                                        <span class="form-label">Masse salarialle année 03</span>
                                                         <input disabled id="NetPayer03Id" placeholder="0.00" class="form-control" onkeyup="verif_nombre(this); $(this).val(montant($(this).val().replace(/ /g, '')))">
                                                     </div>
                                                 </div>
@@ -182,7 +182,7 @@
 
                                                 <div class="col-sm-8">
                                                     <div class="form-group">
-                                                        <span class="form-label">Net à payer année 04</span>
+                                                        <span class="form-label">Masse salarialle année 04</span>
                                                         <input disabled id="NetPayer04Id" placeholder="0.00" class="form-control" onkeyup="verif_nombre(this); $(this).val(montant($(this).val().replace(/ /g, '')))">
                                                     </div>
                                                 </div>
@@ -196,7 +196,7 @@
 
                                                 <div class="col-sm-8">
                                                     <div class="form-group">
-                                                        <span class="form-label">Net à payer année 05</span>
+                                                        <span class="form-label">Masse salarialle année 05</span>
                                                         <input disabled id="NetPayer05Id" placeholder="0.00" class="form-control" onkeyup="verif_nombre(this); $(this).val(montant($(this).val().replace(/ /g, '')))">
                                                     </div>
                                                 </div>
@@ -210,7 +210,7 @@
 
                                                 <div class="col-sm-8">
                                                     <div class="form-group">
-                                                        <span class="form-label">Net à payer année 06</span>
+                                                        <span class="form-label">Masse salarialle année 06</span>
                                                         <input disabled id="NetPayer06Id" placeholder="0.00" class="form-control" onkeyup="verif_nombre(this); $(this).val(montant($(this).val().replace(/ /g, '')))">
                                                     </div>
                                                 </div>
@@ -224,7 +224,7 @@
 
                                                 <div class="col-sm-8">
                                                     <div class="form-group">
-                                                        <span class="form-label">Net à payer année 07</span>
+                                                        <span class="form-label">Masse salarialle année 07</span>
                                                         <input disabled id="NetPayer07Id" placeholder="0.00" class="form-control" onkeyup="verif_nombre(this); $(this).val(montant($(this).val().replace(/ /g, '')))">
                                                     </div>
                                                 </div>
@@ -363,13 +363,25 @@
                                                         <tr>
                                                             <th></th>
                                                             <th>
-                                                                Type M
+                                                                Désignation poste
                                                             </th>
                                                             <th>
-                                                                Materiel
+                                                                Salaire base
                                                             </th>
                                                             <th>
-                                                                Duree
+                                                                Indemnités P.C
+                                                            </th>
+                                                            <th>
+                                                                Indemnités P.I
+                                                            </th>
+                                                            <th>
+                                                                SLR P.N.C.I
+                                                            </th>
+                                                            <th>
+                                                                Net à payer
+                                                            </th>
+                                                            <th>
+                                                                Retenue IRG
                                                             </th>
                                                             <th>
                                                                 Année1
@@ -545,7 +557,6 @@
         document.getElementById('GainIndemnitesPrimesImposablesId').innerHTML = IndemnitesPrimesImposablesId.value;
         document.getElementById('GainIndemnitesPrimesNonImposablesCotisablesId').innerHTML = SLR_Indemnites_PrimesNonImplCotlId.value;
 
-
         SalairePoste = parseFloat(ValeurSalaireBase) + parseFloat(ValeurIndemnitesPrimesCotisables);
 
         ValeurRetenuSecuriteSociale = parseFloat(SalairePoste * 9 / 100);
@@ -564,13 +575,12 @@
 
         document.getElementById('SumSImposableId').innerHTML = montant(SalaireImposable.toString());
 
-        ValeurIRG = 10;
-
-        alert(SalaireImposable);
+        ValeurIRG = 10;      
 
         if (SalaireImposable > 320000) {
                 ValeurIRG = ((SalaireImposable - 320000) * 35 / 100) + 52800 + 24000 + 10800 + 4600 - 1500;
         }
+
         else {
             if (SalaireImposable <= 320000 && SalaireImposable > 160001) {
                     ValeurIRG = ((SalaireImposable - 160000) * 33 / 100) + 24000 + 10800 + 4600 - 1500;
@@ -642,13 +652,9 @@
 
         document.getElementById('RetenueTotauxId').innerHTML = montant(ValeurRetenueTotaux.toString());
 
-
-
         ValeurNetPayer = ValeurGainTotaux - ValeurRetenueTotaux;
 
         document.getElementById('NetPayerId').innerHTML = montant(ValeurNetPayer.toString());
-
-
 
         ValeurSumMasseSalarialleAnnuelle = ValeurNetPayer*12;
 
@@ -656,13 +662,55 @@
         document.getElementById('SumNetPayerId').innerHTML = montant(ValeurNetPayer.toString());
         document.getElementById('SumSPosteId').innerHTML = montant(SalairePoste.toString());
 
+        alert(SalaireImposable);
+
+        ValeurNetPayer01Id = ValeurSumMasseSalarialleAnnuelle * ValeurNbEmploi01Id;
+        ValeurNetPayer02Id = ValeurSumMasseSalarialleAnnuelle * ValeurNbEmploi02Id;
+        ValeurNetPayer03Id = ValeurSumMasseSalarialleAnnuelle * ValeurNbEmploi03Id;
+        ValeurNetPayer04Id = ValeurSumMasseSalarialleAnnuelle * ValeurNbEmploi04Id;
+        ValeurNetPayer05Id = ValeurSumMasseSalarialleAnnuelle * ValeurNbEmploi05Id;
+        ValeurNetPayer06Id = ValeurSumMasseSalarialleAnnuelle * ValeurNbEmploi06Id;
+        ValeurNetPayer07Id = ValeurSumMasseSalarialleAnnuelle * ValeurNbEmploi07Id;
+
+        NetPayer01Id.value = montant(ValeurNetPayer01Id.toString());
+        NetPayer02Id.value = montant(ValeurNetPayer02Id.toString());
+        NetPayer03Id.value = montant(ValeurNetPayer03Id.toString());
+        NetPayer04Id.value = montant(ValeurNetPayer04Id.toString());
+        NetPayer05Id.value = montant(ValeurNetPayer05Id.toString());
+        NetPayer06Id.value = montant(ValeurNetPayer06Id.toString());
+        NetPayer07Id.value = montant(ValeurNetPayer07Id.toString());
+
+
+        document.getElementById('GainSalaireBaseId').innerHTML = formatMoney(ValeurSalaireBase.toString());
+        document.getElementById('GainIndemnitesPrimesCotisablesId').innerHTML = formatMoney(ValeurIndemnitesPrimesCotisables.toString());
+        document.getElementById('GainIndemnitesPrimesImposablesId').innerHTML = formatMoney(ValeurIndemnitesPrimesImposables.toString());
+        document.getElementById('GainIndemnitesPrimesNonImposablesCotisablesId').innerHTML = formatMoney(ValeurSLR_Indemnites_PrimesNonImplCotl.toString());
+        document.getElementById('SumChargesPatronalesId').innerHTML = formatMoney(ValeurChargesPatronales.toString());
+        document.getElementById('RetenueSecuriteSocialeId').innerHTML = formatMoney(ValeurRetenuSecuriteSociale.toString());
+        document.getElementById('RetenueIGRId').innerHTML = formatMoney(ValeurIRG.toString());
+        document.getElementById('GainTotauxId').innerHTML = formatMoney(ValeurGainTotaux.toString());
+        document.getElementById('RetenueTotauxId').innerHTML = formatMoney(ValeurRetenueTotaux.toString());
+        document.getElementById('NetPayerId').innerHTML = formatMoney(ValeurNetPayer.toString());
+        document.getElementById('SumMasseSalarialleAnnuelleId').innerHTML = formatMoney(ValeurSumMasseSalarialleAnnuelle.toString());
+        document.getElementById('SumNetPayerId').innerHTML = formatMoney(ValeurNetPayer.toString());
+        document.getElementById('SumSPosteId').innerHTML = formatMoney(SalairePoste.toString());
+        document.getElementById('SumSImposableId').innerHTML = formatMoney(SalaireImposable.toString());
+
+        NetPayer01Id.value = formatMoney(ValeurNetPayer01Id.toString());
+        NetPayer02Id.value = formatMoney(ValeurNetPayer02Id.toString());
+        NetPayer03Id.value = formatMoney(ValeurNetPayer03Id.toString());
+        NetPayer04Id.value = formatMoney(ValeurNetPayer04Id.toString());
+        NetPayer05Id.value = formatMoney(ValeurNetPayer05Id.toString());
+        NetPayer06Id.value = formatMoney(ValeurNetPayer06Id.toString());
+        NetPayer07Id.value = formatMoney(ValeurNetPayer07Id.toString());
+
         GetValueStringModel();
     }
 
     $(document).ready(function () {
         $('#EnvoyerId').on('click', function () {
 
-            const _url = "/BusinessPlanProject/AddInvestissement2";
+            const _url = "/BusinessPlanProject/AddMasseSalariale";
 
             var table = document.getElementById("TableA");
 
@@ -679,32 +727,29 @@
                     var row = table.rows[i];
 
                     postData.push(row.cells[1].innerText);
-                    postData.push(row.cells[2].innerText);
-                    postData.push(row.cells[3].innerText);
-                    postData.push(row.cells[4].innerText);
-                    postData.push(row.cells[5].innerText);
-                    postData.push(row.cells[6].innerText);
-                    postData.push(row.cells[7].innerText);
+
+                    postData.push((row.cells[2].innerText).replaceAll(".", "").replaceAll(",","."));
+                    postData.push((row.cells[3].innerText).replaceAll(".", "").replaceAll(",", "."));
+                    postData.push((row.cells[4].innerText).replaceAll(".", "").replaceAll(",", "."));
+                    postData.push((row.cells[5].innerText).replaceAll(".", "").replaceAll(",", "."));
+                    postData.push((row.cells[6].innerText).replaceAll(".", "").replaceAll(",", "."));
+                    postData.push((row.cells[7].innerText).replaceAll(".", "").replaceAll(",", "."));
+
+                    //postData.push(row.cells[3].innerText);
+                    //postData.push(row.cells[4].innerText);
+                    //postData.push(row.cells[5].innerText);
+                    //postData.push(row.cells[6].innerText);
+                    //postData.push(row.cells[7].innerText);
+
                     postData.push(row.cells[8].innerText);
                     postData.push(row.cells[9].innerText);
                     postData.push(row.cells[10].innerText);
+                    postData.push(row.cells[11].innerText);
+                    postData.push(row.cells[12].innerText);
+                    postData.push(row.cells[13].innerText);
+                    postData.push(row.cells[14].innerText);
                 }
             }
-
-            var postData1 = {
-                "id": '1',
-                "designationFr": 'TestDesignation',
-                "designationMateriel": 'TestDesignationMateriel',
-                "dureeAmortissement": '1000',
-                "montant01": '1010',
-                "montant02": '2020',
-                "montant03": '3030',
-                "montant04": '4040',
-                "montant05": '5050',
-                "montant06": '6060',
-                "montant07": '7070',
-                "investissements": [{ 'designationFr': 'TestDesignationinvestissements', 'designationMateriel': 'TestDesignationMaterielinvestissements', 'dureeAmortissement': '10100', 'montant01': '10100' }]
-            };
 
             $.ajax({
                 type: "POST",
@@ -720,7 +765,7 @@
                     @* window.location ='@Url.Action("Details", "BusinessPlanProject", new { id = NumeroSIEJE.value })';*@
                 },
                 error: function () {
-                    alert("Erreur : Add Investissement2");
+                    alert("Erreur : Add Masse Salariale");
                 }
             });
 
@@ -828,6 +873,29 @@
         ApportSupplementaireModel.value = parseFloat(supp_espace_montant(ApportSupplementaire.value));
     }
 
+    function formatMoney(amount, decimalCount = 2, decimal = ",", thousands = ".") {
+        try {
+            decimalCount = Math.abs(decimalCount);
+            decimalCount = isNaN(decimalCount) ? 2 : decimalCount;
+
+            const negativeSign = amount < 0 ? "-" : "";
+
+            let i = parseInt(amount = Math.abs(Number(amount) || 0).toFixed(decimalCount)).toString();
+            let j = (i.length > 3) ? i.length % 3 : 0;
+
+            return negativeSign +
+                (j ? i.substr(0, j) + thousands : '') +
+                i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thousands) +
+                (decimalCount ? decimal + Math.abs(amount - i).toFixed(decimalCount).slice(2) : "");
+        } catch (e) {
+            console.log(e)
+        }
+    };
+
+    //document.getElementById("b").addEventListener("click", event => {
+    //    document.getElementById("x").innerText = "Result was: " + formatMoney(document.getElementById("d").value);
+    //});
+
 </script>
 
 <script>
@@ -873,14 +941,7 @@
             return;
         }
 
-
-
         var table = document.getElementById(tableAID);
-
-        var e = document.getElementById("TypeMaterielId");
-
-        var TypeMaterielValue = e.value;
-        var TypeMaterielText = e.options[e.selectedIndex].text;
 
         var rowCount = table.rows.length;
 
@@ -900,21 +961,21 @@
 
         var cell1 = row.insertCell(1);
         var element1 = document.createElement("td");
-        var tm = document.createTextNode(TypeMaterielText);
+        var tm = document.createTextNode(DesignationPosteId.value);
 
         element1.appendChild(tm);
         cell1.appendChild(element1);
 
         var cell2 = row.insertCell(2);
         var element2 = document.createElement("td");
-        var dm = document.createTextNode(DesignationMateriel.value);
+        var dm = document.createTextNode(supp_espace_montant(SalaireBaseId.value));
 
         element2.appendChild(dm);
         cell2.appendChild(element2);
 
         var cell3 = row.insertCell(3);
         var element3 = document.createElement("td");
-        var da = document.createTextNode(supp_espace_montant(DureeAmortissement.value));
+        var da = document.createTextNode(supp_espace_montant(IndemnitesPrimesCotisablesId.value));
 
         element3.appendChild(da);
         cell3.appendChild(element3);
@@ -922,7 +983,7 @@
         var cell4 = row.insertCell(4);
         var element4 = document.createElement("td");
 
-        var mm = document.createTextNode(supp_espace_montant(MontantAcqui01.value));
+        var mm = document.createTextNode(supp_espace_montant(IndemnitesPrimesImposablesId.value));
 
         element4.appendChild(mm);
         cell4.appendChild(element4);
@@ -930,7 +991,7 @@
         var cell5 = row.insertCell(5);
         var element5 = document.createElement("td");
 
-        var mt02 = document.createTextNode(supp_espace_montant(MontantAcqui02.value));
+        var mt02 = document.createTextNode(supp_espace_montant(SLR_Indemnites_PrimesNonImplCotlId.value));
 
         element5.appendChild(mt02);
         cell5.appendChild(element5);
@@ -938,7 +999,18 @@
         var cell6 = row.insertCell(6);
         var element6 = document.createElement("td");
 
-        var mt03 = document.createTextNode(supp_espace_montant(MontantAcqui03.value));
+        ValeurNetPayerId = document.getElementById('NetPayerId').innerHTML;
+        ValeurRetenueIGRId = document.getElementById('RetenueIGRId').innerHTML;
+
+        ValeurNbEmploi01Id = supp_espace_montant(NbEmploi01Id.value);
+        ValeurNbEmploi02Id = supp_espace_montant(NbEmploi02Id.value);
+        ValeurNbEmploi03Id = supp_espace_montant(NbEmploi03Id.value);
+        ValeurNbEmploi04Id = supp_espace_montant(NbEmploi04Id.value);
+        ValeurNbEmploi05Id = supp_espace_montant(NbEmploi05Id.value);
+        ValeurNbEmploi06Id = supp_espace_montant(NbEmploi06Id.value);
+        ValeurNbEmploi07Id = supp_espace_montant(NbEmploi07Id.value);
+
+        var mt03 = document.createTextNode(supp_espace_montant(ValeurNetPayerId));
 
         element6.appendChild(mt03);
         cell6.appendChild(element6);
@@ -946,7 +1018,7 @@
         var cell7 = row.insertCell(7);
         var element7 = document.createElement("td");
 
-        var mt04 = document.createTextNode(supp_espace_montant(MontantAcqui04.value));
+        var mt04 = document.createTextNode(supp_espace_montant(ValeurRetenueIGRId));
 
         element7.appendChild(mt04);
         cell7.appendChild(element7);
@@ -954,7 +1026,7 @@
         var cell8 = row.insertCell(8);
         var element8 = document.createElement("td");
 
-        var mt05 = document.createTextNode(supp_espace_montant(MontantAcqui05.value));
+        var mt05 = document.createTextNode(supp_espace_montant(ValeurNbEmploi01Id));
 
         element8.appendChild(mt05);
         cell8.appendChild(element8);
@@ -962,7 +1034,7 @@
         var cell9 = row.insertCell(9);
         var element9 = document.createElement("td");
 
-        var mt06 = document.createTextNode(supp_espace_montant(MontantAcqui06.value));
+        var mt06 = document.createTextNode(supp_espace_montant(ValeurNbEmploi02Id));
 
         element9.appendChild(mt06);
         cell9.appendChild(element9);
@@ -970,10 +1042,42 @@
         var cell10 = row.insertCell(10);
         var element10 = document.createElement("td");
 
-        var mt07 = document.createTextNode(supp_espace_montant(MontantAcqui07.value));
+        var mt07 = document.createTextNode(supp_espace_montant(ValeurNbEmploi03Id));
 
         element10.appendChild(mt07);
         cell10.appendChild(element10);
+
+        var cell11 = row.insertCell(11);
+        var element11 = document.createElement("td");
+
+        var mt08 = document.createTextNode(supp_espace_montant(ValeurNbEmploi04Id));
+
+        element11.appendChild(mt08);
+        cell11.appendChild(element11);
+
+        var cell12 = row.insertCell(12);
+        var element12 = document.createElement("td");
+
+        var mt09 = document.createTextNode(supp_espace_montant(ValeurNbEmploi05Id));
+
+        element12.appendChild(mt09);
+        cell12.appendChild(element12);
+
+        var cell13 = row.insertCell(13);
+        var element13 = document.createElement("td");
+
+        var mt10 = document.createTextNode(supp_espace_montant(ValeurNbEmploi06Id));
+
+        element13.appendChild(mt10);
+        cell13.appendChild(element13);
+
+        var cell14 = row.insertCell(14);
+        var element14 = document.createElement("td");
+
+        var mt11 = document.createTextNode(supp_espace_montant(ValeurNbEmploi07Id));
+
+        element14.appendChild(mt11);
+        cell14.appendChild(element14);
 
     }
 

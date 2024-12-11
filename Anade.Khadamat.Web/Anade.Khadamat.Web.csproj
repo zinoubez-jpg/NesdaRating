@@ -40,6 +40,16 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>DBBusinessPlanDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Update="DBBusinessPlanDataSet1.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>DBBusinessPlanDataSet1.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="DBBusinessPlanReportDataSet.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>DBBusinessPlanReportDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Update="DBFicheNotationDataSet.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -74,6 +84,14 @@
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>DBBusinessPlanDataSet.Designer.cs</LastGenOutput>
     </None>
+    <None Update="DBBusinessPlanDataSet1.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DBBusinessPlanDataSet1.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="DBBusinessPlanReportDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DBBusinessPlanReportDataSet.Designer.cs</LastGenOutput>
+    </None>
     <None Update="DBFicheNotationDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>DBFicheNotationDataSet.Designer.cs</LastGenOutput>
@@ -91,22 +109,31 @@
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>DBKhadamate2024DataSet2.Designer.cs</LastGenOutput>
     </None>
+    <None Update="Report\BusinessPlanReport.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Report\BusinessPlanReport01.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Report\BusinessPlanV2.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Report\BusinessPlanV1.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Report\FicheNotation.rdlc">
+    <None Update="Report\BusinessPlan.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Report\BusinessPlan.rdlc">
+    <None Update="Report\FicheNotation2.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Report\BusinessPlan2.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Report\BusinessPlan1.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Report\FicheNotation - Copier.rdlc">
+    <None Update="Report\FicheNotation.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Report\FicheNotation1.rdlc">

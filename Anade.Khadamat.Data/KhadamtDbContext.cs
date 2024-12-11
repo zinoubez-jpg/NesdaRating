@@ -44,6 +44,7 @@ namespace Anade.Khadamat.Data
         public virtual DbSet<Acquisition> Acquisition { get; set; }
         public virtual DbSet<Annee> Annee { get; set; }
         public virtual DbSet<BusinessPlan> BusinessPlan { get; set; }
+        public virtual DbSet<BusinessPlanReport> BusinessPlanReport { get; set; }
         public virtual DbSet<Categorie> Categorie { get; set; }
         public virtual DbSet<CommuneBP> CommuneBP { get; set; }
         public virtual DbSet<CompteResultatPrevisionnel> CompteResultatPrevisionnel { get; set; }

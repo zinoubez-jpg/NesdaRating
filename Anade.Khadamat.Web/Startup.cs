@@ -61,6 +61,7 @@ namespace Anade.Khadamat.Web
             services.AddTransient<AnnexeBusinessService>();
 
             services.AddTransient<BusinessPlanBusinessService>();
+            services.AddTransient<BusinessPlanReportBusinessService>();
             services.AddTransient<TauxStructureFinancementBusinessService>();
             services.AddTransient<CommuneBPBusinessService>();
             services.AddTransient<PosteBusinessService>();
@@ -85,7 +86,8 @@ namespace Anade.Khadamat.Web
             services.AddScoped<IReportService, ReportService>();
             services.AddScoped<ILoadProperties<FicheNotation, int>, LoadProperties<FicheNotation, int>>();
 
-
+            services.AddScoped<ILoadProperties<BusinessPlan, int>, LoadProperties<BusinessPlan, int>>();
+            services.AddScoped<ILoadProperties<BusinessPlanReport, int>, LoadProperties<BusinessPlanReport, int>>();
 
         }
 
