@@ -3344,7 +3344,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Sum(Fields!ExcedentBrutExploitationAnnee03.Value, "BusinessPlanReport")</Value>
-                              <Style />
+                              <Style>
+                                <Format>#,0.00;(#,0.00)</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -8316,7 +8318,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Sum(Fields!EncaissementsSuiteApportPersonnelAnnee01.Value, "BusinessPlanReport")</Value>
-                              <Style />
+                              <Style>
+                                <Format>#,0.00;(#,0.00)</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -8346,7 +8350,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Sum(Fields!EncaissementsSuiteApportPersonnelAnnee02.Value, "BusinessPlanReport")</Value>
-                              <Style />
+                              <Style>
+                                <Format>#,0.00;(#,0.00)</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -8376,7 +8382,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Sum(Fields!EncaissementsSuiteApportPersonnelAnnee03.Value, "BusinessPlanReport")</Value>
-                              <Style />
+                              <Style>
+                                <Format>#,0.00;(#,0.00)</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -8406,7 +8414,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Sum(Fields!EncaissementsSuiteApportPersonnelAnnee04.Value, "BusinessPlanReport")</Value>
-                              <Style />
+                              <Style>
+                                <Format>#,0.00;(#,0.00)</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -8436,7 +8446,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Sum(Fields!EncaissementsSuiteApportPersonnelAnnee05.Value, "BusinessPlanReport")</Value>
-                              <Style />
+                              <Style>
+                                <Format>#,0.00;(#,0.00)</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -8466,7 +8478,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Sum(Fields!EncaissementsSuiteApportPersonnelAnnee06.Value, "BusinessPlanReport")</Value>
-                              <Style />
+                              <Style>
+                                <Format>#,0.00;(#,0.00)</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -8496,7 +8510,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Sum(Fields!EncaissementsSuiteApportPersonnelAnnee07.Value, "BusinessPlanReport")</Value>
-                              <Style />
+                              <Style>
+                                <Format>#,0.00;(#,0.00)</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -8531,7 +8547,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Sum(Fields!EncaissementsProvenantEmpruntsAnnee01.Value, "BusinessPlanReport")</Value>
-                              <Style />
+                              <Style>
+                                <Format>#,0.00;(#,0.00)</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -8561,7 +8579,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Sum(Fields!EncaissementsProvenantEmpruntsAnnee02.Value, "BusinessPlanReport")</Value>
-                              <Style />
+                              <Style>
+                                <Format>#,0.00;(#,0.00)</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -8591,7 +8611,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Sum(Fields!EncaissementsProvenantEmpruntsAnnee03.Value, "BusinessPlanReport")</Value>
-                              <Style />
+                              <Style>
+                                <Format>#,0.00;(#,0.00)</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -8621,7 +8643,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Sum(Fields!EncaissementsProvenantEmpruntsAnnee04.Value, "BusinessPlanReport")</Value>
-                              <Style />
+                              <Style>
+                                <Format>#,0.00;(#,0.00)</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -8651,7 +8675,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Sum(Fields!EncaissementsProvenantEmpruntsAnnee05.Value, "BusinessPlanReport")</Value>
-                              <Style />
+                              <Style>
+                                <Format>#,0.00;(#,0.00)</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -8681,7 +8707,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Sum(Fields!EncaissementsProvenantEmpruntsAnnee06.Value, "BusinessPlanReport")</Value>
-                              <Style />
+                              <Style>
+                                <Format>#,0.00;(#,0.00)</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -8711,7 +8739,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Sum(Fields!EncaissementsProvenantEmpruntsAnnee07.Value, "BusinessPlanReport")</Value>
-                              <Style />
+                              <Style>
+                                <Format>#,0.00;(#,0.00)</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -8746,7 +8776,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Sum(Fields!RemboursementsEmpruntsCMTAnnee01.Value, "BusinessPlanReport")</Value>
-                              <Style />
+                              <Style>
+                                <Format>#,0.00;(#,0.00)</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -8776,7 +8808,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Sum(Fields!RemboursementsEmpruntsCMTAnnee02.Value, "BusinessPlanReport")</Value>
-                              <Style />
+                              <Style>
+                                <Format>#,0.00;(#,0.00)</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -8806,7 +8840,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Sum(Fields!RemboursementsEmpruntsCMTAnnee03.Value, "BusinessPlanReport")</Value>
-                              <Style />
+                              <Style>
+                                <Format>#,0.00;(#,0.00)</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -8836,7 +8872,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Sum(Fields!RemboursementsEmpruntsCMTAnnee04.Value, "BusinessPlanReport")</Value>
-                              <Style />
+                              <Style>
+                                <Format>#,0.00;(#,0.00)</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -8866,7 +8904,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Sum(Fields!RemboursementsEmpruntsCMTAnnee05.Value, "BusinessPlanReport")</Value>
-                              <Style />
+                              <Style>
+                                <Format>#,0.00;(#,0.00)</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -8896,7 +8936,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Sum(Fields!RemboursementsEmpruntsCMTAnnee06.Value, "BusinessPlanReport")</Value>
-                              <Style />
+                              <Style>
+                                <Format>#,0.00;(#,0.00)</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -8926,7 +8968,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Sum(Fields!RemboursementsEmpruntsCMTAnnee07.Value, "BusinessPlanReport")</Value>
-                              <Style />
+                              <Style>
+                                <Format>#,0.00;(#,0.00)</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -8961,7 +9005,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Sum(Fields!RemboursementsEmpruntsPNRAnnee01.Value, "BusinessPlanReport")</Value>
-                              <Style />
+                              <Style>
+                                <Format>#,0.00;(#,0.00)</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -8991,7 +9037,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Sum(Fields!RemboursementsEmpruntsPNRAnnee02.Value, "BusinessPlanReport")</Value>
-                              <Style />
+                              <Style>
+                                <Format>#,0.00;(#,0.00)</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -9021,7 +9069,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Sum(Fields!RemboursementsEmpruntsPNRAnnee03.Value, "BusinessPlanReport")</Value>
-                              <Style />
+                              <Style>
+                                <Format>#,0.00;(#,0.00)</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -9051,7 +9101,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Sum(Fields!RemboursementsEmpruntsPNRAnnee04.Value, "BusinessPlanReport")</Value>
-                              <Style />
+                              <Style>
+                                <Format>#,0.00;(#,0.00)</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -9081,7 +9133,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Sum(Fields!RemboursementsEmpruntsPNRAnnee05.Value, "BusinessPlanReport")</Value>
-                              <Style />
+                              <Style>
+                                <Format>#,0.00;(#,0.00)</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -9111,7 +9165,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Sum(Fields!RemboursementsEmpruntsPNRAnnee06.Value, "BusinessPlanReport")</Value>
-                              <Style />
+                              <Style>
+                                <Format>#,0.00;(#,0.00)</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -9141,7 +9197,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Sum(Fields!RemboursementsEmpruntsPNRAnnee07.Value, "BusinessPlanReport")</Value>
-                              <Style />
+                              <Style>
+                                <Format>#,0.00;(#,0.00)</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -10560,7 +10618,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Sum(Fields!SoldeInitialAnnee01.Value, "BusinessPlanReport")</Value>
-                              <Style />
+                              <Style>
+                                <Format>#,0.00;(#,0.00)</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -10590,7 +10650,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Sum(Fields!SoldeInitialAnnee02.Value, "BusinessPlanReport")</Value>
-                              <Style />
+                              <Style>
+                                <Format>#,0.00;(#,0.00)</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -10785,7 +10847,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Sum(Fields!SoldeFinalAnnee01.Value, "BusinessPlanReport")</Value>
-                              <Style />
+                              <Style>
+                                <Format>#,0.00;(#,0.00)</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -10815,7 +10879,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Sum(Fields!SoldeFinalAnnee02.Value, "BusinessPlanReport")</Value>
-                              <Style />
+                              <Style>
+                                <Format>#,0.00;(#,0.00)</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -11010,7 +11076,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Sum(Fields!EquilibreAnnee01.Value, "BusinessPlanReport")</Value>
-                              <Style />
+                              <Style>
+                                <Format>#,0.00;(#,0.00)</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -11040,7 +11108,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Sum(Fields!EquilibreAnnee02.Value, "BusinessPlanReport")</Value>
-                              <Style />
+                              <Style>
+                                <Format>#,0.00;(#,0.00)</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -12252,7 +12322,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Sum(Fields!MontantCashFlowActualisesAnnee01.Value, "BusinessPlanReport")</Value>
-                              <Style />
+                              <Style>
+                                <Format>#,0.00;(#,0.00)</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -12282,7 +12354,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Sum(Fields!MontantCashFlowActualisesAnnee02.Value, "BusinessPlanReport")</Value>
-                              <Style />
+                              <Style>
+                                <Format>#,0.00;(#,0.00)</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -12570,7 +12644,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Sum(Fields!MontantCumulCFActualisesAnnee01.Value, "BusinessPlanReport")</Value>
-                              <Style />
+                              <Style>
+                                <Format>#,0.00;(#,0.00)</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -12600,7 +12676,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Sum(Fields!MontantCumulCFActualisesAnnee02.Value, "BusinessPlanReport")</Value>
-                              <Style />
+                              <Style>
+                                <Format>#,0.00;(#,0.00)</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -12879,7 +12957,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Sum(Fields!MontantValeurActuelleNette.Value, "BusinessPlanReport")</Value>
-                              <Style />
+                              <Style>
+                                <Format>#,0.00;(#,0.00)</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -12909,7 +12989,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Sum(Fields!TauxValeurActuelleNette.Value, "BusinessPlanReport")</Value>
-                              <Style />
+                              <Style>
+                                <Format>0.00 %</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -12927,6 +13009,7 @@
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                     </Textbox>
+                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
                 <TablixCell>
