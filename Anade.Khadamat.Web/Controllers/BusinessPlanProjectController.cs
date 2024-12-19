@@ -1294,6 +1294,140 @@ namespace Anade.Khadamat.Web.Controllers
             return PartialView($"_{nameof(EtatsSyntheseBusinessPlan)}", modelBusinessPlan);
         }
 
+        [Authorize(Roles = "Analyste")]
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> EtatStructureInvestissement(int id)
+        {
+            //var modelBusinessPlan = _businessPlanBusinessService.GetById(id);
+            var modelBusinessPlan = _businessPlanBusinessService.GetById(id, _businessPlanBusinessService.GetDefaultLoadProperties());
+
+            ViewData["BusinessPlanID"] = id;
+            ViewData["NumeroSIEJE"] = modelBusinessPlan.NumeroSIEJE;
+
+            var listeRubriqueChargesExternes = new SelectList(_rubriqueChargesExternesBusinessService.GetAll(), "Id", "CodeDesignationFr");
+
+            ViewData["RubriqueChargesExternesID"] = listeRubriqueChargesExternes;
+
+            if (modelBusinessPlan.Complet)
+            {
+                ViewData["CompletOuiNon"] = "Oui";
+            }
+            else
+            {
+                ViewData["CompletOuiNon"] = "Non";
+            }
+
+            return PartialView($"_{nameof(EtatStructureInvestissement)}", modelBusinessPlan);
+        }
+
+        [Authorize(Roles = "Analyste")]
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> EtatCompteResultat(int id)
+        {
+            //var modelBusinessPlan = _businessPlanBusinessService.GetById(id);
+            var modelBusinessPlan = _businessPlanBusinessService.GetById(id, _businessPlanBusinessService.GetDefaultLoadProperties());
+
+            ViewData["BusinessPlanID"] = id;
+            ViewData["NumeroSIEJE"] = modelBusinessPlan.NumeroSIEJE;
+
+            var listeRubriqueChargesExternes = new SelectList(_rubriqueChargesExternesBusinessService.GetAll(), "Id", "CodeDesignationFr");
+
+            ViewData["RubriqueChargesExternesID"] = listeRubriqueChargesExternes;
+
+            if (modelBusinessPlan.Complet)
+            {
+                ViewData["CompletOuiNon"] = "Oui";
+            }
+            else
+            {
+                ViewData["CompletOuiNon"] = "Non";
+            }
+
+            return PartialView($"_{nameof(EtatCompteResultat)}", modelBusinessPlan);
+        }
+
+        [Authorize(Roles = "Analyste")]
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> EtatTFT(int id)
+        {
+            //var modelBusinessPlan = _businessPlanBusinessService.GetById(id);
+            var modelBusinessPlan = _businessPlanBusinessService.GetById(id, _businessPlanBusinessService.GetDefaultLoadProperties());
+
+            ViewData["BusinessPlanID"] = id;
+            ViewData["NumeroSIEJE"] = modelBusinessPlan.NumeroSIEJE;
+
+            var listeRubriqueChargesExternes = new SelectList(_rubriqueChargesExternesBusinessService.GetAll(), "Id", "CodeDesignationFr");
+
+            ViewData["RubriqueChargesExternesID"] = listeRubriqueChargesExternes;
+
+            if (modelBusinessPlan.Complet)
+            {
+                ViewData["CompletOuiNon"] = "Oui";
+            }
+            else
+            {
+                ViewData["CompletOuiNon"] = "Non";
+            }
+
+            return PartialView($"_{nameof(EtatTFT)}", modelBusinessPlan);
+        }
+
+        [Authorize(Roles = "Analyste")]
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> EtatPlanTresorerie(int id)
+        {
+            //var modelBusinessPlan = _businessPlanBusinessService.GetById(id);
+            var modelBusinessPlan = _businessPlanBusinessService.GetById(id, _businessPlanBusinessService.GetDefaultLoadProperties());
+
+            ViewData["BusinessPlanID"] = id;
+            ViewData["NumeroSIEJE"] = modelBusinessPlan.NumeroSIEJE;
+
+            var listeRubriqueChargesExternes = new SelectList(_rubriqueChargesExternesBusinessService.GetAll(), "Id", "CodeDesignationFr");
+
+            ViewData["RubriqueChargesExternesID"] = listeRubriqueChargesExternes;
+
+            if (modelBusinessPlan.Complet)
+            {
+                ViewData["CompletOuiNon"] = "Oui";
+            }
+            else
+            {
+                ViewData["CompletOuiNon"] = "Non";
+            }
+
+            return PartialView($"_{nameof(EtatPlanTresorerie)}", modelBusinessPlan);
+        }
+
+        [Authorize(Roles = "Analyste")]
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> EtatEvaluationProjet(int id)
+        {
+            //var modelBusinessPlan = _businessPlanBusinessService.GetById(id);
+            var modelBusinessPlan = _businessPlanBusinessService.GetById(id, _businessPlanBusinessService.GetDefaultLoadProperties());
+
+            ViewData["BusinessPlanID"] = id;
+            ViewData["NumeroSIEJE"] = modelBusinessPlan.NumeroSIEJE;
+
+            var listeRubriqueChargesExternes = new SelectList(_rubriqueChargesExternesBusinessService.GetAll(), "Id", "CodeDesignationFr");
+
+            ViewData["RubriqueChargesExternesID"] = listeRubriqueChargesExternes;
+
+            if (modelBusinessPlan.Complet)
+            {
+                ViewData["CompletOuiNon"] = "Oui";
+            }
+            else
+            {
+                ViewData["CompletOuiNon"] = "Non";
+            }
+
+            return PartialView($"_{nameof(EtatEvaluationProjet)}", modelBusinessPlan);
+        }
 
     }
 }
