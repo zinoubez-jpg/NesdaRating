@@ -1265,6 +1265,9 @@ namespace Anade.Khadamat.Data.Migrations
                     b.Property<float>("Quantite")
                         .HasColumnType("real");
 
+                    b.Property<decimal>("TauxConsommation")
+                        .HasColumnType("decimal(18,2)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AnneeId");
@@ -1877,6 +1880,9 @@ namespace Anade.Khadamat.Data.Migrations
 
                     b.Property<bool>("ExonerationTVA")
                         .HasColumnType("bit");
+
+                    b.Property<decimal>("FondsRoulement")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("FormeJuridiqueId")
                         .HasColumnType("int");

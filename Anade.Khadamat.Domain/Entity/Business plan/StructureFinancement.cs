@@ -26,6 +26,10 @@ namespace Anade.Khadamat.Domain
         public string PNRSupplementaireString { get; set; }
         [NotMapped]
         public string ApportSupplementaireString { get; set; }
+        [NotMapped]
+        public string TauxIFUString { get; set; }
+        [NotMapped]
+        public string TauxIBSString { get; set; }
 
         public int BusinessPlanId { get; set; }
         public int DiffereEmpruntId { get; set; }

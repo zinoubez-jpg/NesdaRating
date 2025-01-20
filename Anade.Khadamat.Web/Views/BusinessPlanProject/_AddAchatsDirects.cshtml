@@ -276,6 +276,47 @@
 
                                     </div>
                                     <br>
+                                    <div class="row">
+                                        <div class="card-body">
+                                            <table class="table display compact" id="TableB">
+                                                <tr>
+                                                    <th style="text-align: center;"></th>
+                                                    <th style="text-align: center;">A1</th>
+                                                    <th style="text-align: center;">A2</th>
+                                                    <th style="text-align: center;">A3</th>
+                                                    <th style="text-align: center;">A4</th>
+                                                    <th style="text-align: center;">A5</th>
+                                                    <th style="text-align: center;">A6</th>
+                                                    <th style="text-align: center;">A7</th>
+                                                </tr>
+                                                <tr>
+                                                    <th id="TauxConsommationId" style="text-align: center;">Taux de consommation (%)</th>
+                                                    <td id="A1Id" style="text-align: center;">
+                                                        <input size="6" id="A1VId" class="percent1" type="text" value="00.00%" maxlength="6" pattern="[0-9]*" />
+                                                    </td>
+                                                    <td id="A2Id" style="text-align: center;">
+                                                        <input size="6" id="A2VId" class="percent2" type="text" value="00.00%" maxlength="6" pattern="[0-9]*" />
+                                                    </td>
+                                                    <td id="A3Id" style="text-align: center;">
+                                                        <input size="6" id="A3VId" class="percent3" type="text" value="00.00%" maxlength="6" pattern="[0-9]*" />
+                                                    </td>
+                                                    <td id="A4Id" style="text-align: center;">
+                                                        <input size="6" id="A4VId" class="percent4" type="text" value="00.00%" maxlength="6" pattern="[0-9]*" />
+                                                    </td>
+                                                    <td id="A5Id" style="text-align: center;">
+                                                        <input size="6" id="A5VId" class="percent5" type="text" value="00.00%" maxlength="6" pattern="[0-9]*" />
+                                                    </td>
+                                                    <td id="A6Id" style="text-align: center;">
+                                                        <input size="6" id="A6VId" class="percent6" type="text" value="00.00%" maxlength="6" pattern="[0-9]*" />
+                                                    </td>
+                                                    <td id="A7Id" style="text-align: center;">
+                                                        <input size="6" id="A7VId" class="percent7" type="text" value="00.00%" maxlength="6" pattern="[0-9]*" />
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <br>
 
                                     <div class="card text-bg-primary mb-3">
 
@@ -300,6 +341,9 @@
                                                         </th>
                                                         <th>
                                                             Chiffre d'affaires
+                                                        </th>
+                                                        <th>
+                                                            Taux de consommation (%)
                                                         </th>
                                                     </tr>
                                                 </thead>
@@ -421,6 +465,9 @@
                                                             </td>
                                                         </tr>
 
+                                                        <tr>
+                                                            
+                                                        </tr>
                                                     }
                                                 </tbody>
                                             </table>
@@ -771,6 +818,7 @@
                     postData.push(row_j.cells[3].innerText);
                     postData.push(row_j.cells[4].innerText);
                     postData.push(row_j.cells[5].innerText);
+                    postData.push(row_j.cells[6].innerText);
 
                     for (var i = j + 1; i < j + 7; i++) {
 
@@ -780,7 +828,7 @@
                         postData.push(row_i.cells[1].innerText);
                         postData.push(row_i.cells[2].innerText);
                         postData.push(row_i.cells[3].innerText);
-
+                        postData.push(row_i.cells[4].innerText);
                     }
                 }
             }
@@ -907,7 +955,7 @@
 
         var Value = champ.getAttribute("id");
 
-        if (Value == 'Quantite01' || Value == 'PrixUnitaire01') {            
+        if (Value == 'Quantite01' || Value == 'PrixUnitaire01') {
             if (Quantite01.value != "" && PrixUnitaire01.value != "") {
                 MontantAchats01.value = parseFloat(supp_espace_montant(Quantite01.value)) * parseFloat(supp_espace_montant(PrixUnitaire01.value));
                 MontantAchats01.value = montant(MontantAchats01.value);
@@ -924,7 +972,7 @@
             }
             else {
                 MontantAchats02.value = "";
-            }            
+            }
         }
 
         if (Value == 'Quantite03' || Value == 'PrixUnitaire03') {
@@ -1094,6 +1142,13 @@
         element5.appendChild(ca01);
         cell5.appendChild(element5);
 
+        var cell_TC1 = row.insertCell(6);
+        var element_TC1 = document.createElement("td");
+        var tc_01 = document.createTextNode(A1VId.value);
+
+        element_TC1.appendChild(tc_01);
+        cell_TC1.appendChild(element_TC1);
+
 
         var row2 = table.insertRow(rowCount + 1);
 
@@ -1125,6 +1180,13 @@
 
         element9.appendChild(ca02);
         cell9.appendChild(element9);
+
+        var cell_TC2 = row2.insertCell(4);
+        var element_TC2 = document.createElement("td");
+        var tc_02 = document.createTextNode(A2VId.value);
+
+        element_TC2.appendChild(tc_02);
+        cell_TC2.appendChild(element_TC2);
 
 
         var row3 = table.insertRow(rowCount + 2);
@@ -1158,6 +1220,13 @@
         element13.appendChild(ca03);
         cell13.appendChild(element13);
 
+        var cell_TC3 = row3.insertCell(4);
+        var element_TC3 = document.createElement("td");
+        var tc_03 = document.createTextNode(A3VId.value);
+
+        element_TC3.appendChild(tc_03);
+        cell_TC3.appendChild(element_TC3);
+
 
         var row4 = table.insertRow(rowCount + 3);
 
@@ -1189,6 +1258,13 @@
 
         element17.appendChild(ca04);
         cell17.appendChild(element17);
+
+        var cell_TC4 = row4.insertCell(4);
+        var element_TC4 = document.createElement("td");
+        var tc_04 = document.createTextNode(A4VId.value);
+
+        element_TC4.appendChild(tc_04);
+        cell_TC4.appendChild(element_TC4);
 
 
         var row5 = table.insertRow(rowCount + 4);
@@ -1222,6 +1298,13 @@
         element21.appendChild(ca05);
         cell21.appendChild(element21);
 
+        var cell_TC5 = row5.insertCell(4);
+        var element_TC5 = document.createElement("td");
+        var tc_05 = document.createTextNode(A5VId.value);
+
+        element_TC5.appendChild(tc_05);
+        cell_TC5.appendChild(element_TC5);
+
 
         var row6 = table.insertRow(rowCount + 5);
 
@@ -1253,6 +1336,13 @@
 
         element25.appendChild(ca06);
         cell25.appendChild(element25);
+
+        var cell_TC6 = row6.insertCell(4);
+        var element_TC6 = document.createElement("td");
+        var tc_06 = document.createTextNode(A6VId.value);
+
+        element_TC6.appendChild(tc_06);
+        cell_TC6.appendChild(element_TC6);
 
 
         var row7 = table.insertRow(rowCount + 6);
@@ -1286,6 +1376,12 @@
         element29.appendChild(ca07);
         cell29.appendChild(element29);
 
+        var cell_TC7 = row7.insertCell(4);
+        var element_TC7 = document.createElement("td");
+        var tc_07 = document.createTextNode(A7VId.value);
+
+        element_TC7.appendChild(tc_07);
+        cell_TC7.appendChild(element_TC7);
     }
 
     function deleteRow(tableAID) {
@@ -1314,6 +1410,271 @@
             }
         } catch (e) {
             alert(e);
+        }
+    }
+
+</script>
+
+<script>
+
+    //Get human input:
+    document.querySelector(".percent1").addEventListener("input", function (e) {
+        //Separate the percent sign from the number:
+        let int = e.target.value.slice(0, e.target.value.length - 1);
+
+        /* If there is no number (just the percent sign), rewrite
+           it so it persists and move the cursor just before it.*/
+        if (int.includes("%")) {
+            e.target.value = "%";
+        } else if (int.length >= 3 && int.length <= 4 && !int.includes(".")) {
+            /* If the whole has been written and we are starting the
+               fraction rewrite to include the decimal point and percent
+               sign. The fraction is a sigle digit. Cursor is moved to
+               just ahead of this digit.*/
+            e.target.value = int.slice(0, 2) + "." + int.slice(2, 3) + "%";
+            e.target.setSelectionRange(4, 4);
+        } else if ((int.length >= 5) & (int.length <= 6)) {
+            /* If the we have a double digit fraction we split up, format it
+               and print that. Cursor is already in the right place.*/
+            let whole = int.slice(0, 2);
+            let fraction = int.slice(3, 5);
+            e.target.value = whole + "." + fraction + "%";
+        } else {
+            /* If we're still just writing the whole (first 2 digits), just
+               print that with the percent sign. Also if the element has just
+               been clicked on we want the cursor before the percent sign.*/
+            e.target.value = int + "%";
+            e.target.setSelectionRange(
+                e.target.value.length - 1,
+                e.target.value.length - 1
+            );
+        }
+        console.log(getInt(e.target.value));
+    });
+
+    //Get human input:
+    document.querySelector(".percent2").addEventListener("input", function (e) {
+        //Separate the percent sign from the number:
+        let int = e.target.value.slice(0, e.target.value.length - 1);
+
+        /* If there is no number (just the percent sign), rewrite
+           it so it persists and move the cursor just before it.*/
+        if (int.includes("%")) {
+            e.target.value = "%";
+        } else if (int.length >= 3 && int.length <= 4 && !int.includes(".")) {
+            /* If the whole has been written and we are starting the
+               fraction rewrite to include the decimal point and percent
+               sign. The fraction is a sigle digit. Cursor is moved to
+               just ahead of this digit.*/
+            e.target.value = int.slice(0, 2) + "." + int.slice(2, 3) + "%";
+            e.target.setSelectionRange(4, 4);
+        } else if ((int.length >= 5) & (int.length <= 6)) {
+            /* If the we have a double digit fraction we split up, format it
+               and print that. Cursor is already in the right place.*/
+            let whole = int.slice(0, 2);
+            let fraction = int.slice(3, 5);
+            e.target.value = whole + "." + fraction + "%";
+        } else {
+            /* If we're still just writing the whole (first 2 digits), just
+               print that with the percent sign. Also if the element has just
+               been clicked on we want the cursor before the percent sign.*/
+            e.target.value = int + "%";
+            e.target.setSelectionRange(
+                e.target.value.length - 1,
+                e.target.value.length - 1
+            );
+        }
+        console.log(getInt(e.target.value));
+    });
+
+    //Get human input:
+    document.querySelector(".percent3").addEventListener("input", function (e) {
+        //Separate the percent sign from the number:
+        let int = e.target.value.slice(0, e.target.value.length - 1);
+
+        /* If there is no number (just the percent sign), rewrite
+           it so it persists and move the cursor just before it.*/
+        if (int.includes("%")) {
+            e.target.value = "%";
+        } else if (int.length >= 3 && int.length <= 4 && !int.includes(".")) {
+            /* If the whole has been written and we are starting the
+               fraction rewrite to include the decimal point and percent
+               sign. The fraction is a sigle digit. Cursor is moved to
+               just ahead of this digit.*/
+            e.target.value = int.slice(0, 2) + "." + int.slice(2, 3) + "%";
+            e.target.setSelectionRange(4, 4);
+        } else if ((int.length >= 5) & (int.length <= 6)) {
+            /* If the we have a double digit fraction we split up, format it
+               and print that. Cursor is already in the right place.*/
+            let whole = int.slice(0, 2);
+            let fraction = int.slice(3, 5);
+            e.target.value = whole + "." + fraction + "%";
+        } else {
+            /* If we're still just writing the whole (first 2 digits), just
+               print that with the percent sign. Also if the element has just
+               been clicked on we want the cursor before the percent sign.*/
+            e.target.value = int + "%";
+            e.target.setSelectionRange(
+                e.target.value.length - 1,
+                e.target.value.length - 1
+            );
+        }
+        console.log(getInt(e.target.value));
+    });
+
+    //Get human input:
+    document.querySelector(".percent4").addEventListener("input", function (e) {
+        //Separate the percent sign from the number:
+        let int = e.target.value.slice(0, e.target.value.length - 1);
+
+        /* If there is no number (just the percent sign), rewrite
+           it so it persists and move the cursor just before it.*/
+        if (int.includes("%")) {
+            e.target.value = "%";
+        } else if (int.length >= 3 && int.length <= 4 && !int.includes(".")) {
+            /* If the whole has been written and we are starting the
+               fraction rewrite to include the decimal point and percent
+               sign. The fraction is a sigle digit. Cursor is moved to
+               just ahead of this digit.*/
+            e.target.value = int.slice(0, 2) + "." + int.slice(2, 3) + "%";
+            e.target.setSelectionRange(4, 4);
+        } else if ((int.length >= 5) & (int.length <= 6)) {
+            /* If the we have a double digit fraction we split up, format it
+               and print that. Cursor is already in the right place.*/
+            let whole = int.slice(0, 2);
+            let fraction = int.slice(3, 5);
+            e.target.value = whole + "." + fraction + "%";
+        } else {
+            /* If we're still just writing the whole (first 2 digits), just
+               print that with the percent sign. Also if the element has just
+               been clicked on we want the cursor before the percent sign.*/
+            e.target.value = int + "%";
+            e.target.setSelectionRange(
+                e.target.value.length - 1,
+                e.target.value.length - 1
+            );
+        }
+        console.log(getInt(e.target.value));
+    });
+
+    //Get human input:
+    document.querySelector(".percent5").addEventListener("input", function (e) {
+        //Separate the percent sign from the number:
+        let int = e.target.value.slice(0, e.target.value.length - 1);
+
+        /* If there is no number (just the percent sign), rewrite
+           it so it persists and move the cursor just before it.*/
+        if (int.includes("%")) {
+            e.target.value = "%";
+        } else if (int.length >= 3 && int.length <= 4 && !int.includes(".")) {
+            /* If the whole has been written and we are starting the
+               fraction rewrite to include the decimal point and percent
+               sign. The fraction is a sigle digit. Cursor is moved to
+               just ahead of this digit.*/
+            e.target.value = int.slice(0, 2) + "." + int.slice(2, 3) + "%";
+            e.target.setSelectionRange(4, 4);
+        } else if ((int.length >= 5) & (int.length <= 6)) {
+            /* If the we have a double digit fraction we split up, format it
+               and print that. Cursor is already in the right place.*/
+            let whole = int.slice(0, 2);
+            let fraction = int.slice(3, 5);
+            e.target.value = whole + "." + fraction + "%";
+        } else {
+            /* If we're still just writing the whole (first 2 digits), just
+               print that with the percent sign. Also if the element has just
+               been clicked on we want the cursor before the percent sign.*/
+            e.target.value = int + "%";
+            e.target.setSelectionRange(
+                e.target.value.length - 1,
+                e.target.value.length - 1
+            );
+        }
+        console.log(getInt(e.target.value));
+    });
+
+    //Get human input:
+    document.querySelector(".percent6").addEventListener("input", function (e) {
+        //Separate the percent sign from the number:
+        let int = e.target.value.slice(0, e.target.value.length - 1);
+
+        /* If there is no number (just the percent sign), rewrite
+           it so it persists and move the cursor just before it.*/
+        if (int.includes("%")) {
+            e.target.value = "%";
+        } else if (int.length >= 3 && int.length <= 4 && !int.includes(".")) {
+            /* If the whole has been written and we are starting the
+               fraction rewrite to include the decimal point and percent
+               sign. The fraction is a sigle digit. Cursor is moved to
+               just ahead of this digit.*/
+            e.target.value = int.slice(0, 2) + "." + int.slice(2, 3) + "%";
+            e.target.setSelectionRange(4, 4);
+        } else if ((int.length >= 5) & (int.length <= 6)) {
+            /* If the we have a double digit fraction we split up, format it
+               and print that. Cursor is already in the right place.*/
+            let whole = int.slice(0, 2);
+            let fraction = int.slice(3, 5);
+            e.target.value = whole + "." + fraction + "%";
+        } else {
+            /* If we're still just writing the whole (first 2 digits), just
+               print that with the percent sign. Also if the element has just
+               been clicked on we want the cursor before the percent sign.*/
+            e.target.value = int + "%";
+            e.target.setSelectionRange(
+                e.target.value.length - 1,
+                e.target.value.length - 1
+            );
+        }
+        console.log(getInt(e.target.value));
+    });
+
+    //Get human input:
+    document.querySelector(".percent7").addEventListener("input", function (e) {
+        //Separate the percent sign from the number:
+        let int = e.target.value.slice(0, e.target.value.length - 1);
+
+        /* If there is no number (just the percent sign), rewrite
+           it so it persists and move the cursor just before it.*/
+        if (int.includes("%")) {
+            e.target.value = "%";
+        } else if (int.length >= 3 && int.length <= 4 && !int.includes(".")) {
+            /* If the whole has been written and we are starting the
+               fraction rewrite to include the decimal point and percent
+               sign. The fraction is a sigle digit. Cursor is moved to
+               just ahead of this digit.*/
+            e.target.value = int.slice(0, 2) + "." + int.slice(2, 3) + "%";
+            e.target.setSelectionRange(4, 4);
+        } else if ((int.length >= 5) & (int.length <= 6)) {
+            /* If the we have a double digit fraction we split up, format it
+               and print that. Cursor is already in the right place.*/
+            let whole = int.slice(0, 2);
+            let fraction = int.slice(3, 5);
+            e.target.value = whole + "." + fraction + "%";
+        } else {
+            /* If we're still just writing the whole (first 2 digits), just
+               print that with the percent sign. Also if the element has just
+               been clicked on we want the cursor before the percent sign.*/
+            e.target.value = int + "%";
+            e.target.setSelectionRange(
+                e.target.value.length - 1,
+                e.target.value.length - 1
+            );
+        }
+        console.log(getInt(e.target.value));
+    });
+
+    /* For consuption by robots, the number is best written as an
+       interger, so we do that remembering it contains 2 or less
+       decimal places*/
+    function getInt(val) {
+        //So as not to breakup a potential fraction
+        let v = parseFloat(val);
+        //If we only have the whole:
+        if (v % 1 === 0) {
+            return v;
+            //If the numberis a fraction
+        } else {
+            let n = v.toString().split(".").join("");
+            return parseInt(n);
         }
     }
 

@@ -1,4 +1,4 @@
-﻿@model Anade.Khadamat.Domain.BusinessPlan
+﻿@model Anade.Khadamat.Domain.EtatStuctureInvestissement
 
 
 
@@ -96,63 +96,93 @@
                                                                         </tr>
                                                                         <tr>
                                                                             <td>Matériel de production</td>
-                                                                            <td id="MaterielProductionId" style="text-align: right;">-</td>
+                                                                            <td id="MaterielProductionId" style="text-align: right;">
+                                                                                @Model.MaterielProduction
+                                                                            </td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td>Matériel de bureau</td>
-                                                                            <td id="MaterielBureauId" style="text-align: right;">-</td>
+                                                                            <td id="MaterielBureauId" style="text-align: right;">
+                                                                                @Model.MaterielBureau
+                                                                            </td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td>Matériel informatique</td>
-                                                                            <td id="MaterielInformatiqueId" style="text-align: right;">-</td>
+                                                                            <td id="MaterielInformatiqueId" style="text-align: right;">
+                                                                                @Model.MaterielInformatique
+                                                                            </td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td>Matériel audio visuel</td>
-                                                                            <td id="MaterielAudioVisuelId" style="text-align: right;">-</td>
+                                                                            <td id="MaterielAudioVisuelId" style="text-align: right;">
+                                                                                @Model.MaterielAudioVisuel
+                                                                            </td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td>Matériel de communication</td>
-                                                                            <td id="MaterielCommunicationId" style="text-align: right;">-</td>
+                                                                            <td id="MaterielCommunicationId" style="text-align: right;">
+                                                                                @Model.MaterielCommunication
+                                                                            </td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td>Installations équipements</td>
-                                                                            <td id="InstallationsEquipementsId" style="text-align: right;">-</td>
+                                                                            <td id="InstallationsEquipementsId" style="text-align: right;">
+                                                                                @Model.InstallationsEquipements
+                                                                            </td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td>Equipements importés</td>
-                                                                            <td id="EquipementsImportesId" style="text-align: right;">-</td>
+                                                                            <td id="EquipementsImportesId" style="text-align: right;">
+                                                                                @Model.EquipementsImportes
+                                                                            </td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td>Actifs biologique</td>
-                                                                            <td id="ActifsBiologiqueId" style="text-align: right;">-</td>
+                                                                            <td id="ActifsBiologiqueId" style="text-align: right;">
+                                                                                @Model.ActifsBiologique
+                                                                            </td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td>Aménagement</td>
-                                                                            <td id="AmenagementId" style="text-align: right;">-</td>
+                                                                            <td id="AmenagementId" style="text-align: right;">
+                                                                                @Model.Amenagement
+                                                                            </td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td>Matériel roulant</td>
-                                                                            <td id="MaterielRoulantId" style="text-align: right;">-</td>
+                                                                            <td id="MaterielRoulantId" style="text-align: right;">
+                                                                                @Model.MaterielRoulant
+                                                                            </td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td>Frais généraux</td>
-                                                                            <td id="FraisGenerauxId" style="text-align: right;">-</td>
+                                                                            <td id="FraisGenerauxId" style="text-align: right;">
+                                                                                @Model.FraisGeneraux
+                                                                            </td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td>Assurances liées à la création</td>
-                                                                            <td id="AssurancesLieesCreationId" style="text-align: right;">-</td>
+                                                                            <td id="AssurancesLieesCreationId" style="text-align: right;">
+                                                                                @Model.AssurancesLieesCreation
+                                                                            </td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td>Fonds de garantié</td>
-                                                                            <td id="FondsGarantieId" style="text-align: right;">-</td>
+                                                                            <td id="FondsGarantieId" style="text-align: right;">
+                                                                                @Model.FondsGarantie
+                                                                            </td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td>Fonds de roulement</td>
-                                                                            <td id="FondsRoulementId" style="text-align: right;">-</td>
+                                                                            <td id="FondsRoulementId" style="text-align: right;">
+                                                                                @Model.FondsRoulement
+                                                                            </td>
                                                                         </tr>
                                                                         <tr>
                                                                             <th style="text-align: center;">Total</th>
-                                                                            <th id="TotalId" style="text-align: right;">-</th>
+                                                                            <th id="TotalId" style="text-align: right;">
+                                                                                @Model.Total
+                                                                            </th>
                                                                         </tr>
                                                                     </table>
                                                                 </div>
@@ -193,18 +223,24 @@
                                                                         </tr>
                                                                         <tr>
                                                                             <td>Apport personnel</td>
-                                                                            <td>0 %</td>
-                                                                            <td id="ApportPersonnelId" style="text-align: right;">-</td>
+                                                                            <td>@Model.TauxApportPersonnel %</td>
+                                                                            <td id="ApportPersonnelId" style="text-align: right;">
+                                                                                @Model.ApportPersonnel
+                                                                            </td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td>CMT</td>
-                                                                            <td>0 %</td>
-                                                                            <td id="CMTId" style="text-align: right;">-</td>
+                                                                            <td>@Model.TauxCMT %</td>
+                                                                            <td id="CMTId" style="text-align: right;">
+                                                                                @Model.CMT
+                                                                            </td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td>PNR classique</td>
-                                                                            <td>0 %</td>
-                                                                            <td id="PNRClassiqueId" style="text-align: right;">-</td>
+                                                                            <td>@Model.TauxPNRClassique %</td>
+                                                                            <td id="PNRClassiqueId" style="text-align: right;">
+                                                                                @Model.PNRClassique
+                                                                            </td>
                                                                         </tr>
                                                                     </table>
 
@@ -221,11 +257,15 @@
                                                                     <table class="table display compact" id="TableB">
                                                                         <tr>
                                                                             <td>PNR supplémentaire</td>
-                                                                            <td id="PNRSupplementaireId" style="text-align: right;">-</td>
+                                                                            <td id="PNRSupplementaireId" style="text-align: right;">
+                                                                                @Model.PNRSupplementaire
+                                                                            </td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td>Apport supplémentaire</td>
-                                                                            <td id="ApportSupplementaireId" style="text-align: right;">-</td>
+                                                                            <td id="ApportSupplementaireId" style="text-align: right;">
+                                                                                @Model.ApportSupplementaire
+                                                                            </td>
                                                                         </tr>
                                                                     </table>
 
@@ -239,6 +279,47 @@
 
                                                 </div>
 
+                                                <br />
+
+                                                @*<div class="card-header">Changement fonds de roulement</div>*@
+
+                                                @*<div class="card-body">
+
+                                                    <div class="row">
+
+                                                        <div class="col-md-12">
+
+                                                            <div class="row">
+
+                                                                <div class="card-body">
+
+                                                                    <div class="row">
+
+                                                                        <div class="col-sm-6">
+                                                                            <div class="form-group">
+                                                                                <span class="form-label">Fonds de roulement</span>
+                                                                                <input id="CoutProjet" type="text" placeholder="0" class="form-control" maxlength="13" onkeyup="InitChamps(); verif_nombre(this); $(this).val(montant($(this).val().replace(/ /g, '')))">
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-sm-6">
+                                                                            <div class="form-group center">
+                                                                                <button type="button" class="btn btn-outline-success" onclick="SimulerStructure();">Recalculer fonds de roulement</button>
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </div>
+
+                                                                </div>
+
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>*@
+
                                             </div>
 
                                         </div>
@@ -246,7 +327,7 @@
                                     </div>
 
                                     <div class="form-group modal-footer">
-                                        <input type="submit" class="btn btn-outline-primary" value="Add" />
+                                        <input type="submit" class="btn btn-outline-primary" value="Enregister" />
                                         <button class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
                                     </div>
 

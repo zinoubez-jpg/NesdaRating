@@ -16,6 +16,7 @@ namespace Anade.Khadamat.Domain
 
         public int Id { get; set; }
         public decimal CoutProjet { get; set; }
+        public decimal FondsRoulement { get; set; }
         public bool SoumisImposition { get; set; }
         public bool ExonerationTVA { get; set; }
         public int DelaiClient { get; set; }
@@ -24,6 +25,8 @@ namespace Anade.Khadamat.Domain
         
         [NotMapped]
         public string CoutProjetString { get; set; }
+        [NotMapped]
+        public string FondsRoulementString { get; set; }
 
         public int BusinessPlanId { get; set; }
         public int TauxTVAId { get; set; }

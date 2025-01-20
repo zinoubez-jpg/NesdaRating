@@ -77,32 +77,83 @@
 
                                     <div class="row">
 
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-4">
                                             <div class="form-group">
                                                 <span class="form-label">Coût du projet</span>
                                                 <input id="CoutProjet" type="text" placeholder="0" class="form-control" maxlength="13" onkeyup="InitChamps(); verif_nombre(this); $(this).val(montant($(this).val().replace(/ /g, '')))">
                                             </div>
                                         </div>
 
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <span class="form-label">Fonds roulement</span>
+                                                <input id="FondsRoulement" type="text" placeholder="0" class="form-control" maxlength="13" onkeyup="InitChamps(); verif_nombre(this); $(this).val(montant($(this).val().replace(/ /g, '')))">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-4 form-group">
+                                            <span class="form-label">Type financement.</span>
+                                            <select id="TypeFinancementId" asp-for="InformationBase.TypeFinancementId" asp-items="@ViewBag.TypeFinancementID as SelectList" class="form-control select2" required onchange="InitChamps();">
+                                                <option value="">- - - - - -</option>
+                                            </select>
+                                            <span class="select-arrow"></span>
+                                            <span asp-validation-for="InformationBase.TypeFinancementId" class="text-danger"></span>
+                                            <div class="invalid-feedback">Sélectionner le type financement.</div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row">
+
+                                        <div class="col-sm-4">
                                             <div class="form-group">
                                                 <span class="form-label">Délai client (J)</span>
                                                 <input id="DelaiClient" asp-for="InformationBase.DelaiClient" placeholder="0" class="form-control" onchange="InitChamps();">
                                             </div>
                                         </div>
 
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-4">
                                             <div class="form-group">
                                                 <span class="form-label">Délai fournisseur (J)</span>
                                                 <input id="DelaiFournisseur" asp-for="InformationBase.DelaiFournisseur" placeholder="0" class="form-control" onchange="InitChamps();">
                                             </div>
                                         </div>
 
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-4">
                                             <div class="form-group">
                                                 <span class="form-label">Délai prestataire (J)</span>
                                                 <input id="DelaiPrestataire" asp-for="InformationBase.DelaiPrestataire" placeholder="0" class="form-control" onchange="InitChamps();">
                                             </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row">
+
+                                        <div class="col-sm-4 form-group">
+                                            <span class="form-label">Commune.</span>
+                                            <select id="CommuneBPId" asp-for="InformationBase.CommuneBPId" asp-items="@ViewBag.CommuneBPID as SelectList" class="form-control select2" required onchange="InitChamps();">
+                                                <option value="">- - - - - -</option>
+                                            </select>
+                                            <span class="select-arrow"></span>
+                                            <span asp-validation-for="InformationBase.CommuneBPId" class="text-danger"></span>
+                                            <div class="invalid-feedback">Sélectionner la commune.</div>
+                                        </div>
+
+                                        <div class="col-sm-4 form-group">
+                                            <span class="form-label">Type de zone</span>
+                                            <input id="TypeZoneId" class="form-control" value="- - - - - -" disabled>
+                                            <span class="select-arrow"></span>
+                                            <span class="text-danger"></span>
+                                            <div class="invalid-feedback">Type de zone.</div>
+                                        </div>
+
+                                        <div class="col-sm-4 form-group">
+                                            <span class="form-label">Zone à promouvoir?</span>
+                                            <input id="ZonePromouvoir" class="form-control" value="- - - - - -" disabled>
+                                            <span class="select-arrow"></span>
+                                            <span class="text-danger"></span>
+                                            <div class="invalid-feedback">Zone à promouvoir.</div>
                                         </div>
 
                                     </div>
@@ -140,13 +191,12 @@
                                         </div>
 
                                         <div class="col-sm-3 form-group">
-                                            <span class="form-label">Type financement.</span>
-                                            <select id="TypeFinancementId" asp-for="InformationBase.TypeFinancementId" asp-items="@ViewBag.TypeFinancementID as SelectList" class="form-control select2" required onchange="InitChamps();">
-                                                <option value="">- - - - - -</option>
+                                            <span class="form-label">Exonération TVA.</span>
+                                            <select id="ExonerationTVAselect2" class="form-control select2" onchange="checkedExonerationTVA();" required>
+                                                <option value="null">- - - - - -</option>
+                                                <option value="true">Oui</option>
+                                                <option value="false">Non</option>
                                             </select>
-                                            <span class="select-arrow"></span>
-                                            <span asp-validation-for="InformationBase.TypeFinancementId" class="text-danger"></span>
-                                            <div class="invalid-feedback">Sélectionner le type financement.</div>
                                         </div>
 
                                     </div>
@@ -185,45 +235,6 @@
                                                 <span class="form-label">Apport supplémentaire</span>
                                                 <input id="ApportSupplementaire" type="text" placeholder="0" class="form-control" maxlength="10" onkeyup="verif_nombre(this); $(this).val(montant($(this).val().replace(/ /g, '')))">
                                             </div>
-                                        </div>
-
-                                    </div>
-
-                                    <div class="row">
-
-                                        <div class="col-sm-3 form-group">
-                                            <span class="form-label">Commune.</span>
-                                            <select id="CommuneBPId" asp-for="InformationBase.CommuneBPId" asp-items="@ViewBag.CommuneBPID as SelectList" class="form-control select2" required onchange="InitChamps();">
-                                                <option value="">- - - - - -</option>
-                                            </select>
-                                            <span class="select-arrow"></span>
-                                            <span asp-validation-for="InformationBase.CommuneBPId" class="text-danger"></span>
-                                            <div class="invalid-feedback">Sélectionner la commune.</div>
-                                        </div>
-
-                                        <div class="col-sm-3 form-group">
-                                            <span class="form-label">Type de zone</span>
-                                            <input id="TypeZoneId" class="form-control" value="- - - - - -" disabled>
-                                            <span class="select-arrow"></span>
-                                            <span class="text-danger"></span>
-                                            <div class="invalid-feedback">Type de zone.</div>
-                                        </div>
-
-                                        <div class="col-sm-3 form-group">
-                                            <span class="form-label">Zone à promouvoir?</span>
-                                            <input id="ZonePromouvoir" class="form-control" value="- - - - - -" disabled>
-                                            <span class="select-arrow"></span>
-                                            <span class="text-danger"></span>
-                                            <div class="invalid-feedback">Zone à promouvoir.</div>
-                                        </div>
-
-                                        <div class="col-sm-3 form-group">
-                                            <span class="form-label">Exonération TVA.</span>
-                                            <select id="ExonerationTVAselect2" class="form-control select2" onchange="checkedExonerationTVA();" required>
-                                                <option value="null">- - - - - -</option>
-                                                <option value="true">Oui</option>
-                                                <option value="false">Non</option>
-                                            </select>
                                         </div>
 
                                     </div>
@@ -306,11 +317,62 @@
 
                                                 </div>
 
+                                                @*<div class="col-md-6">
+
+                                                        <div class="row">
+
+                                                            <div class="col-sm-4">
+                                                                <div class="form-group">
+                                                                    <span class="form-label">Taux IFU</span>
+                                                                    <input id="TauxIFU" class="form-control" value="0 %" disabled>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-sm-8">
+                                                                <div class="form-group">
+                                                                    <span class="form-label">Différé emprunt</span>
+                                                                    <input id="DiffereEmprunt" class="form-control" value="- - - - - -" disabled>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div class="row">
+
+                                                            <div class="col-sm-4">
+                                                                <div class="form-group">
+                                                                    <span class="form-label">Taux IBS</span>
+                                                                    <input id="TauxIBS" class="form-control" value="0 %" disabled>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-sm-8">
+                                                                <div class="form-group">
+                                                                    <span class="form-label">Exonération fiscale</span>
+                                                                    <input id="ExonerationFiscale" class="form-control" value="- - - - - -" disabled>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div class="row">
+
+                                                            <div class="col-sm-4">
+                                                                <div class="form-group center">
+                                                                    <button type="button" class="btn btn-outline-success" onclick="SimulerStructure();">Simuler la structure</button>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>*@
+
+
                                                 <div class="col-md-6">
-                                                                                                        
+
                                                     <div class="row">
 
-                                                        <div class="col form-group">
+                                                        <div class="col">
                                                             <div class="form-group">
                                                                 <span class="form-label">Différé emprunt</span>
                                                                 <input id="DiffereEmprunt" class="form-control" value="- - - - - -" disabled>
@@ -321,7 +383,7 @@
 
                                                     <div class="row">
 
-                                                        <div class="col form-group">
+                                                        <div class="col">
                                                             <div class="form-group">
                                                                 <span class="form-label">Exonération fiscale</span>
                                                                 <input id="ExonerationFiscale" class="form-control" value="- - - - - -" disabled>
@@ -356,6 +418,8 @@
 
                                                 </div>
 
+
+
                                             </div>
 
                                             @*     hidden="hidden"           type="hidden"        *@
@@ -373,6 +437,13 @@
                                                     <div class="form-group">
                                                         <span class="form-label">Coût du projet Model</span>
                                                         <input id="CoutProjetModel" type="text" value="0" asp-for="InformationBase.CoutProjetString" class="form-control">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <span class="form-label">Fonds de roulement Model</span>
+                                                        <input id="FondsRoulementModel" type="text" value="0" asp-for="InformationBase.FondsRoulementString" class="form-control">
                                                     </div>
                                                 </div>
 
@@ -442,6 +513,24 @@
                                                         <span class="select-arrow"></span>
                                                         <span asp-validation-for="StructureFinancement.ExonerationFiscaleId" class="text-danger"></span>
                                                         <div class="invalid-feedback">Sélectionner l'exonération fiscale.</div>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="row">
+
+                                                    <div class="col-sm-4">
+                                                        <div class="form-group">
+                                                            <span class="form-label">Taux IFU</span>
+                                                            <input id="TauxIFUModel" class="form-control" type="text" value="0" asp-for="StructureFinancement.TauxIFUString">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-sm-4">
+                                                        <div class="form-group">
+                                                            <span class="form-label">Taux IBS</span>
+                                                            <input id="TauxIBSModel" class="form-control" type="text" value="0" asp-for="StructureFinancement.TauxIBSString">
+                                                        </div>
                                                     </div>
 
                                                 </div>
@@ -899,6 +988,8 @@
         PNRClassiqueModel.value = 0;
         PNRSupplementaireModel.value = 0;
         ApportSupplementaireModel.value = 0;
+        TauxIFUModel.value = 0;
+        TauxIBSModel.value = 0;
 
         ApportPersonnel.value = 0;
         TauxApportPersonnel.value = 0;
@@ -964,11 +1055,14 @@
     function GetValueStringModel() {
 
         CoutProjetModel.value = parseFloat(supp_espace_montant(CoutProjet.value));
+        FondsRoulementModel.value = parseFloat(supp_espace_montant(FondsRoulement.value));
         ApportPersonnelModel.value = parseFloat(supp_espace_montant(ApportPersonnel.value));
         CMTModel.value = parseFloat(supp_espace_montant(CMT.value));
         PNRClassiqueModel.value = parseFloat(supp_espace_montant(PNRClassique.value));
         PNRSupplementaireModel.value = parseFloat(supp_espace_montant(PNRSupplementaire.value));
         ApportSupplementaireModel.value = parseFloat(supp_espace_montant(ApportSupplementaire.value));
+        TauxIFUModel.value = parseFloat(supp_espace_montant(TauxIFU.value));
+        TauxIBSModel.value = parseFloat(supp_espace_montant(TauxIBS.value));
     }
 
 </script>

@@ -56,6 +56,12 @@ namespace Anade.Khadamat.Web.Controllers
         private readonly ReferentielBusinessService<Annee, int> _anneeBusinessService;
         private readonly ReferentielBusinessService<RubriqueChargesExternes, int> _rubriqueChargesExternesBusinessService;
 
+        private readonly StuctureInvestissementBusinessService _stuctureInvestissementBusinessService;
+        private readonly DetailChargesExternesBusinessService _detailChargesExternesBusinessService;
+        private readonly DetailInvestissementBusinessService _detailInvestissementBusinessService;
+        private readonly AcquisitionBusinessService _acquisitionBusinessService;
+        private readonly StructureFinancementBusinessService _structureFinancementBusinessService;
+
         private readonly PosteBusinessService _PosteBusinessService;
 
         public BusinessPlanProjectController(UserService userService,
@@ -91,7 +97,12 @@ namespace Anade.Khadamat.Web.Controllers
                                              TauxStructureFinancementBusinessService tauxStructureFinancementBusinessService,
                                              ReferentielBusinessService<TypeMateriel, int> typeMaterielBusinessService,
                                              ReferentielBusinessService<Annee, int> anneeBusinessService,
-                                             ReferentielBusinessService<RubriqueChargesExternes, int> rubriqueChargesExternesBusinessService
+                                             ReferentielBusinessService<RubriqueChargesExternes, int> rubriqueChargesExternesBusinessService,
+                                             StuctureInvestissementBusinessService stuctureInvestissementBusinessService,
+                                             DetailChargesExternesBusinessService detailChargesExternesBusinessService,
+                                             DetailInvestissementBusinessService detailInvestissementBusinessService,
+                                             AcquisitionBusinessService acquisitionBusinessService,
+                                             StructureFinancementBusinessService structureFinancementBusinessService
 
                                              )
         {
@@ -129,6 +140,11 @@ namespace Anade.Khadamat.Web.Controllers
             _typeMaterielBusinessService = typeMaterielBusinessService;
             _anneeBusinessService = anneeBusinessService;
             _rubriqueChargesExternesBusinessService = rubriqueChargesExternesBusinessService;
+            _stuctureInvestissementBusinessService = stuctureInvestissementBusinessService;
+            _detailChargesExternesBusinessService = detailChargesExternesBusinessService;
+            _detailInvestissementBusinessService = detailInvestissementBusinessService;
+            _acquisitionBusinessService = acquisitionBusinessService;
+            _structureFinancementBusinessService = structureFinancementBusinessService;
         }
 
         [Authorize(Roles = "Analyste,DG,Admin,AdminAgence,Utilisateur-Rating")]
@@ -361,20 +377,21 @@ namespace Anade.Khadamat.Web.Controllers
 
             try
             {
-
                 model.InformationBase.CoutProjet = Math.Round(Convert.ToDecimal(model.InformationBase.CoutProjetString.Replace(".", ",")), 2);
+                model.InformationBase.FondsRoulement = Math.Round(Convert.ToDecimal(model.InformationBase.FondsRoulementString.Replace(".", ",")), 2);
                 model.StructureFinancement.ApportPersonnel = Math.Round(Convert.ToDecimal(model.StructureFinancement.ApportPersonnelString.Replace(".", ",")), 2);
                 model.StructureFinancement.CMT = Math.Round(Convert.ToDecimal(model.StructureFinancement.CMTString.Replace(".", ",")), 2);
                 model.StructureFinancement.PNRClassique = Math.Round(Convert.ToDecimal(model.StructureFinancement.PNRClassiqueString.Replace(".", ",")), 2);
                 model.StructureFinancement.PNRSupplementaire = Math.Round(Convert.ToDecimal(model.StructureFinancement.PNRSupplementaireString.Replace(".", ",")), 2);
                 model.StructureFinancement.ApportSupplementaire = Math.Round(Convert.ToDecimal(model.StructureFinancement.ApportSupplementaireString.Replace(".", ",")), 2);
 
+                model.StructureFinancement.TauxIFU = Convert.ToInt32(model.StructureFinancement.TauxIFUString.Replace(".", ","));
+                model.StructureFinancement.TauxIBS = Convert.ToInt32(model.StructureFinancement.TauxIBSString.Replace(".", ","));
             }
             catch (Exception e)
             {
                 CoutProjetstring = e.Message;
             }
-
 
             var designationToCode = new Dictionary<string, string>
             {
@@ -1051,7 +1068,7 @@ namespace Anade.Khadamat.Web.Controllers
 
             int indexCodeMatiereApprov = 1;
 
-            for (int i = 1; i < model.Length; i += 29)
+            for (int i = 1; i < model.Length; i += 36)
             {
                 int anneeIndex = 1;
 
@@ -1061,7 +1078,7 @@ namespace Anade.Khadamat.Web.Controllers
 
                 matierePremiereApprovisionnement.Designation = model[i];
 
-                for (int j = 0; j < 27; j += 4)
+                for (int j = 0; j < 34; j += 5)
                 {
                     DetailAchatsDirects detailAchatsDirects = new();
                     detailAchatsDirects.BusinessPlanId = businessPlanId;
@@ -1069,11 +1086,14 @@ namespace Anade.Khadamat.Web.Controllers
                     detailAchatsDirects.Quantite = (float)Math.Round(Convert.ToDouble(model[i + 2 + j].Replace(".", ",")), 2);
                     detailAchatsDirects.PrixUnitaire = Math.Round(Convert.ToDecimal(model[i + 3 + j].Replace(".", ",")), 2);
                     detailAchatsDirects.Montant = Math.Round(Convert.ToDecimal(model[i + 4 + j].Replace(".", ",")), 2);
+                    detailAchatsDirects.TauxConsommation=Math.Round(Convert.ToDecimal((model[i + 5 + j].Replace("%", "")).Replace(".", ",")), 2);
+                    
                     detailAchatsDirects.MatierePremiereApprovisionnement = matierePremiereApprovisionnement;
 
                     detailsAchatsDirects.Add(detailAchatsDirects);
                     anneeIndex++;
                 }
+
                 indexCodeMatiereApprov++;
             }
 
@@ -1318,7 +1338,245 @@ namespace Anade.Khadamat.Web.Controllers
                 ViewData["CompletOuiNon"] = "Non";
             }
 
-            return PartialView($"_{nameof(EtatStructureInvestissement)}", modelBusinessPlan);
+            List<DetailChargesExternes> detailsChargesExternes = _detailChargesExternesBusinessService.GetAllFiltered(x => x.BusinessPlanId == id && x.AnneeId == 1);
+
+            List<DetailInvestissement> detailsInvestissement = _detailInvestissementBusinessService.GetAllFiltered(x => x.BusinessPlanId == id);
+
+            StructureFinancement structureFinancement = _structureFinancementBusinessService.GetSingle(x => x.BusinessPlanId == id, _structureFinancementBusinessService.GetDefaultLoadProperties());
+
+            decimal EquipementsImportes = 0;
+            decimal ActifsBiologique = 0;
+            decimal MaterielProduction = 0;
+            decimal MaterielBureau = 0;
+            decimal MaterielInformatique = 0;
+            decimal MaterielAudioVisuel = 0;
+            decimal MaterielCommunication = 0;
+            decimal InstallationsEquipements = 0;
+            decimal MaterielRoulant = 0;
+            decimal Amenagement = 0;
+
+            decimal FraisGeneraux = 0;
+            decimal AssurancesLieesCreation = 0;
+            decimal FondsGarantie = 0;
+            decimal FondsRoulement = 0;
+            decimal Total = 0;
+
+            decimal ApportPersonnel = 0;
+            decimal CMT = 0;
+            decimal PNRClassique = 0;
+            decimal PNRSupplementaire = 0;
+            decimal ApportSupplementaire = 0;
+            float TauxIFU = 0;
+            float TauxIBS = 0;
+
+            decimal CoutProjetReel = 0;
+            decimal MontantCMTReel = 0;
+            decimal MontantPNRReel = 0;
+            decimal MontantApportReel = 0;
+
+            if (detailsInvestissement.Count != 0)
+            {
+                for (int i = 0; i < detailsInvestissement.Count; i++)
+                {
+                    List<Acquisition> listAcquisitions = _acquisitionBusinessService.GetAllFiltered(x => x.DetailInvestissementId == detailsInvestissement[i].Id && x.AnneeId == 1);
+
+                    if (detailsInvestissement[i].TypeMaterielId == 1)
+                    {
+                        for (int j = 0; j < listAcquisitions.Count; j++)
+                        {
+                            EquipementsImportes += listAcquisitions[j].Montant;
+                        }
+                    }
+
+                    if (detailsInvestissement[i].TypeMaterielId == 2)
+                    {
+                        for (int j = 0; j < listAcquisitions.Count; j++)
+                        {
+                            ActifsBiologique += listAcquisitions[j].Montant;
+                        }
+                    }
+
+                    if (detailsInvestissement[i].TypeMaterielId == 3)
+                    {
+                        for (int j = 0; j < listAcquisitions.Count; j++)
+                        {
+                            MaterielProduction += listAcquisitions[j].Montant;
+                        }
+                    }
+
+                    if (detailsInvestissement[i].TypeMaterielId == 4)
+                    {
+                        for (int j = 0; j < listAcquisitions.Count; j++)
+                        {
+                            MaterielBureau += listAcquisitions[j].Montant;
+                        }
+                    }
+
+                    if (detailsInvestissement[i].TypeMaterielId == 5)
+                    {
+                        for (int j = 0; j < listAcquisitions.Count; j++)
+                        {
+                            MaterielInformatique += listAcquisitions[j].Montant;
+                        }
+                    }
+
+                    if (detailsInvestissement[i].TypeMaterielId == 6)
+                    {
+                        for (int j = 0; j < listAcquisitions.Count; j++)
+                        {
+                            MaterielAudioVisuel += listAcquisitions[j].Montant;
+                        }
+                    }
+
+                    if (detailsInvestissement[i].TypeMaterielId == 7)
+                    {
+                        for (int j = 0; j < listAcquisitions.Count; j++)
+                        {
+                            MaterielCommunication += listAcquisitions[j].Montant;
+                        }
+                    }
+
+                    if (detailsInvestissement[i].TypeMaterielId == 8)
+                    {
+                        for (int j = 0; j < listAcquisitions.Count; j++)
+                        {
+                            InstallationsEquipements += listAcquisitions[j].Montant;
+                        }
+                    }
+
+                    if (detailsInvestissement[i].TypeMaterielId == 9)
+                    {
+                        for (int j = 0; j < listAcquisitions.Count; j++)
+                        {
+                            MaterielRoulant += listAcquisitions[j].Montant;
+                        }
+                    }
+
+                    if (detailsInvestissement[i].TypeMaterielId == 10)
+                    {
+                        for (int j = 0; j < listAcquisitions.Count; j++)
+                        {
+                            Amenagement += listAcquisitions[j].Montant;
+                        }
+                    }
+                }
+            }
+
+            if (detailsChargesExternes.Count != 0)
+            {
+                for (int i = 0; i < detailsChargesExternes.Count; i++)
+                {
+                    if (detailsChargesExternes[i].RubriqueChargesExternesId == 11)
+                    {
+                        FraisGeneraux = detailsChargesExternes[i].Montant;
+                    }
+
+                    if (detailsChargesExternes[i].RubriqueChargesExternesId == 6)
+                    {
+                        AssurancesLieesCreation = detailsChargesExternes[i].Montant;
+                    }
+
+                    if (detailsChargesExternes[i].RubriqueChargesExternesId == 12)
+                    {
+                        FondsGarantie = detailsChargesExternes[i].Montant;
+                    }
+                }
+            }
+
+            FondsRoulement = modelBusinessPlan.InformationBase.FondsRoulement;
+
+            CoutProjetReel = (Amenagement +
+                              MaterielRoulant +
+                              InstallationsEquipements +
+                              MaterielCommunication +
+                              MaterielAudioVisuel +
+                              MaterielInformatique +
+                              MaterielBureau +
+                              MaterielProduction +
+                              ActifsBiologique +
+                              EquipementsImportes
+                              ) +
+                              FondsRoulement +
+                              FraisGeneraux +
+                              AssurancesLieesCreation;
+
+            MontantCMTReel = CoutProjetReel * structureFinancement.TauxStructureFinancement.CMT / 100;
+
+            double TauxFG = 1.11476776436927;
+
+            double MontantTauxFG = TauxFG * (double)MontantCMTReel/100;
+
+            MontantTauxFG += (double)MontantCMTReel;
+
+            MontantTauxFG = (MontantTauxFG * 4.5) * 0.0035;
+
+            CoutProjetReel += (decimal)MontantTauxFG;
+
+            FondsGarantie = (decimal)MontantTauxFG;
+
+            MontantCMTReel = CoutProjetReel * structureFinancement.TauxStructureFinancement.CMT / 100;
+
+            MontantPNRReel = CoutProjetReel * structureFinancement.TauxStructureFinancement.PNRClassique / 100;
+
+            MontantApportReel = CoutProjetReel * structureFinancement.TauxStructureFinancement.ApportPersonnel / 100;
+
+            Total = EquipementsImportes
+                + ActifsBiologique
+                + MaterielProduction
+                + MaterielBureau
+                + MaterielInformatique
+                + MaterielAudioVisuel
+                + MaterielCommunication
+                + InstallationsEquipements
+                + MaterielRoulant
+                + Amenagement
+                + FraisGeneraux
+                + AssurancesLieesCreation
+                + FondsGarantie
+                + FondsRoulement;
+
+            ApportPersonnel = MontantApportReel;
+            CMT = MontantCMTReel;
+            PNRClassique = MontantPNRReel;
+            PNRSupplementaire = structureFinancement.PNRSupplementaire;
+            ApportSupplementaire = structureFinancement.ApportSupplementaire;
+            TauxIFU = structureFinancement.TauxIFU;
+            TauxIBS = structureFinancement.TauxIBS;
+
+            EtatStuctureInvestissement etatStuctureInvestissement = new();
+
+            System.Globalization.CultureInfo frCult = System.Globalization.CultureInfo.CreateSpecificCulture("fr-FR");
+
+            etatStuctureInvestissement.EquipementsImportes = string.Format(frCult, "{0:n}", EquipementsImportes);
+            etatStuctureInvestissement.ActifsBiologique = string.Format(frCult, "{0:n}", ActifsBiologique);
+            etatStuctureInvestissement.MaterielProduction = string.Format(frCult, "{0:n}", MaterielProduction);
+            etatStuctureInvestissement.MaterielBureau = string.Format(frCult, "{0:n}", MaterielBureau);
+            etatStuctureInvestissement.MaterielInformatique = string.Format(frCult, "{0:n}", MaterielInformatique);
+            etatStuctureInvestissement.MaterielAudioVisuel = string.Format(frCult, "{0:n}", MaterielAudioVisuel);
+            etatStuctureInvestissement.MaterielCommunication = string.Format(frCult, "{0:n}", MaterielCommunication);
+            etatStuctureInvestissement.InstallationsEquipements = string.Format(frCult, "{0:n}", InstallationsEquipements);
+            etatStuctureInvestissement.MaterielRoulant = string.Format(frCult, "{0:n}", MaterielRoulant);
+            etatStuctureInvestissement.Amenagement = string.Format(frCult, "{0:n}", Amenagement);
+
+            etatStuctureInvestissement.FraisGeneraux = string.Format(frCult, "{0:n}", FraisGeneraux);
+            etatStuctureInvestissement.AssurancesLieesCreation = string.Format(frCult, "{0:n}", AssurancesLieesCreation);
+            etatStuctureInvestissement.FondsGarantie = string.Format(frCult, "{0:n}", FondsGarantie);
+            etatStuctureInvestissement.FondsRoulement = string.Format(frCult, "{0:n}", FondsRoulement);
+            etatStuctureInvestissement.Total = string.Format(frCult, "{0:n}", Total);
+
+            etatStuctureInvestissement.ApportPersonnel = string.Format(frCult, "{0:n}", ApportPersonnel);
+            etatStuctureInvestissement.CMT = string.Format(frCult, "{0:n}", CMT);
+            etatStuctureInvestissement.PNRClassique = string.Format(frCult, "{0:n}", PNRClassique);
+            etatStuctureInvestissement.TauxApportPersonnel = structureFinancement.TauxStructureFinancement.ApportPersonnel.ToString();
+            etatStuctureInvestissement.TauxCMT = structureFinancement.TauxStructureFinancement.CMT.ToString();
+            etatStuctureInvestissement.TauxPNRClassique = structureFinancement.TauxStructureFinancement.PNRClassique.ToString();
+
+            etatStuctureInvestissement.PNRSupplementaire = string.Format(frCult, "{0:n}", PNRSupplementaire);
+            etatStuctureInvestissement.ApportSupplementaire = string.Format(frCult, "{0:n}", ApportSupplementaire);
+            etatStuctureInvestissement.TauxIFU = string.Format(frCult, "{0:n}", TauxIFU);
+            etatStuctureInvestissement.TauxIBS = string.Format(frCult, "{0:n}", TauxIBS);
+
+            return PartialView($"_{nameof(EtatStructureInvestissement)}", etatStuctureInvestissement);
         }
 
         [Authorize(Roles = "Analyste")]
@@ -1385,6 +1643,8 @@ namespace Anade.Khadamat.Web.Controllers
 
             ViewData["BusinessPlanID"] = id;
             ViewData["NumeroSIEJE"] = modelBusinessPlan.NumeroSIEJE;
+
+            ViewData["AnneeID"] = new SelectList(_anneeBusinessService.GetAll(), "Id", "DesignationFr");
 
             var listeRubriqueChargesExternes = new SelectList(_rubriqueChargesExternesBusinessService.GetAll(), "Id", "CodeDesignationFr");
 

@@ -86,101 +86,275 @@
 
                                                         <div class="row">
 
-                                                            <div class="card-body">
+                                                            <div class="col-sm-3 form-group">
+                                                                <span class="form-label">Année.</span>
+                                                                <select id="AnneeId" asp-items="@ViewBag.AnneeID as SelectList" class="form-control select2" required onchange="toggle();">
+                                                                    <option value="">- - - - - -</option>
+                                                                </select>
+                                                                <span class="select-arrow"></span>
+                                                                <span class="text-danger"></span>
+                                                                <div class="invalid-feedback">Sélectionner l'année.</div>
+                                                            </div>
 
+                                                            <div class="card-body">                                                               
                                                                 <table class="table display compact" id="TableA">
                                                                     <tr>
                                                                         <th>Libellé</th>
-                                                                        <th>Année 01</th>
-                                                                        <th>Année 02</th>
-                                                                        <th>Année 03</th>
-                                                                        <th>Année 04</th>
-                                                                        <th>Année 05</th>
-                                                                        <th>Année 06</th>
-                                                                        <th>Année 07</th>
+                                                                        <th>Janvier</th>
+                                                                        <th>Février</th>
+                                                                        <th>Mars</th>
+                                                                        <th>Avril</th>
+                                                                        <th>Mai</th>
+                                                                        <th>Juin</th>
+                                                                        <th>Juillet</th>
+                                                                        <th>Août</th>
+                                                                        <th>Septembre</th>
+                                                                        <th>Octobre</th>
+                                                                        <th>Novembre</th>
+                                                                        <th>Décembre</th>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td>Chiffre d'affaires (1)</td>
-                                                                        <td id="ChiffreAffaires01Id" style="text-align: right;">-</td>
-                                                                        <td id="ChiffreAffaires02Id" style="text-align: right;">-</td>
-                                                                        <td id="ChiffreAffaires03Id" style="text-align: right;">-</td>
-                                                                        <td id="ChiffreAffaires04Id" style="text-align: right;">-</td>
-                                                                        <td id="ChiffreAffaires05Id" style="text-align: right;">-</td>
-                                                                        <td id="ChiffreAffaires06Id" style="text-align: right;">-</td>
-                                                                        <td id="ChiffreAffaires07Id" style="text-align: right;">-</td>
+                                                                        <td>Solde initial</td>
+                                                                        <td id="SoldeInitial01Id" style="text-align: right;">-</td>
+                                                                        <td id="SoldeInitial02Id" style="text-align: right;">-</td>
+                                                                        <td id="SoldeInitial03Id" style="text-align: right;">-</td>
+                                                                        <td id="SoldeInitial04Id" style="text-align: right;">-</td>
+                                                                        <td id="SoldeInitial05Id" style="text-align: right;">-</td>
+                                                                        <td id="SoldeInitial06Id" style="text-align: right;">-</td>
+                                                                        <td id="SoldeInitial07Id" style="text-align: right;">-</td>
+                                                                        <td id="SoldeInitial08Id" style="text-align: right;">-</td>
+                                                                        <td id="SoldeInitial09Id" style="text-align: right;">-</td>
+                                                                        <td id="SoldeInitial10Id" style="text-align: right;">-</td>
+                                                                        <td id="SoldeInitial11Id" style="text-align: right;">-</td>
+                                                                        <td id="SoldeInitial12Id" style="text-align: right;">-</td>
+                                                                    </tr>
+                                                                    <tr id="hidethis" style="display: none;">
+                                                                        <td>Apport supplémentaire</td>
+                                                                        <td id="ApportSupplementaire01Id" style="text-align: right;">-</td>
+                                                                        <td id="ApportSupplementaire02Id" style="text-align: right;">-</td>
+                                                                        <td id="ApportSupplementaire03Id" style="text-align: right;">-</td>
+                                                                        <td id="ApportSupplementaire04Id" style="text-align: right;">-</td>
+                                                                        <td id="ApportSupplementaire05Id" style="text-align: right;">-</td>
+                                                                        <td id="ApportSupplementaire06Id" style="text-align: right;">-</td>
+                                                                        <td id="ApportSupplementaire07Id" style="text-align: right;">-</td>
+                                                                        <td id="ApportSupplementaire08Id" style="text-align: right;">-</td>
+                                                                        <td id="ApportSupplementaire09Id" style="text-align: right;">-</td>
+                                                                        <td id="ApportSupplementaire10Id" style="text-align: right;">-</td>
+                                                                        <td id="ApportSupplementaire11Id" style="text-align: right;">-</td>
+                                                                        <td id="ApportSupplementaire12Id" style="text-align: right;">-</td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td>Achats consommés (2)</td>
-                                                                        <td id="AchatsConsommes01Id" style="text-align: right;">-</td>
-                                                                        <td id="AchatsConsommes02Id" style="text-align: right;">-</td>
-                                                                        <td id="AchatsConsommes03Id" style="text-align: right;">-</td>
-                                                                        <td id="AchatsConsommes04Id" style="text-align: right;">-</td>
-                                                                        <td id="AchatsConsommes05Id" style="text-align: right;">-</td>
-                                                                        <td id="AchatsConsommes06Id" style="text-align: right;">-</td>
-                                                                        <td id="AchatsConsommes07Id" style="text-align: right;">-</td>
+                                                                        <td>CMT</td>
+                                                                        <td id="CMT01Id" style="text-align: right;">-</td>
+                                                                        <td id="CMT02Id" style="text-align: right;">-</td>
+                                                                        <td id="CMT03Id" style="text-align: right;">-</td>
+                                                                        <td id="CMT04Id" style="text-align: right;">-</td>
+                                                                        <td id="CMT05Id" style="text-align: right;">-</td>
+                                                                        <td id="CMT06Id" style="text-align: right;">-</td>
+                                                                        <td id="CMT07Id" style="text-align: right;">-</td>
+                                                                        <td id="CMT08Id" style="text-align: right;">-</td>
+                                                                        <td id="CMT09Id" style="text-align: right;">-</td>
+                                                                        <td id="CMT10Id" style="text-align: right;">-</td>
+                                                                        <td id="CMT11Id" style="text-align: right;">-</td>
+                                                                        <td id="CMT12Id" style="text-align: right;">-</td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td>Charges externes (3)</td>
-                                                                        <td id="ChargesExternes01Id" style="text-align: right;">-</td>
-                                                                        <td id="ChargesExternes02Id" style="text-align: right;">-</td>
-                                                                        <td id="ChargesExternes03Id" style="text-align: right;">-</td>
-                                                                        <td id="ChargesExternes04Id" style="text-align: right;">-</td>
-                                                                        <td id="ChargesExternes05Id" style="text-align: right;">-</td>
-                                                                        <td id="ChargesExternes06Id" style="text-align: right;">-</td>
-                                                                        <td id="ChargesExternes07Id" style="text-align: right;">-</td>
+                                                                        <td>PNR classique</td>
+                                                                        <td id="PNRClassique01Id" style="text-align: right;">-</td>
+                                                                        <td id="PNRClassique02Id" style="text-align: right;">-</td>
+                                                                        <td id="PNRClassique03Id" style="text-align: right;">-</td>
+                                                                        <td id="PNRClassique04Id" style="text-align: right;">-</td>
+                                                                        <td id="PNRClassique05Id" style="text-align: right;">-</td>
+                                                                        <td id="PNRClassique06Id" style="text-align: right;">-</td>
+                                                                        <td id="PNRClassique07Id" style="text-align: right;">-</td>
+                                                                        <td id="PNRClassique08Id" style="text-align: right;">-</td>
+                                                                        <td id="PNRClassique09Id" style="text-align: right;">-</td>
+                                                                        <td id="PNRClassique10Id" style="text-align: right;">-</td>
+                                                                        <td id="PNRClassique11Id" style="text-align: right;">-</td>
+                                                                        <td id="PNRClassique12Id" style="text-align: right;">-</td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <th>Valeur ajoutée (4) = (1) - (2) - (3)</th>
-                                                                        <th id="ValeurAjoutee01Id" style="text-align: right;">-</th>
-                                                                        <th id="ValeurAjoutee02Id" style="text-align: right;">-</th>
-                                                                        <th id="ValeurAjoutee03Id" style="text-align: right;">-</th>
-                                                                        <th id="ValeurAjoutee04Id" style="text-align: right;">-</th>
-                                                                        <th id="ValeurAjoutee05Id" style="text-align: right;">-</th>
-                                                                        <th id="ValeurAjoutee06Id" style="text-align: right;">-</th>
-                                                                        <th id="ValeurAjoutee07Id" style="text-align: right;">-</th>
+                                                                        <td>Apport personnel</td>
+                                                                        <td id="ApportPersonnel01Id" style="text-align: right;">-</td>
+                                                                        <td id="ApportPersonnel02Id" style="text-align: right;">-</td>
+                                                                        <td id="ApportPersonnel03Id" style="text-align: right;">-</td>
+                                                                        <td id="ApportPersonnel04Id" style="text-align: right;">-</td>
+                                                                        <td id="ApportPersonnel05Id" style="text-align: right;">-</td>
+                                                                        <td id="ApportPersonnel06Id" style="text-align: right;">-</td>
+                                                                        <td id="ApportPersonnel07Id" style="text-align: right;">-</td>
+                                                                        <td id="ApportPersonnel08Id" style="text-align: right;">-</td>
+                                                                        <td id="ApportPersonnel09Id" style="text-align: right;">-</td>
+                                                                        <td id="ApportPersonnel10Id" style="text-align: right;">-</td>
+                                                                        <td id="ApportPersonnel11Id" style="text-align: right;">-</td>
+                                                                        <td id="ApportPersonnel12Id" style="text-align: right;">-</td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td>Salaires et charges sociales (5)</td>
-                                                                        <td id="SalaresChargesSociales01Id" style="text-align: right;">-</td>
-                                                                        <td id="SalaresChargesSociales02Id" style="text-align: right;">-</td>
-                                                                        <td id="SalaresChargesSociales03Id" style="text-align: right;">-</td>
-                                                                        <td id="SalaresChargesSociales04Id" style="text-align: right;">-</td>
-                                                                        <td id="SalaresChargesSociales05Id" style="text-align: right;">-</td>
-                                                                        <td id="SalaresChargesSociales06Id" style="text-align: right;">-</td>
-                                                                        <td id="SalaresChargesSociales07Id" style="text-align: right;">-</td>
+                                                                        <td>PNR loyer</td>
+                                                                        <td id="PNRLoyer01Id" style="text-align: right;">-</td>
+                                                                        <td id="PNRLoyer02Id" style="text-align: right;">-</td>
+                                                                        <td id="PNRLoyer03Id" style="text-align: right;">-</td>
+                                                                        <td id="PNRLoyer04Id" style="text-align: right;">-</td>
+                                                                        <td id="PNRLoyer05Id" style="text-align: right;">-</td>
+                                                                        <td id="PNRLoyer06Id" style="text-align: right;">-</td>
+                                                                        <td id="PNRLoyer07Id" style="text-align: right;">-</td>
+                                                                        <td id="PNRLoyer08Id" style="text-align: right;">-</td>
+                                                                        <td id="PNRLoyer09Id" style="text-align: right;">-</td>
+                                                                        <td id="PNRLoyer10Id" style="text-align: right;">-</td>
+                                                                        <td id="PNRLoyer11Id" style="text-align: right;">-</td>
+                                                                        <td id="PNRLoyer12Id" style="text-align: right;">-</td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <th>Excédent brut d'exploitation (6) = (4) - (5)</th>
-                                                                        <th id="ExcedentBrutExploitation01Id" style="text-align: right;">-</th>
-                                                                        <th id="ExcedentBrutExploitation02Id" style="text-align: right;">-</th>
-                                                                        <th id="ExcedentBrutExploitation03Id" style="text-align: right;">-</th>
-                                                                        <th id="ExcedentBrutExploitation04Id" style="text-align: right;">-</th>
-                                                                        <th id="ExcedentBrutExploitation05Id" style="text-align: right;">-</th>
-                                                                        <th id="ExcedentBrutExploitation06Id" style="text-align: right;">-</th>
-                                                                        <th id="ExcedentBrutExploitation07Id" style="text-align: right;">-</th>
+                                                                        <td>Encaissement reçus des clients</td>
+                                                                        <td id="EncaissementReçusClients01Id" style="text-align: right;">-</td>
+                                                                        <td id="EncaissementReçusClients02Id" style="text-align: right;">-</td>
+                                                                        <td id="EncaissementReçusClients03Id" style="text-align: right;">-</td>
+                                                                        <td id="EncaissementReçusClients04Id" style="text-align: right;">-</td>
+                                                                        <td id="EncaissementReçusClients05Id" style="text-align: right;">-</td>
+                                                                        <td id="EncaissementReçusClients06Id" style="text-align: right;">-</td>
+                                                                        <td id="EncaissementReçusClients07Id" style="text-align: right;">-</td>
+                                                                        <td id="EncaissementReçusClients08Id" style="text-align: right;">-</td>
+                                                                        <td id="EncaissementReçusClients09Id" style="text-align: right;">-</td>
+                                                                        <td id="EncaissementReçusClients10Id" style="text-align: right;">-</td>
+                                                                        <td id="EncaissementReçusClients11Id" style="text-align: right;">-</td>
+                                                                        <td id="EncaissementReçusClients12Id" style="text-align: right;">-</td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td>Amortissements et Provisions (7)</td>
-                                                                        <td id="AmortissementsProvisions01Id" style="text-align: right;">-</td>
-                                                                        <td id="AmortissementsProvisions02Id" style="text-align: right;">-</td>
-                                                                        <td id="AmortissementsProvisions03Id" style="text-align: right;">-</td>
-                                                                        <td id="AmortissementsProvisions04Id" style="text-align: right;">-</td>
-                                                                        <td id="AmortissementsProvisions05Id" style="text-align: right;">-</td>
-                                                                        <td id="AmortissementsProvisions06Id" style="text-align: right;">-</td>
-                                                                        <td id="AmortissementsProvisions07Id" style="text-align: right;">-</td>
+                                                                        <th>Total recette</th>
+                                                                        <th id="TotalRecette01Id" style="text-align: right;">-</th>
+                                                                        <th id="TotalRecette02Id" style="text-align: right;">-</th>
+                                                                        <th id="TotalRecette03Id" style="text-align: right;">-</th>
+                                                                        <th id="TotalRecette04Id" style="text-align: right;">-</th>
+                                                                        <th id="TotalRecette05Id" style="text-align: right;">-</th>
+                                                                        <th id="TotalRecette06Id" style="text-align: right;">-</th>
+                                                                        <th id="TotalRecette07Id" style="text-align: right;">-</th>
+                                                                        <th id="TotalRecette08Id" style="text-align: right;">-</th>
+                                                                        <th id="TotalRecette09Id" style="text-align: right;">-</th>
+                                                                        <th id="TotalRecette10Id" style="text-align: right;">-</th>
+                                                                        <th id="TotalRecette11Id" style="text-align: right;">-</th>
+                                                                        <th id="TotalRecette12Id" style="text-align: right;">-</th>
                                                                     </tr>
                                                                     <tr>
-                                                                        <th>Résultat d'exploitation (8) = (6) - (7)</th>
-                                                                        <th id="ResultatExploitation01Id" style="text-align: right;">-</th>
-                                                                        <th id="ResultatExploitation02Id" style="text-align: right;">-</th>
-                                                                        <th id="ResultatExploitation03Id" style="text-align: right;">-</th>
-                                                                        <th id="ResultatExploitation04Id" style="text-align: right;">-</th>
-                                                                        <th id="ResultatExploitation05Id" style="text-align: right;">-</th>
-                                                                        <th id="ResultatExploitation06Id" style="text-align: right;">-</th>
-                                                                        <th id="ResultatExploitation07Id" style="text-align: right;">-</th>
+                                                                        <td>Acquisition équipement et aménagement</td>
+                                                                        <td id="AcquisitionEquipementAmenagement01Id" style="text-align: right;">-</td>
+                                                                        <td id="AcquisitionEquipementAmenagement02Id" style="text-align: right;">-</td>
+                                                                        <td id="AcquisitionEquipementAmenagement03Id" style="text-align: right;">-</td>
+                                                                        <td id="AcquisitionEquipementAmenagement04Id" style="text-align: right;">-</td>
+                                                                        <td id="AcquisitionEquipementAmenagement05Id" style="text-align: right;">-</td>
+                                                                        <td id="AcquisitionEquipementAmenagement06Id" style="text-align: right;">-</td>
+                                                                        <td id="AcquisitionEquipementAmenagement07Id" style="text-align: right;">-</td>
+                                                                        <td id="AcquisitionEquipementAmenagement08Id" style="text-align: right;">-</td>
+                                                                        <td id="AcquisitionEquipementAmenagement09Id" style="text-align: right;">-</td>
+                                                                        <td id="AcquisitionEquipementAmenagement10Id" style="text-align: right;">-</td>
+                                                                        <td id="AcquisitionEquipementAmenagement11Id" style="text-align: right;">-</td>
+                                                                        <td id="AcquisitionEquipementAmenagement12Id" style="text-align: right;">-</td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td>IBS / IFU / IRG (9)</td>
+                                                                        <td>Décaissement pour les fournisseurs</td>
+                                                                        <td id="DecaissementFournisseurs01Id" style="text-align: right;">-</td>
+                                                                        <td id="DecaissementFournisseurs02Id" style="text-align: right;">-</td>
+                                                                        <td id="DecaissementFournisseurs03Id" style="text-align: right;">-</td>
+                                                                        <td id="DecaissementFournisseurs04Id" style="text-align: right;">-</td>
+                                                                        <td id="DecaissementFournisseurs05Id" style="text-align: right;">-</td>
+                                                                        <td id="DecaissementFournisseurs06Id" style="text-align: right;">-</td>
+                                                                        <td id="DecaissementFournisseurs07Id" style="text-align: right;">-</td>
+                                                                        <td id="DecaissementFournisseurs08Id" style="text-align: right;">-</td>
+                                                                        <td id="DecaissementFournisseurs09Id" style="text-align: right;">-</td>
+                                                                        <td id="DecaissementFournisseurs10Id" style="text-align: right;">-</td>
+                                                                        <td id="DecaissementFournisseurs11Id" style="text-align: right;">-</td>
+                                                                        <td id="DecaissementFournisseurs12Id" style="text-align: right;">-</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>Décaissement pour les préstataires</td>
+                                                                        <td id="DecaissementPrestataires01Id" style="text-align: right;">-</td>
+                                                                        <td id="DecaissementPrestataires02Id" style="text-align: right;">-</td>
+                                                                        <td id="DecaissementPrestataires03Id" style="text-align: right;">-</td>
+                                                                        <td id="DecaissementPrestataires04Id" style="text-align: right;">-</td>
+                                                                        <td id="DecaissementPrestataires05Id" style="text-align: right;">-</td>
+                                                                        <td id="DecaissementPrestataires06Id" style="text-align: right;">-</td>
+                                                                        <td id="DecaissementPrestataires07Id" style="text-align: right;">-</td>
+                                                                        <td id="DecaissementPrestataires08Id" style="text-align: right;">-</td>
+                                                                        <td id="DecaissementPrestataires09Id" style="text-align: right;">-</td>
+                                                                        <td id="DecaissementPrestataires10Id" style="text-align: right;">-</td>
+                                                                        <td id="DecaissementPrestataires11Id" style="text-align: right;">-</td>
+                                                                        <td id="DecaissementPrestataires12Id" style="text-align: right;">-</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>Paiement FG / Frais généraux /<br>Assurances liées à la création</td>
+                                                                        <td id="PaiementFGFraisGenerauxAssurances01Id" style="text-align: right;">-</td>
+                                                                        <td id="PaiementFGFraisGenerauxAssurances02Id" style="text-align: right;">-</td>
+                                                                        <td id="PaiementFGFraisGenerauxAssurances03Id" style="text-align: right;">-</td>
+                                                                        <td id="PaiementFGFraisGenerauxAssurances04Id" style="text-align: right;">-</td>
+                                                                        <td id="PaiementFGFraisGenerauxAssurances05Id" style="text-align: right;">-</td>
+                                                                        <td id="PaiementFGFraisGenerauxAssurances06Id" style="text-align: right;">-</td>
+                                                                        <td id="PaiementFGFraisGenerauxAssurances07Id" style="text-align: right;">-</td>
+                                                                        <td id="PaiementFGFraisGenerauxAssurances08Id" style="text-align: right;">-</td>
+                                                                        <td id="PaiementFGFraisGenerauxAssurances09Id" style="text-align: right;">-</td>
+                                                                        <td id="PaiementFGFraisGenerauxAssurances10Id" style="text-align: right;">-</td>
+                                                                        <td id="PaiementFGFraisGenerauxAssurances11Id" style="text-align: right;">-</td>
+                                                                        <td id="PaiementFGFraisGenerauxAssurances12Id" style="text-align: right;">-</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>Décaissement salaire nets</td>
+                                                                        <td id="DecaissementSalairesNets01Id" style="text-align: right;">-</td>
+                                                                        <td id="DecaissementSalairesNets02Id" style="text-align: right;">-</td>
+                                                                        <td id="DecaissementSalairesNets03Id" style="text-align: right;">-</td>
+                                                                        <td id="DecaissementSalairesNets04Id" style="text-align: right;">-</td>
+                                                                        <td id="DecaissementSalairesNets05Id" style="text-align: right;">-</td>
+                                                                        <td id="DecaissementSalairesNets06Id" style="text-align: right;">-</td>
+                                                                        <td id="DecaissementSalairesNets07Id" style="text-align: right;">-</td>
+                                                                        <td id="DecaissementSalairesNets08Id" style="text-align: right;">-</td>
+                                                                        <td id="DecaissementSalairesNets09Id" style="text-align: right;">-</td>
+                                                                        <td id="DecaissementSalairesNets10Id" style="text-align: right;">-</td>
+                                                                        <td id="DecaissementSalairesNets11Id" style="text-align: right;">-</td>
+                                                                        <td id="DecaissementSalairesNets12Id" style="text-align: right;">-</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>Cotisations sociales</td>
+                                                                        <td id="CotisationsSociales01Id" style="text-align: right;">-</td>
+                                                                        <td id="CotisationsSociales02Id" style="text-align: right;">-</td>
+                                                                        <td id="CotisationsSociales03Id" style="text-align: right;">-</td>
+                                                                        <td id="CotisationsSociales04Id" style="text-align: right;">-</td>
+                                                                        <td id="CotisationsSociales05Id" style="text-align: right;">-</td>
+                                                                        <td id="CotisationsSociales06Id" style="text-align: right;">-</td>
+                                                                        <td id="CotisationsSociales07Id" style="text-align: right;">-</td>
+                                                                        <td id="CotisationsSociales08Id" style="text-align: right;">-</td>
+                                                                        <td id="CotisationsSociales09Id" style="text-align: right;">-</td>
+                                                                        <td id="CotisationsSociales10Id" style="text-align: right;">-</td>
+                                                                        <td id="CotisationsSociales11Id" style="text-align: right;">-</td>
+                                                                        <td id="CotisationsSociales12Id" style="text-align: right;">-</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>IRG salaires</td>
+                                                                        <td id="IRGSociales01Id" style="text-align: right;">-</td>
+                                                                        <td id="IRGSociales02Id" style="text-align: right;">-</td>
+                                                                        <td id="IRGSociales03Id" style="text-align: right;">-</td>
+                                                                        <td id="IRGSociales04Id" style="text-align: right;">-</td>
+                                                                        <td id="IRGSociales05Id" style="text-align: right;">-</td>
+                                                                        <td id="IRGSociales06Id" style="text-align: right;">-</td>
+                                                                        <td id="IRGSociales07Id" style="text-align: right;">-</td>
+                                                                        <td id="IRGSociales08Id" style="text-align: right;">-</td>
+                                                                        <td id="IRGSociales09Id" style="text-align: right;">-</td>
+                                                                        <td id="IRGSociales10Id" style="text-align: right;">-</td>
+                                                                        <td id="IRGSociales11Id" style="text-align: right;">-</td>
+                                                                        <td id="IRGSociales12Id" style="text-align: right;">-</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>TVA à payer</td>
+                                                                        <td id="TVAPayer01Id" style="text-align: right;">-</td>
+                                                                        <td id="TVAPayer02Id" style="text-align: right;">-</td>
+                                                                        <td id="TVAPayer03Id" style="text-align: right;">-</td>
+                                                                        <td id="TVAPayer04Id" style="text-align: right;">-</td>
+                                                                        <td id="TVAPayer05Id" style="text-align: right;">-</td>
+                                                                        <td id="TVAPayer06Id" style="text-align: right;">-</td>
+                                                                        <td id="TVAPayer07Id" style="text-align: right;">-</td>
+                                                                        <td id="TVAPayer08Id" style="text-align: right;">-</td>
+                                                                        <td id="TVAPayer09Id" style="text-align: right;">-</td>
+                                                                        <td id="TVAPayer10Id" style="text-align: right;">-</td>
+                                                                        <td id="TVAPayer11Id" style="text-align: right;">-</td>
+                                                                        <td id="TVAPayer12Id" style="text-align: right;">-</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>IBS / IFU / IRG</td>
                                                                         <td id="IBSIFUIRG01Id" style="text-align: right;">-</td>
                                                                         <td id="IBSIFUIRG02Id" style="text-align: right;">-</td>
                                                                         <td id="IBSIFUIRG03Id" style="text-align: right;">-</td>
@@ -188,67 +362,43 @@
                                                                         <td id="IBSIFUIRG05Id" style="text-align: right;">-</td>
                                                                         <td id="IBSIFUIRG06Id" style="text-align: right;">-</td>
                                                                         <td id="IBSIFUIRG07Id" style="text-align: right;">-</td>
+                                                                        <td id="IBSIFUIRG08Id" style="text-align: right;">-</td>
+                                                                        <td id="IBSIFUIRG09Id" style="text-align: right;">-</td>
+                                                                        <td id="IBSIFUIRG10Id" style="text-align: right;">-</td>
+                                                                        <td id="IBSIFUIRG11Id" style="text-align: right;">-</td>
+                                                                        <td id="IBSIFUIRG12Id" style="text-align: right;">-</td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <th>Résultat net (10) = (8) - (9)</th>
-                                                                        <th id="ResultatNet01Id" style="text-align: right;">-</th>
-                                                                        <th id="ResultatNet02Id" style="text-align: right;">-</th>
-                                                                        <th id="ResultatNet03Id" style="text-align: right;">-</th>
-                                                                        <th id="ResultatNet04Id" style="text-align: right;">-</th>
-                                                                        <th id="ResultatNet05Id" style="text-align: right;">-</th>
-                                                                        <th id="ResultatNet06Id" style="text-align: right;">-</th>
-                                                                        <th id="ResultatNet07Id" style="text-align: right;">-</th>
+                                                                        <th>Total dépense</th>
+                                                                        <th id="TotalDepense01Id" style="text-align: right;">-</th>
+                                                                        <th id="TotalDepense02Id" style="text-align: right;">-</th>
+                                                                        <th id="TotalDepense03Id" style="text-align: right;">-</th>
+                                                                        <th id="TotalDepense04Id" style="text-align: right;">-</th>
+                                                                        <th id="TotalDepense05Id" style="text-align: right;">-</th>
+                                                                        <th id="TotalDepense06Id" style="text-align: right;">-</th>
+                                                                        <th id="TotalDepense07Id" style="text-align: right;">-</th>
+                                                                        <th id="TotalDepense08Id" style="text-align: right;">-</th>
+                                                                        <th id="TotalDepense09Id" style="text-align: right;">-</th>
+                                                                        <th id="TotalDepense10Id" style="text-align: right;">-</th>
+                                                                        <th id="TotalDepense11Id" style="text-align: right;">-</th>
+                                                                        <th id="TotalDepense12Id" style="text-align: right;">-</th>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td></td>
-                                                                        <td></td>
-                                                                        <td></td>
-                                                                        <td></td>
-                                                                        <td></td>
-                                                                        <td></td>
-                                                                        <td></td>
-                                                                        <td></td>
+                                                                        <th>Solde final</th>
+                                                                        <th id="SoldeFinal01Id" style="text-align: right;">-</th>
+                                                                        <th id="SoldeFinal02Id" style="text-align: right;">-</th>
+                                                                        <th id="SoldeFinal03Id" style="text-align: right;">-</th>
+                                                                        <th id="SoldeFinal04Id" style="text-align: right;">-</th>
+                                                                        <th id="SoldeFinal05Id" style="text-align: right;">-</th>
+                                                                        <th id="SoldeFinal06Id" style="text-align: right;">-</th>
+                                                                        <th id="SoldeFinal07Id" style="text-align: right;">-</th>
+                                                                        <th id="SoldeFinal08Id" style="text-align: right;">-</th>
+                                                                        <th id="SoldeFinal09Id" style="text-align: right;">-</th>
+                                                                        <th id="SoldeFinal10Id" style="text-align: right;">-</th>
+                                                                        <th id="SoldeFinal11Id" style="text-align: right;">-</th>
+                                                                        <th id="SoldeFinal12Id" style="text-align: right;">-</th>
                                                                     </tr>
-                                                                    <tr>
-                                                                        <th>Evolution du chiffre d'affaires</th>
-                                                                        <th id="EvolutionChiffreAffaires01Id" style="text-align: right;">-</th>
-                                                                        <th id="EvolutionChiffreAffaires02Id" style="text-align: right;">-</th>
-                                                                        <th id="EvolutionChiffreAffaires03Id" style="text-align: right;">-</th>
-                                                                        <th id="EvolutionChiffreAffaires04Id" style="text-align: right;">-</th>
-                                                                        <th id="EvolutionChiffreAffaires05Id" style="text-align: right;">-</th>
-                                                                        <th id="EvolutionChiffreAffaires06Id" style="text-align: right;">-</th>
-                                                                        <th id="EvolutionChiffreAffaires07Id" style="text-align: right;">-</th>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <th>Taux VA (4) / (1)</th>
-                                                                        <th id="TVA01Id" style="text-align: right;">-</th>
-                                                                        <th id="TVA02Id" style="text-align: right;">-</th>
-                                                                        <th id="TVA03Id" style="text-align: right;">-</th>
-                                                                        <th id="TVA04Id" style="text-align: right;">-</th>
-                                                                        <th id="TVA05Id" style="text-align: right;">-</th>
-                                                                        <th id="TVA06Id" style="text-align: right;">-</th>
-                                                                        <th id="TVA07Id" style="text-align: right;">-</th>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <th>Taux EBE (6) / (1)</th>
-                                                                        <th id="TEBE01Id" style="text-align: right;">-</th>
-                                                                        <th id="TEBE02Id" style="text-align: right;">-</th>
-                                                                        <th id="TEBE03Id" style="text-align: right;">-</th>
-                                                                        <th id="TEBE04Id" style="text-align: right;">-</th>
-                                                                        <th id="TEBE05Id" style="text-align: right;">-</th>
-                                                                        <th id="TEBE06Id" style="text-align: right;">-</th>
-                                                                        <th id="TEBE07Id" style="text-align: right;">-</th>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <th>CAF (10) + (7)</th>
-                                                                        <th id="CAF01Id" style="text-align: right;">-</th>
-                                                                        <th id="CAF02Id" style="text-align: right;">-</th>
-                                                                        <th id="CAF03Id" style="text-align: right;">-</th>
-                                                                        <th id="CAF04Id" style="text-align: right;">-</th>
-                                                                        <th id="CAF05Id" style="text-align: right;">-</th>
-                                                                        <th id="CAF06Id" style="text-align: right;">-</th>
-                                                                        <th id="CAF07Id" style="text-align: right;">-</th>
-                                                                    </tr>
+
                                                                 </table>
 
                                                             </div>
@@ -782,6 +932,14 @@
         PNRClassiqueModel.value = parseFloat(supp_espace_montant(PNRClassique.value));
         PNRSupplementaireModel.value = parseFloat(supp_espace_montant(PNRSupplementaire.value));
         ApportSupplementaireModel.value = parseFloat(supp_espace_montant(ApportSupplementaire.value));
+    }
+
+    function toggle() {
+        if (document.getElementById("hidethis").style.display == 'none') {
+            document.getElementById("hidethis").style.display = 'table-row'; // set to table-row instead of an empty string
+        } else {
+            document.getElementById("hidethis").style.display = 'none';
+        }
     }
 
 </script>
