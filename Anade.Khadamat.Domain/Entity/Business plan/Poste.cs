@@ -23,7 +23,6 @@ namespace Anade.Khadamat.Domain
         public decimal SLR_Indemnites_PrimesNonImplCotl { get; set; }
         public decimal NetPayer { get; set; }
         public decimal RetenueIRG { get; set; }
-
         public virtual ICollection<DetailPoste> DetailsPoste { get; set; }
 
         public string GetCode(string code, int index)

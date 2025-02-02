@@ -61,6 +61,8 @@ namespace Anade.Khadamat.Web.Controllers
         private readonly DetailInvestissementBusinessService _detailInvestissementBusinessService;
         private readonly AcquisitionBusinessService _acquisitionBusinessService;
         private readonly StructureFinancementBusinessService _structureFinancementBusinessService;
+        private readonly DetailChiffreAffaireBusinessService _detailChiffreAffaireBusinessService;
+        private readonly DetailAchatsDirectsBusinessService _detailAchatsDirectsBusinessService;
 
         private readonly PosteBusinessService _PosteBusinessService;
 
@@ -102,7 +104,9 @@ namespace Anade.Khadamat.Web.Controllers
                                              DetailChargesExternesBusinessService detailChargesExternesBusinessService,
                                              DetailInvestissementBusinessService detailInvestissementBusinessService,
                                              AcquisitionBusinessService acquisitionBusinessService,
-                                             StructureFinancementBusinessService structureFinancementBusinessService
+                                             StructureFinancementBusinessService structureFinancementBusinessService,
+                                             DetailChiffreAffaireBusinessService detailChiffreAffaireBusinessService,
+                                             DetailAchatsDirectsBusinessService detailAchatsDirectsBusinessService
 
                                              )
         {
@@ -145,6 +149,8 @@ namespace Anade.Khadamat.Web.Controllers
             _detailInvestissementBusinessService = detailInvestissementBusinessService;
             _acquisitionBusinessService = acquisitionBusinessService;
             _structureFinancementBusinessService = structureFinancementBusinessService;
+            _detailChiffreAffaireBusinessService = detailChiffreAffaireBusinessService;
+            _detailAchatsDirectsBusinessService = detailAchatsDirectsBusinessService;
         }
 
         [Authorize(Roles = "Analyste,DG,Admin,AdminAgence,Utilisateur-Rating")]
@@ -1086,8 +1092,8 @@ namespace Anade.Khadamat.Web.Controllers
                     detailAchatsDirects.Quantite = (float)Math.Round(Convert.ToDouble(model[i + 2 + j].Replace(".", ",")), 2);
                     detailAchatsDirects.PrixUnitaire = Math.Round(Convert.ToDecimal(model[i + 3 + j].Replace(".", ",")), 2);
                     detailAchatsDirects.Montant = Math.Round(Convert.ToDecimal(model[i + 4 + j].Replace(".", ",")), 2);
-                    detailAchatsDirects.TauxConsommation=Math.Round(Convert.ToDecimal((model[i + 5 + j].Replace("%", "")).Replace(".", ",")), 2);
-                    
+                    detailAchatsDirects.TauxConsommation = Math.Round(Convert.ToDecimal((model[i + 5 + j].Replace("%", "")).Replace(".", ",")), 2);
+
                     detailAchatsDirects.MatierePremiereApprovisionnement = matierePremiereApprovisionnement;
 
                     detailsAchatsDirects.Add(detailAchatsDirects);
@@ -1333,6 +1339,7 @@ namespace Anade.Khadamat.Web.Controllers
             {
                 ViewData["CompletOuiNon"] = "Oui";
             }
+
             else
             {
                 ViewData["CompletOuiNon"] = "Non";
@@ -1504,7 +1511,7 @@ namespace Anade.Khadamat.Web.Controllers
 
             double TauxFG = 1.11476776436927;
 
-            double MontantTauxFG = TauxFG * (double)MontantCMTReel/100;
+            double MontantTauxFG = TauxFG * (double)MontantCMTReel / 100;
 
             MontantTauxFG += (double)MontantCMTReel;
 
@@ -1603,7 +1610,125 @@ namespace Anade.Khadamat.Web.Controllers
                 ViewData["CompletOuiNon"] = "Non";
             }
 
-            return PartialView($"_{nameof(EtatCompteResultat)}", modelBusinessPlan);
+            EtatCompteResultatPrevisionnel etatCompteResultatPrevisionnel = new();
+
+            List<DetailChiffreAffaire> detailChiffreAffaire = _detailChiffreAffaireBusinessService.GetAllFiltered(x => x.BusinessPlanId == id);
+
+            List<DetailAchatsDirects> detailAchatsDirects = _detailAchatsDirectsBusinessService.GetAllFiltered(x => x.BusinessPlanId == id);
+
+            System.Globalization.CultureInfo frCult = System.Globalization.CultureInfo.CreateSpecificCulture("fr-FR");
+
+            decimal MontantChiffreAffaire01 = 0;
+            decimal MontantChiffreAffaire02 = 0;
+            decimal MontantChiffreAffaire03 = 0;
+            decimal MontantChiffreAffaire04 = 0;
+            decimal MontantChiffreAffaire05 = 0;
+            decimal MontantChiffreAffaire06 = 0;
+            decimal MontantChiffreAffaire07 = 0;
+
+            decimal MontantAchatsConsommes01 = 0;
+            decimal MontantAchatsConsommes02 = 0;
+            decimal MontantAchatsConsommes03 = 0;
+            decimal MontantAchatsConsommes04 = 0;
+            decimal MontantAchatsConsommes05 = 0;
+            decimal MontantAchatsConsommes06 = 0;
+            decimal MontantAchatsConsommes07 = 0;
+
+            if (detailChiffreAffaire.Count != 0)
+            {
+                for (int i = 0; i < detailChiffreAffaire.Count; i++)
+                {
+                    if (detailChiffreAffaire[i].AnneeId == 1)
+                    {
+                        MontantChiffreAffaire01 += detailChiffreAffaire[i].Montant;
+                    }
+                    if (detailChiffreAffaire[i].AnneeId == 2)
+                    {
+                        MontantChiffreAffaire02 += detailChiffreAffaire[i].Montant;
+                    }
+                    if (detailChiffreAffaire[i].AnneeId == 3)
+                    {
+                        MontantChiffreAffaire03 += detailChiffreAffaire[i].Montant;
+                    }
+                    if (detailChiffreAffaire[i].AnneeId == 4)
+                    {
+                        MontantChiffreAffaire04 += detailChiffreAffaire[i].Montant;
+                    }
+                    if (detailChiffreAffaire[i].AnneeId == 5)
+                    {
+                        MontantChiffreAffaire05 += detailChiffreAffaire[i].Montant;
+                    }
+                    if (detailChiffreAffaire[i].AnneeId == 6)
+                    {
+                        MontantChiffreAffaire06 += detailChiffreAffaire[i].Montant;
+                    }
+                    if (detailChiffreAffaire[i].AnneeId == 7)
+                    {
+                        MontantChiffreAffaire07 += detailChiffreAffaire[i].Montant;
+                    }
+                }
+            }
+
+            if (detailAchatsDirects.Count != 0)
+            {
+                for (int i = 0; i < detailAchatsDirects.Count; i++)
+                {
+                    if (detailAchatsDirects[i].AnneeId == 1)
+                    {
+                        MontantAchatsConsommes01 += detailAchatsDirects[i].Montant * detailAchatsDirects[i].TauxConsommation / 100;
+                    }
+                    if (detailAchatsDirects[i].AnneeId == 2)
+                    {
+                        MontantAchatsConsommes02 += detailAchatsDirects[i].Montant * detailAchatsDirects[i].TauxConsommation / 100;
+                    }
+                    if (detailAchatsDirects[i].AnneeId == 3)
+                    {
+                        MontantAchatsConsommes03 += detailAchatsDirects[i].Montant * detailAchatsDirects[i].TauxConsommation / 100;
+                    }
+                    if (detailAchatsDirects[i].AnneeId == 4)
+                    {
+                        MontantAchatsConsommes04 += detailAchatsDirects[i].Montant * detailAchatsDirects[i].TauxConsommation / 100;
+                    }
+                    if (detailAchatsDirects[i].AnneeId == 5)
+                    {
+                        MontantAchatsConsommes05 += detailAchatsDirects[i].Montant * detailAchatsDirects[i].TauxConsommation / 100;
+                    }
+                    if (detailAchatsDirects[i].AnneeId == 6)
+                    {
+                        MontantAchatsConsommes06 += detailAchatsDirects[i].Montant * detailAchatsDirects[i].TauxConsommation / 100;
+                    }
+                    if (detailAchatsDirects[i].AnneeId == 7)
+                    {
+                        MontantAchatsConsommes07 += detailAchatsDirects[i].Montant * detailAchatsDirects[i].TauxConsommation / 100;
+                    }
+                }
+            }
+
+            etatCompteResultatPrevisionnel.ChiffreAffaires01 = string.Format(frCult, "{0:n}", MontantChiffreAffaire01);
+            etatCompteResultatPrevisionnel.ChiffreAffaires02 = string.Format(frCult, "{0:n}", MontantChiffreAffaire02);
+            etatCompteResultatPrevisionnel.ChiffreAffaires03 = string.Format(frCult, "{0:n}", MontantChiffreAffaire03);
+            etatCompteResultatPrevisionnel.ChiffreAffaires04 = string.Format(frCult, "{0:n}", MontantChiffreAffaire04);
+            etatCompteResultatPrevisionnel.ChiffreAffaires05 = string.Format(frCult, "{0:n}", MontantChiffreAffaire05);
+            etatCompteResultatPrevisionnel.ChiffreAffaires06 = string.Format(frCult, "{0:n}", MontantChiffreAffaire06);
+            etatCompteResultatPrevisionnel.ChiffreAffaires07 = string.Format(frCult, "{0:n}", MontantChiffreAffaire07);
+
+            etatCompteResultatPrevisionnel.AchatsConsommes01 = string.Format(frCult, "{0:n}", MontantAchatsConsommes01);
+            etatCompteResultatPrevisionnel.AchatsConsommes02 = string.Format(frCult, "{0:n}", MontantAchatsConsommes02);
+            etatCompteResultatPrevisionnel.AchatsConsommes03 = string.Format(frCult, "{0:n}", MontantAchatsConsommes03);
+            etatCompteResultatPrevisionnel.AchatsConsommes04 = string.Format(frCult, "{0:n}", MontantAchatsConsommes04);
+            etatCompteResultatPrevisionnel.AchatsConsommes05 = string.Format(frCult, "{0:n}", MontantAchatsConsommes05);
+            etatCompteResultatPrevisionnel.AchatsConsommes06 = string.Format(frCult, "{0:n}", MontantAchatsConsommes06);
+            etatCompteResultatPrevisionnel.AchatsConsommes07 = string.Format(frCult, "{0:n}", MontantAchatsConsommes07);
+
+
+
+
+
+            // Chiffre d'affaires (1) =>  Sum(Chiffre Affaires) Tous les Produits / Services;
+            // Achats consommés   (2) => (Sum(Achats directs) * Taux de consommation / 100) tous les achats;
+            // Charges externes   (3) => 
+
+            return PartialView($"_{nameof(EtatCompteResultat)}", etatCompteResultatPrevisionnel);
         }
 
         [Authorize(Roles = "Analyste")]
@@ -1630,7 +1755,9 @@ namespace Anade.Khadamat.Web.Controllers
                 ViewData["CompletOuiNon"] = "Non";
             }
 
-            return PartialView($"_{nameof(EtatTFT)}", modelBusinessPlan);
+            EtatTFTModel etatTFTModel = new();
+
+            return PartialView($"_{nameof(EtatTFT)}", etatTFTModel);
         }
 
         [Authorize(Roles = "Analyste")]
@@ -1638,6 +1765,7 @@ namespace Anade.Khadamat.Web.Controllers
         [Route("{id}")]
         public async Task<IActionResult> EtatPlanTresorerie(int id)
         {
+
             //var modelBusinessPlan = _businessPlanBusinessService.GetById(id);
             var modelBusinessPlan = _businessPlanBusinessService.GetById(id, _businessPlanBusinessService.GetDefaultLoadProperties());
 
@@ -1659,7 +1787,9 @@ namespace Anade.Khadamat.Web.Controllers
                 ViewData["CompletOuiNon"] = "Non";
             }
 
-            return PartialView($"_{nameof(EtatPlanTresorerie)}", modelBusinessPlan);
+            EtatPlanTresorerieModel etatPlanTresorerieModel = new();
+
+            return PartialView($"_{nameof(EtatPlanTresorerie)}", etatPlanTresorerieModel);
         }
 
         [Authorize(Roles = "Analyste")]
@@ -1686,7 +1816,9 @@ namespace Anade.Khadamat.Web.Controllers
                 ViewData["CompletOuiNon"] = "Non";
             }
 
-            return PartialView($"_{nameof(EtatEvaluationProjet)}", modelBusinessPlan);
+            EtatEvaluationProjetModel etatEvaluationProjetModel = new();
+
+            return PartialView($"_{nameof(EtatEvaluationProjet)}", etatEvaluationProjetModel);
         }
 
     }

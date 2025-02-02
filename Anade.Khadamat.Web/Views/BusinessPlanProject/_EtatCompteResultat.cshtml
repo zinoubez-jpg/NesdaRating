@@ -1,4 +1,4 @@
-﻿@model Anade.Khadamat.Domain.BusinessPlan
+﻿@model Anade.Khadamat.Domain.EtatCompteResultatPrevisionnel
 
 
 
@@ -91,113 +91,253 @@
                                                                 <table class="table display compact" id="TableA">
                                                                     <tr>
                                                                         <th>Libellé</th>
-                                                                        <th>Année 01</th>
-                                                                        <th>Année 02</th>
-                                                                        <th>Année 03</th>
-                                                                        <th>Année 04</th>
-                                                                        <th>Année 05</th>
-                                                                        <th>Année 06</th>
-                                                                        <th>Année 07</th>
+                                                                        <th style="text-align: center;">Année 01</th>
+                                                                        <th style="text-align: center;">Année 02</th>
+                                                                        <th style="text-align: center;">Année 03</th>
+                                                                        <th style="text-align: center;">Année 04</th>
+                                                                        <th style="text-align: center;">Année 05</th>
+                                                                        <th style="text-align: center;">Année 06</th>
+                                                                        <th style="text-align: center;">Année 07</th>
                                                                     </tr>
                                                                     <tr>
                                                                         <td>Chiffre d'affaires (1)</td>
-                                                                        <td id="ChiffreAffaires01Id" style="text-align: right;">-</td>
-                                                                        <td id="ChiffreAffaires02Id" style="text-align: right;">-</td>
-                                                                        <td id="ChiffreAffaires03Id" style="text-align: right;">-</td>
-                                                                        <td id="ChiffreAffaires04Id" style="text-align: right;">-</td>
-                                                                        <td id="ChiffreAffaires05Id" style="text-align: right;">-</td>
-                                                                        <td id="ChiffreAffaires06Id" style="text-align: right;">-</td>
-                                                                        <td id="ChiffreAffaires07Id" style="text-align: right;">-</td>
+                                                                        <td id="ChiffreAffaires01Id" style="text-align: center;">
+                                                                            @Model.ChiffreAffaires01
+                                                                        </td>
+                                                                        <td id="ChiffreAffaires02Id" style="text-align: center;">
+                                                                            @Model.ChiffreAffaires02
+                                                                        </td>
+                                                                        <td id="ChiffreAffaires03Id" style="text-align: center;">
+                                                                            @Model.ChiffreAffaires03
+                                                                        </td>
+                                                                        <td id="ChiffreAffaires04Id" style="text-align: center;">
+                                                                            @Model.ChiffreAffaires04
+                                                                        </td>
+                                                                        <td id="ChiffreAffaires05Id" style="text-align: center;">
+                                                                            @Model.ChiffreAffaires05
+                                                                        </td>
+                                                                        <td id="ChiffreAffaires06Id" style="text-align: center;">
+                                                                            @Model.ChiffreAffaires06
+                                                                        </td>
+                                                                        <td id="ChiffreAffaires07Id" style="text-align: center;">
+                                                                            @Model.ChiffreAffaires07
+                                                                        </td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td>Achats consommés (2)</td>
-                                                                        <td id="AchatsConsommes01Id" style="text-align: right;">-</td>
-                                                                        <td id="AchatsConsommes02Id" style="text-align: right;">-</td>
-                                                                        <td id="AchatsConsommes03Id" style="text-align: right;">-</td>
-                                                                        <td id="AchatsConsommes04Id" style="text-align: right;">-</td>
-                                                                        <td id="AchatsConsommes05Id" style="text-align: right;">-</td>
-                                                                        <td id="AchatsConsommes06Id" style="text-align: right;">-</td>
-                                                                        <td id="AchatsConsommes07Id" style="text-align: right;">-</td>
+                                                                        <td id="AchatsConsommes01Id" style="text-align: center;">
+                                                                            @Model.AchatsConsommes01
+                                                                        </td>
+                                                                        <td id="AchatsConsommes02Id" style="text-align: center;">
+                                                                            @Model.AchatsConsommes02
+                                                                        </td>
+                                                                        <td id="AchatsConsommes03Id" style="text-align: center;">
+                                                                            @Model.AchatsConsommes03
+                                                                        </td>
+                                                                        <td id="AchatsConsommes04Id" style="text-align: center;">
+                                                                            @Model.AchatsConsommes04
+                                                                        </td>
+                                                                        <td id="AchatsConsommes05Id" style="text-align: center;">
+                                                                            @Model.AchatsConsommes05
+                                                                        </td>
+                                                                        <td id="AchatsConsommes06Id" style="text-align: center;">
+                                                                            @Model.AchatsConsommes06
+                                                                        </td>
+                                                                        <td id="AchatsConsommes07Id" style="text-align: center;">
+                                                                            @Model.AchatsConsommes07
+                                                                        </td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td>Charges externes (3)</td>
-                                                                        <td id="ChargesExternes01Id" style="text-align: right;">-</td>
-                                                                        <td id="ChargesExternes02Id" style="text-align: right;">-</td>
-                                                                        <td id="ChargesExternes03Id" style="text-align: right;">-</td>
-                                                                        <td id="ChargesExternes04Id" style="text-align: right;">-</td>
-                                                                        <td id="ChargesExternes05Id" style="text-align: right;">-</td>
-                                                                        <td id="ChargesExternes06Id" style="text-align: right;">-</td>
-                                                                        <td id="ChargesExternes07Id" style="text-align: right;">-</td>
+                                                                        <td id="ChargesExternes01Id" style="text-align: right;">
+                                                                            @Model.ChargesExternes01
+                                                                        </td>
+                                                                        <td id="ChargesExternes02Id" style="text-align: right;">
+                                                                            @Model.ChargesExternes02
+                                                                        </td>
+                                                                        <td id="ChargesExternes03Id" style="text-align: right;">
+                                                                            @Model.ChargesExternes03
+                                                                        </td>
+                                                                        <td id="ChargesExternes04Id" style="text-align: right;">
+                                                                            @Model.ChargesExternes04
+                                                                        </td>
+                                                                        <td id="ChargesExternes05Id" style="text-align: right;">
+                                                                            @Model.ChargesExternes05
+                                                                        </td>
+                                                                        <td id="ChargesExternes06Id" style="text-align: right;">
+                                                                            @Model.ChargesExternes06
+                                                                        </td>
+                                                                        <td id="ChargesExternes07Id" style="text-align: right;">
+                                                                            @Model.ChargesExternes07
+                                                                        </td>
                                                                     </tr>
                                                                     <tr>
                                                                         <th>Valeur ajoutée (4) = (1) - (2) - (3)</th>
-                                                                        <th id="ValeurAjoutee01Id" style="text-align: right;">-</th>
-                                                                        <th id="ValeurAjoutee02Id" style="text-align: right;">-</th>
-                                                                        <th id="ValeurAjoutee03Id" style="text-align: right;">-</th>
-                                                                        <th id="ValeurAjoutee04Id" style="text-align: right;">-</th>
-                                                                        <th id="ValeurAjoutee05Id" style="text-align: right;">-</th>
-                                                                        <th id="ValeurAjoutee06Id" style="text-align: right;">-</th>
-                                                                        <th id="ValeurAjoutee07Id" style="text-align: right;">-</th>
+                                                                        <th id="ValeurAjoutee01Id" style="text-align: right;">
+                                                                            @Model.ValeurAjoutee01
+                                                                        </th>
+                                                                        <th id="ValeurAjoutee02Id" style="text-align: right;">
+                                                                            @Model.ValeurAjoutee02
+                                                                        </th>
+                                                                        <th id="ValeurAjoutee03Id" style="text-align: right;">
+                                                                            @Model.ValeurAjoutee03
+                                                                        </th>
+                                                                        <th id="ValeurAjoutee04Id" style="text-align: right;">
+                                                                            @Model.ValeurAjoutee04
+                                                                        </th>
+                                                                        <th id="ValeurAjoutee05Id" style="text-align: right;">
+                                                                            @Model.ValeurAjoutee05
+                                                                        </th>
+                                                                        <th id="ValeurAjoutee06Id" style="text-align: right;">
+                                                                            @Model.ValeurAjoutee06
+                                                                        </th>
+                                                                        <th id="ValeurAjoutee07Id" style="text-align: right;">
+                                                                            @Model.ValeurAjoutee07
+                                                                        </th>
                                                                     </tr>
                                                                     <tr>
                                                                         <td>Salaires et charges sociales (5)</td>
-                                                                        <td id="SalaresChargesSociales01Id" style="text-align: right;">-</td>
-                                                                        <td id="SalaresChargesSociales02Id" style="text-align: right;">-</td>
-                                                                        <td id="SalaresChargesSociales03Id" style="text-align: right;">-</td>
-                                                                        <td id="SalaresChargesSociales04Id" style="text-align: right;">-</td>
-                                                                        <td id="SalaresChargesSociales05Id" style="text-align: right;">-</td>
-                                                                        <td id="SalaresChargesSociales06Id" style="text-align: right;">-</td>
-                                                                        <td id="SalaresChargesSociales07Id" style="text-align: right;">-</td>
+                                                                        <td id="SalaresChargesSociales01Id" style="text-align: right;">
+                                                                            @Model.SalairesChargesSociales01
+                                                                        </td>
+                                                                        <td id="SalaresChargesSociales02Id" style="text-align: right;">
+                                                                            @Model.SalairesChargesSociales02
+                                                                        </td>
+                                                                        <td id="SalaresChargesSociales03Id" style="text-align: right;">
+                                                                            @Model.SalairesChargesSociales03
+                                                                        </td>
+                                                                        <td id="SalaresChargesSociales04Id" style="text-align: right;">
+                                                                            @Model.SalairesChargesSociales04
+                                                                        </td>
+                                                                        <td id="SalaresChargesSociales05Id" style="text-align: right;">
+                                                                            @Model.SalairesChargesSociales05
+                                                                        </td>
+                                                                        <td id="SalaresChargesSociales06Id" style="text-align: right;">
+                                                                            @Model.SalairesChargesSociales06
+                                                                        </td>
+                                                                        <td id="SalaresChargesSociales07Id" style="text-align: right;">
+                                                                            @Model.SalairesChargesSociales07
+                                                                        </td>
                                                                     </tr>
                                                                     <tr>
                                                                         <th>Excédent brut d'exploitation (6) = (4) - (5)</th>
-                                                                        <th id="ExcedentBrutExploitation01Id" style="text-align: right;">-</th>
-                                                                        <th id="ExcedentBrutExploitation02Id" style="text-align: right;">-</th>
-                                                                        <th id="ExcedentBrutExploitation03Id" style="text-align: right;">-</th>
-                                                                        <th id="ExcedentBrutExploitation04Id" style="text-align: right;">-</th>
-                                                                        <th id="ExcedentBrutExploitation05Id" style="text-align: right;">-</th>
-                                                                        <th id="ExcedentBrutExploitation06Id" style="text-align: right;">-</th>
-                                                                        <th id="ExcedentBrutExploitation07Id" style="text-align: right;">-</th>
+                                                                        <th id="ExcedentBrutExploitation01Id" style="text-align: right;">
+                                                                            @Model.ExcedentBrutExploitation01
+                                                                        </th>
+                                                                        <th id="ExcedentBrutExploitation02Id" style="text-align: right;">
+                                                                            @Model.ExcedentBrutExploitation02
+                                                                        </th>
+                                                                        <th id="ExcedentBrutExploitation03Id" style="text-align: right;">
+                                                                            @Model.ExcedentBrutExploitation03
+                                                                        </th>
+                                                                        <th id="ExcedentBrutExploitation04Id" style="text-align: right;">
+                                                                            @Model.ExcedentBrutExploitation04
+                                                                        </th>
+                                                                        <th id="ExcedentBrutExploitation05Id" style="text-align: right;">
+                                                                            @Model.ExcedentBrutExploitation05
+                                                                        </th>
+                                                                        <th id="ExcedentBrutExploitation06Id" style="text-align: right;">
+                                                                            @Model.ExcedentBrutExploitation06
+                                                                        </th>
+                                                                        <th id="ExcedentBrutExploitation07Id" style="text-align: right;">
+                                                                            @Model.ExcedentBrutExploitation07
+                                                                        </th>
                                                                     </tr>
                                                                     <tr>
                                                                         <td>Amortissements et Provisions (7)</td>
-                                                                        <td id="AmortissementsProvisions01Id" style="text-align: right;">-</td>
-                                                                        <td id="AmortissementsProvisions02Id" style="text-align: right;">-</td>
-                                                                        <td id="AmortissementsProvisions03Id" style="text-align: right;">-</td>
-                                                                        <td id="AmortissementsProvisions04Id" style="text-align: right;">-</td>
-                                                                        <td id="AmortissementsProvisions05Id" style="text-align: right;">-</td>
-                                                                        <td id="AmortissementsProvisions06Id" style="text-align: right;">-</td>
-                                                                        <td id="AmortissementsProvisions07Id" style="text-align: right;">-</td>
+                                                                        <td id="AmortissementsProvisions01Id" style="text-align: right;">
+                                                                            @Model.AmortissementsProvisions01
+                                                                        </td>
+                                                                        <td id="AmortissementsProvisions02Id" style="text-align: right;">
+                                                                            @Model.AmortissementsProvisions02
+                                                                        </td>
+                                                                        <td id="AmortissementsProvisions03Id" style="text-align: right;">
+                                                                            @Model.AmortissementsProvisions03
+                                                                        </td>
+                                                                        <td id="AmortissementsProvisions04Id" style="text-align: right;">
+                                                                            @Model.AmortissementsProvisions04
+                                                                        </td>
+                                                                        <td id="AmortissementsProvisions05Id" style="text-align: right;">
+                                                                            @Model.AmortissementsProvisions05
+                                                                        </td>
+                                                                        <td id="AmortissementsProvisions06Id" style="text-align: right;">
+                                                                            @Model.AmortissementsProvisions06
+                                                                        </td>
+                                                                        <td id="AmortissementsProvisions07Id" style="text-align: right;">
+                                                                            @Model.AmortissementsProvisions07
+                                                                        </td>
                                                                     </tr>
                                                                     <tr>
                                                                         <th>Résultat d'exploitation (8) = (6) - (7)</th>
-                                                                        <th id="ResultatExploitation01Id" style="text-align: right;">-</th>
-                                                                        <th id="ResultatExploitation02Id" style="text-align: right;">-</th>
-                                                                        <th id="ResultatExploitation03Id" style="text-align: right;">-</th>
-                                                                        <th id="ResultatExploitation04Id" style="text-align: right;">-</th>
-                                                                        <th id="ResultatExploitation05Id" style="text-align: right;">-</th>
-                                                                        <th id="ResultatExploitation06Id" style="text-align: right;">-</th>
-                                                                        <th id="ResultatExploitation07Id" style="text-align: right;">-</th>
+                                                                        <th id="ResultatExploitation01Id" style="text-align: right;">
+                                                                            @Model.ResultatExploitation01
+                                                                        </th>
+                                                                        <th id="ResultatExploitation02Id" style="text-align: right;">
+                                                                            @Model.ResultatExploitation02
+                                                                        </th>
+                                                                        <th id="ResultatExploitation03Id" style="text-align: right;">
+                                                                            @Model.ResultatExploitation03
+                                                                        </th>
+                                                                        <th id="ResultatExploitation04Id" style="text-align: right;">
+                                                                            @Model.ResultatExploitation04
+                                                                        </th>
+                                                                        <th id="ResultatExploitation05Id" style="text-align: right;">
+                                                                            @Model.ResultatExploitation05
+                                                                        </th>
+                                                                        <th id="ResultatExploitation06Id" style="text-align: right;">
+                                                                            @Model.ResultatExploitation06
+                                                                        </th>
+                                                                        <th id="ResultatExploitation07Id" style="text-align: right;">
+                                                                            @Model.ResultatExploitation07
+                                                                        </th>
                                                                     </tr>
                                                                     <tr>
                                                                         <td>IBS / IFU / IRG (9)</td>
-                                                                        <td id="IBSIFUIRG01Id" style="text-align: right;">-</td>
-                                                                        <td id="IBSIFUIRG02Id" style="text-align: right;">-</td>
-                                                                        <td id="IBSIFUIRG03Id" style="text-align: right;">-</td>
-                                                                        <td id="IBSIFUIRG04Id" style="text-align: right;">-</td>
-                                                                        <td id="IBSIFUIRG05Id" style="text-align: right;">-</td>
-                                                                        <td id="IBSIFUIRG06Id" style="text-align: right;">-</td>
-                                                                        <td id="IBSIFUIRG07Id" style="text-align: right;">-</td>
+                                                                        <td id="IBSIFUIRG01Id" style="text-align: right;">
+                                                                            @Model.IBS_IFU_IRG01
+                                                                        </td>
+                                                                        <td id="IBSIFUIRG02Id" style="text-align: right;">
+                                                                            @Model.IBS_IFU_IRG02
+                                                                        </td>
+                                                                        <td id="IBSIFUIRG03Id" style="text-align: right;">
+                                                                            @Model.IBS_IFU_IRG03
+                                                                        </td>
+                                                                        <td id="IBSIFUIRG04Id" style="text-align: right;">
+                                                                            @Model.IBS_IFU_IRG04
+                                                                        </td>
+                                                                        <td id="IBSIFUIRG05Id" style="text-align: right;">
+                                                                            @Model.IBS_IFU_IRG05
+                                                                        </td>
+                                                                        <td id="IBSIFUIRG06Id" style="text-align: right;">
+                                                                            @Model.IBS_IFU_IRG06
+                                                                        </td>
+                                                                        <td id="IBSIFUIRG07Id" style="text-align: right;">
+                                                                            @Model.IBS_IFU_IRG07
+                                                                        </td>
                                                                     </tr>
                                                                     <tr>
                                                                         <th>Résultat net (10) = (8) - (9)</th>
-                                                                        <th id="ResultatNet01Id" style="text-align: right;">-</th>
-                                                                        <th id="ResultatNet02Id" style="text-align: right;">-</th>
-                                                                        <th id="ResultatNet03Id" style="text-align: right;">-</th>
-                                                                        <th id="ResultatNet04Id" style="text-align: right;">-</th>
-                                                                        <th id="ResultatNet05Id" style="text-align: right;">-</th>
-                                                                        <th id="ResultatNet06Id" style="text-align: right;">-</th>
-                                                                        <th id="ResultatNet07Id" style="text-align: right;">-</th>
+                                                                        <th id="ResultatNet01Id" style="text-align: right;">
+                                                                            @Model.ResultatNet01
+                                                                        </th>
+                                                                        <th id="ResultatNet02Id" style="text-align: right;">
+                                                                            @Model.ResultatNet02
+                                                                        </th>
+                                                                        <th id="ResultatNet03Id" style="text-align: right;">
+                                                                            @Model.ResultatNet03
+                                                                        </th>
+                                                                        <th id="ResultatNet04Id" style="text-align: right;">
+                                                                            @Model.ResultatNet04
+                                                                        </th>
+                                                                        <th id="ResultatNet05Id" style="text-align: right;">
+                                                                            @Model.ResultatNet05
+                                                                        </th>
+                                                                        <th id="ResultatNet06Id" style="text-align: right;">
+                                                                            @Model.ResultatNet06
+                                                                        </th>
+                                                                        <th id="ResultatNet07Id" style="text-align: right;">
+                                                                            @Model.ResultatNet07
+                                                                        </th>
                                                                     </tr>
                                                                     <tr>
                                                                         <td></td>
@@ -211,43 +351,99 @@
                                                                     </tr>
                                                                     <tr>
                                                                         <th>Evolution du chiffre d'affaires</th>
-                                                                        <th id="EvolutionChiffreAffaires01Id" style="text-align: right;">-</th>
-                                                                        <th id="EvolutionChiffreAffaires02Id" style="text-align: right;">-</th>
-                                                                        <th id="EvolutionChiffreAffaires03Id" style="text-align: right;">-</th>
-                                                                        <th id="EvolutionChiffreAffaires04Id" style="text-align: right;">-</th>
-                                                                        <th id="EvolutionChiffreAffaires05Id" style="text-align: right;">-</th>
-                                                                        <th id="EvolutionChiffreAffaires06Id" style="text-align: right;">-</th>
-                                                                        <th id="EvolutionChiffreAffaires07Id" style="text-align: right;">-</th>
+                                                                        <th id="EvolutionChiffreAffaires01Id" style="text-align: right;">
+                                                                            @Model.EvolutionChiffreAffaires01
+                                                                        </th>
+                                                                        <th id="EvolutionChiffreAffaires02Id" style="text-align: right;">
+                                                                            @Model.EvolutionChiffreAffaires02
+                                                                        </th>
+                                                                        <th id="EvolutionChiffreAffaires03Id" style="text-align: right;">
+                                                                            @Model.EvolutionChiffreAffaires03
+                                                                        </th>
+                                                                        <th id="EvolutionChiffreAffaires04Id" style="text-align: right;">
+                                                                            @Model.EvolutionChiffreAffaires04
+                                                                        </th>
+                                                                        <th id="EvolutionChiffreAffaires05Id" style="text-align: right;">
+                                                                            @Model.EvolutionChiffreAffaires05
+                                                                        </th>
+                                                                        <th id="EvolutionChiffreAffaires06Id" style="text-align: right;">
+                                                                            @Model.EvolutionChiffreAffaires06
+                                                                        </th>
+                                                                        <th id="EvolutionChiffreAffaires07Id" style="text-align: right;">
+                                                                            @Model.EvolutionChiffreAffaires07
+                                                                        </th>
                                                                     </tr>
                                                                     <tr>
                                                                         <th>Taux VA (4) / (1)</th>
-                                                                        <th id="TVA01Id" style="text-align: right;">-</th>
-                                                                        <th id="TVA02Id" style="text-align: right;">-</th>
-                                                                        <th id="TVA03Id" style="text-align: right;">-</th>
-                                                                        <th id="TVA04Id" style="text-align: right;">-</th>
-                                                                        <th id="TVA05Id" style="text-align: right;">-</th>
-                                                                        <th id="TVA06Id" style="text-align: right;">-</th>
-                                                                        <th id="TVA07Id" style="text-align: right;">-</th>
+                                                                        <th id="TVA01Id" style="text-align: right;">
+                                                                            @Model.TauxVA01
+                                                                        </th>
+                                                                        <th id="TVA02Id" style="text-align: right;">
+                                                                            @Model.TauxVA02
+                                                                        </th>
+                                                                        <th id="TVA03Id" style="text-align: right;">
+                                                                            @Model.TauxVA03
+                                                                        </th>
+                                                                        <th id="TVA04Id" style="text-align: right;">
+                                                                            @Model.TauxVA04
+                                                                        </th>
+                                                                        <th id="TVA05Id" style="text-align: right;">
+                                                                            @Model.TauxVA05
+                                                                        </th>
+                                                                        <th id="TVA06Id" style="text-align: right;">
+                                                                            @Model.TauxVA06
+                                                                        </th>
+                                                                        <th id="TVA07Id" style="text-align: right;">
+                                                                            @Model.TauxVA07
+                                                                        </th>
                                                                     </tr>
                                                                     <tr>
                                                                         <th>Taux EBE (6) / (1)</th>
-                                                                        <th id="TEBE01Id" style="text-align: right;">-</th>
-                                                                        <th id="TEBE02Id" style="text-align: right;">-</th>
-                                                                        <th id="TEBE03Id" style="text-align: right;">-</th>
-                                                                        <th id="TEBE04Id" style="text-align: right;">-</th>
-                                                                        <th id="TEBE05Id" style="text-align: right;">-</th>
-                                                                        <th id="TEBE06Id" style="text-align: right;">-</th>
-                                                                        <th id="TEBE07Id" style="text-align: right;">-</th>
+                                                                        <th id="TEBE01Id" style="text-align: right;">
+                                                                            @Model.TauxEBE01
+                                                                        </th>
+                                                                        <th id="TEBE02Id" style="text-align: right;">
+                                                                            @Model.TauxEBE02
+                                                                        </th>
+                                                                        <th id="TEBE03Id" style="text-align: right;">
+                                                                            @Model.TauxEBE03
+                                                                        </th>
+                                                                        <th id="TEBE04Id" style="text-align: right;">
+                                                                            @Model.TauxEBE04
+                                                                        </th>
+                                                                        <th id="TEBE05Id" style="text-align: right;">
+                                                                            @Model.TauxEBE05
+                                                                        </th>
+                                                                        <th id="TEBE06Id" style="text-align: right;">
+                                                                            @Model.TauxEBE06
+                                                                        </th>
+                                                                        <th id="TEBE07Id" style="text-align: right;">
+                                                                            @Model.TauxEBE07
+                                                                        </th>
                                                                     </tr>
                                                                     <tr>
                                                                         <th>CAF (10) + (7)</th>
-                                                                        <th id="CAF01Id" style="text-align: right;">-</th>
-                                                                        <th id="CAF02Id" style="text-align: right;">-</th>
-                                                                        <th id="CAF03Id" style="text-align: right;">-</th>
-                                                                        <th id="CAF04Id" style="text-align: right;">-</th>
-                                                                        <th id="CAF05Id" style="text-align: right;">-</th>
-                                                                        <th id="CAF06Id" style="text-align: right;">-</th>
-                                                                        <th id="CAF07Id" style="text-align: right;">-</th>
+                                                                        <th id="CAF01Id" style="text-align: right;">
+                                                                            @Model.CAF01
+                                                                        </th>
+                                                                        <th id="CAF02Id" style="text-align: right;">
+                                                                            @Model.CAF02
+                                                                        </th>
+                                                                        <th id="CAF03Id" style="text-align: right;">
+                                                                            @Model.CAF03
+                                                                        </th>
+                                                                        <th id="CAF04Id" style="text-align: right;">
+                                                                            @Model.CAF04
+                                                                        </th>
+                                                                        <th id="CAF05Id" style="text-align: right;">
+                                                                            @Model.CAF05
+                                                                        </th>
+                                                                        <th id="CAF06Id" style="text-align: right;">
+                                                                            @Model.CAF06
+                                                                        </th>
+                                                                        <th id="CAF07Id" style="text-align: right;">
+                                                                            @Model.CAF07
+                                                                        </th>
                                                                     </tr>
                                                                 </table>
 

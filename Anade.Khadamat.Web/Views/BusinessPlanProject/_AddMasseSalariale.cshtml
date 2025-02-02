@@ -587,7 +587,7 @@
 
         document.getElementById('SumSImposableId').innerHTML = montant(SalaireImposable.toString());
 
-        ValeurIRG = 10;      
+        ValeurIRG = 10;
 
         if (SalaireImposable > 320000) {
                 ValeurIRG = ((SalaireImposable - 320000) * 35 / 100) + 52800 + 24000 + 10800 + 4600 - 1500;
@@ -668,13 +668,11 @@
 
         document.getElementById('NetPayerId').innerHTML = montant(ValeurNetPayer.toString());
 
-        ValeurSumMasseSalarialleAnnuelle = ValeurNetPayer*12;
+        ValeurSumMasseSalarialleAnnuelle = (ValeurGainTotaux + ValeurChargesPatronales) * 12;
 
         document.getElementById('SumMasseSalarialleAnnuelleId').innerHTML = montant(ValeurSumMasseSalarialleAnnuelle.toString());
         document.getElementById('SumNetPayerId').innerHTML = montant(ValeurNetPayer.toString());
         document.getElementById('SumSPosteId').innerHTML = montant(SalairePoste.toString());
-
-        alert(SalaireImposable);
 
         ValeurNetPayer01Id = ValeurSumMasseSalarialleAnnuelle * ValeurNbEmploi01Id;
         ValeurNetPayer02Id = ValeurSumMasseSalarialleAnnuelle * ValeurNbEmploi02Id;
