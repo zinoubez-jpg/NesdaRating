@@ -1,6 +1,4 @@
-﻿@model Anade.Khadamat.Domain.BusinessPlan
-
-
+﻿@model Anade.Khadamat.Domain.EtatTFTModel
 
 <head>
     <title>Ajouter Buisiness Plan</title>
@@ -49,9 +47,8 @@
 
 </head>
 
-
 <div class="modal-header">
-    <h5 class="modal-title" id="modalLabel">Ajouter Business Plan</h5>
+    <h5 class="modal-title" id="modalLabel">T.F.T</h5>
     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -76,7 +73,7 @@
 
                                         <div class="card text-bg-primary mb-3">
 
-                                            <div class="card-header">Structure d'investissement</div>
+                                            <div class="card-header">TABLEAU DE FLUX DE TRESORERIE (Méthode Directe)</div>
 
                                             <div class="card-body">
 
@@ -99,157 +96,186 @@
                                                                         <th>Année 06</th>
                                                                         <th>Année 07</th>
                                                                     </tr>
+
                                                                     <tr>
                                                                         <td>Encaissements reçus des clients (1)</td>
-                                                                        <td id="EncaissementsReçusClients01Id" style="text-align: right;">-</td>
-                                                                        <td id="EncaissementsReçusClients02Id" style="text-align: right;">-</td>
-                                                                        <td id="EncaissementsReçusClients03Id" style="text-align: right;">-</td>
-                                                                        <td id="EncaissementsReçusClients04Id" style="text-align: right;">-</td>
-                                                                        <td id="EncaissementsReçusClients05Id" style="text-align: right;">-</td>
-                                                                        <td id="EncaissementsReçusClients06Id" style="text-align: right;">-</td>
-                                                                        <td id="EncaissementsReçusClients07Id" style="text-align: right;">-</td>
+                                                                        <td id="EncaissementsReçusClients01Id" style="text-align: center;">
+                                                                            @Model.EncaissementsRecuClients01
+                                                                        </td>
+                                                                        <td id="EncaissementsReçusClients02Id" style="text-align: center;">
+                                                                            @Model.EncaissementsRecuClients02
+                                                                        </td>
+                                                                        <td id="EncaissementsReçusClients03Id" style="text-align: center;">
+                                                                            @Model.EncaissementsRecuClients03
+                                                                        </td>
+                                                                        <td id="EncaissementsReçusClients04Id" style="text-align: center;">
+                                                                            @Model.EncaissementsRecuClients04
+                                                                        </td>
+                                                                        <td id="EncaissementsReçusClients05Id" style="text-align: center;">
+                                                                            @Model.EncaissementsRecuClients05
+                                                                        </td>
+                                                                        <td id="EncaissementsReçusClients06Id" style="text-align: center;">
+                                                                            @Model.EncaissementsRecuClients06
+                                                                        </td>
+                                                                        <td id="EncaissementsReçusClients07Id" style="text-align: center;">
+                                                                            @Model.EncaissementsRecuClients07
+                                                                        </td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td>Sommes verées aux fournisseurs (2)</td>
-                                                                        <td id="SommesVereesFournisseurs01Id" style="text-align: right;">-</td>
-                                                                        <td id="SommesVereesFournisseurs02Id" style="text-align: right;">-</td>
-                                                                        <td id="SommesVereesFournisseurs03Id" style="text-align: right;">-</td>
-                                                                        <td id="SommesVereesFournisseurs04Id" style="text-align: right;">-</td>
-                                                                        <td id="SommesVereesFournisseurs05Id" style="text-align: right;">-</td>
-                                                                        <td id="SommesVereesFournisseurs06Id" style="text-align: right;">-</td>
-                                                                        <td id="SommesVereesFournisseurs07Id" style="text-align: right;">-</td>
+                                                                        <td id="SommesVereesFournisseurs01Id" style="text-align: center;">
+                                                                            @Model.SommesVerseesFournisseurs01
+                                                                        </td>
+                                                                        <td id="SommesVereesFournisseurs02Id" style="text-align: center;">
+                                                                            @Model.SommesVerseesFournisseurs02
+                                                                        </td>
+                                                                        <td id="SommesVereesFournisseurs03Id" style="text-align: center;">
+                                                                            @Model.SommesVerseesFournisseurs03
+                                                                        </td>
+                                                                        <td id="SommesVereesFournisseurs04Id" style="text-align: center;">
+                                                                            @Model.SommesVerseesFournisseurs04
+                                                                        </td>
+                                                                        <td id="SommesVereesFournisseurs05Id" style="text-align: center;">
+                                                                            @Model.SommesVerseesFournisseurs05
+                                                                        </td>
+                                                                        <td id="SommesVereesFournisseurs06Id" style="text-align: center;">
+                                                                            @Model.SommesVerseesFournisseurs06
+                                                                        </td>
+                                                                        <td id="SommesVereesFournisseurs07Id" style="text-align: center;">
+                                                                            @Model.SommesVerseesFournisseurs07
+                                                                        </td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td>Sommes versées aux prestataires (3)</td>
-                                                                        <td id="SommesVereesPrestataires01Id" style="text-align: right;">-</td>
-                                                                        <td id="SommesVereesPrestataires02Id" style="text-align: right;">-</td>
-                                                                        <td id="SommesVereesPrestataires03Id" style="text-align: right;">-</td>
-                                                                        <td id="SommesVereesPrestataires04Id" style="text-align: right;">-</td>
-                                                                        <td id="SommesVereesPrestataires05Id" style="text-align: right;">-</td>
-                                                                        <td id="SommesVereesPrestataires06Id" style="text-align: right;">-</td>
-                                                                        <td id="SommesVereesPrestataires07Id" style="text-align: right;">-</td>
+                                                                        <td id="SommesVereesPrestataires01Id" style="text-align: center;">@Model.SommesVerseesPrestataires01</td>
+                                                                        <td id="SommesVereesPrestataires02Id" style="text-align: center;">@Model.SommesVerseesPrestataires02</td>
+                                                                        <td id="SommesVereesPrestataires03Id" style="text-align: center;">@Model.SommesVerseesPrestataires03</td>
+                                                                        <td id="SommesVereesPrestataires04Id" style="text-align: center;">@Model.SommesVerseesPrestataires04</td>
+                                                                        <td id="SommesVereesPrestataires05Id" style="text-align: center;">@Model.SommesVerseesPrestataires05</td>
+                                                                        <td id="SommesVereesPrestataires06Id" style="text-align: center;">@Model.SommesVerseesPrestataires06</td>
+                                                                        <td id="SommesVereesPrestataires07Id" style="text-align: center;">@Model.SommesVerseesPrestataires07</td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td>Sommes versées au personnel et CNAS / IRG (4)</td>
-                                                                        <td id="SommesVereesPersonnel01Id" style="text-align: right;">-</td>
-                                                                        <td id="SommesVereesPersonnel02Id" style="text-align: right;">-</td>
-                                                                        <td id="SommesVereesPersonnel03Id" style="text-align: right;">-</td>
-                                                                        <td id="SommesVereesPersonnel04Id" style="text-align: right;">-</td>
-                                                                        <td id="SommesVereesPersonnel05Id" style="text-align: right;">-</td>
-                                                                        <td id="SommesVereesPersonnel06Id" style="text-align: right;">-</td>
-                                                                        <td id="SommesVereesPersonnel07Id" style="text-align: right;">-</td>
+                                                                        <td id="SommesVereesPersonnel01Id" style="text-align: center;">@Model.SommesVerseesPersonnelCNAS_IRG01</td>
+                                                                        <td id="SommesVereesPersonnel02Id" style="text-align: center;">@Model.SommesVerseesPersonnelCNAS_IRG02.</td>
+                                                                        <td id="SommesVereesPersonnel03Id" style="text-align: center;">@Model.SommesVerseesPersonnelCNAS_IRG03.</td>
+                                                                        <td id="SommesVereesPersonnel04Id" style="text-align: center;">@Model.SommesVerseesPersonnelCNAS_IRG04.</td>
+                                                                        <td id="SommesVereesPersonnel05Id" style="text-align: center;">@Model.SommesVerseesPersonnelCNAS_IRG05.</td>
+                                                                        <td id="SommesVereesPersonnel06Id" style="text-align: center;">@Model.SommesVerseesPersonnelCNAS_IRG06.</td>
+                                                                        <td id="SommesVereesPersonnel07Id" style="text-align: center;">@Model.SommesVerseesPersonnelCNAS_IRG07.</td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td>Décaissement sur TVA à payer (5)</td>
-                                                                        <td id="DecaissementTVAPayer01Id" style="text-align: right;">-</td>
-                                                                        <td id="DecaissementTVAPayer02Id" style="text-align: right;">-</td>
-                                                                        <td id="DecaissementTVAPayer03Id" style="text-align: right;">-</td>
-                                                                        <td id="DecaissementTVAPayer04Id" style="text-align: right;">-</td>
-                                                                        <td id="DecaissementTVAPayer05Id" style="text-align: right;">-</td>
-                                                                        <td id="DecaissementTVAPayer06Id" style="text-align: right;">-</td>
-                                                                        <td id="DecaissementTVAPayer07Id" style="text-align: right;">-</td>
+                                                                        <td id="DecaissementTVAPayer01Id" style="text-align: center;">@Model.DecaissementTVAPayer01</td>
+                                                                        <td id="DecaissementTVAPayer02Id" style="text-align: center;">@Model.DecaissementTVAPayer02</td>
+                                                                        <td id="DecaissementTVAPayer03Id" style="text-align: center;">@Model.DecaissementTVAPayer03</td>
+                                                                        <td id="DecaissementTVAPayer04Id" style="text-align: center;">@Model.DecaissementTVAPayer04</td>
+                                                                        <td id="DecaissementTVAPayer05Id" style="text-align: center;">@Model.DecaissementTVAPayer05</td>
+                                                                        <td id="DecaissementTVAPayer06Id" style="text-align: center;">@Model.DecaissementTVAPayer06</td>
+                                                                        <td id="DecaissementTVAPayer07Id" style="text-align: center;">@Model.DecaissementTVAPayer07</td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td>Décaissement sur (IBS / IFU / IRG) (6)</td>
-                                                                        <td id="DecaissementIBSIFUIRG01Id" style="text-align: right;">-</td>
-                                                                        <td id="DecaissementIBSIFUIRG02Id" style="text-align: right;">-</td>
-                                                                        <td id="DecaissementIBSIFUIRG03Id" style="text-align: right;">-</td>
-                                                                        <td id="DecaissementIBSIFUIRG04Id" style="text-align: right;">-</td>
-                                                                        <td id="DecaissementIBSIFUIRG05Id" style="text-align: right;">-</td>
-                                                                        <td id="DecaissementIBSIFUIRG06Id" style="text-align: right;">-</td>
-                                                                        <td id="DecaissementIBSIFUIRG07Id" style="text-align: right;">-</td>
+                                                                        <td id="DecaissementIBSIFUIRG01Id" style="text-align: center;">@Model.DecaissementIBS_IFU_IRG01</td>
+                                                                        <td id="DecaissementIBSIFUIRG02Id" style="text-align: center;">@Model.DecaissementIBS_IFU_IRG02</td>
+                                                                        <td id="DecaissementIBSIFUIRG03Id" style="text-align: center;">@Model.DecaissementIBS_IFU_IRG03</td>
+                                                                        <td id="DecaissementIBSIFUIRG04Id" style="text-align: center;">@Model.DecaissementIBS_IFU_IRG04</td>
+                                                                        <td id="DecaissementIBSIFUIRG05Id" style="text-align: center;">@Model.DecaissementIBS_IFU_IRG05</td>
+                                                                        <td id="DecaissementIBSIFUIRG06Id" style="text-align: center;">@Model.DecaissementIBS_IFU_IRG06</td>
+                                                                        <td id="DecaissementIBSIFUIRG07Id" style="text-align: center;">@Model.DecaissementIBS_IFU_IRG07</td>
                                                                     </tr>
                                                                     <tr>
                                                                         <th>Flux de trésorerie provenant de l'exploitation<br>(7) = (1) - (2) - (3) - (4) - (5) - (6)</th>
-                                                                        <th id="FluxTresorerieProvenantExploitation01Id" style="text-align: right;">-</th>
-                                                                        <th id="FluxTresorerieProvenantExploitation02Id" style="text-align: right;">-</th>
-                                                                        <th id="FluxTresorerieProvenantExploitation03Id" style="text-align: right;">-</th>
-                                                                        <th id="FluxTresorerieProvenantExploitation04Id" style="text-align: right;">-</th>
-                                                                        <th id="FluxTresorerieProvenantExploitation05Id" style="text-align: right;">-</th>
-                                                                        <th id="FluxTresorerieProvenantExploitation06Id" style="text-align: right;">-</th>
-                                                                        <th id="FluxTresorerieProvenantExploitation07Id" style="text-align: right;">-</th>
+                                                                        <th id="FluxTresorerieProvenantExploitation01Id" style="text-align: center;">@Model.FluxTresorerieProvenantExploitation01</th>
+                                                                        <th id="FluxTresorerieProvenantExploitation02Id" style="text-align: center;">@Model.FluxTresorerieProvenantExploitation02</th>
+                                                                        <th id="FluxTresorerieProvenantExploitation03Id" style="text-align: center;">@Model.FluxTresorerieProvenantExploitation03</th>
+                                                                        <th id="FluxTresorerieProvenantExploitation04Id" style="text-align: center;">@Model.FluxTresorerieProvenantExploitation04</th>
+                                                                        <th id="FluxTresorerieProvenantExploitation05Id" style="text-align: center;">@Model.FluxTresorerieProvenantExploitation05</th>
+                                                                        <th id="FluxTresorerieProvenantExploitation06Id" style="text-align: center;">@Model.FluxTresorerieProvenantExploitation06</th>
+                                                                        <th id="FluxTresorerieProvenantExploitation07Id" style="text-align: center;">@Model.FluxTresorerieProvenantExploitation07</th>
                                                                     </tr>
                                                                     <tr>
                                                                         <td>Décaissements eur acquisition équipements (8)</td>
-                                                                        <td id="DecaissementsAcquisitionEquipements01Id" style="text-align: right;">-</td>
-                                                                        <td id="DecaissementsAcquisitionEquipements02Id" style="text-align: right;">-</td>
-                                                                        <td id="DecaissementsAcquisitionEquipements03Id" style="text-align: right;">-</td>
-                                                                        <td id="DecaissementsAcquisitionEquipements04Id" style="text-align: right;">-</td>
-                                                                        <td id="DecaissementsAcquisitionEquipements05Id" style="text-align: right;">-</td>
-                                                                        <td id="DecaissementsAcquisitionEquipements06Id" style="text-align: right;">-</td>
-                                                                        <td id="DecaissementsAcquisitionEquipements07Id" style="text-align: right;">-</td>
+                                                                        <td id="DecaissementsAcquisitionEquipements01Id" style="text-align: center;">@Model.DecaissementAcquisitionEquipements01</td>
+                                                                        <td id="DecaissementsAcquisitionEquipements02Id" style="text-align: center;">@Model.DecaissementAcquisitionEquipements02</td>
+                                                                        <td id="DecaissementsAcquisitionEquipements03Id" style="text-align: center;">@Model.DecaissementAcquisitionEquipements03</td>
+                                                                        <td id="DecaissementsAcquisitionEquipements04Id" style="text-align: center;">@Model.DecaissementAcquisitionEquipements04</td>
+                                                                        <td id="DecaissementsAcquisitionEquipements05Id" style="text-align: center;">@Model.DecaissementAcquisitionEquipements05</td>
+                                                                        <td id="DecaissementsAcquisitionEquipements06Id" style="text-align: center;">@Model.DecaissementAcquisitionEquipements06</td>
+                                                                        <td id="DecaissementsAcquisitionEquipements07Id" style="text-align: center;">@Model.DecaissementAcquisitionEquipements07</td>
                                                                     </tr>
                                                                     <tr>
                                                                         <th>Flux de trésorerie provenant de l'investissement<br>(9) = (8)</th>
-                                                                        <th id="FluxTresorerieProvenantInvestissement01Id" style="text-align: right;">-</th>
-                                                                        <th id="FluxTresorerieProvenantInvestissement02Id" style="text-align: right;">-</th>
-                                                                        <th id="FluxTresorerieProvenantInvestissement03Id" style="text-align: right;">-</th>
-                                                                        <th id="FluxTresorerieProvenantInvestissement04Id" style="text-align: right;">-</th>
-                                                                        <th id="FluxTresorerieProvenantInvestissement05Id" style="text-align: right;">-</th>
-                                                                        <th id="FluxTresorerieProvenantInvestissement06Id" style="text-align: right;">-</th>
-                                                                        <th id="FluxTresorerieProvenantInvestissement07Id" style="text-align: right;">-</th>
+                                                                        <th id="FluxTresorerieProvenantInvestissement01Id" style="text-align: center;">@Model.FluxTresorerieProvenantInvestissement01</th>
+                                                                        <th id="FluxTresorerieProvenantInvestissement02Id" style="text-align: center;">@Model.FluxTresorerieProvenantInvestissement02</th>
+                                                                        <th id="FluxTresorerieProvenantInvestissement03Id" style="text-align: center;">@Model.FluxTresorerieProvenantInvestissement03</th>
+                                                                        <th id="FluxTresorerieProvenantInvestissement04Id" style="text-align: center;">@Model.FluxTresorerieProvenantInvestissement04</th>
+                                                                        <th id="FluxTresorerieProvenantInvestissement05Id" style="text-align: center;">@Model.FluxTresorerieProvenantInvestissement05</th>
+                                                                        <th id="FluxTresorerieProvenantInvestissement06Id" style="text-align: center;">@Model.FluxTresorerieProvenantInvestissement06</th>
+                                                                        <th id="FluxTresorerieProvenantInvestissement07Id" style="text-align: center;">@Model.FluxTresorerieProvenantInvestissement07</th>
                                                                     </tr>
                                                                     <tr>
                                                                         <td>Encaissements suite à l'apport personnel (10)</td>
-                                                                        <td id="EncaissementsApportPersonnel01Id" style="text-align: right;">-</td>
-                                                                        <td id="EncaissementsApportPersonnel02Id" style="text-align: right;">-</td>
-                                                                        <td id="EncaissementsApportPersonnel03Id" style="text-align: right;">-</td>
-                                                                        <td id="EncaissementsApportPersonnel04Id" style="text-align: right;">-</td>
-                                                                        <td id="EncaissementsApportPersonnel05Id" style="text-align: right;">-</td>
-                                                                        <td id="EncaissementsApportPersonnel06Id" style="text-align: right;">-</td>
-                                                                        <td id="EncaissementsApportPersonnel07Id" style="text-align: right;">-</td>
+                                                                        <td id="EncaissementsApportPersonnel01Id" style="text-align: center;">@Model.EncaissementsSuiteApportPersonnel01</td>
+                                                                        <td id="EncaissementsApportPersonnel02Id" style="text-align: center;">@Model.EncaissementsSuiteApportPersonnel02</td>
+                                                                        <td id="EncaissementsApportPersonnel03Id" style="text-align: center;">@Model.EncaissementsSuiteApportPersonnel03</td>
+                                                                        <td id="EncaissementsApportPersonnel04Id" style="text-align: center;">@Model.EncaissementsSuiteApportPersonnel04</td>
+                                                                        <td id="EncaissementsApportPersonnel05Id" style="text-align: center;">@Model.EncaissementsSuiteApportPersonnel05</td>
+                                                                        <td id="EncaissementsApportPersonnel06Id" style="text-align: center;">@Model.EncaissementsSuiteApportPersonnel06</td>
+                                                                        <td id="EncaissementsApportPersonnel07Id" style="text-align: center;">@Model.EncaissementsSuiteApportPersonnel07</td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td>Encaissements provenant d'emprunts (11)</td>
-                                                                        <td id="EncaissementsProvenantEmprunts01Id" style="text-align: right;">-</td>
-                                                                        <td id="EncaissementsProvenantEmprunts02Id" style="text-align: right;">-</td>
-                                                                        <td id="EncaissementsProvenantEmprunts03Id" style="text-align: right;">-</td>
-                                                                        <td id="EncaissementsProvenantEmprunts04Id" style="text-align: right;">-</td>
-                                                                        <td id="EncaissementsProvenantEmprunts05Id" style="text-align: right;">-</td>
-                                                                        <td id="EncaissementsProvenantEmprunts06Id" style="text-align: right;">-</td>
-                                                                        <td id="EncaissementsProvenantEmprunts07Id" style="text-align: right;">-</td>
+                                                                        <td id="EncaissementsProvenantEmprunts01Id" style="text-align: center;">@Model.EncaissementsProvenantEmprunts01</td>
+                                                                        <td id="EncaissementsProvenantEmprunts02Id" style="text-align: center;">@Model.EncaissementsProvenantEmprunts02</td>
+                                                                        <td id="EncaissementsProvenantEmprunts03Id" style="text-align: center;">@Model.EncaissementsProvenantEmprunts03</td>
+                                                                        <td id="EncaissementsProvenantEmprunts04Id" style="text-align: center;">@Model.EncaissementsProvenantEmprunts04</td>
+                                                                        <td id="EncaissementsProvenantEmprunts05Id" style="text-align: center;">@Model.EncaissementsProvenantEmprunts05</td>
+                                                                        <td id="EncaissementsProvenantEmprunts06Id" style="text-align: center;">@Model.EncaissementsProvenantEmprunts06</td>
+                                                                        <td id="EncaissementsProvenantEmprunts07Id" style="text-align: center;">@Model.EncaissementsProvenantEmprunts07</td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td>Remboursements d'emprunts CMT (12)</td>
-                                                                        <td id="RemboursementsEmpruntsCMT01Id" style="text-align: right;">-</td>
-                                                                        <td id="RemboursementsEmpruntsCMT02Id" style="text-align: right;">-</td>
-                                                                        <td id="RemboursementsEmpruntsCMT03Id" style="text-align: right;">-</td>
-                                                                        <td id="RemboursementsEmpruntsCMT04Id" style="text-align: right;">-</td>
-                                                                        <td id="RemboursementsEmpruntsCMT05Id" style="text-align: right;">-</td>
-                                                                        <td id="RemboursementsEmpruntsCMT06Id" style="text-align: right;">-</td>
-                                                                        <td id="RemboursementsEmpruntsCMT07Id" style="text-align: right;">-</td>
+                                                                        <td id="RemboursementsEmpruntsCMT01Id" style="text-align: center;">@Model.RemboursementsEmpruntsCMT01</td>
+                                                                        <td id="RemboursementsEmpruntsCMT02Id" style="text-align: center;">@Model.RemboursementsEmpruntsCMT02</td>
+                                                                        <td id="RemboursementsEmpruntsCMT03Id" style="text-align: center;">@Model.RemboursementsEmpruntsCMT03</td>
+                                                                        <td id="RemboursementsEmpruntsCMT04Id" style="text-align: center;">@Model.RemboursementsEmpruntsCMT04</td>
+                                                                        <td id="RemboursementsEmpruntsCMT05Id" style="text-align: center;">@Model.RemboursementsEmpruntsCMT05</td>
+                                                                        <td id="RemboursementsEmpruntsCMT06Id" style="text-align: center;">@Model.RemboursementsEmpruntsCMT06</td>
+                                                                        <td id="RemboursementsEmpruntsCMT07Id" style="text-align: center;">@Model.RemboursementsEmpruntsCMT07</td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td>Remboursements d'emprunts PNR (13)</td>
-                                                                        <td id="RemboursementsEmpruntsPNR01Id" style="text-align: right;">-</td>
-                                                                        <td id="RemboursementsEmpruntsPNR02Id" style="text-align: right;">-</td>
-                                                                        <td id="RemboursementsEmpruntsPNR03Id" style="text-align: right;">-</td>
-                                                                        <td id="RemboursementsEmpruntsPNR04Id" style="text-align: right;">-</td>
-                                                                        <td id="RemboursementsEmpruntsPNR05Id" style="text-align: right;">-</td>
-                                                                        <td id="RemboursementsEmpruntsPNR06Id" style="text-align: right;">-</td>
-                                                                        <td id="RemboursementsEmpruntsPNR07Id" style="text-align: right;">-</td>
+                                                                        <td id="RemboursementsEmpruntsPNR01Id" style="text-align: center;">@Model.RemboursementsEmpruntsPNR01</td>
+                                                                        <td id="RemboursementsEmpruntsPNR02Id" style="text-align: center;">@Model.RemboursementsEmpruntsPNR02</td>
+                                                                        <td id="RemboursementsEmpruntsPNR03Id" style="text-align: center;">@Model.RemboursementsEmpruntsPNR03</td>
+                                                                        <td id="RemboursementsEmpruntsPNR04Id" style="text-align: center;">@Model.RemboursementsEmpruntsPNR04</td>
+                                                                        <td id="RemboursementsEmpruntsPNR05Id" style="text-align: center;">@Model.RemboursementsEmpruntsPNR05</td>
+                                                                        <td id="RemboursementsEmpruntsPNR06Id" style="text-align: center;">@Model.RemboursementsEmpruntsPNR06</td>
+                                                                        <td id="RemboursementsEmpruntsPNR07Id" style="text-align: center;">@Model.RemboursementsEmpruntsPNR07</td>
                                                                     </tr>
                                                                     <tr>
                                                                         <th>Flux de trésorerie provenant du financement<br>(14) = (10) + (11) - (12) - (13)</th>
-                                                                        <th id="FluxTresorerieProvenantFinancement01Id" style="text-align: right;">-</th>
-                                                                        <th id="FluxTresorerieProvenantFinancement02Id" style="text-align: right;">-</th>
-                                                                        <th id="FluxTresorerieProvenantFinancement03Id" style="text-align: right;">-</th>
-                                                                        <th id="FluxTresorerieProvenantFinancement04Id" style="text-align: right;">-</th>
-                                                                        <th id="FluxTresorerieProvenantFinancement05Id" style="text-align: right;">-</th>
-                                                                        <th id="FluxTresorerieProvenantFinancement06Id" style="text-align: right;">-</th>
-                                                                        <th id="FluxTresorerieProvenantFinancement07Id" style="text-align: right;">-</th>
+                                                                        <th id="FluxTresorerieProvenantFinancement01Id" style="text-align: center;">@Model.FluxTresorerieProvenantFinancement01</th>
+                                                                        <th id="FluxTresorerieProvenantFinancement02Id" style="text-align: center;">@Model.FluxTresorerieProvenantFinancement02</th>
+                                                                        <th id="FluxTresorerieProvenantFinancement03Id" style="text-align: center;">@Model.FluxTresorerieProvenantFinancement03</th>
+                                                                        <th id="FluxTresorerieProvenantFinancement04Id" style="text-align: center;">@Model.FluxTresorerieProvenantFinancement04</th>
+                                                                        <th id="FluxTresorerieProvenantFinancement05Id" style="text-align: center;">@Model.FluxTresorerieProvenantFinancement05</th>
+                                                                        <th id="FluxTresorerieProvenantFinancement06Id" style="text-align: center;">@Model.FluxTresorerieProvenantFinancement06</th>
+                                                                        <th id="FluxTresorerieProvenantFinancement07Id" style="text-align: center;">@Model.FluxTresorerieProvenantFinancement07</th>
                                                                     </tr>
                                                                     <tr>
                                                                         <th>Flux de trésorerie net (15) = (7) + (9) + (14)</th>
-                                                                        <th id="FluxTresorerieNet01Id" style="text-align: right;">-</th>
-                                                                        <th id="FluxTresorerieNet02Id" style="text-align: right;">-</th>
-                                                                        <th id="FluxTresorerieNet03Id" style="text-align: right;">-</th>
-                                                                        <th id="FluxTresorerieNet04Id" style="text-align: right;">-</th>
-                                                                        <th id="FluxTresorerieNet05Id" style="text-align: right;">-</th>
-                                                                        <th id="FluxTresorerieNet06Id" style="text-align: right;">-</th>
-                                                                        <th id="FluxTresorerieNet07Id" style="text-align: right;">-</th>
+                                                                        <th id="FluxTresorerieNet01Id" style="text-align: center;">@Model.FluxTresorerieNet01</th>
+                                                                        <th id="FluxTresorerieNet02Id" style="text-align: center;">@Model.FluxTresorerieNet02</th>
+                                                                        <th id="FluxTresorerieNet03Id" style="text-align: center;">@Model.FluxTresorerieNet03</th>
+                                                                        <th id="FluxTresorerieNet04Id" style="text-align: center;">@Model.FluxTresorerieNet04</th>
+                                                                        <th id="FluxTresorerieNet05Id" style="text-align: center;">@Model.FluxTresorerieNet05</th>
+                                                                        <th id="FluxTresorerieNet06Id" style="text-align: center;">@Model.FluxTresorerieNet06</th>
+                                                                        <th id="FluxTresorerieNet07Id" style="text-align: center;">@Model.FluxTresorerieNet07</th>
                                                                     </tr>
-                                                                    
+
                                                                 </table>
 
                                                             </div>
@@ -266,8 +292,7 @@
 
                                     </div>
 
-                                    <div class="form-group modal-footer">
-                                        <input type="submit" class="btn btn-outline-primary" value="Add" />
+                                    <div class="form-group modal-footer">                                        
                                         <button class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
                                     </div>
 

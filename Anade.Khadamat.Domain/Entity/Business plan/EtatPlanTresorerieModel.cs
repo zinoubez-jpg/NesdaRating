@@ -85,6 +85,7 @@ namespace Anade.Khadamat.Domain
     /// pour les lignes à interligne simple.
     /// </para>
     /// </remarks>
+    
     [NotMapped]
     public partial class EtatPlanTresorerieModel : IEntity<int>
     {

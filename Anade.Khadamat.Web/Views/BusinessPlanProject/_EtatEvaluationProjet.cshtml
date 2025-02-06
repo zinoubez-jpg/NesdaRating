@@ -1,7 +1,5 @@
 ﻿@model Anade.Khadamat.Domain.EtatEvaluationProjetModel
 
-
-
 <head>
     <title>Ajouter Buisiness Plan</title>
     <meta charset="utf-8">
@@ -49,9 +47,8 @@
 
 </head>
 
-
 <div class="modal-header">
-    <h5 class="modal-title" id="modalLabel">Ajouter Business Plan</h5>
+    <h5 class="modal-title" id="modalLabel">EVALUATION PROJET . VAN . DR</h5>
     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -76,7 +73,7 @@
 
                                         <div class="card text-bg-primary mb-3">
 
-                                            <div class="card-header">Structure d'investissement</div>
+                                            <div class="card-header">EVALUATION PROJET . VAN . DR</div>
 
                                             <div class="card-body">
 
@@ -90,24 +87,38 @@
 
                                                                 <table class="table display compact" id="TableA">
                                                                     <tr>
-                                                                        <th>Libellé</th>
-                                                                        <th>Année 01</th>
-                                                                        <th>Année 02</th>
-                                                                        <th>Année 03</th>
-                                                                        <th>Année 04</th>
-                                                                        <th>Année 05</th>
-                                                                        <th>Année 06</th>
-                                                                        <th>Année 07</th>
+                                                                        <th style="text-align: center;">Libellé</th>
+                                                                        <th style="text-align: center;">Année 01</th>
+                                                                        <th style="text-align: center;">Année 02</th>
+                                                                        <th style="text-align: center;">Année 03</th>
+                                                                        <th style="text-align: center;">Année 04</th>
+                                                                        <th style="text-align: center;">Année 05</th>
+                                                                        <th style="text-align: center;">Année 06</th>
+                                                                        <th style="text-align: center;">Année 07</th>
                                                                     </tr>
                                                                     <tr>
                                                                         <td>Trésorerie net (1)</td>
-                                                                        <td id="ChiffreAffaires01Id" style="text-align: right;">-</td>
-                                                                        <td id="ChiffreAffaires02Id" style="text-align: right;">-</td>
-                                                                        <td id="ChiffreAffaires03Id" style="text-align: right;">-</td>
-                                                                        <td id="ChiffreAffaires04Id" style="text-align: right;">-</td>
-                                                                        <td id="ChiffreAffaires05Id" style="text-align: right;">-</td>
-                                                                        <td id="ChiffreAffaires06Id" style="text-align: right;">-</td>
-                                                                        <td id="ChiffreAffaires07Id" style="text-align: right;">-</td>
+                                                                        <td id="MontantTresorerieNetAnnee01Id" style="text-align: center;">
+                                                                            @Model.MontantTresorerieNetAnnee01
+                                                                        </td>
+                                                                        <td id="MontantTresorerieNetAnnee02Id" style="text-align: center;">
+                                                                            @Model.MontantTresorerieNetAnnee02
+                                                                        </td>
+                                                                        <td id="MontantTresorerieNetAnnee03Id" style="text-align: center;">
+                                                                            @Model.MontantTresorerieNetAnnee03
+                                                                        </td>
+                                                                        <td id="MontantTresorerieNetAnnee04Id" style="text-align: center;">
+                                                                            @Model.MontantTresorerieNetAnnee04
+                                                                        </td>
+                                                                        <td id="MontantTresorerieNetAnnee05Id" style="text-align: center;">
+                                                                            @Model.MontantTresorerieNetAnnee05
+                                                                        </td>
+                                                                        <td id="MontantTresorerieNetAnnee06Id" style="text-align: center;">
+                                                                            @Model.MontantTresorerieNetAnnee06
+                                                                        </td>
+                                                                        <td id="MontantTresorerieNetAnnee07Id" style="text-align: center;">
+                                                                            @Model.MontantTresorerieNetAnnee07
+                                                                        </td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td></td>
@@ -121,13 +132,27 @@
                                                                     </tr>
                                                                     <tr>
                                                                         <td>CF Actualiser (2)</td>
-                                                                        <td id="AchatsConsommes01Id" style="text-align: right;">-</td>
-                                                                        <td id="AchatsConsommes02Id" style="text-align: right;">-</td>
-                                                                        <td id="AchatsConsommes03Id" style="text-align: right;">-</td>
-                                                                        <td id="AchatsConsommes04Id" style="text-align: right;">-</td>
-                                                                        <td id="AchatsConsommes05Id" style="text-align: right;">-</td>
-                                                                        <td id="AchatsConsommes06Id" style="text-align: right;">-</td>
-                                                                        <td id="AchatsConsommes07Id" style="text-align: right;">-</td>
+                                                                        <td id="MontantCashFlowActualisesAnnee01Id" style="text-align: center;">
+                                                                            @Model.MontantCashFlowActualisesAnnee01
+                                                                        </td>
+                                                                        <td id="MontantCashFlowActualisesAnnee02Id" style="text-align: center;">
+                                                                            @Model.MontantCashFlowActualisesAnnee02
+                                                                        </td>
+                                                                        <td id="MontantCashFlowActualisesAnnee03Id" style="text-align: center;">
+                                                                            @Model.MontantCashFlowActualisesAnnee03
+                                                                        </td>
+                                                                        <td id="MontantCashFlowActualisesAnnee04Id" style="text-align: center;">
+                                                                            @Model.MontantCashFlowActualisesAnnee04
+                                                                        </td>
+                                                                        <td id="MontantCashFlowActualisesAnnee05Id" style="text-align: center;">
+                                                                            @Model.MontantCashFlowActualisesAnnee05
+                                                                        </td>
+                                                                        <td id="MontantCashFlowActualisesAnnee06Id" style="text-align: center;">
+                                                                            @Model.MontantCashFlowActualisesAnnee06
+                                                                        </td>
+                                                                        <td id="MontantCashFlowActualisesAnnee07Id" style="text-align: center;">
+                                                                            @Model.MontantCashFlowActualisesAnnee07
+                                                                        </td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td></td>
@@ -141,13 +166,27 @@
                                                                     </tr>
                                                                     <tr>
                                                                         <td>Cumul CF Actualisés (3)</td>
-                                                                        <td id="ChargesExternes01Id" style="text-align: right;">-</td>
-                                                                        <td id="ChargesExternes02Id" style="text-align: right;">-</td>
-                                                                        <td id="ChargesExternes03Id" style="text-align: right;">-</td>
-                                                                        <td id="ChargesExternes04Id" style="text-align: right;">-</td>
-                                                                        <td id="ChargesExternes05Id" style="text-align: right;">-</td>
-                                                                        <td id="ChargesExternes06Id" style="text-align: right;">-</td>
-                                                                        <td id="ChargesExternes07Id" style="text-align: right;">-</td>
+                                                                        <td id="MontantCumulCFActualisesAnnee01Id" style="text-align: center;">
+                                                                            @Model.MontantCumulCFActualisesAnnee01
+                                                                        </td>
+                                                                        <td id="MontantCumulCFActualisesAnnee02Id" style="text-align: center;">
+                                                                            @Model.MontantCumulCFActualisesAnnee02
+                                                                        </td>
+                                                                        <td id="MontantCumulCFActualisesAnnee03Id" style="text-align: center;">
+                                                                            @Model.MontantCumulCFActualisesAnnee03
+                                                                        </td>
+                                                                        <td id="MontantCumulCFActualisesAnnee04Id" style="text-align: center;">
+                                                                            @Model.MontantCumulCFActualisesAnnee04
+                                                                        </td>
+                                                                        <td id="MontantCumulCFActualisesAnnee05Id" style="text-align: center;">
+                                                                            @Model.MontantCumulCFActualisesAnnee05
+                                                                        </td>
+                                                                        <td id="MontantCumulCFActualisesAnnee06Id" style="text-align: center;">
+                                                                            @Model.MontantCumulCFActualisesAnnee06
+                                                                        </td>
+                                                                        <td id="MontantCumulCFActualisesAnnee07Id" style="text-align: center;">
+                                                                            @Model.MontantCumulCFActualisesAnnee07
+                                                                        </td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td></td>
@@ -160,10 +199,18 @@
                                                                         <td></td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <th>VAN</th>
-                                                                        <th id="ValeurAjoutee01Id" style="text-align: right;">-</th>
-                                                                        <th id="ValeurAjoutee02Id" style="text-align: right;">-</th>
-
+                                                                        <th>Valeur Actuelle Nette (VAN)</th>
+                                                                        <td style="text-align: center;"></td>
+                                                                        <td id="MontantValeurActuelleNetteId" style="text-align: center;">
+                                                                            @Model.MontantValeurActuelleNette
+                                                                        </td>
+                                                                        <td id="TauxValeurActuelleNetteId" style="text-align: center;">
+                                                                            @Model.TauxValeurActuelleNette
+                                                                        </td>
+                                                                        <th style="text-align: center;">DR</th>
+                                                                        <th id="DelaiRecuperationId" style="text-align: center;">
+                                                                            @Model.DelaiRecuperation
+                                                                        </th>
                                                                     </tr>
                                                                     <tr>
                                                                         <td></td>
@@ -176,9 +223,11 @@
                                                                         <td></td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td>i0</td>
-                                                                        <td id="SalaresChargesSociales01Id" style="text-align: right;">-</td>
-
+                                                                        <td>Investissement initial (iO)</td>
+                                                                        <td style="text-align: center;"></td>
+                                                                        <td id="InvestissementInitialId" style="text-align: center;">
+                                                                            @Model.InvestissementInitial
+                                                                        </td>
                                                                     </tr>
 
                                                                     <tr>
@@ -209,7 +258,6 @@
                                     </div>
 
                                     <div class="form-group modal-footer">
-                                        <input type="submit" class="btn btn-outline-primary" value="Add" />
                                         <button class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
                                     </div>
 

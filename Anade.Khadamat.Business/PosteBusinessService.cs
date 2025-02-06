@@ -13,6 +13,13 @@ namespace Anade.Khadamat.Business
 
         }
 
+        public override Expression<Func<Poste, object>>[] GetDefaultLoadProperties()
+        {
+            Expression<Func<Poste, object>> loadDetailPoste = x => x.DetailsPoste;
+
+            return new Expression<Func<Poste, object>>[] { loadDetailPoste };
+        }
+
         public string GenererNumero(string codeStructure, int numSequ)
         {
             var numeroSequentiel = numSequ + 1;

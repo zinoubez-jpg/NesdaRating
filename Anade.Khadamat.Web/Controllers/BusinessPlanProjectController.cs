@@ -63,8 +63,7 @@ namespace Anade.Khadamat.Web.Controllers
         private readonly StructureFinancementBusinessService _structureFinancementBusinessService;
         private readonly DetailChiffreAffaireBusinessService _detailChiffreAffaireBusinessService;
         private readonly DetailAchatsDirectsBusinessService _detailAchatsDirectsBusinessService;
-
-        private readonly PosteBusinessService _PosteBusinessService;
+        private readonly PosteBusinessService _posteBusinessService;
 
         public BusinessPlanProjectController(UserService userService,
                                              AnnexeBusinessService annexeBusinessService,
@@ -106,7 +105,8 @@ namespace Anade.Khadamat.Web.Controllers
                                              AcquisitionBusinessService acquisitionBusinessService,
                                              StructureFinancementBusinessService structureFinancementBusinessService,
                                              DetailChiffreAffaireBusinessService detailChiffreAffaireBusinessService,
-                                             DetailAchatsDirectsBusinessService detailAchatsDirectsBusinessService
+                                             DetailAchatsDirectsBusinessService detailAchatsDirectsBusinessService,
+                                             PosteBusinessService posteBusinessService
 
                                              )
         {
@@ -151,6 +151,7 @@ namespace Anade.Khadamat.Web.Controllers
             _structureFinancementBusinessService = structureFinancementBusinessService;
             _detailChiffreAffaireBusinessService = detailChiffreAffaireBusinessService;
             _detailAchatsDirectsBusinessService = detailAchatsDirectsBusinessService;
+            _posteBusinessService = posteBusinessService;
         }
 
         [Authorize(Roles = "Analyste,DG,Admin,AdminAgence,Utilisateur-Rating")]
@@ -1182,7 +1183,7 @@ namespace Anade.Khadamat.Web.Controllers
                 poste.NetPayer = Math.Round(Convert.ToDecimal(model[i + 5].Replace(".", ",")), 2);
                 poste.RetenueIRG = Math.Round(Convert.ToDecimal(model[i + 6].Replace(".", ",")), 2);
 
-                for (int j = 0; j < 6; j++)
+                for (int j = 0; j < 7; j++)
                 {
                     DetailPoste detailPoste = new();
                     detailPoste.BusinessPlanId = businessPlanId;
@@ -1616,7 +1617,15 @@ namespace Anade.Khadamat.Web.Controllers
 
             List<DetailAchatsDirects> detailAchatsDirects = _detailAchatsDirectsBusinessService.GetAllFiltered(x => x.BusinessPlanId == id);
 
+            List<DetailChargesExternes> detailsChargesExternes = _detailChargesExternesBusinessService.GetAllFiltered(x => x.BusinessPlanId == id);
+
+            List<Poste> postes = _posteBusinessService.GetAllFiltered(x => x.DetailsPoste.Any(d => d.BusinessPlanId == id), _posteBusinessService.GetDefaultLoadProperties());
+
+            List<DetailInvestissement> detailInvestissement = _detailInvestissementBusinessService.GetAllFiltered(x => x.BusinessPlanId == id, _detailInvestissementBusinessService.GetDefaultLoadProperties());
+
             System.Globalization.CultureInfo frCult = System.Globalization.CultureInfo.CreateSpecificCulture("fr-FR");
+
+            #region Données EtatCompteResultat
 
             decimal MontantChiffreAffaire01 = 0;
             decimal MontantChiffreAffaire02 = 0;
@@ -1633,6 +1642,226 @@ namespace Anade.Khadamat.Web.Controllers
             decimal MontantAchatsConsommes05 = 0;
             decimal MontantAchatsConsommes06 = 0;
             decimal MontantAchatsConsommes07 = 0;
+
+            decimal MontantChargesExternes01 = 0;
+            decimal MontantChargesExternes02 = 0;
+            decimal MontantChargesExternes03 = 0;
+            decimal MontantChargesExternes04 = 0;
+            decimal MontantChargesExternes05 = 0;
+            decimal MontantChargesExternes06 = 0;
+            decimal MontantChargesExternes07 = 0;
+
+            decimal ValeurAjoutee01 = 0;
+            decimal ValeurAjoutee02 = 0;
+            decimal ValeurAjoutee03 = 0;
+            decimal ValeurAjoutee04 = 0;
+            decimal ValeurAjoutee05 = 0;
+            decimal ValeurAjoutee06 = 0;
+            decimal ValeurAjoutee07 = 0;
+
+            decimal SalairesChargesSociales01 = 0;
+            decimal SalairesChargesSociales02 = 0;
+            decimal SalairesChargesSociales03 = 0;
+            decimal SalairesChargesSociales04 = 0;
+            decimal SalairesChargesSociales05 = 0;
+            decimal SalairesChargesSociales06 = 0;
+            decimal SalairesChargesSociales07 = 0;
+
+            decimal ExcedentBrutExploitation01 = 0;
+            decimal ExcedentBrutExploitation02 = 0;
+            decimal ExcedentBrutExploitation03 = 0;
+            decimal ExcedentBrutExploitation04 = 0;
+            decimal ExcedentBrutExploitation05 = 0;
+            decimal ExcedentBrutExploitation06 = 0;
+            decimal ExcedentBrutExploitation07 = 0;
+
+            decimal AmortissementsProvisions01 = 0;
+            decimal AmortissementsProvisions02 = 0;
+            decimal AmortissementsProvisions03 = 0;
+            decimal AmortissementsProvisions04 = 0;
+            decimal AmortissementsProvisions05 = 0;
+            decimal AmortissementsProvisions06 = 0;
+            decimal AmortissementsProvisions07 = 0;
+
+            decimal ResultatExploitation01 = 0;
+            decimal ResultatExploitation02 = 0;
+            decimal ResultatExploitation03 = 0;
+            decimal ResultatExploitation04 = 0;
+            decimal ResultatExploitation05 = 0;
+            decimal ResultatExploitation06 = 0;
+            decimal ResultatExploitation07 = 0;
+
+            decimal IBS_IFU_IRG01 = 0;
+            decimal IBS_IFU_IRG02 = 0;
+            decimal IBS_IFU_IRG03 = 0;
+            decimal IBS_IFU_IRG04 = 0;
+            decimal IBS_IFU_IRG05 = 0;
+            decimal IBS_IFU_IRG06 = 0;
+            decimal IBS_IFU_IRG07 = 0;
+
+            decimal ResultatNet01 = 0;
+            decimal ResultatNet02 = 0;
+            decimal ResultatNet03 = 0;
+            decimal ResultatNet04 = 0;
+            decimal ResultatNet05 = 0;
+            decimal ResultatNet06 = 0;
+            decimal ResultatNet07 = 0;
+
+            decimal EvolutionChiffreAffaires02 = 0;
+            decimal EvolutionChiffreAffaires03 = 0;
+            decimal EvolutionChiffreAffaires04 = 0;
+            decimal EvolutionChiffreAffaires05 = 0;
+            decimal EvolutionChiffreAffaires06 = 0;
+            decimal EvolutionChiffreAffaires07 = 0;
+
+            decimal TauxVA01 = 0;
+            decimal TauxVA02 = 0;
+            decimal TauxVA03 = 0;
+            decimal TauxVA04 = 0;
+            decimal TauxVA05 = 0;
+            decimal TauxVA06 = 0;
+            decimal TauxVA07 = 0;
+
+            decimal TauxEBE01 = 0;
+            decimal TauxEBE02 = 0;
+            decimal TauxEBE03 = 0;
+            decimal TauxEBE04 = 0;
+            decimal TauxEBE05 = 0;
+            decimal TauxEBE06 = 0;
+            decimal TauxEBE07 = 0;
+
+            decimal CAF01 = 0;
+            decimal CAF02 = 0;
+            decimal CAF03 = 0;
+            decimal CAF04 = 0;
+            decimal CAF05 = 0;
+            decimal CAF06 = 0;
+            decimal CAF07 = 0;
+
+            string Forfait_Bascul02 = "";
+            string Forfait_Bascul03 = "";
+            string Forfait_Bascul04 = "";
+            string Forfait_Bascul05 = "";
+            string Forfait_Bascul06 = "";
+            string Forfait_Bascul07 = "";
+
+
+            #endregion
+
+            #region Données pour test
+            //decimal MontantChiffreAffaire01 = 2820000;
+            //decimal MontantChiffreAffaire02 = 6750000;
+            //decimal MontantChiffreAffaire03 = 15720000;
+            //decimal MontantChiffreAffaire04 = 17940000;
+            //decimal MontantChiffreAffaire05 = 19050000;
+            //decimal MontantChiffreAffaire06 = 17340000;
+            //decimal MontantChiffreAffaire07 = 18540000;
+
+            //decimal MontantAchatsConsommes01 = 720720;
+            //decimal MontantAchatsConsommes02 = 1751750;
+            //decimal MontantAchatsConsommes03 = 4124120;
+            //decimal MontantAchatsConsommes04 = 4744740;
+            //decimal MontantAchatsConsommes05 = 5055050;
+            //decimal MontantAchatsConsommes06 = 4644640;
+            //decimal MontantAchatsConsommes07 = 4844840;
+
+            //decimal MontantChargesExternes01 = 180500;
+            //decimal MontantChargesExternes02 = 421200;
+            //decimal MontantChargesExternes03 = 962600;
+            //decimal MontantChargesExternes04 = 1083000;
+            //decimal MontantChargesExternes05 = 1143200;
+            //decimal MontantChargesExternes06 = 1022800;
+            //decimal MontantChargesExternes07 = 1143200;
+
+            //decimal ValeurAjoutee01 = 0;
+            //decimal ValeurAjoutee02 = 0;
+            //decimal ValeurAjoutee03 = 0;
+            //decimal ValeurAjoutee04 = 0;
+            //decimal ValeurAjoutee05 = 0;
+            //decimal ValeurAjoutee06 = 0;
+            //decimal ValeurAjoutee07 = 0;
+
+            //decimal SalairesChargesSociales01 = 327960;
+            //decimal SalairesChargesSociales02 = 344352;
+            //decimal SalairesChargesSociales03 = 361572;
+            //decimal SalairesChargesSociales04 = 379656;
+            //decimal SalairesChargesSociales05 = 398640;
+            //decimal SalairesChargesSociales06 = 418572;
+            //decimal SalairesChargesSociales07 = 439500;
+
+            //decimal ExcedentBrutExploitation01 = 0;
+            //decimal ExcedentBrutExploitation02 = 0;
+            //decimal ExcedentBrutExploitation03 = 0;
+            //decimal ExcedentBrutExploitation04 = 0;
+            //decimal ExcedentBrutExploitation05 = 0;
+            //decimal ExcedentBrutExploitation06 = 0;
+            //decimal ExcedentBrutExploitation07 = 0;
+
+            //decimal AmortissementsProvisions01 = 675000;
+            //decimal AmortissementsProvisions02 = 675000;
+            //decimal AmortissementsProvisions03 = 675000;
+            //decimal AmortissementsProvisions04 = 675000;
+            //decimal AmortissementsProvisions05 = 675000;
+            //decimal AmortissementsProvisions06 = 15000;
+            //decimal AmortissementsProvisions07 = 15000;
+
+            //decimal ResultatExploitation01 = 0;
+            //decimal ResultatExploitation02 = 0;
+            //decimal ResultatExploitation03 = 0;
+            //decimal ResultatExploitation04 = 0;
+            //decimal ResultatExploitation05 = 0;
+            //decimal ResultatExploitation06 = 0;
+            //decimal ResultatExploitation07 = 0;
+
+            //decimal IBS_IFU_IRG01 = 10000;
+            //decimal IBS_IFU_IRG02 = 10000;
+            //decimal IBS_IFU_IRG03 = 10000;
+            //decimal IBS_IFU_IRG04 = 3632560;
+            //decimal IBS_IFU_IRG05 = 3884737;
+            //decimal IBS_IFU_IRG06 = 3696044;
+            //decimal IBS_IFU_IRG07 = 3996510;
+
+            //decimal ResultatNet01 = 0;
+            //decimal ResultatNet02 = 0;
+            //decimal ResultatNet03 = 0;
+            //decimal ResultatNet04 = 0;
+            //decimal ResultatNet05 = 0;
+            //decimal ResultatNet06 = 0;
+            //decimal ResultatNet07 = 0;
+
+            //decimal EvolutionChiffreAffaires02 = 0;
+            //decimal EvolutionChiffreAffaires03 = 0;
+            //decimal EvolutionChiffreAffaires04 = 0;
+            //decimal EvolutionChiffreAffaires05 = 0;
+            //decimal EvolutionChiffreAffaires06 = 0;
+            //decimal EvolutionChiffreAffaires07 = 0;
+
+            //decimal TauxVA01 = 0;
+            //decimal TauxVA02 = 0;
+            //decimal TauxVA03 = 0;
+            //decimal TauxVA04 = 0;
+            //decimal TauxVA05 = 0;
+            //decimal TauxVA06 = 0;
+            //decimal TauxVA07 = 0;
+
+            //decimal TauxEBE01 = 0;
+            //decimal TauxEBE02 = 0;
+            //decimal TauxEBE03 = 0;
+            //decimal TauxEBE04 = 0;
+            //decimal TauxEBE05 = 0;
+            //decimal TauxEBE06 = 0;
+            //decimal TauxEBE07 = 0;
+
+            //decimal CAF01 = 0;
+            //decimal CAF02 = 0;
+            //decimal CAF03 = 0;
+            //decimal CAF04 = 0;
+            //decimal CAF05 = 0;
+            //decimal CAF06 = 0;
+            //decimal CAF07 = 0;
+            #endregion
+
+            #region Calcule Données EtatCompteResultat
 
             if (detailChiffreAffaire.Count != 0)
             {
@@ -1704,7 +1933,953 @@ namespace Anade.Khadamat.Web.Controllers
                 }
             }
 
-            etatCompteResultatPrevisionnel.ChiffreAffaires01 = string.Format(frCult, "{0:n}", MontantChiffreAffaire01);
+            if (detailsChargesExternes.Count != 0)
+            {
+                for (int i = 0; i < detailsChargesExternes.Count; i++)
+                {
+                    if (detailsChargesExternes[i].AnneeId == 1)
+                    {
+                        MontantChargesExternes01 += detailsChargesExternes[i].Montant;
+                    }
+                    if (detailsChargesExternes[i].AnneeId == 2)
+                    {
+                        MontantChargesExternes02 += detailsChargesExternes[i].Montant;
+                    }
+                    if (detailsChargesExternes[i].AnneeId == 3)
+                    {
+                        MontantChargesExternes03 += detailsChargesExternes[i].Montant;
+                    }
+                    if (detailsChargesExternes[i].AnneeId == 4)
+                    {
+                        MontantChargesExternes04 += detailsChargesExternes[i].Montant;
+                    }
+                    if (detailsChargesExternes[i].AnneeId == 5)
+                    {
+                        MontantChargesExternes05 += detailsChargesExternes[i].Montant;
+                    }
+                    if (detailsChargesExternes[i].AnneeId == 6)
+                    {
+                        MontantChargesExternes06 += detailsChargesExternes[i].Montant;
+                    }
+                    if (detailsChargesExternes[i].AnneeId == 7)
+                    {
+                        MontantChargesExternes07 += detailsChargesExternes[i].Montant;
+                    }
+                }
+            }
+
+            if (postes.Count != 0)
+            {
+                for (int i = 0; i < postes.Count; i++)
+                {
+                    decimal MasseSalarialleAnnuelle = 0;
+
+                    MasseSalarialleAnnuelle = postes[i].SalaireBase + postes[i].IndemnitesPrimesCotisables;
+
+                    MasseSalarialleAnnuelle = MasseSalarialleAnnuelle * 26 / 100;
+
+                    MasseSalarialleAnnuelle = (MasseSalarialleAnnuelle
+                                                + postes[i].SalaireBase
+                                                + postes[i].IndemnitesPrimesCotisables
+                                                + postes[i].IndemnitesPrimesImposables
+                                                + postes[i].SLR_Indemnites_PrimesNonImplCotl)
+                                                * 12;
+
+                    if (postes[i].DetailsPoste.Count != 0)
+                    {
+                        List<DetailPoste> detailPostes = postes[i].DetailsPoste.ToList();
+
+                        for (int j = 0; j < detailPostes.Count; j++)
+                        {
+                            if (detailPostes[j].AnneeId == 1)
+                            {
+                                SalairesChargesSociales01 += MasseSalarialleAnnuelle * detailPostes[j].NombreEmploi;
+                            }
+                            if (detailPostes[j].AnneeId == 2)
+                            {
+                                SalairesChargesSociales02 += MasseSalarialleAnnuelle * detailPostes[j].NombreEmploi;
+                            }
+                            if (detailPostes[j].AnneeId == 3)
+                            {
+                                SalairesChargesSociales03 += MasseSalarialleAnnuelle * detailPostes[j].NombreEmploi;
+                            }
+                            if (detailPostes[j].AnneeId == 4)
+                            {
+                                SalairesChargesSociales04 += MasseSalarialleAnnuelle * detailPostes[j].NombreEmploi;
+                            }
+                            if (detailPostes[j].AnneeId == 5)
+                            {
+                                SalairesChargesSociales05 += MasseSalarialleAnnuelle * detailPostes[j].NombreEmploi;
+                            }
+                            if (detailPostes[j].AnneeId == 6)
+                            {
+                                SalairesChargesSociales06 += MasseSalarialleAnnuelle * detailPostes[j].NombreEmploi;
+                            }
+                            if (detailPostes[j].AnneeId == 7)
+                            {
+                                SalairesChargesSociales07 += MasseSalarialleAnnuelle * detailPostes[j].NombreEmploi;
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (detailInvestissement.Count != 0)
+            {
+                for (int i = 0; i < detailInvestissement.Count; i++)
+                {
+                    if (detailInvestissement[i].Acquisitions.Count != 0)
+                    {
+                        List<Acquisition> acquisitions = detailInvestissement[i].Acquisitions.ToList();
+
+                        if (acquisitions.Count != 0)
+                        {
+                            #region Montant amortissements Année01
+
+                            decimal MontantAmortissements01 = acquisitions[0].Montant / detailInvestissement[i].DureeAmortissement;
+
+                            if (detailInvestissement[i].DureeAmortissement > 1)
+                            {
+                                AmortissementsProvisions01 += MontantAmortissements01;
+                            }
+                            if (detailInvestissement[i].DureeAmortissement >= 2)
+                            {
+                                AmortissementsProvisions02 += MontantAmortissements01;
+                            }
+                            if (detailInvestissement[i].DureeAmortissement >= 3)
+                            {
+                                AmortissementsProvisions03 += MontantAmortissements01;
+                            }
+                            if (detailInvestissement[i].DureeAmortissement >= 4)
+                            {
+                                AmortissementsProvisions04 += MontantAmortissements01;
+                            }
+                            if (detailInvestissement[i].DureeAmortissement >= 5)
+                            {
+                                AmortissementsProvisions05 += MontantAmortissements01;
+                            }
+                            if (detailInvestissement[i].DureeAmortissement >= 6)
+                            {
+                                AmortissementsProvisions06 += MontantAmortissements01;
+                            }
+                            if (detailInvestissement[i].DureeAmortissement >= 7)
+                            {
+                                AmortissementsProvisions07 += MontantAmortissements01;
+                            }
+
+                            #endregion
+
+                            #region Montant amortissements Année02
+
+                            decimal MontantAmortissements02 = acquisitions[1].Montant / detailInvestissement[i].DureeAmortissement;
+
+                            if (detailInvestissement[i].DureeAmortissement > 1)
+                            {
+                                AmortissementsProvisions02 += MontantAmortissements02;
+                            }
+                            if (detailInvestissement[i].DureeAmortissement >= 2)
+                            {
+                                AmortissementsProvisions03 += MontantAmortissements02;
+                            }
+                            if (detailInvestissement[i].DureeAmortissement >= 3)
+                            {
+                                AmortissementsProvisions04 += MontantAmortissements02;
+                            }
+                            if (detailInvestissement[i].DureeAmortissement >= 4)
+                            {
+                                AmortissementsProvisions05 += MontantAmortissements02;
+                            }
+                            if (detailInvestissement[i].DureeAmortissement >= 5)
+                            {
+                                AmortissementsProvisions06 += MontantAmortissements02;
+                            }
+                            if (detailInvestissement[i].DureeAmortissement >= 6)
+                            {
+                                AmortissementsProvisions07 += MontantAmortissements02;
+                            }
+
+                            #endregion
+
+                            #region Montant amortissements Année03
+
+                            decimal MontantAmortissements03 = acquisitions[2].Montant / detailInvestissement[i].DureeAmortissement;
+
+                            if (detailInvestissement[i].DureeAmortissement > 1)
+                            {
+                                AmortissementsProvisions03 += MontantAmortissements03;
+                            }
+                            if (detailInvestissement[i].DureeAmortissement >= 2)
+                            {
+                                AmortissementsProvisions04 += MontantAmortissements03;
+                            }
+                            if (detailInvestissement[i].DureeAmortissement >= 3)
+                            {
+                                AmortissementsProvisions05 += MontantAmortissements03;
+                            }
+                            if (detailInvestissement[i].DureeAmortissement >= 4)
+                            {
+                                AmortissementsProvisions06 += MontantAmortissements03;
+                            }
+                            if (detailInvestissement[i].DureeAmortissement >= 5)
+                            {
+                                AmortissementsProvisions07 += MontantAmortissements03;
+                            }
+
+                            #endregion
+
+                            #region Montant amortissements Année04
+
+                            decimal MontantAmortissements04 = acquisitions[3].Montant / detailInvestissement[i].DureeAmortissement;
+
+                            if (detailInvestissement[i].DureeAmortissement > 1)
+                            {
+                                AmortissementsProvisions04 += MontantAmortissements04;
+                            }
+                            if (detailInvestissement[i].DureeAmortissement >= 2)
+                            {
+                                AmortissementsProvisions05 += MontantAmortissements04;
+                            }
+                            if (detailInvestissement[i].DureeAmortissement >= 3)
+                            {
+                                AmortissementsProvisions06 += MontantAmortissements04;
+                            }
+                            if (detailInvestissement[i].DureeAmortissement >= 4)
+                            {
+                                AmortissementsProvisions07 += MontantAmortissements04;
+                            }
+
+                            #endregion
+
+                            #region Montant amortissements Année05
+
+                            decimal MontantAmortissements05 = acquisitions[4].Montant / detailInvestissement[i].DureeAmortissement;
+
+                            if (detailInvestissement[i].DureeAmortissement > 1)
+                            {
+                                AmortissementsProvisions05 += MontantAmortissements05;
+                            }
+                            if (detailInvestissement[i].DureeAmortissement >= 2)
+                            {
+                                AmortissementsProvisions06 += MontantAmortissements05;
+                            }
+                            if (detailInvestissement[i].DureeAmortissement >= 3)
+                            {
+                                AmortissementsProvisions07 += MontantAmortissements05;
+                            }
+
+                            #endregion
+
+                            #region Montant amortissements Année06
+
+                            decimal MontantAmortissements06 = acquisitions[5].Montant / detailInvestissement[i].DureeAmortissement;
+
+                            if (detailInvestissement[i].DureeAmortissement > 1)
+                            {
+                                AmortissementsProvisions06 += MontantAmortissements06;
+                            }
+                            if (detailInvestissement[i].DureeAmortissement >= 2)
+                            {
+                                AmortissementsProvisions07 += MontantAmortissements06;
+                            }
+
+                            #endregion
+
+                            #region Montant amortissements Année07
+
+                            decimal MontantAmortissements07 = acquisitions[6].Montant / detailInvestissement[i].DureeAmortissement;
+
+                            if (detailInvestissement[i].DureeAmortissement > 1)
+                            {
+                                AmortissementsProvisions07 += MontantAmortissements07;
+                            }
+
+                            #endregion
+
+                        }
+
+                    }
+                }
+            }
+
+            ValeurAjoutee01 = MontantChiffreAffaire01 - MontantAchatsConsommes01 - MontantChargesExternes01;
+            ValeurAjoutee02 = MontantChiffreAffaire02 - MontantAchatsConsommes02 - MontantChargesExternes02;
+            ValeurAjoutee03 = MontantChiffreAffaire03 - MontantAchatsConsommes03 - MontantChargesExternes03;
+            ValeurAjoutee04 = MontantChiffreAffaire04 - MontantAchatsConsommes04 - MontantChargesExternes04;
+            ValeurAjoutee05 = MontantChiffreAffaire05 - MontantAchatsConsommes05 - MontantChargesExternes05;
+            ValeurAjoutee06 = MontantChiffreAffaire06 - MontantAchatsConsommes06 - MontantChargesExternes06;
+            ValeurAjoutee07 = MontantChiffreAffaire07 - MontantAchatsConsommes07 - MontantChargesExternes07;
+
+            ExcedentBrutExploitation01 = ValeurAjoutee01 - SalairesChargesSociales01;
+            ExcedentBrutExploitation02 = ValeurAjoutee02 - SalairesChargesSociales02;
+            ExcedentBrutExploitation03 = ValeurAjoutee03 - SalairesChargesSociales03;
+            ExcedentBrutExploitation04 = ValeurAjoutee04 - SalairesChargesSociales04;
+            ExcedentBrutExploitation05 = ValeurAjoutee05 - SalairesChargesSociales05;
+            ExcedentBrutExploitation06 = ValeurAjoutee06 - SalairesChargesSociales06;
+            ExcedentBrutExploitation07 = ValeurAjoutee07 - SalairesChargesSociales07;
+
+            ResultatExploitation01 = ExcedentBrutExploitation01 - AmortissementsProvisions01;
+            ResultatExploitation02 = ExcedentBrutExploitation02 - AmortissementsProvisions02;
+            ResultatExploitation03 = ExcedentBrutExploitation03 - AmortissementsProvisions03;
+            ResultatExploitation04 = ExcedentBrutExploitation04 - AmortissementsProvisions04;
+            ResultatExploitation05 = ExcedentBrutExploitation05 - AmortissementsProvisions05;
+            ResultatExploitation06 = ExcedentBrutExploitation06 - AmortissementsProvisions06;
+            ResultatExploitation07 = ExcedentBrutExploitation07 - AmortissementsProvisions07;
+
+            ResultatNet01 = ResultatExploitation01 - IBS_IFU_IRG01;
+            ResultatNet02 = ResultatExploitation02 - IBS_IFU_IRG02;
+            ResultatNet03 = ResultatExploitation03 - IBS_IFU_IRG03;
+            ResultatNet04 = ResultatExploitation04 - IBS_IFU_IRG04;
+            ResultatNet05 = ResultatExploitation05 - IBS_IFU_IRG05;
+            ResultatNet06 = ResultatExploitation06 - IBS_IFU_IRG06;
+            ResultatNet07 = ResultatExploitation07 - IBS_IFU_IRG07;
+
+            EvolutionChiffreAffaires02 = ((MontantChiffreAffaire02 - MontantChiffreAffaire01) / MontantChiffreAffaire01) * 100;
+            EvolutionChiffreAffaires03 = ((MontantChiffreAffaire03 - MontantChiffreAffaire02) / MontantChiffreAffaire02) * 100;
+            EvolutionChiffreAffaires04 = ((MontantChiffreAffaire04 - MontantChiffreAffaire03) / MontantChiffreAffaire03) * 100;
+            EvolutionChiffreAffaires05 = ((MontantChiffreAffaire05 - MontantChiffreAffaire04) / MontantChiffreAffaire04) * 100;
+            EvolutionChiffreAffaires06 = ((MontantChiffreAffaire06 - MontantChiffreAffaire05) / MontantChiffreAffaire05) * 100;
+            EvolutionChiffreAffaires07 = ((MontantChiffreAffaire07 - MontantChiffreAffaire06) / MontantChiffreAffaire06) * 100;
+
+            TauxVA01 = ValeurAjoutee01 / MontantChiffreAffaire01 * 100;
+            TauxVA02 = ValeurAjoutee02 / MontantChiffreAffaire02 * 100;
+            TauxVA03 = ValeurAjoutee03 / MontantChiffreAffaire03 * 100;
+            TauxVA04 = ValeurAjoutee04 / MontantChiffreAffaire04 * 100;
+            TauxVA05 = ValeurAjoutee05 / MontantChiffreAffaire05 * 100;
+            TauxVA06 = ValeurAjoutee06 / MontantChiffreAffaire06 * 100;
+            TauxVA07 = ValeurAjoutee07 / MontantChiffreAffaire07 * 100;
+
+            TauxEBE01 = ResultatExploitation01 / MontantChiffreAffaire01 * 100;
+            TauxEBE02 = ResultatExploitation02 / MontantChiffreAffaire02 * 100;
+            TauxEBE03 = ResultatExploitation03 / MontantChiffreAffaire03 * 100;
+            TauxEBE04 = ResultatExploitation04 / MontantChiffreAffaire04 * 100;
+            TauxEBE05 = ResultatExploitation05 / MontantChiffreAffaire05 * 100;
+            TauxEBE06 = ResultatExploitation06 / MontantChiffreAffaire06 * 100;
+            TauxEBE07 = ResultatExploitation07 / MontantChiffreAffaire07 * 100;
+
+            CAF01 = ResultatNet01 + AmortissementsProvisions01;
+            CAF02 = ResultatNet02 + AmortissementsProvisions02;
+            CAF03 = ResultatNet03 + AmortissementsProvisions03;
+            CAF04 = ResultatNet04 + AmortissementsProvisions04;
+            CAF05 = ResultatNet05 + AmortissementsProvisions05;
+            CAF06 = ResultatNet06 + AmortissementsProvisions06;
+            CAF07 = ResultatNet07 + AmortissementsProvisions07;
+
+            // Calcule IRG
+            decimal IRG_Annee04 = 0;
+            decimal IRG_Annee05 = 0;
+            decimal IRG_Annee06 = 0;
+            decimal IRG_Annee07 = 0;
+
+            // Année 04
+            if (ResultatExploitation04 > 3840000)
+            {
+                IRG_Annee04 = (ResultatExploitation04 - 3840000) * (decimal)0.35
+                            + (decimal)55199.77
+                            + (decimal)129599.73
+                            + (decimal)287999.70
+                            + (decimal)633599.67;
+            }
+            else
+            {
+                if ((ResultatExploitation04 > 1920000) && (ResultatExploitation04 <= 3840000))
+                {
+                    IRG_Annee04 = (ResultatExploitation04 - 1920000) * (decimal)0.33
+                                + (decimal)55199.77
+                                + (decimal)129599.73
+                                + (decimal)287999.70;
+                }
+                else
+                {
+                    if ((ResultatExploitation04 > 960000) && (ResultatExploitation04 <= 1920000))
+                    {
+                        IRG_Annee04 = (ResultatExploitation04 - 960000) * (decimal)0.3
+                                    + (decimal)55199.77
+                                    + (decimal)129599.73;
+                    }
+                    else
+                    {
+                        if ((ResultatExploitation04 > 480000) && (ResultatExploitation04 <= 960000))
+                        {
+                            IRG_Annee04 = (ResultatExploitation04 - 480000) * (decimal)0.27
+                                        + (decimal)55199.77;
+                        }
+                        else
+                        {
+                            if ((ResultatExploitation04 > 240000) && (ResultatExploitation04 <= 480000))
+                            {
+                                IRG_Annee04 = (ResultatExploitation04 - 240000) * (decimal)0.23;
+                            }
+                            else
+                            {
+                                IRG_Annee04 = 0;
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (modelBusinessPlan.InformationBase.CommuneBP.WilayaBP.GrandSud == true)
+            {
+                IRG_Annee04 /= 2;
+            }
+
+            // Année 05
+            if (ResultatExploitation05 > 3840000)
+            {
+                IRG_Annee05 = (ResultatExploitation05 - 3840000) * (decimal)0.35
+                            + (decimal)55199.77
+                            + (decimal)129599.73
+                            + (decimal)287999.70
+                            + (decimal)633599.67;
+            }
+            else
+            {
+                if ((ResultatExploitation05 > 1920000) && (ResultatExploitation05 <= 3840000))
+                {
+                    IRG_Annee05 = (ResultatExploitation05 - 1920000) * (decimal)0.33
+                                + (decimal)55199.77
+                                + (decimal)129599.73
+                                + (decimal)287999.70;
+                }
+                else
+                {
+                    if ((ResultatExploitation05 > 960000) && (ResultatExploitation05 <= 1920000))
+                    {
+                        IRG_Annee05 = (ResultatExploitation05 - 960000) * (decimal)0.3
+                                    + (decimal)55199.77
+                                    + (decimal)129599.73;
+                    }
+                    else
+                    {
+                        if ((ResultatExploitation05 > 480000) && (ResultatExploitation05 <= 960000))
+                        {
+                            IRG_Annee05 = (ResultatExploitation05 - 480000) * (decimal)0.27
+                                        + (decimal)55199.77;
+                        }
+                        else
+                        {
+                            if ((ResultatExploitation05 > 240000) && (ResultatExploitation05 <= 480000))
+                            {
+                                IRG_Annee05 = (ResultatExploitation05 - 240000) * (decimal)0.23;
+                            }
+                            else
+                            {
+                                IRG_Annee05 = 0;
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (modelBusinessPlan.InformationBase.CommuneBP.WilayaBP.GrandSud == true)
+            {
+                IRG_Annee05 /= 2;
+            }
+
+            // Année 06
+            if (ResultatExploitation06 > 3840000)
+            {
+                IRG_Annee06 = (ResultatExploitation06 - 3840000) * (decimal)0.35
+                            + (decimal)55199.77
+                            + (decimal)129599.73
+                            + (decimal)287999.70
+                            + (decimal)633599.67;
+            }
+            else
+            {
+                if ((ResultatExploitation06 > 1920000) && (ResultatExploitation06 <= 3840000))
+                {
+                    IRG_Annee06 = (ResultatExploitation06 - 1920000) * (decimal)0.33
+                                + (decimal)55199.77
+                                + (decimal)129599.73
+                                + (decimal)287999.70;
+                }
+                else
+                {
+                    if ((ResultatExploitation06 > 960000) && (ResultatExploitation06 <= 1920000))
+                    {
+                        IRG_Annee06 = (ResultatExploitation06 - 960000) * (decimal)0.3
+                                    + (decimal)55199.77
+                                    + (decimal)129599.73;
+                    }
+                    else
+                    {
+                        if ((ResultatExploitation06 > 480000) && (ResultatExploitation06 <= 960000))
+                        {
+                            IRG_Annee06 = (ResultatExploitation06 - 480000) * (decimal)0.27
+                                        + (decimal)55199.77;
+                        }
+                        else
+                        {
+                            if ((ResultatExploitation06 > 240000) && (ResultatExploitation06 <= 480000))
+                            {
+                                IRG_Annee06 = (ResultatExploitation06 - 240000) * (decimal)0.23;
+                            }
+                            else
+                            {
+                                IRG_Annee06 = 0;
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (modelBusinessPlan.InformationBase.CommuneBP.WilayaBP.GrandSud == true)
+            {
+                IRG_Annee06 /= 2;
+            }
+
+            // Année 07
+            if (ResultatExploitation07 > 3840000)
+            {
+                IRG_Annee07 = (ResultatExploitation07 - 3840000) * (decimal)0.35
+                            + (decimal)55199.77
+                            + (decimal)129599.73
+                            + (decimal)287999.70
+                            + (decimal)633599.67;
+            }
+            else
+            {
+                if ((ResultatExploitation07 > 1920000) && (ResultatExploitation07 <= 3840000))
+                {
+                    IRG_Annee07 = (ResultatExploitation07 - 1920000) * (decimal)0.33
+                                + (decimal)55199.77
+                                + (decimal)129599.73
+                                + (decimal)287999.70;
+                }
+                else
+                {
+                    if ((ResultatExploitation07 > 960000) && (ResultatExploitation07 <= 1920000))
+                    {
+                        IRG_Annee07 = (ResultatExploitation07 - 960000) * (decimal)0.3
+                                    + (decimal)55199.77
+                                    + (decimal)129599.73;
+                    }
+                    else
+                    {
+                        if ((ResultatExploitation07 > 480000) && (ResultatExploitation07 <= 960000))
+                        {
+                            IRG_Annee07 = (ResultatExploitation07 - 480000) * (decimal)0.27
+                                        + (decimal)55199.77;
+                        }
+                        else
+                        {
+                            if ((ResultatExploitation07 > 240000) && (ResultatExploitation07 <= 480000))
+                            {
+                                IRG_Annee07 = (ResultatExploitation07 - 240000) * (decimal)0.23;
+                            }
+                            else
+                            {
+                                IRG_Annee07 = 0;
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (modelBusinessPlan.InformationBase.CommuneBP.WilayaBP.GrandSud == true)
+            {
+                IRG_Annee07 /= 2;
+            }
+
+
+            // RegimeImpositionId == 2 Forfaitaire
+            if (modelBusinessPlan.InformationBase.RegimeImpositionId == 2)
+            {
+                if (MontantChiffreAffaire01 > 8000000)
+                {
+                    Forfait_Bascul02 = "Bascul";
+                }
+                else
+                {
+                    Forfait_Bascul02 = "IFU";
+                }
+
+                if ((MontantChiffreAffaire02 > 8000000) || (Forfait_Bascul02 == "Bascul"))
+                {
+                    Forfait_Bascul03 = "Bascul";
+                }
+                else
+                {
+                    Forfait_Bascul03 = "IFU";
+                }
+
+                if ((MontantChiffreAffaire03 > 8000000) || (Forfait_Bascul03 == "Bascul"))
+                {
+                    Forfait_Bascul04 = "Bascul";
+                }
+                else
+                {
+                    Forfait_Bascul04 = "IFU";
+                }
+
+                if ((MontantChiffreAffaire04 > 8000000) || (Forfait_Bascul04 == "Bascul"))
+                {
+                    Forfait_Bascul05 = "Bascul";
+                }
+                else
+                {
+                    Forfait_Bascul05 = "IFU";
+                }
+
+                if ((MontantChiffreAffaire05 > 8000000) || (Forfait_Bascul05 == "Bascul"))
+                {
+                    Forfait_Bascul06 = "Bascul";
+                }
+                else
+                {
+                    Forfait_Bascul06 = "IFU";
+                }
+
+                if ((MontantChiffreAffaire06 > 8000000) || (Forfait_Bascul06 == "Bascul"))
+                {
+                    Forfait_Bascul07 = "Bascul";
+                }
+                else
+                {
+                    Forfait_Bascul07 = "IFU";
+                }
+            }
+
+            decimal Calcul_Imposition_Annee01_03 = 30000;
+            decimal Calcul_Imposition_Annee04 = 0;
+            decimal Calcul_Imposition_Annee05 = 0;
+            decimal Calcul_Imposition_Annee06 = 0;
+            decimal Calcul_Imposition_Annee07 = 0;
+
+            // Identificationla durée d'exonération fiscale : Imposition ExonerationFiscaleId = 1 => 3 ans
+            if (modelBusinessPlan.StructureFinancement.ExonerationFiscaleId == 1)
+            {
+                // RegimeImpositionId == 2 Forfaitaire
+                if ((modelBusinessPlan.InformationBase.RegimeImpositionId == 2) && (Forfait_Bascul04 == "IFU"))
+                {
+                    Calcul_Imposition_Annee04 = MontantChiffreAffaire04 * (decimal)modelBusinessPlan.StructureFinancement.TauxIFU/100;
+                }
+                else
+                {
+                    // RegimeImpositionId == 2 Forfaitaire
+                    if ((modelBusinessPlan.InformationBase.RegimeImpositionId == 2) && (Forfait_Bascul04 == "Bascul") && (modelBusinessPlan.InformationBase.CommuneBP.WilayaBP.GrandSud == false) && (modelBusinessPlan.InformationBase.FormeJuridiqueId == 1))
+                    {
+                        Calcul_Imposition_Annee04 = ResultatExploitation04 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS/100;
+                    }
+                    else
+                    {
+                        if ((modelBusinessPlan.InformationBase.RegimeImpositionId == 2) && (Forfait_Bascul04 == "Bascul") && (modelBusinessPlan.InformationBase.CommuneBP.WilayaBP.GrandSud == true) && (modelBusinessPlan.InformationBase.FormeJuridiqueId == 1))
+                        {
+                            Calcul_Imposition_Annee04 = (ResultatExploitation04 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS/100) / 2;
+                        }
+                        else
+                        {
+                            // RegimeImpositionId == 2 Forfaitaire
+                            if ((modelBusinessPlan.InformationBase.RegimeImpositionId == 2) && (Forfait_Bascul04 == "Bascul") && (modelBusinessPlan.InformationBase.FormeJuridiqueId == 2))
+                            {
+                                Calcul_Imposition_Annee04 = IRG_Annee04;
+                            }
+                            else
+                            {
+                                // RegimeImpositionId == 1 Réel
+                                if ((modelBusinessPlan.InformationBase.RegimeImpositionId == 1) && (modelBusinessPlan.InformationBase.CommuneBP.WilayaBP.GrandSud == false))
+                                {
+                                    Calcul_Imposition_Annee04 = ResultatExploitation04 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS/100;
+                                }
+                                else
+                                {
+                                    // RegimeImpositionId == 1 Réel
+                                    if ((modelBusinessPlan.InformationBase.RegimeImpositionId == 1) && (modelBusinessPlan.InformationBase.CommuneBP.WilayaBP.GrandSud == true))
+                                    {
+                                        Calcul_Imposition_Annee04 = (ResultatExploitation04 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS/100) / 2;
+                                    }
+                                    else
+                                    {
+                                        // RegimeImpositionId == 3 IRG(régime simplifié)
+                                        if (modelBusinessPlan.InformationBase.RegimeImpositionId == 3)
+                                        {
+                                            Calcul_Imposition_Annee04 = IRG_Annee04;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // RegimeImpositionId == 2 Forfaitaire
+                if ((modelBusinessPlan.InformationBase.RegimeImpositionId == 2) && (Forfait_Bascul05 == "IFU"))
+                {
+                    Calcul_Imposition_Annee05 = MontantChiffreAffaire05 * (decimal)modelBusinessPlan.StructureFinancement.TauxIFU/100;
+                }
+                else
+                {
+                    // RegimeImpositionId == 2 Forfaitaire
+                    if ((modelBusinessPlan.InformationBase.RegimeImpositionId == 2) && (Forfait_Bascul05 == "Bascul") && (modelBusinessPlan.InformationBase.CommuneBP.WilayaBP.GrandSud == false) && (modelBusinessPlan.InformationBase.FormeJuridiqueId == 1))
+                    {
+                        Calcul_Imposition_Annee05 = ResultatExploitation05 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS/100;
+                    }
+                    else
+                    {
+                        if ((modelBusinessPlan.InformationBase.RegimeImpositionId == 2) && (Forfait_Bascul05 == "Bascul") && (modelBusinessPlan.InformationBase.CommuneBP.WilayaBP.GrandSud == true) && (modelBusinessPlan.InformationBase.FormeJuridiqueId == 1))
+                        {
+                            Calcul_Imposition_Annee05 = (ResultatExploitation05 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS/100) / 2;
+                        }
+                        else
+                        {
+                            // RegimeImpositionId == 2 Forfaitaire
+                            if ((modelBusinessPlan.InformationBase.RegimeImpositionId == 2) && (Forfait_Bascul05 == "Bascul") && (modelBusinessPlan.InformationBase.FormeJuridiqueId == 2))
+                            {
+                                Calcul_Imposition_Annee05 = IRG_Annee05;
+                            }
+                            else
+                            {
+                                // RegimeImpositionId == 1 Réel
+                                if ((modelBusinessPlan.InformationBase.RegimeImpositionId == 1) && (modelBusinessPlan.InformationBase.CommuneBP.WilayaBP.GrandSud == false))
+                                {
+                                    Calcul_Imposition_Annee05 = ResultatExploitation05 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS/100;
+                                }
+                                else
+                                {
+                                    // RegimeImpositionId == 1 Réel
+                                    if ((modelBusinessPlan.InformationBase.RegimeImpositionId == 1) && (modelBusinessPlan.InformationBase.CommuneBP.WilayaBP.GrandSud == true))
+                                    {
+                                        Calcul_Imposition_Annee05 = (ResultatExploitation05 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS/100) / 2;
+                                    }
+                                    else
+                                    {
+                                        // RegimeImpositionId == 3 IRG(régime simplifié)
+                                        if (modelBusinessPlan.InformationBase.RegimeImpositionId == 3)
+                                        {
+                                            Calcul_Imposition_Annee05 = IRG_Annee05;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // RegimeImpositionId == 2 Forfaitaire
+                if ((modelBusinessPlan.InformationBase.RegimeImpositionId == 2) && (Forfait_Bascul06 == "IFU"))
+                {
+                    Calcul_Imposition_Annee06 = MontantChiffreAffaire06 * (decimal)modelBusinessPlan.StructureFinancement.TauxIFU/100;
+                }
+                else
+                {
+                    // RegimeImpositionId == 2 Forfaitaire
+                    if ((modelBusinessPlan.InformationBase.RegimeImpositionId == 2) && (Forfait_Bascul06 == "Bascul") && (modelBusinessPlan.InformationBase.CommuneBP.WilayaBP.GrandSud == false) && (modelBusinessPlan.InformationBase.FormeJuridiqueId == 1))
+                    {
+                        Calcul_Imposition_Annee06 = ResultatExploitation06 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS/100;
+                    }
+                    else
+                    {
+                        if ((modelBusinessPlan.InformationBase.RegimeImpositionId == 2) && (Forfait_Bascul06 == "Bascul") && (modelBusinessPlan.InformationBase.CommuneBP.WilayaBP.GrandSud == true) && (modelBusinessPlan.InformationBase.FormeJuridiqueId == 1))
+                        {
+                            Calcul_Imposition_Annee06 = (ResultatExploitation06 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS/100) / 2;
+                        }
+                        else
+                        {
+                            // RegimeImpositionId == 2 Forfaitaire
+                            if ((modelBusinessPlan.InformationBase.RegimeImpositionId == 2) && (Forfait_Bascul06 == "Bascul") && (modelBusinessPlan.InformationBase.FormeJuridiqueId == 2))
+                            {
+                                Calcul_Imposition_Annee06 = IRG_Annee06;
+                            }
+                            else
+                            {
+                                // RegimeImpositionId == 1 Réel
+                                if ((modelBusinessPlan.InformationBase.RegimeImpositionId == 1) && (modelBusinessPlan.InformationBase.CommuneBP.WilayaBP.GrandSud == false))
+                                {
+                                    Calcul_Imposition_Annee06 = ResultatExploitation06 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS/100;
+                                }
+                                else
+                                {
+                                    // RegimeImpositionId == 1 Réel
+                                    if ((modelBusinessPlan.InformationBase.RegimeImpositionId == 1) && (modelBusinessPlan.InformationBase.CommuneBP.WilayaBP.GrandSud == true))
+                                    {
+                                        Calcul_Imposition_Annee06 = (ResultatExploitation06 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS/100) / 2;
+                                    }
+                                    else
+                                    {
+                                        // RegimeImpositionId == 3 IRG(régime simplifié)
+                                        if (modelBusinessPlan.InformationBase.RegimeImpositionId == 3)
+                                        {
+                                            Calcul_Imposition_Annee06 = IRG_Annee06;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // RegimeImpositionId == 2 Forfaitaire
+                if ((modelBusinessPlan.InformationBase.RegimeImpositionId == 2) && (Forfait_Bascul07 == "IFU"))
+                {
+                    Calcul_Imposition_Annee07 = MontantChiffreAffaire07 * (decimal)modelBusinessPlan.StructureFinancement.TauxIFU/100;
+                }
+                else
+                {
+                    // RegimeImpositionId == 2 Forfaitaire
+                    if ((modelBusinessPlan.InformationBase.RegimeImpositionId == 2) && (Forfait_Bascul07 == "Bascul") && (modelBusinessPlan.InformationBase.CommuneBP.WilayaBP.GrandSud == false) && (modelBusinessPlan.InformationBase.FormeJuridiqueId == 1))
+                    {
+                        Calcul_Imposition_Annee07 = ResultatExploitation07 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS/100;
+                    }
+                    else
+                    {
+                        if ((modelBusinessPlan.InformationBase.RegimeImpositionId == 2) && (Forfait_Bascul07 == "Bascul") && (modelBusinessPlan.InformationBase.CommuneBP.WilayaBP.GrandSud == true) && (modelBusinessPlan.InformationBase.FormeJuridiqueId == 1))
+                        {
+                            Calcul_Imposition_Annee07 = (ResultatExploitation07 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS/100) / 2;
+                        }
+                        else
+                        {
+                            // RegimeImpositionId == 2 Forfaitaire
+                            if ((modelBusinessPlan.InformationBase.RegimeImpositionId == 2) && (Forfait_Bascul07 == "Bascul") && (modelBusinessPlan.InformationBase.FormeJuridiqueId == 2))
+                            {
+                                Calcul_Imposition_Annee07 = IRG_Annee07;
+                            }
+                            else
+                            {
+                                // RegimeImpositionId == 1 Réel
+                                if ((modelBusinessPlan.InformationBase.RegimeImpositionId == 1) && (modelBusinessPlan.InformationBase.CommuneBP.WilayaBP.GrandSud == false))
+                                {
+                                    Calcul_Imposition_Annee07 = ResultatExploitation07 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS/100;
+                                }
+                                else
+                                {
+                                    // RegimeImpositionId == 1 Réel
+                                    if ((modelBusinessPlan.InformationBase.RegimeImpositionId == 1) && (modelBusinessPlan.InformationBase.CommuneBP.WilayaBP.GrandSud == true))
+                                    {
+                                        Calcul_Imposition_Annee07 = (ResultatExploitation07 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS/100) / 2;
+                                    }
+                                    else
+                                    {
+                                        // RegimeImpositionId == 3 IRG(régime simplifié)
+                                        if (modelBusinessPlan.InformationBase.RegimeImpositionId == 3)
+                                        {
+                                            Calcul_Imposition_Annee07 = IRG_Annee07;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+            }
+            else
+            {
+                // Identificationla durée d'exonération fiscale : Imposition ExonerationFiscaleId = 2 => 6 ans
+                if (modelBusinessPlan.StructureFinancement.ExonerationFiscaleId == 2)
+                {
+                    Calcul_Imposition_Annee04 = Calcul_Imposition_Annee01_03;
+                    Calcul_Imposition_Annee05 = Calcul_Imposition_Annee01_03;
+                    Calcul_Imposition_Annee06 = Calcul_Imposition_Annee01_03;
+
+                    // RegimeImpositionId == 2 Forfaitaire
+                    if ((modelBusinessPlan.InformationBase.RegimeImpositionId == 2) && (Forfait_Bascul07 == "IFU"))
+                    {
+                        Calcul_Imposition_Annee07 = MontantChiffreAffaire07 * (decimal)modelBusinessPlan.StructureFinancement.TauxIFU/100;
+                    }
+                    else
+                    {
+                        // RegimeImpositionId == 2 Forfaitaire
+                        if ((modelBusinessPlan.InformationBase.RegimeImpositionId == 2) && (Forfait_Bascul07 == "Bascul") && (modelBusinessPlan.InformationBase.CommuneBP.WilayaBP.GrandSud == false) && (modelBusinessPlan.InformationBase.FormeJuridiqueId == 1))
+                        {
+                            Calcul_Imposition_Annee07 = ResultatExploitation07 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS/100;
+                        }
+                        else
+                        {
+                            if ((modelBusinessPlan.InformationBase.RegimeImpositionId == 2) && (Forfait_Bascul07 == "Bascul") && (modelBusinessPlan.InformationBase.CommuneBP.WilayaBP.GrandSud == true) && (modelBusinessPlan.InformationBase.FormeJuridiqueId == 1))
+                            {
+                                Calcul_Imposition_Annee07 = (ResultatExploitation07 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS/100) / 2;
+                            }
+                            else
+                            {
+                                // RegimeImpositionId == 2 Forfaitaire
+                                if ((modelBusinessPlan.InformationBase.RegimeImpositionId == 2) && (Forfait_Bascul07 == "Bascul") && (modelBusinessPlan.InformationBase.FormeJuridiqueId == 2))
+                                {
+                                    Calcul_Imposition_Annee07 = IRG_Annee07;
+                                }
+                                else
+                                {
+                                    // RegimeImpositionId == 1 Réel
+                                    if ((modelBusinessPlan.InformationBase.RegimeImpositionId == 1) && (modelBusinessPlan.InformationBase.CommuneBP.WilayaBP.GrandSud == false))
+                                    {
+                                        Calcul_Imposition_Annee07 = ResultatExploitation07 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS/100;
+                                    }
+                                    else
+                                    {
+                                        // RegimeImpositionId == 1 Réel
+                                        if ((modelBusinessPlan.InformationBase.RegimeImpositionId == 1) && (modelBusinessPlan.InformationBase.CommuneBP.WilayaBP.GrandSud == true))
+                                        {
+                                            Calcul_Imposition_Annee07 = (ResultatExploitation07 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS/100) / 2;
+                                        }
+                                        else
+                                        {
+                                            // RegimeImpositionId == 3 IRG(régime simplifié)
+                                            if (modelBusinessPlan.InformationBase.RegimeImpositionId == 3)
+                                            {
+                                                Calcul_Imposition_Annee07 = IRG_Annee07;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                // Identificationla durée d'exonération fiscale : Imposition ExonerationFiscaleId = 3 => 10 ans
+                else
+                {
+                    Calcul_Imposition_Annee04 = Calcul_Imposition_Annee01_03;
+                    Calcul_Imposition_Annee05 = Calcul_Imposition_Annee01_03;
+                    Calcul_Imposition_Annee06 = Calcul_Imposition_Annee01_03;
+                    Calcul_Imposition_Annee07 = Calcul_Imposition_Annee01_03;
+                }
+            }
+
+            IBS_IFU_IRG01 = Calcul_Imposition_Annee01_03;
+            IBS_IFU_IRG02 = Calcul_Imposition_Annee01_03;
+            IBS_IFU_IRG03 = Calcul_Imposition_Annee01_03;
+            IBS_IFU_IRG04 = Calcul_Imposition_Annee04;
+            IBS_IFU_IRG05 = Calcul_Imposition_Annee05;
+            IBS_IFU_IRG06 = Calcul_Imposition_Annee06;
+            IBS_IFU_IRG07 = Calcul_Imposition_Annee07;
+
+
+            if (modelBusinessPlan.InformationBase.RegimeImpositionId != 2)
+            {
+                if (ResultatExploitation04 <= 0)
+                {
+                    IBS_IFU_IRG04 = Calcul_Imposition_Annee01_03;
+                }
+                if (ResultatExploitation05 <= 0)
+                {
+                    IBS_IFU_IRG05 = Calcul_Imposition_Annee01_03;
+                }
+                if (ResultatExploitation06 <= 0)
+                {
+                    IBS_IFU_IRG06 = Calcul_Imposition_Annee01_03;
+                }
+                if (ResultatExploitation07 <= 0)
+                {
+                    IBS_IFU_IRG07 = Calcul_Imposition_Annee01_03;
+                }
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+            #endregion
+
+                #region Données EtatCompteResultat
+
+                etatCompteResultatPrevisionnel.ChiffreAffaires01 = string.Format(frCult, "{0:n}", MontantChiffreAffaire01);
             etatCompteResultatPrevisionnel.ChiffreAffaires02 = string.Format(frCult, "{0:n}", MontantChiffreAffaire02);
             etatCompteResultatPrevisionnel.ChiffreAffaires03 = string.Format(frCult, "{0:n}", MontantChiffreAffaire03);
             etatCompteResultatPrevisionnel.ChiffreAffaires04 = string.Format(frCult, "{0:n}", MontantChiffreAffaire04);
@@ -1720,13 +2895,103 @@ namespace Anade.Khadamat.Web.Controllers
             etatCompteResultatPrevisionnel.AchatsConsommes06 = string.Format(frCult, "{0:n}", MontantAchatsConsommes06);
             etatCompteResultatPrevisionnel.AchatsConsommes07 = string.Format(frCult, "{0:n}", MontantAchatsConsommes07);
 
+            etatCompteResultatPrevisionnel.ChargesExternes01 = string.Format(frCult, "{0:n}", MontantChargesExternes01);
+            etatCompteResultatPrevisionnel.ChargesExternes02 = string.Format(frCult, "{0:n}", MontantChargesExternes02);
+            etatCompteResultatPrevisionnel.ChargesExternes03 = string.Format(frCult, "{0:n}", MontantChargesExternes03);
+            etatCompteResultatPrevisionnel.ChargesExternes04 = string.Format(frCult, "{0:n}", MontantChargesExternes04);
+            etatCompteResultatPrevisionnel.ChargesExternes05 = string.Format(frCult, "{0:n}", MontantChargesExternes05);
+            etatCompteResultatPrevisionnel.ChargesExternes06 = string.Format(frCult, "{0:n}", MontantChargesExternes06);
+            etatCompteResultatPrevisionnel.ChargesExternes07 = string.Format(frCult, "{0:n}", MontantChargesExternes07);
 
+            etatCompteResultatPrevisionnel.ValeurAjoutee01 = string.Format(frCult, "{0:n}", ValeurAjoutee01);
+            etatCompteResultatPrevisionnel.ValeurAjoutee02 = string.Format(frCult, "{0:n}", ValeurAjoutee02);
+            etatCompteResultatPrevisionnel.ValeurAjoutee03 = string.Format(frCult, "{0:n}", ValeurAjoutee03);
+            etatCompteResultatPrevisionnel.ValeurAjoutee04 = string.Format(frCult, "{0:n}", ValeurAjoutee04);
+            etatCompteResultatPrevisionnel.ValeurAjoutee05 = string.Format(frCult, "{0:n}", ValeurAjoutee05);
+            etatCompteResultatPrevisionnel.ValeurAjoutee06 = string.Format(frCult, "{0:n}", ValeurAjoutee06);
+            etatCompteResultatPrevisionnel.ValeurAjoutee07 = string.Format(frCult, "{0:n}", ValeurAjoutee07);
 
+            etatCompteResultatPrevisionnel.SalairesChargesSociales01 = string.Format(frCult, "{0:n}", SalairesChargesSociales01);
+            etatCompteResultatPrevisionnel.SalairesChargesSociales02 = string.Format(frCult, "{0:n}", SalairesChargesSociales02);
+            etatCompteResultatPrevisionnel.SalairesChargesSociales03 = string.Format(frCult, "{0:n}", SalairesChargesSociales03);
+            etatCompteResultatPrevisionnel.SalairesChargesSociales04 = string.Format(frCult, "{0:n}", SalairesChargesSociales04);
+            etatCompteResultatPrevisionnel.SalairesChargesSociales05 = string.Format(frCult, "{0:n}", SalairesChargesSociales05);
+            etatCompteResultatPrevisionnel.SalairesChargesSociales06 = string.Format(frCult, "{0:n}", SalairesChargesSociales06);
+            etatCompteResultatPrevisionnel.SalairesChargesSociales07 = string.Format(frCult, "{0:n}", SalairesChargesSociales07);
 
+            etatCompteResultatPrevisionnel.ExcedentBrutExploitation01 = string.Format(frCult, "{0:n}", ExcedentBrutExploitation01);
+            etatCompteResultatPrevisionnel.ExcedentBrutExploitation02 = string.Format(frCult, "{0:n}", ExcedentBrutExploitation02);
+            etatCompteResultatPrevisionnel.ExcedentBrutExploitation03 = string.Format(frCult, "{0:n}", ExcedentBrutExploitation03);
+            etatCompteResultatPrevisionnel.ExcedentBrutExploitation04 = string.Format(frCult, "{0:n}", ExcedentBrutExploitation04);
+            etatCompteResultatPrevisionnel.ExcedentBrutExploitation05 = string.Format(frCult, "{0:n}", ExcedentBrutExploitation05);
+            etatCompteResultatPrevisionnel.ExcedentBrutExploitation06 = string.Format(frCult, "{0:n}", ExcedentBrutExploitation06);
+            etatCompteResultatPrevisionnel.ExcedentBrutExploitation07 = string.Format(frCult, "{0:n}", ExcedentBrutExploitation07);
 
-            // Chiffre d'affaires (1) =>  Sum(Chiffre Affaires) Tous les Produits / Services;
-            // Achats consommés   (2) => (Sum(Achats directs) * Taux de consommation / 100) tous les achats;
-            // Charges externes   (3) => 
+            etatCompteResultatPrevisionnel.AmortissementsProvisions01 = string.Format(frCult, "{0:n}", AmortissementsProvisions01);
+            etatCompteResultatPrevisionnel.AmortissementsProvisions02 = string.Format(frCult, "{0:n}", AmortissementsProvisions02);
+            etatCompteResultatPrevisionnel.AmortissementsProvisions03 = string.Format(frCult, "{0:n}", AmortissementsProvisions03);
+            etatCompteResultatPrevisionnel.AmortissementsProvisions04 = string.Format(frCult, "{0:n}", AmortissementsProvisions04);
+            etatCompteResultatPrevisionnel.AmortissementsProvisions05 = string.Format(frCult, "{0:n}", AmortissementsProvisions05);
+            etatCompteResultatPrevisionnel.AmortissementsProvisions06 = string.Format(frCult, "{0:n}", AmortissementsProvisions06);
+            etatCompteResultatPrevisionnel.AmortissementsProvisions07 = string.Format(frCult, "{0:n}", AmortissementsProvisions07);
+
+            etatCompteResultatPrevisionnel.ResultatExploitation01 = string.Format(frCult, "{0:n}", ResultatExploitation01);
+            etatCompteResultatPrevisionnel.ResultatExploitation02 = string.Format(frCult, "{0:n}", ResultatExploitation02);
+            etatCompteResultatPrevisionnel.ResultatExploitation03 = string.Format(frCult, "{0:n}", ResultatExploitation03);
+            etatCompteResultatPrevisionnel.ResultatExploitation04 = string.Format(frCult, "{0:n}", ResultatExploitation04);
+            etatCompteResultatPrevisionnel.ResultatExploitation05 = string.Format(frCult, "{0:n}", ResultatExploitation05);
+            etatCompteResultatPrevisionnel.ResultatExploitation06 = string.Format(frCult, "{0:n}", ResultatExploitation06);
+            etatCompteResultatPrevisionnel.ResultatExploitation07 = string.Format(frCult, "{0:n}", ResultatExploitation07);
+
+            etatCompteResultatPrevisionnel.IBS_IFU_IRG01 = string.Format(frCult, "{0:n}", IBS_IFU_IRG01);
+            etatCompteResultatPrevisionnel.IBS_IFU_IRG02 = string.Format(frCult, "{0:n}", IBS_IFU_IRG02);
+            etatCompteResultatPrevisionnel.IBS_IFU_IRG03 = string.Format(frCult, "{0:n}", IBS_IFU_IRG03);
+            etatCompteResultatPrevisionnel.IBS_IFU_IRG04 = string.Format(frCult, "{0:n}", IBS_IFU_IRG04);
+            etatCompteResultatPrevisionnel.IBS_IFU_IRG05 = string.Format(frCult, "{0:n}", IBS_IFU_IRG05);
+            etatCompteResultatPrevisionnel.IBS_IFU_IRG06 = string.Format(frCult, "{0:n}", IBS_IFU_IRG06);
+            etatCompteResultatPrevisionnel.IBS_IFU_IRG07 = string.Format(frCult, "{0:n}", IBS_IFU_IRG07);
+
+            etatCompteResultatPrevisionnel.ResultatNet01 = string.Format(frCult, "{0:n}", ResultatNet01);
+            etatCompteResultatPrevisionnel.ResultatNet02 = string.Format(frCult, "{0:n}", ResultatNet02);
+            etatCompteResultatPrevisionnel.ResultatNet03 = string.Format(frCult, "{0:n}", ResultatNet03);
+            etatCompteResultatPrevisionnel.ResultatNet04 = string.Format(frCult, "{0:n}", ResultatNet04);
+            etatCompteResultatPrevisionnel.ResultatNet05 = string.Format(frCult, "{0:n}", ResultatNet05);
+            etatCompteResultatPrevisionnel.ResultatNet06 = string.Format(frCult, "{0:n}", ResultatNet06);
+            etatCompteResultatPrevisionnel.ResultatNet07 = string.Format(frCult, "{0:n}", ResultatNet07);
+
+            etatCompteResultatPrevisionnel.EvolutionChiffreAffaires01 = "-";
+            etatCompteResultatPrevisionnel.EvolutionChiffreAffaires02 = string.Format(frCult, "{0:n}", EvolutionChiffreAffaires02);
+            etatCompteResultatPrevisionnel.EvolutionChiffreAffaires03 = string.Format(frCult, "{0:n}", EvolutionChiffreAffaires03);
+            etatCompteResultatPrevisionnel.EvolutionChiffreAffaires04 = string.Format(frCult, "{0:n}", EvolutionChiffreAffaires04);
+            etatCompteResultatPrevisionnel.EvolutionChiffreAffaires05 = string.Format(frCult, "{0:n}", EvolutionChiffreAffaires05);
+            etatCompteResultatPrevisionnel.EvolutionChiffreAffaires06 = string.Format(frCult, "{0:n}", EvolutionChiffreAffaires06);
+            etatCompteResultatPrevisionnel.EvolutionChiffreAffaires07 = string.Format(frCult, "{0:n}", EvolutionChiffreAffaires07);
+
+            etatCompteResultatPrevisionnel.TauxVA01 = string.Format(frCult, "{0:n}", TauxVA01);
+            etatCompteResultatPrevisionnel.TauxVA02 = string.Format(frCult, "{0:n}", TauxVA02);
+            etatCompteResultatPrevisionnel.TauxVA03 = string.Format(frCult, "{0:n}", TauxVA03);
+            etatCompteResultatPrevisionnel.TauxVA04 = string.Format(frCult, "{0:n}", TauxVA04);
+            etatCompteResultatPrevisionnel.TauxVA05 = string.Format(frCult, "{0:n}", TauxVA05);
+            etatCompteResultatPrevisionnel.TauxVA06 = string.Format(frCult, "{0:n}", TauxVA06);
+            etatCompteResultatPrevisionnel.TauxVA07 = string.Format(frCult, "{0:n}", TauxVA07);
+
+            etatCompteResultatPrevisionnel.TauxEBE01 = string.Format(frCult, "{0:n}", TauxEBE01);
+            etatCompteResultatPrevisionnel.TauxEBE02 = string.Format(frCult, "{0:n}", TauxEBE02);
+            etatCompteResultatPrevisionnel.TauxEBE03 = string.Format(frCult, "{0:n}", TauxEBE03);
+            etatCompteResultatPrevisionnel.TauxEBE04 = string.Format(frCult, "{0:n}", TauxEBE04);
+            etatCompteResultatPrevisionnel.TauxEBE05 = string.Format(frCult, "{0:n}", TauxEBE05);
+            etatCompteResultatPrevisionnel.TauxEBE06 = string.Format(frCult, "{0:n}", TauxEBE06);
+            etatCompteResultatPrevisionnel.TauxEBE07 = string.Format(frCult, "{0:n}", TauxEBE07);
+
+            etatCompteResultatPrevisionnel.CAF01 = string.Format(frCult, "{0:n}", CAF01);
+            etatCompteResultatPrevisionnel.CAF02 = string.Format(frCult, "{0:n}", CAF02);
+            etatCompteResultatPrevisionnel.CAF03 = string.Format(frCult, "{0:n}", CAF03);
+            etatCompteResultatPrevisionnel.CAF04 = string.Format(frCult, "{0:n}", CAF04);
+            etatCompteResultatPrevisionnel.CAF05 = string.Format(frCult, "{0:n}", CAF05);
+            etatCompteResultatPrevisionnel.CAF06 = string.Format(frCult, "{0:n}", CAF06);
+            etatCompteResultatPrevisionnel.CAF07 = string.Format(frCult, "{0:n}", CAF07);
+
+            #endregion
 
             return PartialView($"_{nameof(EtatCompteResultat)}", etatCompteResultatPrevisionnel);
         }
@@ -1755,7 +3020,305 @@ namespace Anade.Khadamat.Web.Controllers
                 ViewData["CompletOuiNon"] = "Non";
             }
 
+            System.Globalization.CultureInfo frCult = System.Globalization.CultureInfo.CreateSpecificCulture("fr-FR");
+
+            #region Données EtatTFT
+
+            decimal EncaissementsRecuClients01 = 0;
+            decimal SommesVerseesFournisseurs01 = 0;
+            decimal SommesVerseesPrestataires01 = 0;
+            decimal SommesVerseesPersonnelCNAS_IRG01 = 0;
+            decimal DecaissementTVAPayer01 = 0;
+            decimal DecaissementIBS_IFU_IRG01 = 0;
+            decimal FluxTresorerieProvenantExploitation01 = 0;
+            decimal DecaissementAcquisitionEquipements01 = 0;
+            decimal FluxTresorerieProvenantInvestissement01 = 0;
+            decimal EncaissementsSuiteApportPersonnel01 = 0;
+            decimal EncaissementsProvenantEmprunts01 = 0;
+            decimal RemboursementsEmpruntsCMT01 = 0;
+            decimal RemboursementsEmpruntsPNR01 = 0;
+            decimal FluxTresorerieProvenantFinancement01 = 0;
+            decimal FluxTresorerieNet01 = 0;
+            decimal SoldeInitial01 = 0;
+            decimal SoldeFinal01 = 0;
+            decimal Equilibre01 = 0;
+
+            decimal EncaissementsRecuClients02 = 0;
+            decimal SommesVerseesFournisseurs02 = 0;
+            decimal SommesVerseesPrestataires02 = 0;
+            decimal SommesVerseesPersonnelCNAS_IRG02 = 0;
+            decimal DecaissementTVAPayer02 = 0;
+            decimal DecaissementIBS_IFU_IRG02 = 0;
+            decimal FluxTresorerieProvenantExploitation02 = 0;
+            decimal DecaissementAcquisitionEquipements02 = 0;
+            decimal FluxTresorerieProvenantInvestissement02 = 0;
+            decimal EncaissementsSuiteApportPersonnel02 = 0;
+            decimal EncaissementsProvenantEmprunts02 = 0;
+            decimal RemboursementsEmpruntsCMT02 = 0;
+            decimal RemboursementsEmpruntsPNR02 = 0;
+            decimal FluxTresorerieProvenantFinancement02 = 0;
+            decimal FluxTresorerieNet02 = 0;
+            decimal SoldeInitial02 = 0;
+            decimal SoldeFinal02 = 0;
+            decimal Equilibre02 = 0;
+
+            decimal EncaissementsRecuClients03 = 0;
+            decimal SommesVerseesFournisseurs03 = 0;
+            decimal SommesVerseesPrestataires03 = 0;
+            decimal SommesVerseesPersonnelCNAS_IRG03 = 0;
+            decimal DecaissementTVAPayer03 = 0;
+            decimal DecaissementIBS_IFU_IRG03 = 0;
+            decimal FluxTresorerieProvenantExploitation03 = 0;
+            decimal DecaissementAcquisitionEquipements03 = 0;
+            decimal FluxTresorerieProvenantInvestissement03 = 0;
+            decimal EncaissementsSuiteApportPersonnel03 = 0;
+            decimal EncaissementsProvenantEmprunts03 = 0;
+            decimal RemboursementsEmpruntsCMT03 = 0;
+            decimal RemboursementsEmpruntsPNR03 = 0;
+            decimal FluxTresorerieProvenantFinancement03 = 0;
+            decimal FluxTresorerieNet03 = 0;
+            decimal SoldeInitial03 = 0;
+            decimal SoldeFinal03 = 0;
+            decimal Equilibre03 = 0;
+
+            decimal EncaissementsRecuClients04 = 0;
+            decimal SommesVerseesFournisseurs04 = 0;
+            decimal SommesVerseesPrestataires04 = 0;
+            decimal SommesVerseesPersonnelCNAS_IRG04 = 0;
+            decimal DecaissementTVAPayer04 = 0;
+            decimal DecaissementIBS_IFU_IRG04 = 0;
+            decimal FluxTresorerieProvenantExploitation04 = 0;
+            decimal DecaissementAcquisitionEquipements04 = 0;
+            decimal FluxTresorerieProvenantInvestissement04 = 0;
+            decimal EncaissementsSuiteApportPersonnel04 = 0;
+            decimal EncaissementsProvenantEmprunts04 = 0;
+            decimal RemboursementsEmpruntsCMT04 = 0;
+            decimal RemboursementsEmpruntsPNR04 = 0;
+            decimal FluxTresorerieProvenantFinancement04 = 0;
+            decimal FluxTresorerieNet04 = 0;
+            decimal SoldeInitial04 = 0;
+            decimal SoldeFinal04 = 0;
+            decimal Equilibre04 = 0;
+
+            decimal EncaissementsRecuClients05 = 0;
+            decimal SommesVerseesFournisseurs05 = 0;
+            decimal SommesVerseesPrestataires05 = 0;
+            decimal SommesVerseesPersonnelCNAS_IRG05 = 0;
+            decimal DecaissementTVAPayer05 = 0;
+            decimal DecaissementIBS_IFU_IRG05 = 0;
+            decimal FluxTresorerieProvenantExploitation05 = 0;
+            decimal DecaissementAcquisitionEquipements05 = 0;
+            decimal FluxTresorerieProvenantInvestissement05 = 0;
+            decimal EncaissementsSuiteApportPersonnel05 = 0;
+            decimal EncaissementsProvenantEmprunts05 = 0;
+            decimal RemboursementsEmpruntsCMT05 = 0;
+            decimal RemboursementsEmpruntsPNR05 = 0;
+            decimal FluxTresorerieProvenantFinancement05 = 0;
+            decimal FluxTresorerieNet05 = 0;
+            decimal SoldeInitial05 = 0;
+            decimal SoldeFinal05 = 0;
+            decimal Equilibre05 = 0;
+
+            decimal EncaissementsRecuClients06 = 0;
+            decimal SommesVerseesFournisseurs06 = 0;
+            decimal SommesVerseesPrestataires06 = 0;
+            decimal SommesVerseesPersonnelCNAS_IRG06 = 0;
+            decimal DecaissementTVAPayer06 = 0;
+            decimal DecaissementIBS_IFU_IRG06 = 0;
+            decimal FluxTresorerieProvenantExploitation06 = 0;
+            decimal DecaissementAcquisitionEquipements06 = 0;
+            decimal FluxTresorerieProvenantInvestissement06 = 0;
+            decimal EncaissementsSuiteApportPersonnel06 = 0;
+            decimal EncaissementsProvenantEmprunts06 = 0;
+            decimal RemboursementsEmpruntsCMT06 = 0;
+            decimal RemboursementsEmpruntsPNR06 = 0;
+            decimal FluxTresorerieProvenantFinancement06 = 0;
+            decimal FluxTresorerieNet06 = 0;
+            decimal SoldeInitial06 = 0;
+            decimal SoldeFinal06 = 0;
+            decimal Equilibre06 = 0;
+
+            decimal EncaissementsRecuClients07 = 0;
+            decimal SommesVerseesFournisseurs07 = 0;
+            decimal SommesVerseesPrestataires07 = 0;
+            decimal SommesVerseesPersonnelCNAS_IRG07 = 0;
+            decimal DecaissementTVAPayer07 = 0;
+            decimal DecaissementIBS_IFU_IRG07 = 0;
+            decimal FluxTresorerieProvenantExploitation07 = 0;
+            decimal DecaissementAcquisitionEquipements07 = 0;
+            decimal FluxTresorerieProvenantInvestissement07 = 0;
+            decimal EncaissementsSuiteApportPersonnel07 = 0;
+            decimal EncaissementsProvenantEmprunts07 = 0;
+            decimal RemboursementsEmpruntsCMT07 = 0;
+            decimal RemboursementsEmpruntsPNR07 = 0;
+            decimal FluxTresorerieProvenantFinancement07 = 0;
+            decimal FluxTresorerieNet07 = 0;
+            decimal SoldeInitial07 = 0;
+            decimal SoldeFinal07 = 0;
+            decimal Equilibre07 = 0;
+
+            #endregion
+
             EtatTFTModel etatTFTModel = new();
+
+            #region Calcule Données EtatTFT
+
+            FluxTresorerieProvenantExploitation01 = EncaissementsRecuClients01
+                                                  - SommesVerseesFournisseurs01
+                                                  - SommesVerseesPrestataires01
+                                                  - SommesVerseesPersonnelCNAS_IRG01
+                                                  - DecaissementTVAPayer01
+                                                  - DecaissementIBS_IFU_IRG01;
+
+            FluxTresorerieProvenantInvestissement01 = DecaissementAcquisitionEquipements01;
+
+            FluxTresorerieProvenantFinancement01 = EncaissementsSuiteApportPersonnel01
+                                                 + EncaissementsProvenantEmprunts01
+                                                 - RemboursementsEmpruntsCMT01
+                                                 - RemboursementsEmpruntsPNR01;
+
+            FluxTresorerieNet01 = FluxTresorerieProvenantExploitation01
+                                + FluxTresorerieProvenantInvestissement01
+                                + FluxTresorerieProvenantFinancement01;
+
+            #endregion
+
+            #region Données etatTFTModel
+
+            etatTFTModel.EncaissementsRecuClients01 = string.Format(frCult, "{0:n}", EncaissementsRecuClients01);
+            etatTFTModel.SommesVerseesFournisseurs01 = string.Format(frCult, "{0:n}", SommesVerseesFournisseurs01);
+            etatTFTModel.SommesVerseesPrestataires01 = string.Format(frCult, "{0:n}", SommesVerseesPrestataires01);
+            etatTFTModel.SommesVerseesPersonnelCNAS_IRG01 = string.Format(frCult, "{0:n}", SommesVerseesPersonnelCNAS_IRG01);
+            etatTFTModel.DecaissementTVAPayer01 = string.Format(frCult, "{0:n}", DecaissementTVAPayer01);
+            etatTFTModel.DecaissementIBS_IFU_IRG01 = string.Format(frCult, "{0:n}", DecaissementIBS_IFU_IRG01);
+            etatTFTModel.FluxTresorerieProvenantExploitation01 = string.Format(frCult, "{0:n}", FluxTresorerieProvenantExploitation01);
+            etatTFTModel.DecaissementAcquisitionEquipements01 = string.Format(frCult, "{0:n}", DecaissementAcquisitionEquipements01);
+            etatTFTModel.FluxTresorerieProvenantInvestissement01 = string.Format(frCult, "{0:n}", FluxTresorerieProvenantInvestissement01);
+            etatTFTModel.EncaissementsSuiteApportPersonnel01 = string.Format(frCult, "{0:n}", EncaissementsSuiteApportPersonnel01);
+            etatTFTModel.EncaissementsProvenantEmprunts01 = string.Format(frCult, "{0:n}", EncaissementsProvenantEmprunts01);
+            etatTFTModel.RemboursementsEmpruntsCMT01 = string.Format(frCult, "{0:n}", RemboursementsEmpruntsCMT01);
+            etatTFTModel.RemboursementsEmpruntsPNR01 = string.Format(frCult, "{0:n}", RemboursementsEmpruntsPNR01);
+            etatTFTModel.FluxTresorerieProvenantFinancement01 = string.Format(frCult, "{0:n}", FluxTresorerieProvenantFinancement01);
+            etatTFTModel.FluxTresorerieNet01 = string.Format(frCult, "{0:n}", FluxTresorerieNet01);
+            etatTFTModel.SoldeInitial01 = string.Format(frCult, "{0:n}", SoldeInitial01);
+            etatTFTModel.SoldeFinal01 = string.Format(frCult, "{0:n}", SoldeFinal01);
+            etatTFTModel.Equilibre01 = string.Format(frCult, "{0:n}", Equilibre01);
+
+            etatTFTModel.EncaissementsRecuClients02 = string.Format(frCult, "{0:n}", EncaissementsRecuClients02);
+            etatTFTModel.SommesVerseesFournisseurs02 = string.Format(frCult, "{0:n}", SommesVerseesFournisseurs02);
+            etatTFTModel.SommesVerseesPrestataires02 = string.Format(frCult, "{0:n}", SommesVerseesPrestataires02);
+            etatTFTModel.SommesVerseesPersonnelCNAS_IRG02 = string.Format(frCult, "{0:n}", SommesVerseesPersonnelCNAS_IRG02);
+            etatTFTModel.DecaissementTVAPayer02 = string.Format(frCult, "{0:n}", DecaissementTVAPayer02);
+            etatTFTModel.DecaissementIBS_IFU_IRG02 = string.Format(frCult, "{0:n}", DecaissementIBS_IFU_IRG02);
+            etatTFTModel.FluxTresorerieProvenantExploitation02 = string.Format(frCult, "{0:n}", FluxTresorerieProvenantExploitation02);
+            etatTFTModel.DecaissementAcquisitionEquipements02 = string.Format(frCult, "{0:n}", DecaissementAcquisitionEquipements02);
+            etatTFTModel.FluxTresorerieProvenantInvestissement02 = string.Format(frCult, "{0:n}", FluxTresorerieProvenantInvestissement02);
+            etatTFTModel.EncaissementsSuiteApportPersonnel02 = string.Format(frCult, "{0:n}", EncaissementsSuiteApportPersonnel02);
+            etatTFTModel.EncaissementsProvenantEmprunts02 = string.Format(frCult, "{0:n}", EncaissementsProvenantEmprunts02);
+            etatTFTModel.RemboursementsEmpruntsCMT02 = string.Format(frCult, "{0:n}", RemboursementsEmpruntsCMT02);
+            etatTFTModel.RemboursementsEmpruntsPNR02 = string.Format(frCult, "{0:n}", RemboursementsEmpruntsPNR02);
+            etatTFTModel.FluxTresorerieProvenantFinancement02 = string.Format(frCult, "{0:n}", FluxTresorerieProvenantFinancement02);
+            etatTFTModel.FluxTresorerieNet02 = string.Format(frCult, "{0:n}", FluxTresorerieNet02);
+            etatTFTModel.SoldeInitial02 = string.Format(frCult, "{0:n}", SoldeInitial02);
+            etatTFTModel.SoldeFinal02 = string.Format(frCult, "{0:n}", SoldeFinal02);
+            etatTFTModel.Equilibre02 = string.Format(frCult, "{0:n}", Equilibre02);
+
+            etatTFTModel.EncaissementsRecuClients03 = string.Format(frCult, "{0:n}", EncaissementsRecuClients03);
+            etatTFTModel.SommesVerseesFournisseurs03 = string.Format(frCult, "{0:n}", SommesVerseesFournisseurs03);
+            etatTFTModel.SommesVerseesPrestataires03 = string.Format(frCult, "{0:n}", SommesVerseesPrestataires03);
+            etatTFTModel.SommesVerseesPersonnelCNAS_IRG03 = string.Format(frCult, "{0:n}", SommesVerseesPersonnelCNAS_IRG03);
+            etatTFTModel.DecaissementTVAPayer03 = string.Format(frCult, "{0:n}", DecaissementTVAPayer03);
+            etatTFTModel.DecaissementIBS_IFU_IRG03 = string.Format(frCult, "{0:n}", DecaissementIBS_IFU_IRG03);
+            etatTFTModel.FluxTresorerieProvenantExploitation03 = string.Format(frCult, "{0:n}", FluxTresorerieProvenantExploitation03);
+            etatTFTModel.DecaissementAcquisitionEquipements03 = string.Format(frCult, "{0:n}", DecaissementAcquisitionEquipements03);
+            etatTFTModel.FluxTresorerieProvenantInvestissement03 = string.Format(frCult, "{0:n}", FluxTresorerieProvenantInvestissement03);
+            etatTFTModel.EncaissementsSuiteApportPersonnel03 = string.Format(frCult, "{0:n}", EncaissementsSuiteApportPersonnel03);
+            etatTFTModel.EncaissementsProvenantEmprunts03 = string.Format(frCult, "{0:n}", EncaissementsProvenantEmprunts03);
+            etatTFTModel.RemboursementsEmpruntsCMT03 = string.Format(frCult, "{0:n}", RemboursementsEmpruntsCMT03);
+            etatTFTModel.RemboursementsEmpruntsPNR03 = string.Format(frCult, "{0:n}", RemboursementsEmpruntsPNR03);
+            etatTFTModel.FluxTresorerieProvenantFinancement03 = string.Format(frCult, "{0:n}", FluxTresorerieProvenantFinancement03);
+            etatTFTModel.FluxTresorerieNet03 = string.Format(frCult, "{0:n}", FluxTresorerieNet03);
+            etatTFTModel.SoldeInitial03 = string.Format(frCult, "{0:n}", SoldeInitial03);
+            etatTFTModel.SoldeFinal03 = string.Format(frCult, "{0:n}", SoldeFinal03);
+            etatTFTModel.Equilibre03 = string.Format(frCult, "{0:n}", Equilibre03);
+
+            etatTFTModel.EncaissementsRecuClients04 = string.Format(frCult, "{0:n}", EncaissementsRecuClients04);
+            etatTFTModel.SommesVerseesFournisseurs04 = string.Format(frCult, "{0:n}", SommesVerseesFournisseurs04);
+            etatTFTModel.SommesVerseesPrestataires04 = string.Format(frCult, "{0:n}", SommesVerseesPrestataires04);
+            etatTFTModel.SommesVerseesPersonnelCNAS_IRG04 = string.Format(frCult, "{0:n}", SommesVerseesPersonnelCNAS_IRG04);
+            etatTFTModel.DecaissementTVAPayer04 = string.Format(frCult, "{0:n}", DecaissementTVAPayer04);
+            etatTFTModel.DecaissementIBS_IFU_IRG04 = string.Format(frCult, "{0:n}", DecaissementIBS_IFU_IRG04);
+            etatTFTModel.FluxTresorerieProvenantExploitation04 = string.Format(frCult, "{0:n}", FluxTresorerieProvenantExploitation04);
+            etatTFTModel.DecaissementAcquisitionEquipements04 = string.Format(frCult, "{0:n}", DecaissementAcquisitionEquipements04);
+            etatTFTModel.FluxTresorerieProvenantInvestissement04 = string.Format(frCult, "{0:n}", FluxTresorerieProvenantInvestissement04);
+            etatTFTModel.EncaissementsSuiteApportPersonnel04 = string.Format(frCult, "{0:n}", EncaissementsSuiteApportPersonnel04);
+            etatTFTModel.EncaissementsProvenantEmprunts04 = string.Format(frCult, "{0:n}", EncaissementsProvenantEmprunts04);
+            etatTFTModel.RemboursementsEmpruntsCMT04 = string.Format(frCult, "{0:n}", RemboursementsEmpruntsCMT04);
+            etatTFTModel.RemboursementsEmpruntsPNR04 = string.Format(frCult, "{0:n}", RemboursementsEmpruntsPNR04);
+            etatTFTModel.FluxTresorerieProvenantFinancement04 = string.Format(frCult, "{0:n}", FluxTresorerieProvenantFinancement04);
+            etatTFTModel.FluxTresorerieNet04 = string.Format(frCult, "{0:n}", FluxTresorerieNet04);
+            etatTFTModel.SoldeInitial04 = string.Format(frCult, "{0:n}", SoldeInitial04);
+            etatTFTModel.SoldeFinal04 = string.Format(frCult, "{0:n}", SoldeFinal04);
+            etatTFTModel.Equilibre04 = string.Format(frCult, "{0:n}", Equilibre04);
+
+            etatTFTModel.EncaissementsRecuClients05 = string.Format(frCult, "{0:n}", EncaissementsRecuClients05);
+            etatTFTModel.SommesVerseesFournisseurs05 = string.Format(frCult, "{0:n}", SommesVerseesFournisseurs05);
+            etatTFTModel.SommesVerseesPrestataires05 = string.Format(frCult, "{0:n}", SommesVerseesPrestataires05);
+            etatTFTModel.SommesVerseesPersonnelCNAS_IRG05 = string.Format(frCult, "{0:n}", SommesVerseesPersonnelCNAS_IRG05);
+            etatTFTModel.DecaissementTVAPayer05 = string.Format(frCult, "{0:n}", DecaissementTVAPayer05);
+            etatTFTModel.DecaissementIBS_IFU_IRG05 = string.Format(frCult, "{0:n}", DecaissementIBS_IFU_IRG05);
+            etatTFTModel.FluxTresorerieProvenantExploitation05 = string.Format(frCult, "{0:n}", FluxTresorerieProvenantExploitation05);
+            etatTFTModel.DecaissementAcquisitionEquipements05 = string.Format(frCult, "{0:n}", DecaissementAcquisitionEquipements05);
+            etatTFTModel.FluxTresorerieProvenantInvestissement05 = string.Format(frCult, "{0:n}", FluxTresorerieProvenantInvestissement05);
+            etatTFTModel.EncaissementsSuiteApportPersonnel05 = string.Format(frCult, "{0:n}", EncaissementsSuiteApportPersonnel05);
+            etatTFTModel.EncaissementsProvenantEmprunts05 = string.Format(frCult, "{0:n}", EncaissementsProvenantEmprunts05);
+            etatTFTModel.RemboursementsEmpruntsCMT05 = string.Format(frCult, "{0:n}", RemboursementsEmpruntsCMT05);
+            etatTFTModel.RemboursementsEmpruntsPNR05 = string.Format(frCult, "{0:n}", RemboursementsEmpruntsPNR05);
+            etatTFTModel.FluxTresorerieProvenantFinancement05 = string.Format(frCult, "{0:n}", FluxTresorerieProvenantFinancement05);
+            etatTFTModel.FluxTresorerieNet05 = string.Format(frCult, "{0:n}", FluxTresorerieNet05);
+            etatTFTModel.SoldeInitial05 = string.Format(frCult, "{0:n}", SoldeInitial05);
+            etatTFTModel.SoldeFinal05 = string.Format(frCult, "{0:n}", SoldeFinal05);
+            etatTFTModel.Equilibre05 = string.Format(frCult, "{0:n}", Equilibre05);
+
+            etatTFTModel.EncaissementsRecuClients06 = string.Format(frCult, "{0:n}", EncaissementsRecuClients06);
+            etatTFTModel.SommesVerseesFournisseurs06 = string.Format(frCult, "{0:n}", SommesVerseesFournisseurs06);
+            etatTFTModel.SommesVerseesPrestataires06 = string.Format(frCult, "{0:n}", SommesVerseesPrestataires06);
+            etatTFTModel.SommesVerseesPersonnelCNAS_IRG06 = string.Format(frCult, "{0:n}", SommesVerseesPersonnelCNAS_IRG06);
+            etatTFTModel.DecaissementTVAPayer06 = string.Format(frCult, "{0:n}", DecaissementTVAPayer06);
+            etatTFTModel.DecaissementIBS_IFU_IRG06 = string.Format(frCult, "{0:n}", DecaissementIBS_IFU_IRG06);
+            etatTFTModel.FluxTresorerieProvenantExploitation06 = string.Format(frCult, "{0:n}", FluxTresorerieProvenantExploitation06);
+            etatTFTModel.DecaissementAcquisitionEquipements06 = string.Format(frCult, "{0:n}", DecaissementAcquisitionEquipements06);
+            etatTFTModel.FluxTresorerieProvenantInvestissement06 = string.Format(frCult, "{0:n}", FluxTresorerieProvenantInvestissement06);
+            etatTFTModel.EncaissementsSuiteApportPersonnel06 = string.Format(frCult, "{0:n}", EncaissementsSuiteApportPersonnel06);
+            etatTFTModel.EncaissementsProvenantEmprunts06 = string.Format(frCult, "{0:n}", EncaissementsProvenantEmprunts06);
+            etatTFTModel.RemboursementsEmpruntsCMT06 = string.Format(frCult, "{0:n}", RemboursementsEmpruntsCMT06);
+            etatTFTModel.RemboursementsEmpruntsPNR06 = string.Format(frCult, "{0:n}", RemboursementsEmpruntsPNR06);
+            etatTFTModel.FluxTresorerieProvenantFinancement06 = string.Format(frCult, "{0:n}", FluxTresorerieProvenantFinancement06);
+            etatTFTModel.FluxTresorerieNet06 = string.Format(frCult, "{0:n}", FluxTresorerieNet06);
+            etatTFTModel.SoldeInitial06 = string.Format(frCult, "{0:n}", SoldeInitial06);
+            etatTFTModel.SoldeFinal06 = string.Format(frCult, "{0:n}", SoldeFinal06);
+            etatTFTModel.Equilibre06 = string.Format(frCult, "{0:n}", Equilibre06);
+
+            etatTFTModel.EncaissementsRecuClients07 = string.Format(frCult, "{0:n}", EncaissementsRecuClients07);
+            etatTFTModel.SommesVerseesFournisseurs07 = string.Format(frCult, "{0:n}", SommesVerseesFournisseurs07);
+            etatTFTModel.SommesVerseesPrestataires07 = string.Format(frCult, "{0:n}", SommesVerseesPrestataires07);
+            etatTFTModel.SommesVerseesPersonnelCNAS_IRG07 = string.Format(frCult, "{0:n}", SommesVerseesPersonnelCNAS_IRG07);
+            etatTFTModel.DecaissementTVAPayer07 = string.Format(frCult, "{0:n}", DecaissementTVAPayer07);
+            etatTFTModel.DecaissementIBS_IFU_IRG07 = string.Format(frCult, "{0:n}", DecaissementIBS_IFU_IRG07);
+            etatTFTModel.FluxTresorerieProvenantExploitation07 = string.Format(frCult, "{0:n}", FluxTresorerieProvenantExploitation07);
+            etatTFTModel.DecaissementAcquisitionEquipements07 = string.Format(frCult, "{0:n}", DecaissementAcquisitionEquipements07);
+            etatTFTModel.FluxTresorerieProvenantInvestissement07 = string.Format(frCult, "{0:n}", FluxTresorerieProvenantInvestissement07);
+            etatTFTModel.EncaissementsSuiteApportPersonnel07 = string.Format(frCult, "{0:n}", EncaissementsSuiteApportPersonnel07);
+            etatTFTModel.EncaissementsProvenantEmprunts07 = string.Format(frCult, "{0:n}", EncaissementsProvenantEmprunts07);
+            etatTFTModel.RemboursementsEmpruntsCMT07 = string.Format(frCult, "{0:n}", RemboursementsEmpruntsCMT07);
+            etatTFTModel.RemboursementsEmpruntsPNR07 = string.Format(frCult, "{0:n}", RemboursementsEmpruntsPNR07);
+            etatTFTModel.FluxTresorerieProvenantFinancement07 = string.Format(frCult, "{0:n}", FluxTresorerieProvenantFinancement07);
+            etatTFTModel.FluxTresorerieNet07 = string.Format(frCult, "{0:n}", FluxTresorerieNet07);
+            etatTFTModel.SoldeInitial07 = string.Format(frCult, "{0:n}", SoldeInitial07);
+            etatTFTModel.SoldeFinal07 = string.Format(frCult, "{0:n}", SoldeFinal07);
+            etatTFTModel.Equilibre07 = string.Format(frCult, "{0:n}", Equilibre07);
+
+            #endregion
 
             return PartialView($"_{nameof(EtatTFT)}", etatTFTModel);
         }
@@ -1787,7 +3350,3937 @@ namespace Anade.Khadamat.Web.Controllers
                 ViewData["CompletOuiNon"] = "Non";
             }
 
+            System.Globalization.CultureInfo frCult = System.Globalization.CultureInfo.CreateSpecificCulture("fr-FR");
+
+            #region Données EtatPlanTresorerie
+
+            #region Données EtatPlanTresorerie Année01
+
+            #region Données EtatPlanTresorerie Année01 Mois01
+            decimal SoldeInitial_01_01 = 0;
+            decimal ApportSupplementaire_01_01 = 0;
+            decimal CMT_01_01 = 0;
+            decimal PNRClassique_01_01 = 0;
+            decimal ApportPersonnel_01_01 = 0;
+            decimal PNRLoyer_01_01 = 0;
+            decimal EncaissementRecusClients_01_01 = 0;
+            decimal TotalRecette_01_01 = 0;
+            decimal AcquisitionEquipementAmenagement_01_01 = 0;
+            decimal DecaissementFournisseurs_01_01 = 0;
+            decimal DecaissementPrestataires_01_01 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_01_01 = 0;
+            decimal DecaissementSalairesNets_01_01 = 0;
+            decimal CotisationsSociales_01_01 = 0;
+            decimal IRGSalaires_01_01 = 0;
+            decimal TVAPayer_01_01 = 0;
+            decimal IBS_IFU_01_01 = 0;
+            decimal TotalDepense_01_01 = 0;
+            decimal SoldeFinal_01_01 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année01 Mois02
+            decimal SoldeInitial_01_02 = 0;
+            decimal ApportSupplementaire_01_02 = 0;
+            decimal CMT_01_02 = 0;
+            decimal PNRClassique_01_02 = 0;
+            decimal ApportPersonnel_01_02 = 0;
+            decimal PNRLoyer_01_02 = 0;
+            decimal EncaissementRecusClients_01_02 = 0;
+            decimal TotalRecette_01_02 = 0;
+            decimal AcquisitionEquipementAmenagement_01_02 = 0;
+            decimal DecaissementFournisseurs_01_02 = 0;
+            decimal DecaissementPrestataires_01_02 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_01_02 = 0;
+            decimal DecaissementSalairesNets_01_02 = 0;
+            decimal CotisationsSociales_01_02 = 0;
+            decimal IRGSalaires_01_02 = 0;
+            decimal TVAPayer_01_02 = 0;
+            decimal IBS_IFU_01_02 = 0;
+            decimal TotalDepense_01_02 = 0;
+            decimal SoldeFinal_01_02 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année01 Mois03
+            decimal SoldeInitial_01_03 = 0;
+            decimal ApportSupplementaire_01_03 = 0;
+            decimal CMT_01_03 = 0;
+            decimal PNRClassique_01_03 = 0;
+            decimal ApportPersonnel_01_03 = 0;
+            decimal PNRLoyer_01_03 = 0;
+            decimal EncaissementRecusClients_01_03 = 0;
+            decimal TotalRecette_01_03 = 0;
+            decimal AcquisitionEquipementAmenagement_01_03 = 0;
+            decimal DecaissementFournisseurs_01_03 = 0;
+            decimal DecaissementPrestataires_01_03 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_01_03 = 0;
+            decimal DecaissementSalairesNets_01_03 = 0;
+            decimal CotisationsSociales_01_03 = 0;
+            decimal IRGSalaires_01_03 = 0;
+            decimal TVAPayer_01_03 = 0;
+            decimal IBS_IFU_01_03 = 0;
+            decimal TotalDepense_01_03 = 0;
+            decimal SoldeFinal_01_03 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année01 Mois04
+            decimal SoldeInitial_01_04 = 0;
+            decimal ApportSupplementaire_01_04 = 0;
+            decimal CMT_01_04 = 0;
+            decimal PNRClassique_01_04 = 0;
+            decimal ApportPersonnel_01_04 = 0;
+            decimal PNRLoyer_01_04 = 0;
+            decimal EncaissementRecusClients_01_04 = 0;
+            decimal TotalRecette_01_04 = 0;
+            decimal AcquisitionEquipementAmenagement_01_04 = 0;
+            decimal DecaissementFournisseurs_01_04 = 0;
+            decimal DecaissementPrestataires_01_04 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_01_04 = 0;
+            decimal DecaissementSalairesNets_01_04 = 0;
+            decimal CotisationsSociales_01_04 = 0;
+            decimal IRGSalaires_01_04 = 0;
+            decimal TVAPayer_01_04 = 0;
+            decimal IBS_IFU_01_04 = 0;
+            decimal TotalDepense_01_04 = 0;
+            decimal SoldeFinal_01_04 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année01 Mois05
+            decimal SoldeInitial_01_05 = 0;
+            decimal ApportSupplementaire_01_05 = 0;
+            decimal CMT_01_05 = 0;
+            decimal PNRClassique_01_05 = 0;
+            decimal ApportPersonnel_01_05 = 0;
+            decimal PNRLoyer_01_05 = 0;
+            decimal EncaissementRecusClients_01_05 = 0;
+            decimal TotalRecette_01_05 = 0;
+            decimal AcquisitionEquipementAmenagement_01_05 = 0;
+            decimal DecaissementFournisseurs_01_05 = 0;
+            decimal DecaissementPrestataires_01_05 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_01_05 = 0;
+            decimal DecaissementSalairesNets_01_05 = 0;
+            decimal CotisationsSociales_01_05 = 0;
+            decimal IRGSalaires_01_05 = 0;
+            decimal TVAPayer_01_05 = 0;
+            decimal IBS_IFU_01_05 = 0;
+            decimal TotalDepense_01_05 = 0;
+            decimal SoldeFinal_01_05 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année01 Mois06
+            decimal SoldeInitial_01_06 = 0;
+            decimal ApportSupplementaire_01_06 = 0;
+            decimal CMT_01_06 = 0;
+            decimal PNRClassique_01_06 = 0;
+            decimal ApportPersonnel_01_06 = 0;
+            decimal PNRLoyer_01_06 = 0;
+            decimal EncaissementRecusClients_01_06 = 0;
+            decimal TotalRecette_01_06 = 0;
+            decimal AcquisitionEquipementAmenagement_01_06 = 0;
+            decimal DecaissementFournisseurs_01_06 = 0;
+            decimal DecaissementPrestataires_01_06 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_01_06 = 0;
+            decimal DecaissementSalairesNets_01_06 = 0;
+            decimal CotisationsSociales_01_06 = 0;
+            decimal IRGSalaires_01_06 = 0;
+            decimal TVAPayer_01_06 = 0;
+            decimal IBS_IFU_01_06 = 0;
+            decimal TotalDepense_01_06 = 0;
+            decimal SoldeFinal_01_06 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année01 Mois07
+            decimal SoldeInitial_01_07 = 0;
+            decimal ApportSupplementaire_01_07 = 0;
+            decimal CMT_01_07 = 0;
+            decimal PNRClassique_01_07 = 0;
+            decimal ApportPersonnel_01_07 = 0;
+            decimal PNRLoyer_01_07 = 0;
+            decimal EncaissementRecusClients_01_07 = 0;
+            decimal TotalRecette_01_07 = 0;
+            decimal AcquisitionEquipementAmenagement_01_07 = 0;
+            decimal DecaissementFournisseurs_01_07 = 0;
+            decimal DecaissementPrestataires_01_07 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_01_07 = 0;
+            decimal DecaissementSalairesNets_01_07 = 0;
+            decimal CotisationsSociales_01_07 = 0;
+            decimal IRGSalaires_01_07 = 0;
+            decimal TVAPayer_01_07 = 0;
+            decimal IBS_IFU_01_07 = 0;
+            decimal TotalDepense_01_07 = 0;
+            decimal SoldeFinal_01_07 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année01 Mois08
+            decimal SoldeInitial_01_08 = 0;
+            decimal ApportSupplementaire_01_08 = 0;
+            decimal CMT_01_08 = 0;
+            decimal PNRClassique_01_08 = 0;
+            decimal ApportPersonnel_01_08 = 0;
+            decimal PNRLoyer_01_08 = 0;
+            decimal EncaissementRecusClients_01_08 = 0;
+            decimal TotalRecette_01_08 = 0;
+            decimal AcquisitionEquipementAmenagement_01_08 = 0;
+            decimal DecaissementFournisseurs_01_08 = 0;
+            decimal DecaissementPrestataires_01_08 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_01_08 = 0;
+            decimal DecaissementSalairesNets_01_08 = 0;
+            decimal CotisationsSociales_01_08 = 0;
+            decimal IRGSalaires_01_08 = 0;
+            decimal TVAPayer_01_08 = 0;
+            decimal IBS_IFU_01_08 = 0;
+            decimal TotalDepense_01_08 = 0;
+            decimal SoldeFinal_01_08 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année01 Mois09
+            decimal SoldeInitial_01_09 = 0;
+            decimal ApportSupplementaire_01_09 = 0;
+            decimal CMT_01_09 = 0;
+            decimal PNRClassique_01_09 = 0;
+            decimal ApportPersonnel_01_09 = 0;
+            decimal PNRLoyer_01_09 = 0;
+            decimal EncaissementRecusClients_01_09 = 0;
+            decimal TotalRecette_01_09 = 0;
+            decimal AcquisitionEquipementAmenagement_01_09 = 0;
+            decimal DecaissementFournisseurs_01_09 = 0;
+            decimal DecaissementPrestataires_01_09 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_01_09 = 0;
+            decimal DecaissementSalairesNets_01_09 = 0;
+            decimal CotisationsSociales_01_09 = 0;
+            decimal IRGSalaires_01_09 = 0;
+            decimal TVAPayer_01_09 = 0;
+            decimal IBS_IFU_01_09 = 0;
+            decimal TotalDepense_01_09 = 0;
+            decimal SoldeFinal_01_09 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année01 Mois10
+            decimal SoldeInitial_01_10 = 0;
+            decimal ApportSupplementaire_01_10 = 0;
+            decimal CMT_01_10 = 0;
+            decimal PNRClassique_01_10 = 0;
+            decimal ApportPersonnel_01_10 = 0;
+            decimal PNRLoyer_01_10 = 0;
+            decimal EncaissementRecusClients_01_10 = 0;
+            decimal TotalRecette_01_10 = 0;
+            decimal AcquisitionEquipementAmenagement_01_10 = 0;
+            decimal DecaissementFournisseurs_01_10 = 0;
+            decimal DecaissementPrestataires_01_10 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_01_10 = 0;
+            decimal DecaissementSalairesNets_01_10 = 0;
+            decimal CotisationsSociales_01_10 = 0;
+            decimal IRGSalaires_01_10 = 0;
+            decimal TVAPayer_01_10 = 0;
+            decimal IBS_IFU_01_10 = 0;
+            decimal TotalDepense_01_10 = 0;
+            decimal SoldeFinal_01_10 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année01 Mois11
+            decimal SoldeInitial_01_11 = 0;
+            decimal ApportSupplementaire_01_11 = 0;
+            decimal CMT_01_11 = 0;
+            decimal PNRClassique_01_11 = 0;
+            decimal ApportPersonnel_01_11 = 0;
+            decimal PNRLoyer_01_11 = 0;
+            decimal EncaissementRecusClients_01_11 = 0;
+            decimal TotalRecette_01_11 = 0;
+            decimal AcquisitionEquipementAmenagement_01_11 = 0;
+            decimal DecaissementFournisseurs_01_11 = 0;
+            decimal DecaissementPrestataires_01_11 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_01_11 = 0;
+            decimal DecaissementSalairesNets_01_11 = 0;
+            decimal CotisationsSociales_01_11 = 0;
+            decimal IRGSalaires_01_11 = 0;
+            decimal TVAPayer_01_11 = 0;
+            decimal IBS_IFU_01_11 = 0;
+            decimal TotalDepense_01_11 = 0;
+            decimal SoldeFinal_01_11 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année01 Mois12
+            decimal SoldeInitial_01_12 = 0;
+            decimal ApportSupplementaire_01_12 = 0;
+            decimal CMT_01_12 = 0;
+            decimal PNRClassique_01_12 = 0;
+            decimal ApportPersonnel_01_12 = 0;
+            decimal PNRLoyer_01_12 = 0;
+            decimal EncaissementRecusClients_01_12 = 0;
+            decimal TotalRecette_01_12 = 0;
+            decimal AcquisitionEquipementAmenagement_01_12 = 0;
+            decimal DecaissementFournisseurs_01_12 = 0;
+            decimal DecaissementPrestataires_01_12 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_01_12 = 0;
+            decimal DecaissementSalairesNets_01_12 = 0;
+            decimal CotisationsSociales_01_12 = 0;
+            decimal IRGSalaires_01_12 = 0;
+            decimal TVAPayer_01_12 = 0;
+            decimal IBS_IFU_01_12 = 0;
+            decimal TotalDepense_01_12 = 0;
+            decimal SoldeFinal_01_12 = 0;
+            #endregion
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année02
+
+            #region Données EtatPlanTresorerie Année02 Mois01
+            decimal SoldeInitial_02_01 = 0;
+            decimal ApportSupplementaire_02_01 = 0;
+            decimal CMT_02_01 = 0;
+            decimal PNRClassique_02_01 = 0;
+            decimal ApportPersonnel_02_01 = 0;
+            decimal PNRLoyer_02_01 = 0;
+            decimal EncaissementRecusClients_02_01 = 0;
+            decimal TotalRecette_02_01 = 0;
+            decimal AcquisitionEquipementAmenagement_02_01 = 0;
+            decimal DecaissementFournisseurs_02_01 = 0;
+            decimal DecaissementPrestataires_02_01 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_02_01 = 0;
+            decimal DecaissementSalairesNets_02_01 = 0;
+            decimal CotisationsSociales_02_01 = 0;
+            decimal IRGSalaires_02_01 = 0;
+            decimal TVAPayer_02_01 = 0;
+            decimal IBS_IFU_02_01 = 0;
+            decimal TotalDepense_02_01 = 0;
+            decimal SoldeFinal_02_01 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année02 Mois02
+            decimal SoldeInitial_02_02 = 0;
+            decimal ApportSupplementaire_02_02 = 0;
+            decimal CMT_02_02 = 0;
+            decimal PNRClassique_02_02 = 0;
+            decimal ApportPersonnel_02_02 = 0;
+            decimal PNRLoyer_02_02 = 0;
+            decimal EncaissementRecusClients_02_02 = 0;
+            decimal TotalRecette_02_02 = 0;
+            decimal AcquisitionEquipementAmenagement_02_02 = 0;
+            decimal DecaissementFournisseurs_02_02 = 0;
+            decimal DecaissementPrestataires_02_02 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_02_02 = 0;
+            decimal DecaissementSalairesNets_02_02 = 0;
+            decimal CotisationsSociales_02_02 = 0;
+            decimal IRGSalaires_02_02 = 0;
+            decimal TVAPayer_02_02 = 0;
+            decimal IBS_IFU_02_02 = 0;
+            decimal TotalDepense_02_02 = 0;
+            decimal SoldeFinal_02_02 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année02 Mois03
+            decimal SoldeInitial_02_03 = 0;
+            decimal ApportSupplementaire_02_03 = 0;
+            decimal CMT_02_03 = 0;
+            decimal PNRClassique_02_03 = 0;
+            decimal ApportPersonnel_02_03 = 0;
+            decimal PNRLoyer_02_03 = 0;
+            decimal EncaissementRecusClients_02_03 = 0;
+            decimal TotalRecette_02_03 = 0;
+            decimal AcquisitionEquipementAmenagement_02_03 = 0;
+            decimal DecaissementFournisseurs_02_03 = 0;
+            decimal DecaissementPrestataires_02_03 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_02_03 = 0;
+            decimal DecaissementSalairesNets_02_03 = 0;
+            decimal CotisationsSociales_02_03 = 0;
+            decimal IRGSalaires_02_03 = 0;
+            decimal TVAPayer_02_03 = 0;
+            decimal IBS_IFU_02_03 = 0;
+            decimal TotalDepense_02_03 = 0;
+            decimal SoldeFinal_02_03 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année02 Mois04
+            decimal SoldeInitial_02_04 = 0;
+            decimal ApportSupplementaire_02_04 = 0;
+            decimal CMT_02_04 = 0;
+            decimal PNRClassique_02_04 = 0;
+            decimal ApportPersonnel_02_04 = 0;
+            decimal PNRLoyer_02_04 = 0;
+            decimal EncaissementRecusClients_02_04 = 0;
+            decimal TotalRecette_02_04 = 0;
+            decimal AcquisitionEquipementAmenagement_02_04 = 0;
+            decimal DecaissementFournisseurs_02_04 = 0;
+            decimal DecaissementPrestataires_02_04 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_02_04 = 0;
+            decimal DecaissementSalairesNets_02_04 = 0;
+            decimal CotisationsSociales_02_04 = 0;
+            decimal IRGSalaires_02_04 = 0;
+            decimal TVAPayer_02_04 = 0;
+            decimal IBS_IFU_02_04 = 0;
+            decimal TotalDepense_02_04 = 0;
+            decimal SoldeFinal_02_04 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année02 Mois05
+            decimal SoldeInitial_02_05 = 0;
+            decimal ApportSupplementaire_02_05 = 0;
+            decimal CMT_02_05 = 0;
+            decimal PNRClassique_02_05 = 0;
+            decimal ApportPersonnel_02_05 = 0;
+            decimal PNRLoyer_02_05 = 0;
+            decimal EncaissementRecusClients_02_05 = 0;
+            decimal TotalRecette_02_05 = 0;
+            decimal AcquisitionEquipementAmenagement_02_05 = 0;
+            decimal DecaissementFournisseurs_02_05 = 0;
+            decimal DecaissementPrestataires_02_05 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_02_05 = 0;
+            decimal DecaissementSalairesNets_02_05 = 0;
+            decimal CotisationsSociales_02_05 = 0;
+            decimal IRGSalaires_02_05 = 0;
+            decimal TVAPayer_02_05 = 0;
+            decimal IBS_IFU_02_05 = 0;
+            decimal TotalDepense_02_05 = 0;
+            decimal SoldeFinal_02_05 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année02 Mois06
+            decimal SoldeInitial_02_06 = 0;
+            decimal ApportSupplementaire_02_06 = 0;
+            decimal CMT_02_06 = 0;
+            decimal PNRClassique_02_06 = 0;
+            decimal ApportPersonnel_02_06 = 0;
+            decimal PNRLoyer_02_06 = 0;
+            decimal EncaissementRecusClients_02_06 = 0;
+            decimal TotalRecette_02_06 = 0;
+            decimal AcquisitionEquipementAmenagement_02_06 = 0;
+            decimal DecaissementFournisseurs_02_06 = 0;
+            decimal DecaissementPrestataires_02_06 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_02_06 = 0;
+            decimal DecaissementSalairesNets_02_06 = 0;
+            decimal CotisationsSociales_02_06 = 0;
+            decimal IRGSalaires_02_06 = 0;
+            decimal TVAPayer_02_06 = 0;
+            decimal IBS_IFU_02_06 = 0;
+            decimal TotalDepense_02_06 = 0;
+            decimal SoldeFinal_02_06 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année02 Mois07
+            decimal SoldeInitial_02_07 = 0;
+            decimal ApportSupplementaire_02_07 = 0;
+            decimal CMT_02_07 = 0;
+            decimal PNRClassique_02_07 = 0;
+            decimal ApportPersonnel_02_07 = 0;
+            decimal PNRLoyer_02_07 = 0;
+            decimal EncaissementRecusClients_02_07 = 0;
+            decimal TotalRecette_02_07 = 0;
+            decimal AcquisitionEquipementAmenagement_02_07 = 0;
+            decimal DecaissementFournisseurs_02_07 = 0;
+            decimal DecaissementPrestataires_02_07 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_02_07 = 0;
+            decimal DecaissementSalairesNets_02_07 = 0;
+            decimal CotisationsSociales_02_07 = 0;
+            decimal IRGSalaires_02_07 = 0;
+            decimal TVAPayer_02_07 = 0;
+            decimal IBS_IFU_02_07 = 0;
+            decimal TotalDepense_02_07 = 0;
+            decimal SoldeFinal_02_07 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année02 Mois08
+            decimal SoldeInitial_02_08 = 0;
+            decimal ApportSupplementaire_02_08 = 0;
+            decimal CMT_02_08 = 0;
+            decimal PNRClassique_02_08 = 0;
+            decimal ApportPersonnel_02_08 = 0;
+            decimal PNRLoyer_02_08 = 0;
+            decimal EncaissementRecusClients_02_08 = 0;
+            decimal TotalRecette_02_08 = 0;
+            decimal AcquisitionEquipementAmenagement_02_08 = 0;
+            decimal DecaissementFournisseurs_02_08 = 0;
+            decimal DecaissementPrestataires_02_08 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_02_08 = 0;
+            decimal DecaissementSalairesNets_02_08 = 0;
+            decimal CotisationsSociales_02_08 = 0;
+            decimal IRGSalaires_02_08 = 0;
+            decimal TVAPayer_02_08 = 0;
+            decimal IBS_IFU_02_08 = 0;
+            decimal TotalDepense_02_08 = 0;
+            decimal SoldeFinal_02_08 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année02 Mois09
+            decimal SoldeInitial_02_09 = 0;
+            decimal ApportSupplementaire_02_09 = 0;
+            decimal CMT_02_09 = 0;
+            decimal PNRClassique_02_09 = 0;
+            decimal ApportPersonnel_02_09 = 0;
+            decimal PNRLoyer_02_09 = 0;
+            decimal EncaissementRecusClients_02_09 = 0;
+            decimal TotalRecette_02_09 = 0;
+            decimal AcquisitionEquipementAmenagement_02_09 = 0;
+            decimal DecaissementFournisseurs_02_09 = 0;
+            decimal DecaissementPrestataires_02_09 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_02_09 = 0;
+            decimal DecaissementSalairesNets_02_09 = 0;
+            decimal CotisationsSociales_02_09 = 0;
+            decimal IRGSalaires_02_09 = 0;
+            decimal TVAPayer_02_09 = 0;
+            decimal IBS_IFU_02_09 = 0;
+            decimal TotalDepense_02_09 = 0;
+            decimal SoldeFinal_02_09 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année02 Mois10
+            decimal SoldeInitial_02_10 = 0;
+            decimal ApportSupplementaire_02_10 = 0;
+            decimal CMT_02_10 = 0;
+            decimal PNRClassique_02_10 = 0;
+            decimal ApportPersonnel_02_10 = 0;
+            decimal PNRLoyer_02_10 = 0;
+            decimal EncaissementRecusClients_02_10 = 0;
+            decimal TotalRecette_02_10 = 0;
+            decimal AcquisitionEquipementAmenagement_02_10 = 0;
+            decimal DecaissementFournisseurs_02_10 = 0;
+            decimal DecaissementPrestataires_02_10 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_02_10 = 0;
+            decimal DecaissementSalairesNets_02_10 = 0;
+            decimal CotisationsSociales_02_10 = 0;
+            decimal IRGSalaires_02_10 = 0;
+            decimal TVAPayer_02_10 = 0;
+            decimal IBS_IFU_02_10 = 0;
+            decimal TotalDepense_02_10 = 0;
+            decimal SoldeFinal_02_10 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année02 Mois11
+            decimal SoldeInitial_02_11 = 0;
+            decimal ApportSupplementaire_02_11 = 0;
+            decimal CMT_02_11 = 0;
+            decimal PNRClassique_02_11 = 0;
+            decimal ApportPersonnel_02_11 = 0;
+            decimal PNRLoyer_02_11 = 0;
+            decimal EncaissementRecusClients_02_11 = 0;
+            decimal TotalRecette_02_11 = 0;
+            decimal AcquisitionEquipementAmenagement_02_11 = 0;
+            decimal DecaissementFournisseurs_02_11 = 0;
+            decimal DecaissementPrestataires_02_11 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_02_11 = 0;
+            decimal DecaissementSalairesNets_02_11 = 0;
+            decimal CotisationsSociales_02_11 = 0;
+            decimal IRGSalaires_02_11 = 0;
+            decimal TVAPayer_02_11 = 0;
+            decimal IBS_IFU_02_11 = 0;
+            decimal TotalDepense_02_11 = 0;
+            decimal SoldeFinal_02_11 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année02 Mois12
+            decimal SoldeInitial_02_12 = 0;
+            decimal ApportSupplementaire_02_12 = 0;
+            decimal CMT_02_12 = 0;
+            decimal PNRClassique_02_12 = 0;
+            decimal ApportPersonnel_02_12 = 0;
+            decimal PNRLoyer_02_12 = 0;
+            decimal EncaissementRecusClients_02_12 = 0;
+            decimal TotalRecette_02_12 = 0;
+            decimal AcquisitionEquipementAmenagement_02_12 = 0;
+            decimal DecaissementFournisseurs_02_12 = 0;
+            decimal DecaissementPrestataires_02_12 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_02_12 = 0;
+            decimal DecaissementSalairesNets_02_12 = 0;
+            decimal CotisationsSociales_02_12 = 0;
+            decimal IRGSalaires_02_12 = 0;
+            decimal TVAPayer_02_12 = 0;
+            decimal IBS_IFU_02_12 = 0;
+            decimal TotalDepense_02_12 = 0;
+            decimal SoldeFinal_02_12 = 0;
+            #endregion
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année03
+
+            #region Données EtatPlanTresorerie Année03 Mois01
+            decimal SoldeInitial_03_01 = 0;
+            decimal ApportSupplementaire_03_01 = 0;
+            decimal CMT_03_01 = 0;
+            decimal PNRClassique_03_01 = 0;
+            decimal ApportPersonnel_03_01 = 0;
+            decimal PNRLoyer_03_01 = 0;
+            decimal EncaissementRecusClients_03_01 = 0;
+            decimal TotalRecette_03_01 = 0;
+            decimal AcquisitionEquipementAmenagement_03_01 = 0;
+            decimal DecaissementFournisseurs_03_01 = 0;
+            decimal DecaissementPrestataires_03_01 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_03_01 = 0;
+            decimal DecaissementSalairesNets_03_01 = 0;
+            decimal CotisationsSociales_03_01 = 0;
+            decimal IRGSalaires_03_01 = 0;
+            decimal TVAPayer_03_01 = 0;
+            decimal IBS_IFU_03_01 = 0;
+            decimal TotalDepense_03_01 = 0;
+            decimal SoldeFinal_03_01 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année03 Mois02
+            decimal SoldeInitial_03_02 = 0;
+            decimal ApportSupplementaire_03_02 = 0;
+            decimal CMT_03_02 = 0;
+            decimal PNRClassique_03_02 = 0;
+            decimal ApportPersonnel_03_02 = 0;
+            decimal PNRLoyer_03_02 = 0;
+            decimal EncaissementRecusClients_03_02 = 0;
+            decimal TotalRecette_03_02 = 0;
+            decimal AcquisitionEquipementAmenagement_03_02 = 0;
+            decimal DecaissementFournisseurs_03_02 = 0;
+            decimal DecaissementPrestataires_03_02 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_03_02 = 0;
+            decimal DecaissementSalairesNets_03_02 = 0;
+            decimal CotisationsSociales_03_02 = 0;
+            decimal IRGSalaires_03_02 = 0;
+            decimal TVAPayer_03_02 = 0;
+            decimal IBS_IFU_03_02 = 0;
+            decimal TotalDepense_03_02 = 0;
+            decimal SoldeFinal_03_02 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année03 Mois03
+            decimal SoldeInitial_03_03 = 0;
+            decimal ApportSupplementaire_03_03 = 0;
+            decimal CMT_03_03 = 0;
+            decimal PNRClassique_03_03 = 0;
+            decimal ApportPersonnel_03_03 = 0;
+            decimal PNRLoyer_03_03 = 0;
+            decimal EncaissementRecusClients_03_03 = 0;
+            decimal TotalRecette_03_03 = 0;
+            decimal AcquisitionEquipementAmenagement_03_03 = 0;
+            decimal DecaissementFournisseurs_03_03 = 0;
+            decimal DecaissementPrestataires_03_03 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_03_03 = 0;
+            decimal DecaissementSalairesNets_03_03 = 0;
+            decimal CotisationsSociales_03_03 = 0;
+            decimal IRGSalaires_03_03 = 0;
+            decimal TVAPayer_03_03 = 0;
+            decimal IBS_IFU_03_03 = 0;
+            decimal TotalDepense_03_03 = 0;
+            decimal SoldeFinal_03_03 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année03 Mois04
+            decimal SoldeInitial_03_04 = 0;
+            decimal ApportSupplementaire_03_04 = 0;
+            decimal CMT_03_04 = 0;
+            decimal PNRClassique_03_04 = 0;
+            decimal ApportPersonnel_03_04 = 0;
+            decimal PNRLoyer_03_04 = 0;
+            decimal EncaissementRecusClients_03_04 = 0;
+            decimal TotalRecette_03_04 = 0;
+            decimal AcquisitionEquipementAmenagement_03_04 = 0;
+            decimal DecaissementFournisseurs_03_04 = 0;
+            decimal DecaissementPrestataires_03_04 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_03_04 = 0;
+            decimal DecaissementSalairesNets_03_04 = 0;
+            decimal CotisationsSociales_03_04 = 0;
+            decimal IRGSalaires_03_04 = 0;
+            decimal TVAPayer_03_04 = 0;
+            decimal IBS_IFU_03_04 = 0;
+            decimal TotalDepense_03_04 = 0;
+            decimal SoldeFinal_03_04 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année03 Mois05
+            decimal SoldeInitial_03_05 = 0;
+            decimal ApportSupplementaire_03_05 = 0;
+            decimal CMT_03_05 = 0;
+            decimal PNRClassique_03_05 = 0;
+            decimal ApportPersonnel_03_05 = 0;
+            decimal PNRLoyer_03_05 = 0;
+            decimal EncaissementRecusClients_03_05 = 0;
+            decimal TotalRecette_03_05 = 0;
+            decimal AcquisitionEquipementAmenagement_03_05 = 0;
+            decimal DecaissementFournisseurs_03_05 = 0;
+            decimal DecaissementPrestataires_03_05 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_03_05 = 0;
+            decimal DecaissementSalairesNets_03_05 = 0;
+            decimal CotisationsSociales_03_05 = 0;
+            decimal IRGSalaires_03_05 = 0;
+            decimal TVAPayer_03_05 = 0;
+            decimal IBS_IFU_03_05 = 0;
+            decimal TotalDepense_03_05 = 0;
+            decimal SoldeFinal_03_05 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année03 Mois06
+            decimal SoldeInitial_03_06 = 0;
+            decimal ApportSupplementaire_03_06 = 0;
+            decimal CMT_03_06 = 0;
+            decimal PNRClassique_03_06 = 0;
+            decimal ApportPersonnel_03_06 = 0;
+            decimal PNRLoyer_03_06 = 0;
+            decimal EncaissementRecusClients_03_06 = 0;
+            decimal TotalRecette_03_06 = 0;
+            decimal AcquisitionEquipementAmenagement_03_06 = 0;
+            decimal DecaissementFournisseurs_03_06 = 0;
+            decimal DecaissementPrestataires_03_06 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_03_06 = 0;
+            decimal DecaissementSalairesNets_03_06 = 0;
+            decimal CotisationsSociales_03_06 = 0;
+            decimal IRGSalaires_03_06 = 0;
+            decimal TVAPayer_03_06 = 0;
+            decimal IBS_IFU_03_06 = 0;
+            decimal TotalDepense_03_06 = 0;
+            decimal SoldeFinal_03_06 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année03 Mois07
+            decimal SoldeInitial_03_07 = 0;
+            decimal ApportSupplementaire_03_07 = 0;
+            decimal CMT_03_07 = 0;
+            decimal PNRClassique_03_07 = 0;
+            decimal ApportPersonnel_03_07 = 0;
+            decimal PNRLoyer_03_07 = 0;
+            decimal EncaissementRecusClients_03_07 = 0;
+            decimal TotalRecette_03_07 = 0;
+            decimal AcquisitionEquipementAmenagement_03_07 = 0;
+            decimal DecaissementFournisseurs_03_07 = 0;
+            decimal DecaissementPrestataires_03_07 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_03_07 = 0;
+            decimal DecaissementSalairesNets_03_07 = 0;
+            decimal CotisationsSociales_03_07 = 0;
+            decimal IRGSalaires_03_07 = 0;
+            decimal TVAPayer_03_07 = 0;
+            decimal IBS_IFU_03_07 = 0;
+            decimal TotalDepense_03_07 = 0;
+            decimal SoldeFinal_03_07 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année03 Mois08
+            decimal SoldeInitial_03_08 = 0;
+            decimal ApportSupplementaire_03_08 = 0;
+            decimal CMT_03_08 = 0;
+            decimal PNRClassique_03_08 = 0;
+            decimal ApportPersonnel_03_08 = 0;
+            decimal PNRLoyer_03_08 = 0;
+            decimal EncaissementRecusClients_03_08 = 0;
+            decimal TotalRecette_03_08 = 0;
+            decimal AcquisitionEquipementAmenagement_03_08 = 0;
+            decimal DecaissementFournisseurs_03_08 = 0;
+            decimal DecaissementPrestataires_03_08 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_03_08 = 0;
+            decimal DecaissementSalairesNets_03_08 = 0;
+            decimal CotisationsSociales_03_08 = 0;
+            decimal IRGSalaires_03_08 = 0;
+            decimal TVAPayer_03_08 = 0;
+            decimal IBS_IFU_03_08 = 0;
+            decimal TotalDepense_03_08 = 0;
+            decimal SoldeFinal_03_08 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année03 Mois09
+            decimal SoldeInitial_03_09 = 0;
+            decimal ApportSupplementaire_03_09 = 0;
+            decimal CMT_03_09 = 0;
+            decimal PNRClassique_03_09 = 0;
+            decimal ApportPersonnel_03_09 = 0;
+            decimal PNRLoyer_03_09 = 0;
+            decimal EncaissementRecusClients_03_09 = 0;
+            decimal TotalRecette_03_09 = 0;
+            decimal AcquisitionEquipementAmenagement_03_09 = 0;
+            decimal DecaissementFournisseurs_03_09 = 0;
+            decimal DecaissementPrestataires_03_09 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_03_09 = 0;
+            decimal DecaissementSalairesNets_03_09 = 0;
+            decimal CotisationsSociales_03_09 = 0;
+            decimal IRGSalaires_03_09 = 0;
+            decimal TVAPayer_03_09 = 0;
+            decimal IBS_IFU_03_09 = 0;
+            decimal TotalDepense_03_09 = 0;
+            decimal SoldeFinal_03_09 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année03 Mois10
+            decimal SoldeInitial_03_10 = 0;
+            decimal ApportSupplementaire_03_10 = 0;
+            decimal CMT_03_10 = 0;
+            decimal PNRClassique_03_10 = 0;
+            decimal ApportPersonnel_03_10 = 0;
+            decimal PNRLoyer_03_10 = 0;
+            decimal EncaissementRecusClients_03_10 = 0;
+            decimal TotalRecette_03_10 = 0;
+            decimal AcquisitionEquipementAmenagement_03_10 = 0;
+            decimal DecaissementFournisseurs_03_10 = 0;
+            decimal DecaissementPrestataires_03_10 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_03_10 = 0;
+            decimal DecaissementSalairesNets_03_10 = 0;
+            decimal CotisationsSociales_03_10 = 0;
+            decimal IRGSalaires_03_10 = 0;
+            decimal TVAPayer_03_10 = 0;
+            decimal IBS_IFU_03_10 = 0;
+            decimal TotalDepense_03_10 = 0;
+            decimal SoldeFinal_03_10 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année03 Mois11
+            decimal SoldeInitial_03_11 = 0;
+            decimal ApportSupplementaire_03_11 = 0;
+            decimal CMT_03_11 = 0;
+            decimal PNRClassique_03_11 = 0;
+            decimal ApportPersonnel_03_11 = 0;
+            decimal PNRLoyer_03_11 = 0;
+            decimal EncaissementRecusClients_03_11 = 0;
+            decimal TotalRecette_03_11 = 0;
+            decimal AcquisitionEquipementAmenagement_03_11 = 0;
+            decimal DecaissementFournisseurs_03_11 = 0;
+            decimal DecaissementPrestataires_03_11 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_03_11 = 0;
+            decimal DecaissementSalairesNets_03_11 = 0;
+            decimal CotisationsSociales_03_11 = 0;
+            decimal IRGSalaires_03_11 = 0;
+            decimal TVAPayer_03_11 = 0;
+            decimal IBS_IFU_03_11 = 0;
+            decimal TotalDepense_03_11 = 0;
+            decimal SoldeFinal_03_11 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année03 Mois12
+            decimal SoldeInitial_03_12 = 0;
+            decimal ApportSupplementaire_03_12 = 0;
+            decimal CMT_03_12 = 0;
+            decimal PNRClassique_03_12 = 0;
+            decimal ApportPersonnel_03_12 = 0;
+            decimal PNRLoyer_03_12 = 0;
+            decimal EncaissementRecusClients_03_12 = 0;
+            decimal TotalRecette_03_12 = 0;
+            decimal AcquisitionEquipementAmenagement_03_12 = 0;
+            decimal DecaissementFournisseurs_03_12 = 0;
+            decimal DecaissementPrestataires_03_12 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_03_12 = 0;
+            decimal DecaissementSalairesNets_03_12 = 0;
+            decimal CotisationsSociales_03_12 = 0;
+            decimal IRGSalaires_03_12 = 0;
+            decimal TVAPayer_03_12 = 0;
+            decimal IBS_IFU_03_12 = 0;
+            decimal TotalDepense_03_12 = 0;
+            decimal SoldeFinal_03_12 = 0;
+            #endregion
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année04
+
+            #region Données EtatPlanTresorerie Année04 Mois01
+            decimal SoldeInitial_04_01 = 0;
+            decimal ApportSupplementaire_04_01 = 0;
+            decimal CMT_04_01 = 0;
+            decimal PNRClassique_04_01 = 0;
+            decimal ApportPersonnel_04_01 = 0;
+            decimal PNRLoyer_04_01 = 0;
+            decimal EncaissementRecusClients_04_01 = 0;
+            decimal TotalRecette_04_01 = 0;
+            decimal AcquisitionEquipementAmenagement_04_01 = 0;
+            decimal DecaissementFournisseurs_04_01 = 0;
+            decimal DecaissementPrestataires_04_01 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_04_01 = 0;
+            decimal DecaissementSalairesNets_04_01 = 0;
+            decimal CotisationsSociales_04_01 = 0;
+            decimal IRGSalaires_04_01 = 0;
+            decimal TVAPayer_04_01 = 0;
+            decimal IBS_IFU_04_01 = 0;
+            decimal TotalDepense_04_01 = 0;
+            decimal SoldeFinal_04_01 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année04 Mois02
+            decimal SoldeInitial_04_02 = 0;
+            decimal ApportSupplementaire_04_02 = 0;
+            decimal CMT_04_02 = 0;
+            decimal PNRClassique_04_02 = 0;
+            decimal ApportPersonnel_04_02 = 0;
+            decimal PNRLoyer_04_02 = 0;
+            decimal EncaissementRecusClients_04_02 = 0;
+            decimal TotalRecette_04_02 = 0;
+            decimal AcquisitionEquipementAmenagement_04_02 = 0;
+            decimal DecaissementFournisseurs_04_02 = 0;
+            decimal DecaissementPrestataires_04_02 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_04_02 = 0;
+            decimal DecaissementSalairesNets_04_02 = 0;
+            decimal CotisationsSociales_04_02 = 0;
+            decimal IRGSalaires_04_02 = 0;
+            decimal TVAPayer_04_02 = 0;
+            decimal IBS_IFU_04_02 = 0;
+            decimal TotalDepense_04_02 = 0;
+            decimal SoldeFinal_04_02 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année04 Mois03
+            decimal SoldeInitial_04_03 = 0;
+            decimal ApportSupplementaire_04_03 = 0;
+            decimal CMT_04_03 = 0;
+            decimal PNRClassique_04_03 = 0;
+            decimal ApportPersonnel_04_03 = 0;
+            decimal PNRLoyer_04_03 = 0;
+            decimal EncaissementRecusClients_04_03 = 0;
+            decimal TotalRecette_04_03 = 0;
+            decimal AcquisitionEquipementAmenagement_04_03 = 0;
+            decimal DecaissementFournisseurs_04_03 = 0;
+            decimal DecaissementPrestataires_04_03 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_04_03 = 0;
+            decimal DecaissementSalairesNets_04_03 = 0;
+            decimal CotisationsSociales_04_03 = 0;
+            decimal IRGSalaires_04_03 = 0;
+            decimal TVAPayer_04_03 = 0;
+            decimal IBS_IFU_04_03 = 0;
+            decimal TotalDepense_04_03 = 0;
+            decimal SoldeFinal_04_03 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année04 Mois04
+            decimal SoldeInitial_04_04 = 0;
+            decimal ApportSupplementaire_04_04 = 0;
+            decimal CMT_04_04 = 0;
+            decimal PNRClassique_04_04 = 0;
+            decimal ApportPersonnel_04_04 = 0;
+            decimal PNRLoyer_04_04 = 0;
+            decimal EncaissementRecusClients_04_04 = 0;
+            decimal TotalRecette_04_04 = 0;
+            decimal AcquisitionEquipementAmenagement_04_04 = 0;
+            decimal DecaissementFournisseurs_04_04 = 0;
+            decimal DecaissementPrestataires_04_04 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_04_04 = 0;
+            decimal DecaissementSalairesNets_04_04 = 0;
+            decimal CotisationsSociales_04_04 = 0;
+            decimal IRGSalaires_04_04 = 0;
+            decimal TVAPayer_04_04 = 0;
+            decimal IBS_IFU_04_04 = 0;
+            decimal TotalDepense_04_04 = 0;
+            decimal SoldeFinal_04_04 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année04 Mois05
+            decimal SoldeInitial_04_05 = 0;
+            decimal ApportSupplementaire_04_05 = 0;
+            decimal CMT_04_05 = 0;
+            decimal PNRClassique_04_05 = 0;
+            decimal ApportPersonnel_04_05 = 0;
+            decimal PNRLoyer_04_05 = 0;
+            decimal EncaissementRecusClients_04_05 = 0;
+            decimal TotalRecette_04_05 = 0;
+            decimal AcquisitionEquipementAmenagement_04_05 = 0;
+            decimal DecaissementFournisseurs_04_05 = 0;
+            decimal DecaissementPrestataires_04_05 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_04_05 = 0;
+            decimal DecaissementSalairesNets_04_05 = 0;
+            decimal CotisationsSociales_04_05 = 0;
+            decimal IRGSalaires_04_05 = 0;
+            decimal TVAPayer_04_05 = 0;
+            decimal IBS_IFU_04_05 = 0;
+            decimal TotalDepense_04_05 = 0;
+            decimal SoldeFinal_04_05 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année04 Mois06
+            decimal SoldeInitial_04_06 = 0;
+            decimal ApportSupplementaire_04_06 = 0;
+            decimal CMT_04_06 = 0;
+            decimal PNRClassique_04_06 = 0;
+            decimal ApportPersonnel_04_06 = 0;
+            decimal PNRLoyer_04_06 = 0;
+            decimal EncaissementRecusClients_04_06 = 0;
+            decimal TotalRecette_04_06 = 0;
+            decimal AcquisitionEquipementAmenagement_04_06 = 0;
+            decimal DecaissementFournisseurs_04_06 = 0;
+            decimal DecaissementPrestataires_04_06 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_04_06 = 0;
+            decimal DecaissementSalairesNets_04_06 = 0;
+            decimal CotisationsSociales_04_06 = 0;
+            decimal IRGSalaires_04_06 = 0;
+            decimal TVAPayer_04_06 = 0;
+            decimal IBS_IFU_04_06 = 0;
+            decimal TotalDepense_04_06 = 0;
+            decimal SoldeFinal_04_06 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année04 Mois07
+            decimal SoldeInitial_04_07 = 0;
+            decimal ApportSupplementaire_04_07 = 0;
+            decimal CMT_04_07 = 0;
+            decimal PNRClassique_04_07 = 0;
+            decimal ApportPersonnel_04_07 = 0;
+            decimal PNRLoyer_04_07 = 0;
+            decimal EncaissementRecusClients_04_07 = 0;
+            decimal TotalRecette_04_07 = 0;
+            decimal AcquisitionEquipementAmenagement_04_07 = 0;
+            decimal DecaissementFournisseurs_04_07 = 0;
+            decimal DecaissementPrestataires_04_07 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_04_07 = 0;
+            decimal DecaissementSalairesNets_04_07 = 0;
+            decimal CotisationsSociales_04_07 = 0;
+            decimal IRGSalaires_04_07 = 0;
+            decimal TVAPayer_04_07 = 0;
+            decimal IBS_IFU_04_07 = 0;
+            decimal TotalDepense_04_07 = 0;
+            decimal SoldeFinal_04_07 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année04 Mois08
+            decimal SoldeInitial_04_08 = 0;
+            decimal ApportSupplementaire_04_08 = 0;
+            decimal CMT_04_08 = 0;
+            decimal PNRClassique_04_08 = 0;
+            decimal ApportPersonnel_04_08 = 0;
+            decimal PNRLoyer_04_08 = 0;
+            decimal EncaissementRecusClients_04_08 = 0;
+            decimal TotalRecette_04_08 = 0;
+            decimal AcquisitionEquipementAmenagement_04_08 = 0;
+            decimal DecaissementFournisseurs_04_08 = 0;
+            decimal DecaissementPrestataires_04_08 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_04_08 = 0;
+            decimal DecaissementSalairesNets_04_08 = 0;
+            decimal CotisationsSociales_04_08 = 0;
+            decimal IRGSalaires_04_08 = 0;
+            decimal TVAPayer_04_08 = 0;
+            decimal IBS_IFU_04_08 = 0;
+            decimal TotalDepense_04_08 = 0;
+            decimal SoldeFinal_04_08 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année04 Mois09
+            decimal SoldeInitial_04_09 = 0;
+            decimal ApportSupplementaire_04_09 = 0;
+            decimal CMT_04_09 = 0;
+            decimal PNRClassique_04_09 = 0;
+            decimal ApportPersonnel_04_09 = 0;
+            decimal PNRLoyer_04_09 = 0;
+            decimal EncaissementRecusClients_04_09 = 0;
+            decimal TotalRecette_04_09 = 0;
+            decimal AcquisitionEquipementAmenagement_04_09 = 0;
+            decimal DecaissementFournisseurs_04_09 = 0;
+            decimal DecaissementPrestataires_04_09 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_04_09 = 0;
+            decimal DecaissementSalairesNets_04_09 = 0;
+            decimal CotisationsSociales_04_09 = 0;
+            decimal IRGSalaires_04_09 = 0;
+            decimal TVAPayer_04_09 = 0;
+            decimal IBS_IFU_04_09 = 0;
+            decimal TotalDepense_04_09 = 0;
+            decimal SoldeFinal_04_09 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année04 Mois10
+            decimal SoldeInitial_04_10 = 0;
+            decimal ApportSupplementaire_04_10 = 0;
+            decimal CMT_04_10 = 0;
+            decimal PNRClassique_04_10 = 0;
+            decimal ApportPersonnel_04_10 = 0;
+            decimal PNRLoyer_04_10 = 0;
+            decimal EncaissementRecusClients_04_10 = 0;
+            decimal TotalRecette_04_10 = 0;
+            decimal AcquisitionEquipementAmenagement_04_10 = 0;
+            decimal DecaissementFournisseurs_04_10 = 0;
+            decimal DecaissementPrestataires_04_10 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_04_10 = 0;
+            decimal DecaissementSalairesNets_04_10 = 0;
+            decimal CotisationsSociales_04_10 = 0;
+            decimal IRGSalaires_04_10 = 0;
+            decimal TVAPayer_04_10 = 0;
+            decimal IBS_IFU_04_10 = 0;
+            decimal TotalDepense_04_10 = 0;
+            decimal SoldeFinal_04_10 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année04 Mois11
+            decimal SoldeInitial_04_11 = 0;
+            decimal ApportSupplementaire_04_11 = 0;
+            decimal CMT_04_11 = 0;
+            decimal PNRClassique_04_11 = 0;
+            decimal ApportPersonnel_04_11 = 0;
+            decimal PNRLoyer_04_11 = 0;
+            decimal EncaissementRecusClients_04_11 = 0;
+            decimal TotalRecette_04_11 = 0;
+            decimal AcquisitionEquipementAmenagement_04_11 = 0;
+            decimal DecaissementFournisseurs_04_11 = 0;
+            decimal DecaissementPrestataires_04_11 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_04_11 = 0;
+            decimal DecaissementSalairesNets_04_11 = 0;
+            decimal CotisationsSociales_04_11 = 0;
+            decimal IRGSalaires_04_11 = 0;
+            decimal TVAPayer_04_11 = 0;
+            decimal IBS_IFU_04_11 = 0;
+            decimal TotalDepense_04_11 = 0;
+            decimal SoldeFinal_04_11 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année04 Mois12
+            decimal SoldeInitial_04_12 = 0;
+            decimal ApportSupplementaire_04_12 = 0;
+            decimal CMT_04_12 = 0;
+            decimal PNRClassique_04_12 = 0;
+            decimal ApportPersonnel_04_12 = 0;
+            decimal PNRLoyer_04_12 = 0;
+            decimal EncaissementRecusClients_04_12 = 0;
+            decimal TotalRecette_04_12 = 0;
+            decimal AcquisitionEquipementAmenagement_04_12 = 0;
+            decimal DecaissementFournisseurs_04_12 = 0;
+            decimal DecaissementPrestataires_04_12 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_04_12 = 0;
+            decimal DecaissementSalairesNets_04_12 = 0;
+            decimal CotisationsSociales_04_12 = 0;
+            decimal IRGSalaires_04_12 = 0;
+            decimal TVAPayer_04_12 = 0;
+            decimal IBS_IFU_04_12 = 0;
+            decimal TotalDepense_04_12 = 0;
+            decimal SoldeFinal_04_12 = 0;
+            #endregion
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année05
+
+            #region Données EtatPlanTresorerie Année05 Mois01
+            decimal SoldeInitial_05_01 = 0;
+            decimal ApportSupplementaire_05_01 = 0;
+            decimal CMT_05_01 = 0;
+            decimal PNRClassique_05_01 = 0;
+            decimal ApportPersonnel_05_01 = 0;
+            decimal PNRLoyer_05_01 = 0;
+            decimal EncaissementRecusClients_05_01 = 0;
+            decimal TotalRecette_05_01 = 0;
+            decimal AcquisitionEquipementAmenagement_05_01 = 0;
+            decimal DecaissementFournisseurs_05_01 = 0;
+            decimal DecaissementPrestataires_05_01 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_05_01 = 0;
+            decimal DecaissementSalairesNets_05_01 = 0;
+            decimal CotisationsSociales_05_01 = 0;
+            decimal IRGSalaires_05_01 = 0;
+            decimal TVAPayer_05_01 = 0;
+            decimal IBS_IFU_05_01 = 0;
+            decimal TotalDepense_05_01 = 0;
+            decimal SoldeFinal_05_01 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année05 Mois02
+            decimal SoldeInitial_05_02 = 0;
+            decimal ApportSupplementaire_05_02 = 0;
+            decimal CMT_05_02 = 0;
+            decimal PNRClassique_05_02 = 0;
+            decimal ApportPersonnel_05_02 = 0;
+            decimal PNRLoyer_05_02 = 0;
+            decimal EncaissementRecusClients_05_02 = 0;
+            decimal TotalRecette_05_02 = 0;
+            decimal AcquisitionEquipementAmenagement_05_02 = 0;
+            decimal DecaissementFournisseurs_05_02 = 0;
+            decimal DecaissementPrestataires_05_02 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_05_02 = 0;
+            decimal DecaissementSalairesNets_05_02 = 0;
+            decimal CotisationsSociales_05_02 = 0;
+            decimal IRGSalaires_05_02 = 0;
+            decimal TVAPayer_05_02 = 0;
+            decimal IBS_IFU_05_02 = 0;
+            decimal TotalDepense_05_02 = 0;
+            decimal SoldeFinal_05_02 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année05 Mois03
+            decimal SoldeInitial_05_03 = 0;
+            decimal ApportSupplementaire_05_03 = 0;
+            decimal CMT_05_03 = 0;
+            decimal PNRClassique_05_03 = 0;
+            decimal ApportPersonnel_05_03 = 0;
+            decimal PNRLoyer_05_03 = 0;
+            decimal EncaissementRecusClients_05_03 = 0;
+            decimal TotalRecette_05_03 = 0;
+            decimal AcquisitionEquipementAmenagement_05_03 = 0;
+            decimal DecaissementFournisseurs_05_03 = 0;
+            decimal DecaissementPrestataires_05_03 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_05_03 = 0;
+            decimal DecaissementSalairesNets_05_03 = 0;
+            decimal CotisationsSociales_05_03 = 0;
+            decimal IRGSalaires_05_03 = 0;
+            decimal TVAPayer_05_03 = 0;
+            decimal IBS_IFU_05_03 = 0;
+            decimal TotalDepense_05_03 = 0;
+            decimal SoldeFinal_05_03 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année05 Mois04
+            decimal SoldeInitial_05_04 = 0;
+            decimal ApportSupplementaire_05_04 = 0;
+            decimal CMT_05_04 = 0;
+            decimal PNRClassique_05_04 = 0;
+            decimal ApportPersonnel_05_04 = 0;
+            decimal PNRLoyer_05_04 = 0;
+            decimal EncaissementRecusClients_05_04 = 0;
+            decimal TotalRecette_05_04 = 0;
+            decimal AcquisitionEquipementAmenagement_05_04 = 0;
+            decimal DecaissementFournisseurs_05_04 = 0;
+            decimal DecaissementPrestataires_05_04 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_05_04 = 0;
+            decimal DecaissementSalairesNets_05_04 = 0;
+            decimal CotisationsSociales_05_04 = 0;
+            decimal IRGSalaires_05_04 = 0;
+            decimal TVAPayer_05_04 = 0;
+            decimal IBS_IFU_05_04 = 0;
+            decimal TotalDepense_05_04 = 0;
+            decimal SoldeFinal_05_04 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année05 Mois05
+            decimal SoldeInitial_05_05 = 0;
+            decimal ApportSupplementaire_05_05 = 0;
+            decimal CMT_05_05 = 0;
+            decimal PNRClassique_05_05 = 0;
+            decimal ApportPersonnel_05_05 = 0;
+            decimal PNRLoyer_05_05 = 0;
+            decimal EncaissementRecusClients_05_05 = 0;
+            decimal TotalRecette_05_05 = 0;
+            decimal AcquisitionEquipementAmenagement_05_05 = 0;
+            decimal DecaissementFournisseurs_05_05 = 0;
+            decimal DecaissementPrestataires_05_05 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_05_05 = 0;
+            decimal DecaissementSalairesNets_05_05 = 0;
+            decimal CotisationsSociales_05_05 = 0;
+            decimal IRGSalaires_05_05 = 0;
+            decimal TVAPayer_05_05 = 0;
+            decimal IBS_IFU_05_05 = 0;
+            decimal TotalDepense_05_05 = 0;
+            decimal SoldeFinal_05_05 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année05 Mois06
+            decimal SoldeInitial_05_06 = 0;
+            decimal ApportSupplementaire_05_06 = 0;
+            decimal CMT_05_06 = 0;
+            decimal PNRClassique_05_06 = 0;
+            decimal ApportPersonnel_05_06 = 0;
+            decimal PNRLoyer_05_06 = 0;
+            decimal EncaissementRecusClients_05_06 = 0;
+            decimal TotalRecette_05_06 = 0;
+            decimal AcquisitionEquipementAmenagement_05_06 = 0;
+            decimal DecaissementFournisseurs_05_06 = 0;
+            decimal DecaissementPrestataires_05_06 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_05_06 = 0;
+            decimal DecaissementSalairesNets_05_06 = 0;
+            decimal CotisationsSociales_05_06 = 0;
+            decimal IRGSalaires_05_06 = 0;
+            decimal TVAPayer_05_06 = 0;
+            decimal IBS_IFU_05_06 = 0;
+            decimal TotalDepense_05_06 = 0;
+            decimal SoldeFinal_05_06 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année05 Mois07
+            decimal SoldeInitial_05_07 = 0;
+            decimal ApportSupplementaire_05_07 = 0;
+            decimal CMT_05_07 = 0;
+            decimal PNRClassique_05_07 = 0;
+            decimal ApportPersonnel_05_07 = 0;
+            decimal PNRLoyer_05_07 = 0;
+            decimal EncaissementRecusClients_05_07 = 0;
+            decimal TotalRecette_05_07 = 0;
+            decimal AcquisitionEquipementAmenagement_05_07 = 0;
+            decimal DecaissementFournisseurs_05_07 = 0;
+            decimal DecaissementPrestataires_05_07 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_05_07 = 0;
+            decimal DecaissementSalairesNets_05_07 = 0;
+            decimal CotisationsSociales_05_07 = 0;
+            decimal IRGSalaires_05_07 = 0;
+            decimal TVAPayer_05_07 = 0;
+            decimal IBS_IFU_05_07 = 0;
+            decimal TotalDepense_05_07 = 0;
+            decimal SoldeFinal_05_07 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année05 Mois08
+            decimal SoldeInitial_05_08 = 0;
+            decimal ApportSupplementaire_05_08 = 0;
+            decimal CMT_05_08 = 0;
+            decimal PNRClassique_05_08 = 0;
+            decimal ApportPersonnel_05_08 = 0;
+            decimal PNRLoyer_05_08 = 0;
+            decimal EncaissementRecusClients_05_08 = 0;
+            decimal TotalRecette_05_08 = 0;
+            decimal AcquisitionEquipementAmenagement_05_08 = 0;
+            decimal DecaissementFournisseurs_05_08 = 0;
+            decimal DecaissementPrestataires_05_08 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_05_08 = 0;
+            decimal DecaissementSalairesNets_05_08 = 0;
+            decimal CotisationsSociales_05_08 = 0;
+            decimal IRGSalaires_05_08 = 0;
+            decimal TVAPayer_05_08 = 0;
+            decimal IBS_IFU_05_08 = 0;
+            decimal TotalDepense_05_08 = 0;
+            decimal SoldeFinal_05_08 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année05 Mois09
+            decimal SoldeInitial_05_09 = 0;
+            decimal ApportSupplementaire_05_09 = 0;
+            decimal CMT_05_09 = 0;
+            decimal PNRClassique_05_09 = 0;
+            decimal ApportPersonnel_05_09 = 0;
+            decimal PNRLoyer_05_09 = 0;
+            decimal EncaissementRecusClients_05_09 = 0;
+            decimal TotalRecette_05_09 = 0;
+            decimal AcquisitionEquipementAmenagement_05_09 = 0;
+            decimal DecaissementFournisseurs_05_09 = 0;
+            decimal DecaissementPrestataires_05_09 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_05_09 = 0;
+            decimal DecaissementSalairesNets_05_09 = 0;
+            decimal CotisationsSociales_05_09 = 0;
+            decimal IRGSalaires_05_09 = 0;
+            decimal TVAPayer_05_09 = 0;
+            decimal IBS_IFU_05_09 = 0;
+            decimal TotalDepense_05_09 = 0;
+            decimal SoldeFinal_05_09 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année05 Mois10
+            decimal SoldeInitial_05_10 = 0;
+            decimal ApportSupplementaire_05_10 = 0;
+            decimal CMT_05_10 = 0;
+            decimal PNRClassique_05_10 = 0;
+            decimal ApportPersonnel_05_10 = 0;
+            decimal PNRLoyer_05_10 = 0;
+            decimal EncaissementRecusClients_05_10 = 0;
+            decimal TotalRecette_05_10 = 0;
+            decimal AcquisitionEquipementAmenagement_05_10 = 0;
+            decimal DecaissementFournisseurs_05_10 = 0;
+            decimal DecaissementPrestataires_05_10 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_05_10 = 0;
+            decimal DecaissementSalairesNets_05_10 = 0;
+            decimal CotisationsSociales_05_10 = 0;
+            decimal IRGSalaires_05_10 = 0;
+            decimal TVAPayer_05_10 = 0;
+            decimal IBS_IFU_05_10 = 0;
+            decimal TotalDepense_05_10 = 0;
+            decimal SoldeFinal_05_10 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année05 Mois11
+            decimal SoldeInitial_05_11 = 0;
+            decimal ApportSupplementaire_05_11 = 0;
+            decimal CMT_05_11 = 0;
+            decimal PNRClassique_05_11 = 0;
+            decimal ApportPersonnel_05_11 = 0;
+            decimal PNRLoyer_05_11 = 0;
+            decimal EncaissementRecusClients_05_11 = 0;
+            decimal TotalRecette_05_11 = 0;
+            decimal AcquisitionEquipementAmenagement_05_11 = 0;
+            decimal DecaissementFournisseurs_05_11 = 0;
+            decimal DecaissementPrestataires_05_11 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_05_11 = 0;
+            decimal DecaissementSalairesNets_05_11 = 0;
+            decimal CotisationsSociales_05_11 = 0;
+            decimal IRGSalaires_05_11 = 0;
+            decimal TVAPayer_05_11 = 0;
+            decimal IBS_IFU_05_11 = 0;
+            decimal TotalDepense_05_11 = 0;
+            decimal SoldeFinal_05_11 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année05 Mois12
+            decimal SoldeInitial_05_12 = 0;
+            decimal ApportSupplementaire_05_12 = 0;
+            decimal CMT_05_12 = 0;
+            decimal PNRClassique_05_12 = 0;
+            decimal ApportPersonnel_05_12 = 0;
+            decimal PNRLoyer_05_12 = 0;
+            decimal EncaissementRecusClients_05_12 = 0;
+            decimal TotalRecette_05_12 = 0;
+            decimal AcquisitionEquipementAmenagement_05_12 = 0;
+            decimal DecaissementFournisseurs_05_12 = 0;
+            decimal DecaissementPrestataires_05_12 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_05_12 = 0;
+            decimal DecaissementSalairesNets_05_12 = 0;
+            decimal CotisationsSociales_05_12 = 0;
+            decimal IRGSalaires_05_12 = 0;
+            decimal TVAPayer_05_12 = 0;
+            decimal IBS_IFU_05_12 = 0;
+            decimal TotalDepense_05_12 = 0;
+            decimal SoldeFinal_05_12 = 0;
+            #endregion
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année06
+
+            #region Données EtatPlanTresorerie Année06 Mois01
+            decimal SoldeInitial_06_01 = 0;
+            decimal ApportSupplementaire_06_01 = 0;
+            decimal CMT_06_01 = 0;
+            decimal PNRClassique_06_01 = 0;
+            decimal ApportPersonnel_06_01 = 0;
+            decimal PNRLoyer_06_01 = 0;
+            decimal EncaissementRecusClients_06_01 = 0;
+            decimal TotalRecette_06_01 = 0;
+            decimal AcquisitionEquipementAmenagement_06_01 = 0;
+            decimal DecaissementFournisseurs_06_01 = 0;
+            decimal DecaissementPrestataires_06_01 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_06_01 = 0;
+            decimal DecaissementSalairesNets_06_01 = 0;
+            decimal CotisationsSociales_06_01 = 0;
+            decimal IRGSalaires_06_01 = 0;
+            decimal TVAPayer_06_01 = 0;
+            decimal IBS_IFU_06_01 = 0;
+            decimal TotalDepense_06_01 = 0;
+            decimal SoldeFinal_06_01 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année06 Mois02
+            decimal SoldeInitial_06_02 = 0;
+            decimal ApportSupplementaire_06_02 = 0;
+            decimal CMT_06_02 = 0;
+            decimal PNRClassique_06_02 = 0;
+            decimal ApportPersonnel_06_02 = 0;
+            decimal PNRLoyer_06_02 = 0;
+            decimal EncaissementRecusClients_06_02 = 0;
+            decimal TotalRecette_06_02 = 0;
+            decimal AcquisitionEquipementAmenagement_06_02 = 0;
+            decimal DecaissementFournisseurs_06_02 = 0;
+            decimal DecaissementPrestataires_06_02 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_06_02 = 0;
+            decimal DecaissementSalairesNets_06_02 = 0;
+            decimal CotisationsSociales_06_02 = 0;
+            decimal IRGSalaires_06_02 = 0;
+            decimal TVAPayer_06_02 = 0;
+            decimal IBS_IFU_06_02 = 0;
+            decimal TotalDepense_06_02 = 0;
+            decimal SoldeFinal_06_02 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année06 Mois03
+            decimal SoldeInitial_06_03 = 0;
+            decimal ApportSupplementaire_06_03 = 0;
+            decimal CMT_06_03 = 0;
+            decimal PNRClassique_06_03 = 0;
+            decimal ApportPersonnel_06_03 = 0;
+            decimal PNRLoyer_06_03 = 0;
+            decimal EncaissementRecusClients_06_03 = 0;
+            decimal TotalRecette_06_03 = 0;
+            decimal AcquisitionEquipementAmenagement_06_03 = 0;
+            decimal DecaissementFournisseurs_06_03 = 0;
+            decimal DecaissementPrestataires_06_03 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_06_03 = 0;
+            decimal DecaissementSalairesNets_06_03 = 0;
+            decimal CotisationsSociales_06_03 = 0;
+            decimal IRGSalaires_06_03 = 0;
+            decimal TVAPayer_06_03 = 0;
+            decimal IBS_IFU_06_03 = 0;
+            decimal TotalDepense_06_03 = 0;
+            decimal SoldeFinal_06_03 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année06 Mois04
+            decimal SoldeInitial_06_04 = 0;
+            decimal ApportSupplementaire_06_04 = 0;
+            decimal CMT_06_04 = 0;
+            decimal PNRClassique_06_04 = 0;
+            decimal ApportPersonnel_06_04 = 0;
+            decimal PNRLoyer_06_04 = 0;
+            decimal EncaissementRecusClients_06_04 = 0;
+            decimal TotalRecette_06_04 = 0;
+            decimal AcquisitionEquipementAmenagement_06_04 = 0;
+            decimal DecaissementFournisseurs_06_04 = 0;
+            decimal DecaissementPrestataires_06_04 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_06_04 = 0;
+            decimal DecaissementSalairesNets_06_04 = 0;
+            decimal CotisationsSociales_06_04 = 0;
+            decimal IRGSalaires_06_04 = 0;
+            decimal TVAPayer_06_04 = 0;
+            decimal IBS_IFU_06_04 = 0;
+            decimal TotalDepense_06_04 = 0;
+            decimal SoldeFinal_06_04 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année06 Mois05
+            decimal SoldeInitial_06_05 = 0;
+            decimal ApportSupplementaire_06_05 = 0;
+            decimal CMT_06_05 = 0;
+            decimal PNRClassique_06_05 = 0;
+            decimal ApportPersonnel_06_05 = 0;
+            decimal PNRLoyer_06_05 = 0;
+            decimal EncaissementRecusClients_06_05 = 0;
+            decimal TotalRecette_06_05 = 0;
+            decimal AcquisitionEquipementAmenagement_06_05 = 0;
+            decimal DecaissementFournisseurs_06_05 = 0;
+            decimal DecaissementPrestataires_06_05 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_06_05 = 0;
+            decimal DecaissementSalairesNets_06_05 = 0;
+            decimal CotisationsSociales_06_05 = 0;
+            decimal IRGSalaires_06_05 = 0;
+            decimal TVAPayer_06_05 = 0;
+            decimal IBS_IFU_06_05 = 0;
+            decimal TotalDepense_06_05 = 0;
+            decimal SoldeFinal_06_05 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année06 Mois06
+            decimal SoldeInitial_06_06 = 0;
+            decimal ApportSupplementaire_06_06 = 0;
+            decimal CMT_06_06 = 0;
+            decimal PNRClassique_06_06 = 0;
+            decimal ApportPersonnel_06_06 = 0;
+            decimal PNRLoyer_06_06 = 0;
+            decimal EncaissementRecusClients_06_06 = 0;
+            decimal TotalRecette_06_06 = 0;
+            decimal AcquisitionEquipementAmenagement_06_06 = 0;
+            decimal DecaissementFournisseurs_06_06 = 0;
+            decimal DecaissementPrestataires_06_06 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_06_06 = 0;
+            decimal DecaissementSalairesNets_06_06 = 0;
+            decimal CotisationsSociales_06_06 = 0;
+            decimal IRGSalaires_06_06 = 0;
+            decimal TVAPayer_06_06 = 0;
+            decimal IBS_IFU_06_06 = 0;
+            decimal TotalDepense_06_06 = 0;
+            decimal SoldeFinal_06_06 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année06 Mois07
+            decimal SoldeInitial_06_07 = 0;
+            decimal ApportSupplementaire_06_07 = 0;
+            decimal CMT_06_07 = 0;
+            decimal PNRClassique_06_07 = 0;
+            decimal ApportPersonnel_06_07 = 0;
+            decimal PNRLoyer_06_07 = 0;
+            decimal EncaissementRecusClients_06_07 = 0;
+            decimal TotalRecette_06_07 = 0;
+            decimal AcquisitionEquipementAmenagement_06_07 = 0;
+            decimal DecaissementFournisseurs_06_07 = 0;
+            decimal DecaissementPrestataires_06_07 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_06_07 = 0;
+            decimal DecaissementSalairesNets_06_07 = 0;
+            decimal CotisationsSociales_06_07 = 0;
+            decimal IRGSalaires_06_07 = 0;
+            decimal TVAPayer_06_07 = 0;
+            decimal IBS_IFU_06_07 = 0;
+            decimal TotalDepense_06_07 = 0;
+            decimal SoldeFinal_06_07 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année06 Mois08
+            decimal SoldeInitial_06_08 = 0;
+            decimal ApportSupplementaire_06_08 = 0;
+            decimal CMT_06_08 = 0;
+            decimal PNRClassique_06_08 = 0;
+            decimal ApportPersonnel_06_08 = 0;
+            decimal PNRLoyer_06_08 = 0;
+            decimal EncaissementRecusClients_06_08 = 0;
+            decimal TotalRecette_06_08 = 0;
+            decimal AcquisitionEquipementAmenagement_06_08 = 0;
+            decimal DecaissementFournisseurs_06_08 = 0;
+            decimal DecaissementPrestataires_06_08 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_06_08 = 0;
+            decimal DecaissementSalairesNets_06_08 = 0;
+            decimal CotisationsSociales_06_08 = 0;
+            decimal IRGSalaires_06_08 = 0;
+            decimal TVAPayer_06_08 = 0;
+            decimal IBS_IFU_06_08 = 0;
+            decimal TotalDepense_06_08 = 0;
+            decimal SoldeFinal_06_08 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année06 Mois09
+            decimal SoldeInitial_06_09 = 0;
+            decimal ApportSupplementaire_06_09 = 0;
+            decimal CMT_06_09 = 0;
+            decimal PNRClassique_06_09 = 0;
+            decimal ApportPersonnel_06_09 = 0;
+            decimal PNRLoyer_06_09 = 0;
+            decimal EncaissementRecusClients_06_09 = 0;
+            decimal TotalRecette_06_09 = 0;
+            decimal AcquisitionEquipementAmenagement_06_09 = 0;
+            decimal DecaissementFournisseurs_06_09 = 0;
+            decimal DecaissementPrestataires_06_09 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_06_09 = 0;
+            decimal DecaissementSalairesNets_06_09 = 0;
+            decimal CotisationsSociales_06_09 = 0;
+            decimal IRGSalaires_06_09 = 0;
+            decimal TVAPayer_06_09 = 0;
+            decimal IBS_IFU_06_09 = 0;
+            decimal TotalDepense_06_09 = 0;
+            decimal SoldeFinal_06_09 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année06 Mois10
+            decimal SoldeInitial_06_10 = 0;
+            decimal ApportSupplementaire_06_10 = 0;
+            decimal CMT_06_10 = 0;
+            decimal PNRClassique_06_10 = 0;
+            decimal ApportPersonnel_06_10 = 0;
+            decimal PNRLoyer_06_10 = 0;
+            decimal EncaissementRecusClients_06_10 = 0;
+            decimal TotalRecette_06_10 = 0;
+            decimal AcquisitionEquipementAmenagement_06_10 = 0;
+            decimal DecaissementFournisseurs_06_10 = 0;
+            decimal DecaissementPrestataires_06_10 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_06_10 = 0;
+            decimal DecaissementSalairesNets_06_10 = 0;
+            decimal CotisationsSociales_06_10 = 0;
+            decimal IRGSalaires_06_10 = 0;
+            decimal TVAPayer_06_10 = 0;
+            decimal IBS_IFU_06_10 = 0;
+            decimal TotalDepense_06_10 = 0;
+            decimal SoldeFinal_06_10 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année06 Mois11
+            decimal SoldeInitial_06_11 = 0;
+            decimal ApportSupplementaire_06_11 = 0;
+            decimal CMT_06_11 = 0;
+            decimal PNRClassique_06_11 = 0;
+            decimal ApportPersonnel_06_11 = 0;
+            decimal PNRLoyer_06_11 = 0;
+            decimal EncaissementRecusClients_06_11 = 0;
+            decimal TotalRecette_06_11 = 0;
+            decimal AcquisitionEquipementAmenagement_06_11 = 0;
+            decimal DecaissementFournisseurs_06_11 = 0;
+            decimal DecaissementPrestataires_06_11 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_06_11 = 0;
+            decimal DecaissementSalairesNets_06_11 = 0;
+            decimal CotisationsSociales_06_11 = 0;
+            decimal IRGSalaires_06_11 = 0;
+            decimal TVAPayer_06_11 = 0;
+            decimal IBS_IFU_06_11 = 0;
+            decimal TotalDepense_06_11 = 0;
+            decimal SoldeFinal_06_11 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année06 Mois12
+            decimal SoldeInitial_06_12 = 0;
+            decimal ApportSupplementaire_06_12 = 0;
+            decimal CMT_06_12 = 0;
+            decimal PNRClassique_06_12 = 0;
+            decimal ApportPersonnel_06_12 = 0;
+            decimal PNRLoyer_06_12 = 0;
+            decimal EncaissementRecusClients_06_12 = 0;
+            decimal TotalRecette_06_12 = 0;
+            decimal AcquisitionEquipementAmenagement_06_12 = 0;
+            decimal DecaissementFournisseurs_06_12 = 0;
+            decimal DecaissementPrestataires_06_12 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_06_12 = 0;
+            decimal DecaissementSalairesNets_06_12 = 0;
+            decimal CotisationsSociales_06_12 = 0;
+            decimal IRGSalaires_06_12 = 0;
+            decimal TVAPayer_06_12 = 0;
+            decimal IBS_IFU_06_12 = 0;
+            decimal TotalDepense_06_12 = 0;
+            decimal SoldeFinal_06_12 = 0;
+            #endregion
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année07
+
+            #region Données EtatPlanTresorerie Année07 Mois01
+            decimal SoldeInitial_07_01 = 0;
+            decimal ApportSupplementaire_07_01 = 0;
+            decimal CMT_07_01 = 0;
+            decimal PNRClassique_07_01 = 0;
+            decimal ApportPersonnel_07_01 = 0;
+            decimal PNRLoyer_07_01 = 0;
+            decimal EncaissementRecusClients_07_01 = 0;
+            decimal TotalRecette_07_01 = 0;
+            decimal AcquisitionEquipementAmenagement_07_01 = 0;
+            decimal DecaissementFournisseurs_07_01 = 0;
+            decimal DecaissementPrestataires_07_01 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_07_01 = 0;
+            decimal DecaissementSalairesNets_07_01 = 0;
+            decimal CotisationsSociales_07_01 = 0;
+            decimal IRGSalaires_07_01 = 0;
+            decimal TVAPayer_07_01 = 0;
+            decimal IBS_IFU_07_01 = 0;
+            decimal TotalDepense_07_01 = 0;
+            decimal SoldeFinal_07_01 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année07 Mois02
+            decimal SoldeInitial_07_02 = 0;
+            decimal ApportSupplementaire_07_02 = 0;
+            decimal CMT_07_02 = 0;
+            decimal PNRClassique_07_02 = 0;
+            decimal ApportPersonnel_07_02 = 0;
+            decimal PNRLoyer_07_02 = 0;
+            decimal EncaissementRecusClients_07_02 = 0;
+            decimal TotalRecette_07_02 = 0;
+            decimal AcquisitionEquipementAmenagement_07_02 = 0;
+            decimal DecaissementFournisseurs_07_02 = 0;
+            decimal DecaissementPrestataires_07_02 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_07_02 = 0;
+            decimal DecaissementSalairesNets_07_02 = 0;
+            decimal CotisationsSociales_07_02 = 0;
+            decimal IRGSalaires_07_02 = 0;
+            decimal TVAPayer_07_02 = 0;
+            decimal IBS_IFU_07_02 = 0;
+            decimal TotalDepense_07_02 = 0;
+            decimal SoldeFinal_07_02 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année07 Mois03
+            decimal SoldeInitial_07_03 = 0;
+            decimal ApportSupplementaire_07_03 = 0;
+            decimal CMT_07_03 = 0;
+            decimal PNRClassique_07_03 = 0;
+            decimal ApportPersonnel_07_03 = 0;
+            decimal PNRLoyer_07_03 = 0;
+            decimal EncaissementRecusClients_07_03 = 0;
+            decimal TotalRecette_07_03 = 0;
+            decimal AcquisitionEquipementAmenagement_07_03 = 0;
+            decimal DecaissementFournisseurs_07_03 = 0;
+            decimal DecaissementPrestataires_07_03 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_07_03 = 0;
+            decimal DecaissementSalairesNets_07_03 = 0;
+            decimal CotisationsSociales_07_03 = 0;
+            decimal IRGSalaires_07_03 = 0;
+            decimal TVAPayer_07_03 = 0;
+            decimal IBS_IFU_07_03 = 0;
+            decimal TotalDepense_07_03 = 0;
+            decimal SoldeFinal_07_03 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année07 Mois04
+            decimal SoldeInitial_07_04 = 0;
+            decimal ApportSupplementaire_07_04 = 0;
+            decimal CMT_07_04 = 0;
+            decimal PNRClassique_07_04 = 0;
+            decimal ApportPersonnel_07_04 = 0;
+            decimal PNRLoyer_07_04 = 0;
+            decimal EncaissementRecusClients_07_04 = 0;
+            decimal TotalRecette_07_04 = 0;
+            decimal AcquisitionEquipementAmenagement_07_04 = 0;
+            decimal DecaissementFournisseurs_07_04 = 0;
+            decimal DecaissementPrestataires_07_04 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_07_04 = 0;
+            decimal DecaissementSalairesNets_07_04 = 0;
+            decimal CotisationsSociales_07_04 = 0;
+            decimal IRGSalaires_07_04 = 0;
+            decimal TVAPayer_07_04 = 0;
+            decimal IBS_IFU_07_04 = 0;
+            decimal TotalDepense_07_04 = 0;
+            decimal SoldeFinal_07_04 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année07 Mois05
+            decimal SoldeInitial_07_05 = 0;
+            decimal ApportSupplementaire_07_05 = 0;
+            decimal CMT_07_05 = 0;
+            decimal PNRClassique_07_05 = 0;
+            decimal ApportPersonnel_07_05 = 0;
+            decimal PNRLoyer_07_05 = 0;
+            decimal EncaissementRecusClients_07_05 = 0;
+            decimal TotalRecette_07_05 = 0;
+            decimal AcquisitionEquipementAmenagement_07_05 = 0;
+            decimal DecaissementFournisseurs_07_05 = 0;
+            decimal DecaissementPrestataires_07_05 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_07_05 = 0;
+            decimal DecaissementSalairesNets_07_05 = 0;
+            decimal CotisationsSociales_07_05 = 0;
+            decimal IRGSalaires_07_05 = 0;
+            decimal TVAPayer_07_05 = 0;
+            decimal IBS_IFU_07_05 = 0;
+            decimal TotalDepense_07_05 = 0;
+            decimal SoldeFinal_07_05 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année07 Mois06
+            decimal SoldeInitial_07_06 = 0;
+            decimal ApportSupplementaire_07_06 = 0;
+            decimal CMT_07_06 = 0;
+            decimal PNRClassique_07_06 = 0;
+            decimal ApportPersonnel_07_06 = 0;
+            decimal PNRLoyer_07_06 = 0;
+            decimal EncaissementRecusClients_07_06 = 0;
+            decimal TotalRecette_07_06 = 0;
+            decimal AcquisitionEquipementAmenagement_07_06 = 0;
+            decimal DecaissementFournisseurs_07_06 = 0;
+            decimal DecaissementPrestataires_07_06 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_07_06 = 0;
+            decimal DecaissementSalairesNets_07_06 = 0;
+            decimal CotisationsSociales_07_06 = 0;
+            decimal IRGSalaires_07_06 = 0;
+            decimal TVAPayer_07_06 = 0;
+            decimal IBS_IFU_07_06 = 0;
+            decimal TotalDepense_07_06 = 0;
+            decimal SoldeFinal_07_06 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année07 Mois07
+            decimal SoldeInitial_07_07 = 0;
+            decimal ApportSupplementaire_07_07 = 0;
+            decimal CMT_07_07 = 0;
+            decimal PNRClassique_07_07 = 0;
+            decimal ApportPersonnel_07_07 = 0;
+            decimal PNRLoyer_07_07 = 0;
+            decimal EncaissementRecusClients_07_07 = 0;
+            decimal TotalRecette_07_07 = 0;
+            decimal AcquisitionEquipementAmenagement_07_07 = 0;
+            decimal DecaissementFournisseurs_07_07 = 0;
+            decimal DecaissementPrestataires_07_07 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_07_07 = 0;
+            decimal DecaissementSalairesNets_07_07 = 0;
+            decimal CotisationsSociales_07_07 = 0;
+            decimal IRGSalaires_07_07 = 0;
+            decimal TVAPayer_07_07 = 0;
+            decimal IBS_IFU_07_07 = 0;
+            decimal TotalDepense_07_07 = 0;
+            decimal SoldeFinal_07_07 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année07 Mois08
+            decimal SoldeInitial_07_08 = 0;
+            decimal ApportSupplementaire_07_08 = 0;
+            decimal CMT_07_08 = 0;
+            decimal PNRClassique_07_08 = 0;
+            decimal ApportPersonnel_07_08 = 0;
+            decimal PNRLoyer_07_08 = 0;
+            decimal EncaissementRecusClients_07_08 = 0;
+            decimal TotalRecette_07_08 = 0;
+            decimal AcquisitionEquipementAmenagement_07_08 = 0;
+            decimal DecaissementFournisseurs_07_08 = 0;
+            decimal DecaissementPrestataires_07_08 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_07_08 = 0;
+            decimal DecaissementSalairesNets_07_08 = 0;
+            decimal CotisationsSociales_07_08 = 0;
+            decimal IRGSalaires_07_08 = 0;
+            decimal TVAPayer_07_08 = 0;
+            decimal IBS_IFU_07_08 = 0;
+            decimal TotalDepense_07_08 = 0;
+            decimal SoldeFinal_07_08 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année07 Mois09
+            decimal SoldeInitial_07_09 = 0;
+            decimal ApportSupplementaire_07_09 = 0;
+            decimal CMT_07_09 = 0;
+            decimal PNRClassique_07_09 = 0;
+            decimal ApportPersonnel_07_09 = 0;
+            decimal PNRLoyer_07_09 = 0;
+            decimal EncaissementRecusClients_07_09 = 0;
+            decimal TotalRecette_07_09 = 0;
+            decimal AcquisitionEquipementAmenagement_07_09 = 0;
+            decimal DecaissementFournisseurs_07_09 = 0;
+            decimal DecaissementPrestataires_07_09 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_07_09 = 0;
+            decimal DecaissementSalairesNets_07_09 = 0;
+            decimal CotisationsSociales_07_09 = 0;
+            decimal IRGSalaires_07_09 = 0;
+            decimal TVAPayer_07_09 = 0;
+            decimal IBS_IFU_07_09 = 0;
+            decimal TotalDepense_07_09 = 0;
+            decimal SoldeFinal_07_09 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année07 Mois10
+            decimal SoldeInitial_07_10 = 0;
+            decimal ApportSupplementaire_07_10 = 0;
+            decimal CMT_07_10 = 0;
+            decimal PNRClassique_07_10 = 0;
+            decimal ApportPersonnel_07_10 = 0;
+            decimal PNRLoyer_07_10 = 0;
+            decimal EncaissementRecusClients_07_10 = 0;
+            decimal TotalRecette_07_10 = 0;
+            decimal AcquisitionEquipementAmenagement_07_10 = 0;
+            decimal DecaissementFournisseurs_07_10 = 0;
+            decimal DecaissementPrestataires_07_10 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_07_10 = 0;
+            decimal DecaissementSalairesNets_07_10 = 0;
+            decimal CotisationsSociales_07_10 = 0;
+            decimal IRGSalaires_07_10 = 0;
+            decimal TVAPayer_07_10 = 0;
+            decimal IBS_IFU_07_10 = 0;
+            decimal TotalDepense_07_10 = 0;
+            decimal SoldeFinal_07_10 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année07 Mois11
+            decimal SoldeInitial_07_11 = 0;
+            decimal ApportSupplementaire_07_11 = 0;
+            decimal CMT_07_11 = 0;
+            decimal PNRClassique_07_11 = 0;
+            decimal ApportPersonnel_07_11 = 0;
+            decimal PNRLoyer_07_11 = 0;
+            decimal EncaissementRecusClients_07_11 = 0;
+            decimal TotalRecette_07_11 = 0;
+            decimal AcquisitionEquipementAmenagement_07_11 = 0;
+            decimal DecaissementFournisseurs_07_11 = 0;
+            decimal DecaissementPrestataires_07_11 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_07_11 = 0;
+            decimal DecaissementSalairesNets_07_11 = 0;
+            decimal CotisationsSociales_07_11 = 0;
+            decimal IRGSalaires_07_11 = 0;
+            decimal TVAPayer_07_11 = 0;
+            decimal IBS_IFU_07_11 = 0;
+            decimal TotalDepense_07_11 = 0;
+            decimal SoldeFinal_07_11 = 0;
+            #endregion
+
+            #region Données EtatPlanTresorerie Année07 Mois12
+            decimal SoldeInitial_07_12 = 0;
+            decimal ApportSupplementaire_07_12 = 0;
+            decimal CMT_07_12 = 0;
+            decimal PNRClassique_07_12 = 0;
+            decimal ApportPersonnel_07_12 = 0;
+            decimal PNRLoyer_07_12 = 0;
+            decimal EncaissementRecusClients_07_12 = 0;
+            decimal TotalRecette_07_12 = 0;
+            decimal AcquisitionEquipementAmenagement_07_12 = 0;
+            decimal DecaissementFournisseurs_07_12 = 0;
+            decimal DecaissementPrestataires_07_12 = 0;
+            decimal PaiementFGAssurancesFraisLieesCreation_07_12 = 0;
+            decimal DecaissementSalairesNets_07_12 = 0;
+            decimal CotisationsSociales_07_12 = 0;
+            decimal IRGSalaires_07_12 = 0;
+            decimal TVAPayer_07_12 = 0;
+            decimal IBS_IFU_07_12 = 0;
+            decimal TotalDepense_07_12 = 0;
+            decimal SoldeFinal_07_12 = 0;
+            #endregion
+
+            #endregion
+
+            #endregion
+
             EtatPlanTresorerieModel etatPlanTresorerieModel = new();
+
+            #region Données etatPlanTresorerieModel
+
+            #region Données etatPlanTresorerieModel Année01
+
+            #region Données EtatPlanTresorerie Année01 Mois01
+
+            etatPlanTresorerieModel.SoldeInitial_01_01 = string.Format(frCult, "{0:n}", SoldeInitial_01_01);
+            etatPlanTresorerieModel.ApportSupplementaire_01_01 = string.Format(frCult, "{0:n}", ApportSupplementaire_01_01);
+            etatPlanTresorerieModel.CMT_01_01 = string.Format(frCult, "{0:n}", CMT_01_01);
+            etatPlanTresorerieModel.PNRClassique_01_01 = string.Format(frCult, "{0:n}", PNRClassique_01_01);
+            etatPlanTresorerieModel.ApportPersonnel_01_01 = string.Format(frCult, "{0:n}", ApportPersonnel_01_01);
+            etatPlanTresorerieModel.PNRLoyer_01_01 = string.Format(frCult, "{0:n}", PNRLoyer_01_01);
+            etatPlanTresorerieModel.EncaissementRecusClients_01_01 = string.Format(frCult, "{0:n}", EncaissementRecusClients_01_01);
+            etatPlanTresorerieModel.TotalRecette_01_01 = string.Format(frCult, "{0:n}", TotalRecette_01_01);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_01_01 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_01_01);
+            etatPlanTresorerieModel.DecaissementFournisseurs_01_01 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_01_01);
+            etatPlanTresorerieModel.DecaissementPrestataires_01_01 = string.Format(frCult, "{0:n}", DecaissementPrestataires_01_01);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_01_01 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_01_01);
+            etatPlanTresorerieModel.DecaissementSalairesNets_01_01 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_01_01);
+            etatPlanTresorerieModel.CotisationsSociales_01_01 = string.Format(frCult, "{0:n}", CotisationsSociales_01_01);
+            etatPlanTresorerieModel.IRGSalaires_01_01 = string.Format(frCult, "{0:n}", IRGSalaires_01_01);
+            etatPlanTresorerieModel.TVAPayer_01_01 = string.Format(frCult, "{0:n}", TVAPayer_01_01);
+            etatPlanTresorerieModel.IBS_IFU_01_01 = string.Format(frCult, "{0:n}", IBS_IFU_01_01);
+            etatPlanTresorerieModel.TotalDepense_01_01 = string.Format(frCult, "{0:n}", TotalDepense_01_01);
+            etatPlanTresorerieModel.SoldeFinal_01_01 = string.Format(frCult, "{0:n}", SoldeFinal_01_01);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année01 Mois02
+
+            etatPlanTresorerieModel.SoldeInitial_01_02 = string.Format(frCult, "{0:n}", SoldeInitial_01_02);
+            etatPlanTresorerieModel.ApportSupplementaire_01_02 = string.Format(frCult, "{0:n}", ApportSupplementaire_01_02);
+            etatPlanTresorerieModel.CMT_01_02 = string.Format(frCult, "{0:n}", CMT_01_02);
+            etatPlanTresorerieModel.PNRClassique_01_02 = string.Format(frCult, "{0:n}", PNRClassique_01_02);
+            etatPlanTresorerieModel.ApportPersonnel_01_02 = string.Format(frCult, "{0:n}", ApportPersonnel_01_02);
+            etatPlanTresorerieModel.PNRLoyer_01_02 = string.Format(frCult, "{0:n}", PNRLoyer_01_02);
+            etatPlanTresorerieModel.EncaissementRecusClients_01_02 = string.Format(frCult, "{0:n}", EncaissementRecusClients_01_02);
+            etatPlanTresorerieModel.TotalRecette_01_02 = string.Format(frCult, "{0:n}", TotalRecette_01_02);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_01_02 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_01_02);
+            etatPlanTresorerieModel.DecaissementFournisseurs_01_02 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_01_02);
+            etatPlanTresorerieModel.DecaissementPrestataires_01_02 = string.Format(frCult, "{0:n}", DecaissementPrestataires_01_02);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_01_02 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_01_02);
+            etatPlanTresorerieModel.DecaissementSalairesNets_01_02 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_01_02);
+            etatPlanTresorerieModel.CotisationsSociales_01_02 = string.Format(frCult, "{0:n}", CotisationsSociales_01_02);
+            etatPlanTresorerieModel.IRGSalaires_01_02 = string.Format(frCult, "{0:n}", IRGSalaires_01_02);
+            etatPlanTresorerieModel.TVAPayer_01_02 = string.Format(frCult, "{0:n}", TVAPayer_01_02);
+            etatPlanTresorerieModel.IBS_IFU_01_02 = string.Format(frCult, "{0:n}", IBS_IFU_01_02);
+            etatPlanTresorerieModel.TotalDepense_01_02 = string.Format(frCult, "{0:n}", TotalDepense_01_02);
+            etatPlanTresorerieModel.SoldeFinal_01_02 = string.Format(frCult, "{0:n}", SoldeFinal_01_02);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année01 Mois03
+
+            etatPlanTresorerieModel.SoldeInitial_01_03 = string.Format(frCult, "{0:n}", SoldeInitial_01_03);
+            etatPlanTresorerieModel.ApportSupplementaire_01_03 = string.Format(frCult, "{0:n}", ApportSupplementaire_01_03);
+            etatPlanTresorerieModel.CMT_01_03 = string.Format(frCult, "{0:n}", CMT_01_03);
+            etatPlanTresorerieModel.PNRClassique_01_03 = string.Format(frCult, "{0:n}", PNRClassique_01_03);
+            etatPlanTresorerieModel.ApportPersonnel_01_03 = string.Format(frCult, "{0:n}", ApportPersonnel_01_03);
+            etatPlanTresorerieModel.PNRLoyer_01_03 = string.Format(frCult, "{0:n}", PNRLoyer_01_03);
+            etatPlanTresorerieModel.EncaissementRecusClients_01_03 = string.Format(frCult, "{0:n}", EncaissementRecusClients_01_03);
+            etatPlanTresorerieModel.TotalRecette_01_03 = string.Format(frCult, "{0:n}", TotalRecette_01_03);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_01_03 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_01_03);
+            etatPlanTresorerieModel.DecaissementFournisseurs_01_03 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_01_03);
+            etatPlanTresorerieModel.DecaissementPrestataires_01_03 = string.Format(frCult, "{0:n}", DecaissementPrestataires_01_03);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_01_03 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_01_03);
+            etatPlanTresorerieModel.DecaissementSalairesNets_01_03 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_01_03);
+            etatPlanTresorerieModel.CotisationsSociales_01_03 = string.Format(frCult, "{0:n}", CotisationsSociales_01_03);
+            etatPlanTresorerieModel.IRGSalaires_01_03 = string.Format(frCult, "{0:n}", IRGSalaires_01_03);
+            etatPlanTresorerieModel.TVAPayer_01_03 = string.Format(frCult, "{0:n}", TVAPayer_01_03);
+            etatPlanTresorerieModel.IBS_IFU_01_03 = string.Format(frCult, "{0:n}", IBS_IFU_01_03);
+            etatPlanTresorerieModel.TotalDepense_01_03 = string.Format(frCult, "{0:n}", TotalDepense_01_03);
+            etatPlanTresorerieModel.SoldeFinal_01_03 = string.Format(frCult, "{0:n}", SoldeFinal_01_03);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année01 Mois04
+
+            etatPlanTresorerieModel.SoldeInitial_01_04 = string.Format(frCult, "{0:n}", SoldeInitial_01_04);
+            etatPlanTresorerieModel.ApportSupplementaire_01_04 = string.Format(frCult, "{0:n}", ApportSupplementaire_01_04);
+            etatPlanTresorerieModel.CMT_01_04 = string.Format(frCult, "{0:n}", CMT_01_04);
+            etatPlanTresorerieModel.PNRClassique_01_04 = string.Format(frCult, "{0:n}", PNRClassique_01_04);
+            etatPlanTresorerieModel.ApportPersonnel_01_04 = string.Format(frCult, "{0:n}", ApportPersonnel_01_04);
+            etatPlanTresorerieModel.PNRLoyer_01_04 = string.Format(frCult, "{0:n}", PNRLoyer_01_04);
+            etatPlanTresorerieModel.EncaissementRecusClients_01_04 = string.Format(frCult, "{0:n}", EncaissementRecusClients_01_04);
+            etatPlanTresorerieModel.TotalRecette_01_04 = string.Format(frCult, "{0:n}", TotalRecette_01_04);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_01_04 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_01_04);
+            etatPlanTresorerieModel.DecaissementFournisseurs_01_04 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_01_04);
+            etatPlanTresorerieModel.DecaissementPrestataires_01_04 = string.Format(frCult, "{0:n}", DecaissementPrestataires_01_04);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_01_04 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_01_04);
+            etatPlanTresorerieModel.DecaissementSalairesNets_01_04 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_01_04);
+            etatPlanTresorerieModel.CotisationsSociales_01_04 = string.Format(frCult, "{0:n}", CotisationsSociales_01_04);
+            etatPlanTresorerieModel.IRGSalaires_01_04 = string.Format(frCult, "{0:n}", IRGSalaires_01_04);
+            etatPlanTresorerieModel.TVAPayer_01_04 = string.Format(frCult, "{0:n}", TVAPayer_01_04);
+            etatPlanTresorerieModel.IBS_IFU_01_04 = string.Format(frCult, "{0:n}", IBS_IFU_01_04);
+            etatPlanTresorerieModel.TotalDepense_01_04 = string.Format(frCult, "{0:n}", TotalDepense_01_04);
+            etatPlanTresorerieModel.SoldeFinal_01_04 = string.Format(frCult, "{0:n}", SoldeFinal_01_04);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année01 Mois05
+
+            etatPlanTresorerieModel.SoldeInitial_01_05 = string.Format(frCult, "{0:n}", SoldeInitial_01_05);
+            etatPlanTresorerieModel.ApportSupplementaire_01_05 = string.Format(frCult, "{0:n}", ApportSupplementaire_01_05);
+            etatPlanTresorerieModel.CMT_01_05 = string.Format(frCult, "{0:n}", CMT_01_05);
+            etatPlanTresorerieModel.PNRClassique_01_05 = string.Format(frCult, "{0:n}", PNRClassique_01_05);
+            etatPlanTresorerieModel.ApportPersonnel_01_05 = string.Format(frCult, "{0:n}", ApportPersonnel_01_05);
+            etatPlanTresorerieModel.PNRLoyer_01_05 = string.Format(frCult, "{0:n}", PNRLoyer_01_05);
+            etatPlanTresorerieModel.EncaissementRecusClients_01_05 = string.Format(frCult, "{0:n}", EncaissementRecusClients_01_05);
+            etatPlanTresorerieModel.TotalRecette_01_05 = string.Format(frCult, "{0:n}", TotalRecette_01_05);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_01_05 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_01_05);
+            etatPlanTresorerieModel.DecaissementFournisseurs_01_05 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_01_05);
+            etatPlanTresorerieModel.DecaissementPrestataires_01_05 = string.Format(frCult, "{0:n}", DecaissementPrestataires_01_05);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_01_05 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_01_05);
+            etatPlanTresorerieModel.DecaissementSalairesNets_01_05 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_01_05);
+            etatPlanTresorerieModel.CotisationsSociales_01_05 = string.Format(frCult, "{0:n}", CotisationsSociales_01_05);
+            etatPlanTresorerieModel.IRGSalaires_01_05 = string.Format(frCult, "{0:n}", IRGSalaires_01_05);
+            etatPlanTresorerieModel.TVAPayer_01_05 = string.Format(frCult, "{0:n}", TVAPayer_01_05);
+            etatPlanTresorerieModel.IBS_IFU_01_05 = string.Format(frCult, "{0:n}", IBS_IFU_01_05);
+            etatPlanTresorerieModel.TotalDepense_01_05 = string.Format(frCult, "{0:n}", TotalDepense_01_05);
+            etatPlanTresorerieModel.SoldeFinal_01_05 = string.Format(frCult, "{0:n}", SoldeFinal_01_05);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année01 Mois06
+
+            etatPlanTresorerieModel.SoldeInitial_01_06 = string.Format(frCult, "{0:n}", SoldeInitial_01_06);
+            etatPlanTresorerieModel.ApportSupplementaire_01_06 = string.Format(frCult, "{0:n}", ApportSupplementaire_01_06);
+            etatPlanTresorerieModel.CMT_01_06 = string.Format(frCult, "{0:n}", CMT_01_06);
+            etatPlanTresorerieModel.PNRClassique_01_06 = string.Format(frCult, "{0:n}", PNRClassique_01_06);
+            etatPlanTresorerieModel.ApportPersonnel_01_06 = string.Format(frCult, "{0:n}", ApportPersonnel_01_06);
+            etatPlanTresorerieModel.PNRLoyer_01_06 = string.Format(frCult, "{0:n}", PNRLoyer_01_06);
+            etatPlanTresorerieModel.EncaissementRecusClients_01_06 = string.Format(frCult, "{0:n}", EncaissementRecusClients_01_06);
+            etatPlanTresorerieModel.TotalRecette_01_06 = string.Format(frCult, "{0:n}", TotalRecette_01_06);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_01_06 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_01_06);
+            etatPlanTresorerieModel.DecaissementFournisseurs_01_06 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_01_06);
+            etatPlanTresorerieModel.DecaissementPrestataires_01_06 = string.Format(frCult, "{0:n}", DecaissementPrestataires_01_06);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_01_06 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_01_06);
+            etatPlanTresorerieModel.DecaissementSalairesNets_01_06 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_01_06);
+            etatPlanTresorerieModel.CotisationsSociales_01_06 = string.Format(frCult, "{0:n}", CotisationsSociales_01_06);
+            etatPlanTresorerieModel.IRGSalaires_01_06 = string.Format(frCult, "{0:n}", IRGSalaires_01_06);
+            etatPlanTresorerieModel.TVAPayer_01_06 = string.Format(frCult, "{0:n}", TVAPayer_01_06);
+            etatPlanTresorerieModel.IBS_IFU_01_06 = string.Format(frCult, "{0:n}", IBS_IFU_01_06);
+            etatPlanTresorerieModel.TotalDepense_01_06 = string.Format(frCult, "{0:n}", TotalDepense_01_06);
+            etatPlanTresorerieModel.SoldeFinal_01_06 = string.Format(frCult, "{0:n}", SoldeFinal_01_06);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année01 Mois07
+
+            etatPlanTresorerieModel.SoldeInitial_01_07 = string.Format(frCult, "{0:n}", SoldeInitial_01_07);
+            etatPlanTresorerieModel.ApportSupplementaire_01_07 = string.Format(frCult, "{0:n}", ApportSupplementaire_01_07);
+            etatPlanTresorerieModel.CMT_01_07 = string.Format(frCult, "{0:n}", CMT_01_07);
+            etatPlanTresorerieModel.PNRClassique_01_07 = string.Format(frCult, "{0:n}", PNRClassique_01_07);
+            etatPlanTresorerieModel.ApportPersonnel_01_07 = string.Format(frCult, "{0:n}", ApportPersonnel_01_07);
+            etatPlanTresorerieModel.PNRLoyer_01_07 = string.Format(frCult, "{0:n}", PNRLoyer_01_07);
+            etatPlanTresorerieModel.EncaissementRecusClients_01_07 = string.Format(frCult, "{0:n}", EncaissementRecusClients_01_07);
+            etatPlanTresorerieModel.TotalRecette_01_07 = string.Format(frCult, "{0:n}", TotalRecette_01_07);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_01_07 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_01_07);
+            etatPlanTresorerieModel.DecaissementFournisseurs_01_07 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_01_07);
+            etatPlanTresorerieModel.DecaissementPrestataires_01_07 = string.Format(frCult, "{0:n}", DecaissementPrestataires_01_07);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_01_07 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_01_07);
+            etatPlanTresorerieModel.DecaissementSalairesNets_01_07 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_01_07);
+            etatPlanTresorerieModel.CotisationsSociales_01_07 = string.Format(frCult, "{0:n}", CotisationsSociales_01_07);
+            etatPlanTresorerieModel.IRGSalaires_01_07 = string.Format(frCult, "{0:n}", IRGSalaires_01_07);
+            etatPlanTresorerieModel.TVAPayer_01_07 = string.Format(frCult, "{0:n}", TVAPayer_01_07);
+            etatPlanTresorerieModel.IBS_IFU_01_07 = string.Format(frCult, "{0:n}", IBS_IFU_01_07);
+            etatPlanTresorerieModel.TotalDepense_01_07 = string.Format(frCult, "{0:n}", TotalDepense_01_07);
+            etatPlanTresorerieModel.SoldeFinal_01_07 = string.Format(frCult, "{0:n}", SoldeFinal_01_07);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année01 Mois08
+
+            etatPlanTresorerieModel.SoldeInitial_01_08 = string.Format(frCult, "{0:n}", SoldeInitial_01_08);
+            etatPlanTresorerieModel.ApportSupplementaire_01_08 = string.Format(frCult, "{0:n}", ApportSupplementaire_01_08);
+            etatPlanTresorerieModel.CMT_01_08 = string.Format(frCult, "{0:n}", CMT_01_08);
+            etatPlanTresorerieModel.PNRClassique_01_08 = string.Format(frCult, "{0:n}", PNRClassique_01_08);
+            etatPlanTresorerieModel.ApportPersonnel_01_08 = string.Format(frCult, "{0:n}", ApportPersonnel_01_08);
+            etatPlanTresorerieModel.PNRLoyer_01_08 = string.Format(frCult, "{0:n}", PNRLoyer_01_08);
+            etatPlanTresorerieModel.EncaissementRecusClients_01_08 = string.Format(frCult, "{0:n}", EncaissementRecusClients_01_08);
+            etatPlanTresorerieModel.TotalRecette_01_08 = string.Format(frCult, "{0:n}", TotalRecette_01_08);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_01_08 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_01_08);
+            etatPlanTresorerieModel.DecaissementFournisseurs_01_08 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_01_08);
+            etatPlanTresorerieModel.DecaissementPrestataires_01_08 = string.Format(frCult, "{0:n}", DecaissementPrestataires_01_08);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_01_08 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_01_08);
+            etatPlanTresorerieModel.DecaissementSalairesNets_01_08 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_01_08);
+            etatPlanTresorerieModel.CotisationsSociales_01_08 = string.Format(frCult, "{0:n}", CotisationsSociales_01_08);
+            etatPlanTresorerieModel.IRGSalaires_01_08 = string.Format(frCult, "{0:n}", IRGSalaires_01_08);
+            etatPlanTresorerieModel.TVAPayer_01_08 = string.Format(frCult, "{0:n}", TVAPayer_01_08);
+            etatPlanTresorerieModel.IBS_IFU_01_08 = string.Format(frCult, "{0:n}", IBS_IFU_01_08);
+            etatPlanTresorerieModel.TotalDepense_01_08 = string.Format(frCult, "{0:n}", TotalDepense_01_08);
+            etatPlanTresorerieModel.SoldeFinal_01_08 = string.Format(frCult, "{0:n}", SoldeFinal_01_08);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année01 Mois09
+
+            etatPlanTresorerieModel.SoldeInitial_01_09 = string.Format(frCult, "{0:n}", SoldeInitial_01_09);
+            etatPlanTresorerieModel.ApportSupplementaire_01_09 = string.Format(frCult, "{0:n}", ApportSupplementaire_01_09);
+            etatPlanTresorerieModel.CMT_01_09 = string.Format(frCult, "{0:n}", CMT_01_09);
+            etatPlanTresorerieModel.PNRClassique_01_09 = string.Format(frCult, "{0:n}", PNRClassique_01_09);
+            etatPlanTresorerieModel.ApportPersonnel_01_09 = string.Format(frCult, "{0:n}", ApportPersonnel_01_09);
+            etatPlanTresorerieModel.PNRLoyer_01_09 = string.Format(frCult, "{0:n}", PNRLoyer_01_09);
+            etatPlanTresorerieModel.EncaissementRecusClients_01_09 = string.Format(frCult, "{0:n}", EncaissementRecusClients_01_09);
+            etatPlanTresorerieModel.TotalRecette_01_09 = string.Format(frCult, "{0:n}", TotalRecette_01_09);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_01_09 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_01_09);
+            etatPlanTresorerieModel.DecaissementFournisseurs_01_09 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_01_09);
+            etatPlanTresorerieModel.DecaissementPrestataires_01_09 = string.Format(frCult, "{0:n}", DecaissementPrestataires_01_09);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_01_09 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_01_09);
+            etatPlanTresorerieModel.DecaissementSalairesNets_01_09 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_01_09);
+            etatPlanTresorerieModel.CotisationsSociales_01_09 = string.Format(frCult, "{0:n}", CotisationsSociales_01_09);
+            etatPlanTresorerieModel.IRGSalaires_01_09 = string.Format(frCult, "{0:n}", IRGSalaires_01_09);
+            etatPlanTresorerieModel.TVAPayer_01_09 = string.Format(frCult, "{0:n}", TVAPayer_01_09);
+            etatPlanTresorerieModel.IBS_IFU_01_09 = string.Format(frCult, "{0:n}", IBS_IFU_01_09);
+            etatPlanTresorerieModel.TotalDepense_01_09 = string.Format(frCult, "{0:n}", TotalDepense_01_09);
+            etatPlanTresorerieModel.SoldeFinal_01_09 = string.Format(frCult, "{0:n}", SoldeFinal_01_09);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année01 Mois10
+
+            etatPlanTresorerieModel.SoldeInitial_01_10 = string.Format(frCult, "{0:n}", SoldeInitial_01_10);
+            etatPlanTresorerieModel.ApportSupplementaire_01_10 = string.Format(frCult, "{0:n}", ApportSupplementaire_01_10);
+            etatPlanTresorerieModel.CMT_01_10 = string.Format(frCult, "{0:n}", CMT_01_10);
+            etatPlanTresorerieModel.PNRClassique_01_10 = string.Format(frCult, "{0:n}", PNRClassique_01_10);
+            etatPlanTresorerieModel.ApportPersonnel_01_10 = string.Format(frCult, "{0:n}", ApportPersonnel_01_10);
+            etatPlanTresorerieModel.PNRLoyer_01_10 = string.Format(frCult, "{0:n}", PNRLoyer_01_10);
+            etatPlanTresorerieModel.EncaissementRecusClients_01_10 = string.Format(frCult, "{0:n}", EncaissementRecusClients_01_10);
+            etatPlanTresorerieModel.TotalRecette_01_10 = string.Format(frCult, "{0:n}", TotalRecette_01_10);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_01_10 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_01_10);
+            etatPlanTresorerieModel.DecaissementFournisseurs_01_10 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_01_10);
+            etatPlanTresorerieModel.DecaissementPrestataires_01_10 = string.Format(frCult, "{0:n}", DecaissementPrestataires_01_10);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_01_10 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_01_10);
+            etatPlanTresorerieModel.DecaissementSalairesNets_01_10 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_01_10);
+            etatPlanTresorerieModel.CotisationsSociales_01_10 = string.Format(frCult, "{0:n}", CotisationsSociales_01_10);
+            etatPlanTresorerieModel.IRGSalaires_01_10 = string.Format(frCult, "{0:n}", IRGSalaires_01_10);
+            etatPlanTresorerieModel.TVAPayer_01_10 = string.Format(frCult, "{0:n}", TVAPayer_01_10);
+            etatPlanTresorerieModel.IBS_IFU_01_10 = string.Format(frCult, "{0:n}", IBS_IFU_01_10);
+            etatPlanTresorerieModel.TotalDepense_01_10 = string.Format(frCult, "{0:n}", TotalDepense_01_10);
+            etatPlanTresorerieModel.SoldeFinal_01_10 = string.Format(frCult, "{0:n}", SoldeFinal_01_10);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année01 Mois11
+
+            etatPlanTresorerieModel.SoldeInitial_01_11 = string.Format(frCult, "{0:n}", SoldeInitial_01_11);
+            etatPlanTresorerieModel.ApportSupplementaire_01_11 = string.Format(frCult, "{0:n}", ApportSupplementaire_01_11);
+            etatPlanTresorerieModel.CMT_01_11 = string.Format(frCult, "{0:n}", CMT_01_11);
+            etatPlanTresorerieModel.PNRClassique_01_11 = string.Format(frCult, "{0:n}", PNRClassique_01_11);
+            etatPlanTresorerieModel.ApportPersonnel_01_11 = string.Format(frCult, "{0:n}", ApportPersonnel_01_11);
+            etatPlanTresorerieModel.PNRLoyer_01_11 = string.Format(frCult, "{0:n}", PNRLoyer_01_11);
+            etatPlanTresorerieModel.EncaissementRecusClients_01_11 = string.Format(frCult, "{0:n}", EncaissementRecusClients_01_11);
+            etatPlanTresorerieModel.TotalRecette_01_11 = string.Format(frCult, "{0:n}", TotalRecette_01_11);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_01_11 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_01_11);
+            etatPlanTresorerieModel.DecaissementFournisseurs_01_11 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_01_11);
+            etatPlanTresorerieModel.DecaissementPrestataires_01_11 = string.Format(frCult, "{0:n}", DecaissementPrestataires_01_11);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_01_11 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_01_11);
+            etatPlanTresorerieModel.DecaissementSalairesNets_01_11 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_01_11);
+            etatPlanTresorerieModel.CotisationsSociales_01_11 = string.Format(frCult, "{0:n}", CotisationsSociales_01_11);
+            etatPlanTresorerieModel.IRGSalaires_01_11 = string.Format(frCult, "{0:n}", IRGSalaires_01_11);
+            etatPlanTresorerieModel.TVAPayer_01_11 = string.Format(frCult, "{0:n}", TVAPayer_01_11);
+            etatPlanTresorerieModel.IBS_IFU_01_11 = string.Format(frCult, "{0:n}", IBS_IFU_01_11);
+            etatPlanTresorerieModel.TotalDepense_01_11 = string.Format(frCult, "{0:n}", TotalDepense_01_11);
+            etatPlanTresorerieModel.SoldeFinal_01_11 = string.Format(frCult, "{0:n}", SoldeFinal_01_11);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année01 Mois12
+
+            etatPlanTresorerieModel.SoldeInitial_01_12 = string.Format(frCult, "{0:n}", SoldeInitial_01_12);
+            etatPlanTresorerieModel.ApportSupplementaire_01_12 = string.Format(frCult, "{0:n}", ApportSupplementaire_01_12);
+            etatPlanTresorerieModel.CMT_01_12 = string.Format(frCult, "{0:n}", CMT_01_12);
+            etatPlanTresorerieModel.PNRClassique_01_12 = string.Format(frCult, "{0:n}", PNRClassique_01_12);
+            etatPlanTresorerieModel.ApportPersonnel_01_12 = string.Format(frCult, "{0:n}", ApportPersonnel_01_12);
+            etatPlanTresorerieModel.PNRLoyer_01_12 = string.Format(frCult, "{0:n}", PNRLoyer_01_12);
+            etatPlanTresorerieModel.EncaissementRecusClients_01_12 = string.Format(frCult, "{0:n}", EncaissementRecusClients_01_12);
+            etatPlanTresorerieModel.TotalRecette_01_12 = string.Format(frCult, "{0:n}", TotalRecette_01_12);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_01_12 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_01_12);
+            etatPlanTresorerieModel.DecaissementFournisseurs_01_12 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_01_12);
+            etatPlanTresorerieModel.DecaissementPrestataires_01_12 = string.Format(frCult, "{0:n}", DecaissementPrestataires_01_12);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_01_12 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_01_12);
+            etatPlanTresorerieModel.DecaissementSalairesNets_01_12 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_01_12);
+            etatPlanTresorerieModel.CotisationsSociales_01_12 = string.Format(frCult, "{0:n}", CotisationsSociales_01_12);
+            etatPlanTresorerieModel.IRGSalaires_01_12 = string.Format(frCult, "{0:n}", IRGSalaires_01_12);
+            etatPlanTresorerieModel.TVAPayer_01_12 = string.Format(frCult, "{0:n}", TVAPayer_01_12);
+            etatPlanTresorerieModel.IBS_IFU_01_12 = string.Format(frCult, "{0:n}", IBS_IFU_01_12);
+            etatPlanTresorerieModel.TotalDepense_01_12 = string.Format(frCult, "{0:n}", TotalDepense_01_12);
+            etatPlanTresorerieModel.SoldeFinal_01_12 = string.Format(frCult, "{0:n}", SoldeFinal_01_12);
+
+            #endregion
+
+            #endregion
+
+            #region Données etatPlanTresorerieModel Année02
+
+            #region Données EtatPlanTresorerie Année02 Mois01
+
+            etatPlanTresorerieModel.SoldeInitial_02_01 = string.Format(frCult, "{0:n}", SoldeInitial_02_01);
+            etatPlanTresorerieModel.ApportSupplementaire_02_01 = string.Format(frCult, "{0:n}", ApportSupplementaire_02_01);
+            etatPlanTresorerieModel.CMT_02_01 = string.Format(frCult, "{0:n}", CMT_02_01);
+            etatPlanTresorerieModel.PNRClassique_02_01 = string.Format(frCult, "{0:n}", PNRClassique_02_01);
+            etatPlanTresorerieModel.ApportPersonnel_02_01 = string.Format(frCult, "{0:n}", ApportPersonnel_02_01);
+            etatPlanTresorerieModel.PNRLoyer_02_01 = string.Format(frCult, "{0:n}", PNRLoyer_02_01);
+            etatPlanTresorerieModel.EncaissementRecusClients_02_01 = string.Format(frCult, "{0:n}", EncaissementRecusClients_02_01);
+            etatPlanTresorerieModel.TotalRecette_02_01 = string.Format(frCult, "{0:n}", TotalRecette_02_01);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_02_01 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_02_01);
+            etatPlanTresorerieModel.DecaissementFournisseurs_02_01 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_02_01);
+            etatPlanTresorerieModel.DecaissementPrestataires_02_01 = string.Format(frCult, "{0:n}", DecaissementPrestataires_02_01);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_02_01 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_02_01);
+            etatPlanTresorerieModel.DecaissementSalairesNets_02_01 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_02_01);
+            etatPlanTresorerieModel.CotisationsSociales_02_01 = string.Format(frCult, "{0:n}", CotisationsSociales_02_01);
+            etatPlanTresorerieModel.IRGSalaires_02_01 = string.Format(frCult, "{0:n}", IRGSalaires_02_01);
+            etatPlanTresorerieModel.TVAPayer_02_01 = string.Format(frCult, "{0:n}", TVAPayer_02_01);
+            etatPlanTresorerieModel.IBS_IFU_02_01 = string.Format(frCult, "{0:n}", IBS_IFU_02_01);
+            etatPlanTresorerieModel.TotalDepense_02_01 = string.Format(frCult, "{0:n}", TotalDepense_02_01);
+            etatPlanTresorerieModel.SoldeFinal_02_01 = string.Format(frCult, "{0:n}", SoldeFinal_02_01);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année02 Mois02
+
+            etatPlanTresorerieModel.SoldeInitial_02_02 = string.Format(frCult, "{0:n}", SoldeInitial_02_02);
+            etatPlanTresorerieModel.ApportSupplementaire_02_02 = string.Format(frCult, "{0:n}", ApportSupplementaire_02_02);
+            etatPlanTresorerieModel.CMT_02_02 = string.Format(frCult, "{0:n}", CMT_02_02);
+            etatPlanTresorerieModel.PNRClassique_02_02 = string.Format(frCult, "{0:n}", PNRClassique_02_02);
+            etatPlanTresorerieModel.ApportPersonnel_02_02 = string.Format(frCult, "{0:n}", ApportPersonnel_02_02);
+            etatPlanTresorerieModel.PNRLoyer_02_02 = string.Format(frCult, "{0:n}", PNRLoyer_02_02);
+            etatPlanTresorerieModel.EncaissementRecusClients_02_02 = string.Format(frCult, "{0:n}", EncaissementRecusClients_02_02);
+            etatPlanTresorerieModel.TotalRecette_02_02 = string.Format(frCult, "{0:n}", TotalRecette_02_02);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_02_02 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_02_02);
+            etatPlanTresorerieModel.DecaissementFournisseurs_02_02 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_02_02);
+            etatPlanTresorerieModel.DecaissementPrestataires_02_02 = string.Format(frCult, "{0:n}", DecaissementPrestataires_02_02);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_02_02 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_02_02);
+            etatPlanTresorerieModel.DecaissementSalairesNets_02_02 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_02_02);
+            etatPlanTresorerieModel.CotisationsSociales_02_02 = string.Format(frCult, "{0:n}", CotisationsSociales_02_02);
+            etatPlanTresorerieModel.IRGSalaires_02_02 = string.Format(frCult, "{0:n}", IRGSalaires_02_02);
+            etatPlanTresorerieModel.TVAPayer_02_02 = string.Format(frCult, "{0:n}", TVAPayer_02_02);
+            etatPlanTresorerieModel.IBS_IFU_02_02 = string.Format(frCult, "{0:n}", IBS_IFU_02_02);
+            etatPlanTresorerieModel.TotalDepense_02_02 = string.Format(frCult, "{0:n}", TotalDepense_02_02);
+            etatPlanTresorerieModel.SoldeFinal_02_02 = string.Format(frCult, "{0:n}", SoldeFinal_02_02);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année02 Mois03
+
+            etatPlanTresorerieModel.SoldeInitial_02_03 = string.Format(frCult, "{0:n}", SoldeInitial_02_03);
+            etatPlanTresorerieModel.ApportSupplementaire_02_03 = string.Format(frCult, "{0:n}", ApportSupplementaire_02_03);
+            etatPlanTresorerieModel.CMT_02_03 = string.Format(frCult, "{0:n}", CMT_02_03);
+            etatPlanTresorerieModel.PNRClassique_02_03 = string.Format(frCult, "{0:n}", PNRClassique_02_03);
+            etatPlanTresorerieModel.ApportPersonnel_02_03 = string.Format(frCult, "{0:n}", ApportPersonnel_02_03);
+            etatPlanTresorerieModel.PNRLoyer_02_03 = string.Format(frCult, "{0:n}", PNRLoyer_02_03);
+            etatPlanTresorerieModel.EncaissementRecusClients_02_03 = string.Format(frCult, "{0:n}", EncaissementRecusClients_02_03);
+            etatPlanTresorerieModel.TotalRecette_02_03 = string.Format(frCult, "{0:n}", TotalRecette_02_03);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_02_03 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_02_03);
+            etatPlanTresorerieModel.DecaissementFournisseurs_02_03 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_02_03);
+            etatPlanTresorerieModel.DecaissementPrestataires_02_03 = string.Format(frCult, "{0:n}", DecaissementPrestataires_02_03);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_02_03 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_02_03);
+            etatPlanTresorerieModel.DecaissementSalairesNets_02_03 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_02_03);
+            etatPlanTresorerieModel.CotisationsSociales_02_03 = string.Format(frCult, "{0:n}", CotisationsSociales_02_03);
+            etatPlanTresorerieModel.IRGSalaires_02_03 = string.Format(frCult, "{0:n}", IRGSalaires_02_03);
+            etatPlanTresorerieModel.TVAPayer_02_03 = string.Format(frCult, "{0:n}", TVAPayer_02_03);
+            etatPlanTresorerieModel.IBS_IFU_02_03 = string.Format(frCult, "{0:n}", IBS_IFU_02_03);
+            etatPlanTresorerieModel.TotalDepense_02_03 = string.Format(frCult, "{0:n}", TotalDepense_02_03);
+            etatPlanTresorerieModel.SoldeFinal_02_03 = string.Format(frCult, "{0:n}", SoldeFinal_02_03);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année02 Mois04
+
+            etatPlanTresorerieModel.SoldeInitial_02_04 = string.Format(frCult, "{0:n}", SoldeInitial_02_04);
+            etatPlanTresorerieModel.ApportSupplementaire_02_04 = string.Format(frCult, "{0:n}", ApportSupplementaire_02_04);
+            etatPlanTresorerieModel.CMT_02_04 = string.Format(frCult, "{0:n}", CMT_02_04);
+            etatPlanTresorerieModel.PNRClassique_02_04 = string.Format(frCult, "{0:n}", PNRClassique_02_04);
+            etatPlanTresorerieModel.ApportPersonnel_02_04 = string.Format(frCult, "{0:n}", ApportPersonnel_02_04);
+            etatPlanTresorerieModel.PNRLoyer_02_04 = string.Format(frCult, "{0:n}", PNRLoyer_02_04);
+            etatPlanTresorerieModel.EncaissementRecusClients_02_04 = string.Format(frCult, "{0:n}", EncaissementRecusClients_02_04);
+            etatPlanTresorerieModel.TotalRecette_02_04 = string.Format(frCult, "{0:n}", TotalRecette_02_04);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_02_04 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_02_04);
+            etatPlanTresorerieModel.DecaissementFournisseurs_02_04 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_02_04);
+            etatPlanTresorerieModel.DecaissementPrestataires_02_04 = string.Format(frCult, "{0:n}", DecaissementPrestataires_02_04);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_02_04 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_02_04);
+            etatPlanTresorerieModel.DecaissementSalairesNets_02_04 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_02_04);
+            etatPlanTresorerieModel.CotisationsSociales_02_04 = string.Format(frCult, "{0:n}", CotisationsSociales_02_04);
+            etatPlanTresorerieModel.IRGSalaires_02_04 = string.Format(frCult, "{0:n}", IRGSalaires_02_04);
+            etatPlanTresorerieModel.TVAPayer_02_04 = string.Format(frCult, "{0:n}", TVAPayer_02_04);
+            etatPlanTresorerieModel.IBS_IFU_02_04 = string.Format(frCult, "{0:n}", IBS_IFU_02_04);
+            etatPlanTresorerieModel.TotalDepense_02_04 = string.Format(frCult, "{0:n}", TotalDepense_02_04);
+            etatPlanTresorerieModel.SoldeFinal_02_04 = string.Format(frCult, "{0:n}", SoldeFinal_02_04);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année02 Mois05
+
+            etatPlanTresorerieModel.SoldeInitial_02_05 = string.Format(frCult, "{0:n}", SoldeInitial_02_05);
+            etatPlanTresorerieModel.ApportSupplementaire_02_05 = string.Format(frCult, "{0:n}", ApportSupplementaire_02_05);
+            etatPlanTresorerieModel.CMT_02_05 = string.Format(frCult, "{0:n}", CMT_02_05);
+            etatPlanTresorerieModel.PNRClassique_02_05 = string.Format(frCult, "{0:n}", PNRClassique_02_05);
+            etatPlanTresorerieModel.ApportPersonnel_02_05 = string.Format(frCult, "{0:n}", ApportPersonnel_02_05);
+            etatPlanTresorerieModel.PNRLoyer_02_05 = string.Format(frCult, "{0:n}", PNRLoyer_02_05);
+            etatPlanTresorerieModel.EncaissementRecusClients_02_05 = string.Format(frCult, "{0:n}", EncaissementRecusClients_02_05);
+            etatPlanTresorerieModel.TotalRecette_02_05 = string.Format(frCult, "{0:n}", TotalRecette_02_05);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_02_05 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_02_05);
+            etatPlanTresorerieModel.DecaissementFournisseurs_02_05 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_02_05);
+            etatPlanTresorerieModel.DecaissementPrestataires_02_05 = string.Format(frCult, "{0:n}", DecaissementPrestataires_02_05);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_02_05 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_02_05);
+            etatPlanTresorerieModel.DecaissementSalairesNets_02_05 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_02_05);
+            etatPlanTresorerieModel.CotisationsSociales_02_05 = string.Format(frCult, "{0:n}", CotisationsSociales_02_05);
+            etatPlanTresorerieModel.IRGSalaires_02_05 = string.Format(frCult, "{0:n}", IRGSalaires_02_05);
+            etatPlanTresorerieModel.TVAPayer_02_05 = string.Format(frCult, "{0:n}", TVAPayer_02_05);
+            etatPlanTresorerieModel.IBS_IFU_02_05 = string.Format(frCult, "{0:n}", IBS_IFU_02_05);
+            etatPlanTresorerieModel.TotalDepense_02_05 = string.Format(frCult, "{0:n}", TotalDepense_02_05);
+            etatPlanTresorerieModel.SoldeFinal_02_05 = string.Format(frCult, "{0:n}", SoldeFinal_02_05);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année02 Mois06
+
+            etatPlanTresorerieModel.SoldeInitial_02_06 = string.Format(frCult, "{0:n}", SoldeInitial_02_06);
+            etatPlanTresorerieModel.ApportSupplementaire_02_06 = string.Format(frCult, "{0:n}", ApportSupplementaire_02_06);
+            etatPlanTresorerieModel.CMT_02_06 = string.Format(frCult, "{0:n}", CMT_02_06);
+            etatPlanTresorerieModel.PNRClassique_02_06 = string.Format(frCult, "{0:n}", PNRClassique_02_06);
+            etatPlanTresorerieModel.ApportPersonnel_02_06 = string.Format(frCult, "{0:n}", ApportPersonnel_02_06);
+            etatPlanTresorerieModel.PNRLoyer_02_06 = string.Format(frCult, "{0:n}", PNRLoyer_02_06);
+            etatPlanTresorerieModel.EncaissementRecusClients_02_06 = string.Format(frCult, "{0:n}", EncaissementRecusClients_02_06);
+            etatPlanTresorerieModel.TotalRecette_02_06 = string.Format(frCult, "{0:n}", TotalRecette_02_06);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_02_06 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_02_06);
+            etatPlanTresorerieModel.DecaissementFournisseurs_02_06 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_02_06);
+            etatPlanTresorerieModel.DecaissementPrestataires_02_06 = string.Format(frCult, "{0:n}", DecaissementPrestataires_02_06);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_02_06 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_02_06);
+            etatPlanTresorerieModel.DecaissementSalairesNets_02_06 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_02_06);
+            etatPlanTresorerieModel.CotisationsSociales_02_06 = string.Format(frCult, "{0:n}", CotisationsSociales_02_06);
+            etatPlanTresorerieModel.IRGSalaires_02_06 = string.Format(frCult, "{0:n}", IRGSalaires_02_06);
+            etatPlanTresorerieModel.TVAPayer_02_06 = string.Format(frCult, "{0:n}", TVAPayer_02_06);
+            etatPlanTresorerieModel.IBS_IFU_02_06 = string.Format(frCult, "{0:n}", IBS_IFU_02_06);
+            etatPlanTresorerieModel.TotalDepense_02_06 = string.Format(frCult, "{0:n}", TotalDepense_02_06);
+            etatPlanTresorerieModel.SoldeFinal_02_06 = string.Format(frCult, "{0:n}", SoldeFinal_02_06);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année02 Mois07
+
+            etatPlanTresorerieModel.SoldeInitial_02_07 = string.Format(frCult, "{0:n}", SoldeInitial_02_07);
+            etatPlanTresorerieModel.ApportSupplementaire_02_07 = string.Format(frCult, "{0:n}", ApportSupplementaire_02_07);
+            etatPlanTresorerieModel.CMT_02_07 = string.Format(frCult, "{0:n}", CMT_02_07);
+            etatPlanTresorerieModel.PNRClassique_02_07 = string.Format(frCult, "{0:n}", PNRClassique_02_07);
+            etatPlanTresorerieModel.ApportPersonnel_02_07 = string.Format(frCult, "{0:n}", ApportPersonnel_02_07);
+            etatPlanTresorerieModel.PNRLoyer_02_07 = string.Format(frCult, "{0:n}", PNRLoyer_02_07);
+            etatPlanTresorerieModel.EncaissementRecusClients_02_07 = string.Format(frCult, "{0:n}", EncaissementRecusClients_02_07);
+            etatPlanTresorerieModel.TotalRecette_02_07 = string.Format(frCult, "{0:n}", TotalRecette_02_07);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_02_07 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_02_07);
+            etatPlanTresorerieModel.DecaissementFournisseurs_02_07 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_02_07);
+            etatPlanTresorerieModel.DecaissementPrestataires_02_07 = string.Format(frCult, "{0:n}", DecaissementPrestataires_02_07);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_02_07 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_02_07);
+            etatPlanTresorerieModel.DecaissementSalairesNets_02_07 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_02_07);
+            etatPlanTresorerieModel.CotisationsSociales_02_07 = string.Format(frCult, "{0:n}", CotisationsSociales_02_07);
+            etatPlanTresorerieModel.IRGSalaires_02_07 = string.Format(frCult, "{0:n}", IRGSalaires_02_07);
+            etatPlanTresorerieModel.TVAPayer_02_07 = string.Format(frCult, "{0:n}", TVAPayer_02_07);
+            etatPlanTresorerieModel.IBS_IFU_02_07 = string.Format(frCult, "{0:n}", IBS_IFU_02_07);
+            etatPlanTresorerieModel.TotalDepense_02_07 = string.Format(frCult, "{0:n}", TotalDepense_02_07);
+            etatPlanTresorerieModel.SoldeFinal_02_07 = string.Format(frCult, "{0:n}", SoldeFinal_02_07);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année02 Mois08
+
+            etatPlanTresorerieModel.SoldeInitial_02_08 = string.Format(frCult, "{0:n}", SoldeInitial_02_08);
+            etatPlanTresorerieModel.ApportSupplementaire_02_08 = string.Format(frCult, "{0:n}", ApportSupplementaire_02_08);
+            etatPlanTresorerieModel.CMT_02_08 = string.Format(frCult, "{0:n}", CMT_02_08);
+            etatPlanTresorerieModel.PNRClassique_02_08 = string.Format(frCult, "{0:n}", PNRClassique_02_08);
+            etatPlanTresorerieModel.ApportPersonnel_02_08 = string.Format(frCult, "{0:n}", ApportPersonnel_02_08);
+            etatPlanTresorerieModel.PNRLoyer_02_08 = string.Format(frCult, "{0:n}", PNRLoyer_02_08);
+            etatPlanTresorerieModel.EncaissementRecusClients_02_08 = string.Format(frCult, "{0:n}", EncaissementRecusClients_02_08);
+            etatPlanTresorerieModel.TotalRecette_02_08 = string.Format(frCult, "{0:n}", TotalRecette_02_08);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_02_08 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_02_08);
+            etatPlanTresorerieModel.DecaissementFournisseurs_02_08 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_02_08);
+            etatPlanTresorerieModel.DecaissementPrestataires_02_08 = string.Format(frCult, "{0:n}", DecaissementPrestataires_02_08);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_02_08 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_02_08);
+            etatPlanTresorerieModel.DecaissementSalairesNets_02_08 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_02_08);
+            etatPlanTresorerieModel.CotisationsSociales_02_08 = string.Format(frCult, "{0:n}", CotisationsSociales_02_08);
+            etatPlanTresorerieModel.IRGSalaires_02_08 = string.Format(frCult, "{0:n}", IRGSalaires_02_08);
+            etatPlanTresorerieModel.TVAPayer_02_08 = string.Format(frCult, "{0:n}", TVAPayer_02_08);
+            etatPlanTresorerieModel.IBS_IFU_02_08 = string.Format(frCult, "{0:n}", IBS_IFU_02_08);
+            etatPlanTresorerieModel.TotalDepense_02_08 = string.Format(frCult, "{0:n}", TotalDepense_02_08);
+            etatPlanTresorerieModel.SoldeFinal_02_08 = string.Format(frCult, "{0:n}", SoldeFinal_02_08);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année02 Mois09
+
+            etatPlanTresorerieModel.SoldeInitial_02_09 = string.Format(frCult, "{0:n}", SoldeInitial_02_09);
+            etatPlanTresorerieModel.ApportSupplementaire_02_09 = string.Format(frCult, "{0:n}", ApportSupplementaire_02_09);
+            etatPlanTresorerieModel.CMT_02_09 = string.Format(frCult, "{0:n}", CMT_02_09);
+            etatPlanTresorerieModel.PNRClassique_02_09 = string.Format(frCult, "{0:n}", PNRClassique_02_09);
+            etatPlanTresorerieModel.ApportPersonnel_02_09 = string.Format(frCult, "{0:n}", ApportPersonnel_02_09);
+            etatPlanTresorerieModel.PNRLoyer_02_09 = string.Format(frCult, "{0:n}", PNRLoyer_02_09);
+            etatPlanTresorerieModel.EncaissementRecusClients_02_09 = string.Format(frCult, "{0:n}", EncaissementRecusClients_02_09);
+            etatPlanTresorerieModel.TotalRecette_02_09 = string.Format(frCult, "{0:n}", TotalRecette_02_09);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_02_09 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_02_09);
+            etatPlanTresorerieModel.DecaissementFournisseurs_02_09 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_02_09);
+            etatPlanTresorerieModel.DecaissementPrestataires_02_09 = string.Format(frCult, "{0:n}", DecaissementPrestataires_02_09);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_02_09 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_02_09);
+            etatPlanTresorerieModel.DecaissementSalairesNets_02_09 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_02_09);
+            etatPlanTresorerieModel.CotisationsSociales_02_09 = string.Format(frCult, "{0:n}", CotisationsSociales_02_09);
+            etatPlanTresorerieModel.IRGSalaires_02_09 = string.Format(frCult, "{0:n}", IRGSalaires_02_09);
+            etatPlanTresorerieModel.TVAPayer_02_09 = string.Format(frCult, "{0:n}", TVAPayer_02_09);
+            etatPlanTresorerieModel.IBS_IFU_02_09 = string.Format(frCult, "{0:n}", IBS_IFU_02_09);
+            etatPlanTresorerieModel.TotalDepense_02_09 = string.Format(frCult, "{0:n}", TotalDepense_02_09);
+            etatPlanTresorerieModel.SoldeFinal_02_09 = string.Format(frCult, "{0:n}", SoldeFinal_02_09);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année02 Mois10
+
+            etatPlanTresorerieModel.SoldeInitial_02_10 = string.Format(frCult, "{0:n}", SoldeInitial_02_10);
+            etatPlanTresorerieModel.ApportSupplementaire_02_10 = string.Format(frCult, "{0:n}", ApportSupplementaire_02_10);
+            etatPlanTresorerieModel.CMT_02_10 = string.Format(frCult, "{0:n}", CMT_02_10);
+            etatPlanTresorerieModel.PNRClassique_02_10 = string.Format(frCult, "{0:n}", PNRClassique_02_10);
+            etatPlanTresorerieModel.ApportPersonnel_02_10 = string.Format(frCult, "{0:n}", ApportPersonnel_02_10);
+            etatPlanTresorerieModel.PNRLoyer_02_10 = string.Format(frCult, "{0:n}", PNRLoyer_02_10);
+            etatPlanTresorerieModel.EncaissementRecusClients_02_10 = string.Format(frCult, "{0:n}", EncaissementRecusClients_02_10);
+            etatPlanTresorerieModel.TotalRecette_02_10 = string.Format(frCult, "{0:n}", TotalRecette_02_10);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_02_10 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_02_10);
+            etatPlanTresorerieModel.DecaissementFournisseurs_02_10 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_02_10);
+            etatPlanTresorerieModel.DecaissementPrestataires_02_10 = string.Format(frCult, "{0:n}", DecaissementPrestataires_02_10);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_02_10 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_02_10);
+            etatPlanTresorerieModel.DecaissementSalairesNets_02_10 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_02_10);
+            etatPlanTresorerieModel.CotisationsSociales_02_10 = string.Format(frCult, "{0:n}", CotisationsSociales_02_10);
+            etatPlanTresorerieModel.IRGSalaires_02_10 = string.Format(frCult, "{0:n}", IRGSalaires_02_10);
+            etatPlanTresorerieModel.TVAPayer_02_10 = string.Format(frCult, "{0:n}", TVAPayer_02_10);
+            etatPlanTresorerieModel.IBS_IFU_02_10 = string.Format(frCult, "{0:n}", IBS_IFU_02_10);
+            etatPlanTresorerieModel.TotalDepense_02_10 = string.Format(frCult, "{0:n}", TotalDepense_02_10);
+            etatPlanTresorerieModel.SoldeFinal_02_10 = string.Format(frCult, "{0:n}", SoldeFinal_02_10);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année02 Mois11
+
+            etatPlanTresorerieModel.SoldeInitial_02_11 = string.Format(frCult, "{0:n}", SoldeInitial_02_11);
+            etatPlanTresorerieModel.ApportSupplementaire_02_11 = string.Format(frCult, "{0:n}", ApportSupplementaire_02_11);
+            etatPlanTresorerieModel.CMT_02_11 = string.Format(frCult, "{0:n}", CMT_02_11);
+            etatPlanTresorerieModel.PNRClassique_02_11 = string.Format(frCult, "{0:n}", PNRClassique_02_11);
+            etatPlanTresorerieModel.ApportPersonnel_02_11 = string.Format(frCult, "{0:n}", ApportPersonnel_02_11);
+            etatPlanTresorerieModel.PNRLoyer_02_11 = string.Format(frCult, "{0:n}", PNRLoyer_02_11);
+            etatPlanTresorerieModel.EncaissementRecusClients_02_11 = string.Format(frCult, "{0:n}", EncaissementRecusClients_02_11);
+            etatPlanTresorerieModel.TotalRecette_02_11 = string.Format(frCult, "{0:n}", TotalRecette_02_11);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_02_11 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_02_11);
+            etatPlanTresorerieModel.DecaissementFournisseurs_02_11 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_02_11);
+            etatPlanTresorerieModel.DecaissementPrestataires_02_11 = string.Format(frCult, "{0:n}", DecaissementPrestataires_02_11);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_02_11 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_02_11);
+            etatPlanTresorerieModel.DecaissementSalairesNets_02_11 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_02_11);
+            etatPlanTresorerieModel.CotisationsSociales_02_11 = string.Format(frCult, "{0:n}", CotisationsSociales_02_11);
+            etatPlanTresorerieModel.IRGSalaires_02_11 = string.Format(frCult, "{0:n}", IRGSalaires_02_11);
+            etatPlanTresorerieModel.TVAPayer_02_11 = string.Format(frCult, "{0:n}", TVAPayer_02_11);
+            etatPlanTresorerieModel.IBS_IFU_02_11 = string.Format(frCult, "{0:n}", IBS_IFU_02_11);
+            etatPlanTresorerieModel.TotalDepense_02_11 = string.Format(frCult, "{0:n}", TotalDepense_02_11);
+            etatPlanTresorerieModel.SoldeFinal_02_11 = string.Format(frCult, "{0:n}", SoldeFinal_02_11);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année02 Mois12
+
+            etatPlanTresorerieModel.SoldeInitial_02_12 = string.Format(frCult, "{0:n}", SoldeInitial_02_12);
+            etatPlanTresorerieModel.ApportSupplementaire_02_12 = string.Format(frCult, "{0:n}", ApportSupplementaire_02_12);
+            etatPlanTresorerieModel.CMT_02_12 = string.Format(frCult, "{0:n}", CMT_02_12);
+            etatPlanTresorerieModel.PNRClassique_02_12 = string.Format(frCult, "{0:n}", PNRClassique_02_12);
+            etatPlanTresorerieModel.ApportPersonnel_02_12 = string.Format(frCult, "{0:n}", ApportPersonnel_02_12);
+            etatPlanTresorerieModel.PNRLoyer_02_12 = string.Format(frCult, "{0:n}", PNRLoyer_02_12);
+            etatPlanTresorerieModel.EncaissementRecusClients_02_12 = string.Format(frCult, "{0:n}", EncaissementRecusClients_02_12);
+            etatPlanTresorerieModel.TotalRecette_02_12 = string.Format(frCult, "{0:n}", TotalRecette_02_12);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_02_12 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_02_12);
+            etatPlanTresorerieModel.DecaissementFournisseurs_02_12 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_02_12);
+            etatPlanTresorerieModel.DecaissementPrestataires_02_12 = string.Format(frCult, "{0:n}", DecaissementPrestataires_02_12);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_02_12 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_02_12);
+            etatPlanTresorerieModel.DecaissementSalairesNets_02_12 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_02_12);
+            etatPlanTresorerieModel.CotisationsSociales_02_12 = string.Format(frCult, "{0:n}", CotisationsSociales_02_12);
+            etatPlanTresorerieModel.IRGSalaires_02_12 = string.Format(frCult, "{0:n}", IRGSalaires_02_12);
+            etatPlanTresorerieModel.TVAPayer_02_12 = string.Format(frCult, "{0:n}", TVAPayer_02_12);
+            etatPlanTresorerieModel.IBS_IFU_02_12 = string.Format(frCult, "{0:n}", IBS_IFU_02_12);
+            etatPlanTresorerieModel.TotalDepense_02_12 = string.Format(frCult, "{0:n}", TotalDepense_02_12);
+            etatPlanTresorerieModel.SoldeFinal_02_12 = string.Format(frCult, "{0:n}", SoldeFinal_02_12);
+
+            #endregion
+
+            #endregion
+
+            #region Données etatPlanTresorerieModel Année03
+
+            #region Données EtatPlanTresorerie Année03 Mois01
+
+            etatPlanTresorerieModel.SoldeInitial_03_01 = string.Format(frCult, "{0:n}", SoldeInitial_03_01);
+            etatPlanTresorerieModel.ApportSupplementaire_03_01 = string.Format(frCult, "{0:n}", ApportSupplementaire_03_01);
+            etatPlanTresorerieModel.CMT_03_01 = string.Format(frCult, "{0:n}", CMT_03_01);
+            etatPlanTresorerieModel.PNRClassique_03_01 = string.Format(frCult, "{0:n}", PNRClassique_03_01);
+            etatPlanTresorerieModel.ApportPersonnel_03_01 = string.Format(frCult, "{0:n}", ApportPersonnel_03_01);
+            etatPlanTresorerieModel.PNRLoyer_03_01 = string.Format(frCult, "{0:n}", PNRLoyer_03_01);
+            etatPlanTresorerieModel.EncaissementRecusClients_03_01 = string.Format(frCult, "{0:n}", EncaissementRecusClients_03_01);
+            etatPlanTresorerieModel.TotalRecette_03_01 = string.Format(frCult, "{0:n}", TotalRecette_03_01);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_03_01 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_03_01);
+            etatPlanTresorerieModel.DecaissementFournisseurs_03_01 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_03_01);
+            etatPlanTresorerieModel.DecaissementPrestataires_03_01 = string.Format(frCult, "{0:n}", DecaissementPrestataires_03_01);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_03_01 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_03_01);
+            etatPlanTresorerieModel.DecaissementSalairesNets_03_01 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_03_01);
+            etatPlanTresorerieModel.CotisationsSociales_03_01 = string.Format(frCult, "{0:n}", CotisationsSociales_03_01);
+            etatPlanTresorerieModel.IRGSalaires_03_01 = string.Format(frCult, "{0:n}", IRGSalaires_03_01);
+            etatPlanTresorerieModel.TVAPayer_03_01 = string.Format(frCult, "{0:n}", TVAPayer_03_01);
+            etatPlanTresorerieModel.IBS_IFU_03_01 = string.Format(frCult, "{0:n}", IBS_IFU_03_01);
+            etatPlanTresorerieModel.TotalDepense_03_01 = string.Format(frCult, "{0:n}", TotalDepense_03_01);
+            etatPlanTresorerieModel.SoldeFinal_03_01 = string.Format(frCult, "{0:n}", SoldeFinal_03_01);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année03 Mois02
+
+            etatPlanTresorerieModel.SoldeInitial_03_02 = string.Format(frCult, "{0:n}", SoldeInitial_03_02);
+            etatPlanTresorerieModel.ApportSupplementaire_03_02 = string.Format(frCult, "{0:n}", ApportSupplementaire_03_02);
+            etatPlanTresorerieModel.CMT_03_02 = string.Format(frCult, "{0:n}", CMT_03_02);
+            etatPlanTresorerieModel.PNRClassique_03_02 = string.Format(frCult, "{0:n}", PNRClassique_03_02);
+            etatPlanTresorerieModel.ApportPersonnel_03_02 = string.Format(frCult, "{0:n}", ApportPersonnel_03_02);
+            etatPlanTresorerieModel.PNRLoyer_03_02 = string.Format(frCult, "{0:n}", PNRLoyer_03_02);
+            etatPlanTresorerieModel.EncaissementRecusClients_03_02 = string.Format(frCult, "{0:n}", EncaissementRecusClients_03_02);
+            etatPlanTresorerieModel.TotalRecette_03_02 = string.Format(frCult, "{0:n}", TotalRecette_03_02);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_03_02 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_03_02);
+            etatPlanTresorerieModel.DecaissementFournisseurs_03_02 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_03_02);
+            etatPlanTresorerieModel.DecaissementPrestataires_03_02 = string.Format(frCult, "{0:n}", DecaissementPrestataires_03_02);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_03_02 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_03_02);
+            etatPlanTresorerieModel.DecaissementSalairesNets_03_02 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_03_02);
+            etatPlanTresorerieModel.CotisationsSociales_03_02 = string.Format(frCult, "{0:n}", CotisationsSociales_03_02);
+            etatPlanTresorerieModel.IRGSalaires_03_02 = string.Format(frCult, "{0:n}", IRGSalaires_03_02);
+            etatPlanTresorerieModel.TVAPayer_03_02 = string.Format(frCult, "{0:n}", TVAPayer_03_02);
+            etatPlanTresorerieModel.IBS_IFU_03_02 = string.Format(frCult, "{0:n}", IBS_IFU_03_02);
+            etatPlanTresorerieModel.TotalDepense_03_02 = string.Format(frCult, "{0:n}", TotalDepense_03_02);
+            etatPlanTresorerieModel.SoldeFinal_03_02 = string.Format(frCult, "{0:n}", SoldeFinal_03_02);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année03 Mois03
+
+            etatPlanTresorerieModel.SoldeInitial_03_03 = string.Format(frCult, "{0:n}", SoldeInitial_03_03);
+            etatPlanTresorerieModel.ApportSupplementaire_03_03 = string.Format(frCult, "{0:n}", ApportSupplementaire_03_03);
+            etatPlanTresorerieModel.CMT_03_03 = string.Format(frCult, "{0:n}", CMT_03_03);
+            etatPlanTresorerieModel.PNRClassique_03_03 = string.Format(frCult, "{0:n}", PNRClassique_03_03);
+            etatPlanTresorerieModel.ApportPersonnel_03_03 = string.Format(frCult, "{0:n}", ApportPersonnel_03_03);
+            etatPlanTresorerieModel.PNRLoyer_03_03 = string.Format(frCult, "{0:n}", PNRLoyer_03_03);
+            etatPlanTresorerieModel.EncaissementRecusClients_03_03 = string.Format(frCult, "{0:n}", EncaissementRecusClients_03_03);
+            etatPlanTresorerieModel.TotalRecette_03_03 = string.Format(frCult, "{0:n}", TotalRecette_03_03);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_03_03 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_03_03);
+            etatPlanTresorerieModel.DecaissementFournisseurs_03_03 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_03_03);
+            etatPlanTresorerieModel.DecaissementPrestataires_03_03 = string.Format(frCult, "{0:n}", DecaissementPrestataires_03_03);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_03_03 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_03_03);
+            etatPlanTresorerieModel.DecaissementSalairesNets_03_03 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_03_03);
+            etatPlanTresorerieModel.CotisationsSociales_03_03 = string.Format(frCult, "{0:n}", CotisationsSociales_03_03);
+            etatPlanTresorerieModel.IRGSalaires_03_03 = string.Format(frCult, "{0:n}", IRGSalaires_03_03);
+            etatPlanTresorerieModel.TVAPayer_03_03 = string.Format(frCult, "{0:n}", TVAPayer_03_03);
+            etatPlanTresorerieModel.IBS_IFU_03_03 = string.Format(frCult, "{0:n}", IBS_IFU_03_03);
+            etatPlanTresorerieModel.TotalDepense_03_03 = string.Format(frCult, "{0:n}", TotalDepense_03_03);
+            etatPlanTresorerieModel.SoldeFinal_03_03 = string.Format(frCult, "{0:n}", SoldeFinal_03_03);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année03 Mois04
+
+            etatPlanTresorerieModel.SoldeInitial_03_04 = string.Format(frCult, "{0:n}", SoldeInitial_03_04);
+            etatPlanTresorerieModel.ApportSupplementaire_03_04 = string.Format(frCult, "{0:n}", ApportSupplementaire_03_04);
+            etatPlanTresorerieModel.CMT_03_04 = string.Format(frCult, "{0:n}", CMT_03_04);
+            etatPlanTresorerieModel.PNRClassique_03_04 = string.Format(frCult, "{0:n}", PNRClassique_03_04);
+            etatPlanTresorerieModel.ApportPersonnel_03_04 = string.Format(frCult, "{0:n}", ApportPersonnel_03_04);
+            etatPlanTresorerieModel.PNRLoyer_03_04 = string.Format(frCult, "{0:n}", PNRLoyer_03_04);
+            etatPlanTresorerieModel.EncaissementRecusClients_03_04 = string.Format(frCult, "{0:n}", EncaissementRecusClients_03_04);
+            etatPlanTresorerieModel.TotalRecette_03_04 = string.Format(frCult, "{0:n}", TotalRecette_03_04);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_03_04 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_03_04);
+            etatPlanTresorerieModel.DecaissementFournisseurs_03_04 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_03_04);
+            etatPlanTresorerieModel.DecaissementPrestataires_03_04 = string.Format(frCult, "{0:n}", DecaissementPrestataires_03_04);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_03_04 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_03_04);
+            etatPlanTresorerieModel.DecaissementSalairesNets_03_04 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_03_04);
+            etatPlanTresorerieModel.CotisationsSociales_03_04 = string.Format(frCult, "{0:n}", CotisationsSociales_03_04);
+            etatPlanTresorerieModel.IRGSalaires_03_04 = string.Format(frCult, "{0:n}", IRGSalaires_03_04);
+            etatPlanTresorerieModel.TVAPayer_03_04 = string.Format(frCult, "{0:n}", TVAPayer_03_04);
+            etatPlanTresorerieModel.IBS_IFU_03_04 = string.Format(frCult, "{0:n}", IBS_IFU_03_04);
+            etatPlanTresorerieModel.TotalDepense_03_04 = string.Format(frCult, "{0:n}", TotalDepense_03_04);
+            etatPlanTresorerieModel.SoldeFinal_03_04 = string.Format(frCult, "{0:n}", SoldeFinal_03_04);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année03 Mois05
+
+            etatPlanTresorerieModel.SoldeInitial_03_05 = string.Format(frCult, "{0:n}", SoldeInitial_03_05);
+            etatPlanTresorerieModel.ApportSupplementaire_03_05 = string.Format(frCult, "{0:n}", ApportSupplementaire_03_05);
+            etatPlanTresorerieModel.CMT_03_05 = string.Format(frCult, "{0:n}", CMT_03_05);
+            etatPlanTresorerieModel.PNRClassique_03_05 = string.Format(frCult, "{0:n}", PNRClassique_03_05);
+            etatPlanTresorerieModel.ApportPersonnel_03_05 = string.Format(frCult, "{0:n}", ApportPersonnel_03_05);
+            etatPlanTresorerieModel.PNRLoyer_03_05 = string.Format(frCult, "{0:n}", PNRLoyer_03_05);
+            etatPlanTresorerieModel.EncaissementRecusClients_03_05 = string.Format(frCult, "{0:n}", EncaissementRecusClients_03_05);
+            etatPlanTresorerieModel.TotalRecette_03_05 = string.Format(frCult, "{0:n}", TotalRecette_03_05);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_03_05 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_03_05);
+            etatPlanTresorerieModel.DecaissementFournisseurs_03_05 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_03_05);
+            etatPlanTresorerieModel.DecaissementPrestataires_03_05 = string.Format(frCult, "{0:n}", DecaissementPrestataires_03_05);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_03_05 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_03_05);
+            etatPlanTresorerieModel.DecaissementSalairesNets_03_05 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_03_05);
+            etatPlanTresorerieModel.CotisationsSociales_03_05 = string.Format(frCult, "{0:n}", CotisationsSociales_03_05);
+            etatPlanTresorerieModel.IRGSalaires_03_05 = string.Format(frCult, "{0:n}", IRGSalaires_03_05);
+            etatPlanTresorerieModel.TVAPayer_03_05 = string.Format(frCult, "{0:n}", TVAPayer_03_05);
+            etatPlanTresorerieModel.IBS_IFU_03_05 = string.Format(frCult, "{0:n}", IBS_IFU_03_05);
+            etatPlanTresorerieModel.TotalDepense_03_05 = string.Format(frCult, "{0:n}", TotalDepense_03_05);
+            etatPlanTresorerieModel.SoldeFinal_03_05 = string.Format(frCult, "{0:n}", SoldeFinal_03_05);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année03 Mois06
+
+            etatPlanTresorerieModel.SoldeInitial_03_06 = string.Format(frCult, "{0:n}", SoldeInitial_03_06);
+            etatPlanTresorerieModel.ApportSupplementaire_03_06 = string.Format(frCult, "{0:n}", ApportSupplementaire_03_06);
+            etatPlanTresorerieModel.CMT_03_06 = string.Format(frCult, "{0:n}", CMT_03_06);
+            etatPlanTresorerieModel.PNRClassique_03_06 = string.Format(frCult, "{0:n}", PNRClassique_03_06);
+            etatPlanTresorerieModel.ApportPersonnel_03_06 = string.Format(frCult, "{0:n}", ApportPersonnel_03_06);
+            etatPlanTresorerieModel.PNRLoyer_03_06 = string.Format(frCult, "{0:n}", PNRLoyer_03_06);
+            etatPlanTresorerieModel.EncaissementRecusClients_03_06 = string.Format(frCult, "{0:n}", EncaissementRecusClients_03_06);
+            etatPlanTresorerieModel.TotalRecette_03_06 = string.Format(frCult, "{0:n}", TotalRecette_03_06);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_03_06 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_03_06);
+            etatPlanTresorerieModel.DecaissementFournisseurs_03_06 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_03_06);
+            etatPlanTresorerieModel.DecaissementPrestataires_03_06 = string.Format(frCult, "{0:n}", DecaissementPrestataires_03_06);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_03_06 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_03_06);
+            etatPlanTresorerieModel.DecaissementSalairesNets_03_06 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_03_06);
+            etatPlanTresorerieModel.CotisationsSociales_03_06 = string.Format(frCult, "{0:n}", CotisationsSociales_03_06);
+            etatPlanTresorerieModel.IRGSalaires_03_06 = string.Format(frCult, "{0:n}", IRGSalaires_03_06);
+            etatPlanTresorerieModel.TVAPayer_03_06 = string.Format(frCult, "{0:n}", TVAPayer_03_06);
+            etatPlanTresorerieModel.IBS_IFU_03_06 = string.Format(frCult, "{0:n}", IBS_IFU_03_06);
+            etatPlanTresorerieModel.TotalDepense_03_06 = string.Format(frCult, "{0:n}", TotalDepense_03_06);
+            etatPlanTresorerieModel.SoldeFinal_03_06 = string.Format(frCult, "{0:n}", SoldeFinal_03_06);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année03 Mois07
+
+            etatPlanTresorerieModel.SoldeInitial_03_07 = string.Format(frCult, "{0:n}", SoldeInitial_03_07);
+            etatPlanTresorerieModel.ApportSupplementaire_03_07 = string.Format(frCult, "{0:n}", ApportSupplementaire_03_07);
+            etatPlanTresorerieModel.CMT_03_07 = string.Format(frCult, "{0:n}", CMT_03_07);
+            etatPlanTresorerieModel.PNRClassique_03_07 = string.Format(frCult, "{0:n}", PNRClassique_03_07);
+            etatPlanTresorerieModel.ApportPersonnel_03_07 = string.Format(frCult, "{0:n}", ApportPersonnel_03_07);
+            etatPlanTresorerieModel.PNRLoyer_03_07 = string.Format(frCult, "{0:n}", PNRLoyer_03_07);
+            etatPlanTresorerieModel.EncaissementRecusClients_03_07 = string.Format(frCult, "{0:n}", EncaissementRecusClients_03_07);
+            etatPlanTresorerieModel.TotalRecette_03_07 = string.Format(frCult, "{0:n}", TotalRecette_03_07);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_03_07 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_03_07);
+            etatPlanTresorerieModel.DecaissementFournisseurs_03_07 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_03_07);
+            etatPlanTresorerieModel.DecaissementPrestataires_03_07 = string.Format(frCult, "{0:n}", DecaissementPrestataires_03_07);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_03_07 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_03_07);
+            etatPlanTresorerieModel.DecaissementSalairesNets_03_07 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_03_07);
+            etatPlanTresorerieModel.CotisationsSociales_03_07 = string.Format(frCult, "{0:n}", CotisationsSociales_03_07);
+            etatPlanTresorerieModel.IRGSalaires_03_07 = string.Format(frCult, "{0:n}", IRGSalaires_03_07);
+            etatPlanTresorerieModel.TVAPayer_03_07 = string.Format(frCult, "{0:n}", TVAPayer_03_07);
+            etatPlanTresorerieModel.IBS_IFU_03_07 = string.Format(frCult, "{0:n}", IBS_IFU_03_07);
+            etatPlanTresorerieModel.TotalDepense_03_07 = string.Format(frCult, "{0:n}", TotalDepense_03_07);
+            etatPlanTresorerieModel.SoldeFinal_03_07 = string.Format(frCult, "{0:n}", SoldeFinal_03_07);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année03 Mois08
+
+            etatPlanTresorerieModel.SoldeInitial_03_08 = string.Format(frCult, "{0:n}", SoldeInitial_03_08);
+            etatPlanTresorerieModel.ApportSupplementaire_03_08 = string.Format(frCult, "{0:n}", ApportSupplementaire_03_08);
+            etatPlanTresorerieModel.CMT_03_08 = string.Format(frCult, "{0:n}", CMT_03_08);
+            etatPlanTresorerieModel.PNRClassique_03_08 = string.Format(frCult, "{0:n}", PNRClassique_03_08);
+            etatPlanTresorerieModel.ApportPersonnel_03_08 = string.Format(frCult, "{0:n}", ApportPersonnel_03_08);
+            etatPlanTresorerieModel.PNRLoyer_03_08 = string.Format(frCult, "{0:n}", PNRLoyer_03_08);
+            etatPlanTresorerieModel.EncaissementRecusClients_03_08 = string.Format(frCult, "{0:n}", EncaissementRecusClients_03_08);
+            etatPlanTresorerieModel.TotalRecette_03_08 = string.Format(frCult, "{0:n}", TotalRecette_03_08);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_03_08 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_03_08);
+            etatPlanTresorerieModel.DecaissementFournisseurs_03_08 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_03_08);
+            etatPlanTresorerieModel.DecaissementPrestataires_03_08 = string.Format(frCult, "{0:n}", DecaissementPrestataires_03_08);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_03_08 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_03_08);
+            etatPlanTresorerieModel.DecaissementSalairesNets_03_08 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_03_08);
+            etatPlanTresorerieModel.CotisationsSociales_03_08 = string.Format(frCult, "{0:n}", CotisationsSociales_03_08);
+            etatPlanTresorerieModel.IRGSalaires_03_08 = string.Format(frCult, "{0:n}", IRGSalaires_03_08);
+            etatPlanTresorerieModel.TVAPayer_03_08 = string.Format(frCult, "{0:n}", TVAPayer_03_08);
+            etatPlanTresorerieModel.IBS_IFU_03_08 = string.Format(frCult, "{0:n}", IBS_IFU_03_08);
+            etatPlanTresorerieModel.TotalDepense_03_08 = string.Format(frCult, "{0:n}", TotalDepense_03_08);
+            etatPlanTresorerieModel.SoldeFinal_03_08 = string.Format(frCult, "{0:n}", SoldeFinal_03_08);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année03 Mois09
+
+            etatPlanTresorerieModel.SoldeInitial_03_09 = string.Format(frCult, "{0:n}", SoldeInitial_03_09);
+            etatPlanTresorerieModel.ApportSupplementaire_03_09 = string.Format(frCult, "{0:n}", ApportSupplementaire_03_09);
+            etatPlanTresorerieModel.CMT_03_09 = string.Format(frCult, "{0:n}", CMT_03_09);
+            etatPlanTresorerieModel.PNRClassique_03_09 = string.Format(frCult, "{0:n}", PNRClassique_03_09);
+            etatPlanTresorerieModel.ApportPersonnel_03_09 = string.Format(frCult, "{0:n}", ApportPersonnel_03_09);
+            etatPlanTresorerieModel.PNRLoyer_03_09 = string.Format(frCult, "{0:n}", PNRLoyer_03_09);
+            etatPlanTresorerieModel.EncaissementRecusClients_03_09 = string.Format(frCult, "{0:n}", EncaissementRecusClients_03_09);
+            etatPlanTresorerieModel.TotalRecette_03_09 = string.Format(frCult, "{0:n}", TotalRecette_03_09);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_03_09 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_03_09);
+            etatPlanTresorerieModel.DecaissementFournisseurs_03_09 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_03_09);
+            etatPlanTresorerieModel.DecaissementPrestataires_03_09 = string.Format(frCult, "{0:n}", DecaissementPrestataires_03_09);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_03_09 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_03_09);
+            etatPlanTresorerieModel.DecaissementSalairesNets_03_09 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_03_09);
+            etatPlanTresorerieModel.CotisationsSociales_03_09 = string.Format(frCult, "{0:n}", CotisationsSociales_03_09);
+            etatPlanTresorerieModel.IRGSalaires_03_09 = string.Format(frCult, "{0:n}", IRGSalaires_03_09);
+            etatPlanTresorerieModel.TVAPayer_03_09 = string.Format(frCult, "{0:n}", TVAPayer_03_09);
+            etatPlanTresorerieModel.IBS_IFU_03_09 = string.Format(frCult, "{0:n}", IBS_IFU_03_09);
+            etatPlanTresorerieModel.TotalDepense_03_09 = string.Format(frCult, "{0:n}", TotalDepense_03_09);
+            etatPlanTresorerieModel.SoldeFinal_03_09 = string.Format(frCult, "{0:n}", SoldeFinal_03_09);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année03 Mois10
+
+            etatPlanTresorerieModel.SoldeInitial_03_10 = string.Format(frCult, "{0:n}", SoldeInitial_03_10);
+            etatPlanTresorerieModel.ApportSupplementaire_03_10 = string.Format(frCult, "{0:n}", ApportSupplementaire_03_10);
+            etatPlanTresorerieModel.CMT_03_10 = string.Format(frCult, "{0:n}", CMT_03_10);
+            etatPlanTresorerieModel.PNRClassique_03_10 = string.Format(frCult, "{0:n}", PNRClassique_03_10);
+            etatPlanTresorerieModel.ApportPersonnel_03_10 = string.Format(frCult, "{0:n}", ApportPersonnel_03_10);
+            etatPlanTresorerieModel.PNRLoyer_03_10 = string.Format(frCult, "{0:n}", PNRLoyer_03_10);
+            etatPlanTresorerieModel.EncaissementRecusClients_03_10 = string.Format(frCult, "{0:n}", EncaissementRecusClients_03_10);
+            etatPlanTresorerieModel.TotalRecette_03_10 = string.Format(frCult, "{0:n}", TotalRecette_03_10);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_03_10 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_03_10);
+            etatPlanTresorerieModel.DecaissementFournisseurs_03_10 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_03_10);
+            etatPlanTresorerieModel.DecaissementPrestataires_03_10 = string.Format(frCult, "{0:n}", DecaissementPrestataires_03_10);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_03_10 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_03_10);
+            etatPlanTresorerieModel.DecaissementSalairesNets_03_10 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_03_10);
+            etatPlanTresorerieModel.CotisationsSociales_03_10 = string.Format(frCult, "{0:n}", CotisationsSociales_03_10);
+            etatPlanTresorerieModel.IRGSalaires_03_10 = string.Format(frCult, "{0:n}", IRGSalaires_03_10);
+            etatPlanTresorerieModel.TVAPayer_03_10 = string.Format(frCult, "{0:n}", TVAPayer_03_10);
+            etatPlanTresorerieModel.IBS_IFU_03_10 = string.Format(frCult, "{0:n}", IBS_IFU_03_10);
+            etatPlanTresorerieModel.TotalDepense_03_10 = string.Format(frCult, "{0:n}", TotalDepense_03_10);
+            etatPlanTresorerieModel.SoldeFinal_03_10 = string.Format(frCult, "{0:n}", SoldeFinal_03_10);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année03 Mois11
+
+            etatPlanTresorerieModel.SoldeInitial_03_11 = string.Format(frCult, "{0:n}", SoldeInitial_03_11);
+            etatPlanTresorerieModel.ApportSupplementaire_03_11 = string.Format(frCult, "{0:n}", ApportSupplementaire_03_11);
+            etatPlanTresorerieModel.CMT_03_11 = string.Format(frCult, "{0:n}", CMT_03_11);
+            etatPlanTresorerieModel.PNRClassique_03_11 = string.Format(frCult, "{0:n}", PNRClassique_03_11);
+            etatPlanTresorerieModel.ApportPersonnel_03_11 = string.Format(frCult, "{0:n}", ApportPersonnel_03_11);
+            etatPlanTresorerieModel.PNRLoyer_03_11 = string.Format(frCult, "{0:n}", PNRLoyer_03_11);
+            etatPlanTresorerieModel.EncaissementRecusClients_03_11 = string.Format(frCult, "{0:n}", EncaissementRecusClients_03_11);
+            etatPlanTresorerieModel.TotalRecette_03_11 = string.Format(frCult, "{0:n}", TotalRecette_03_11);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_03_11 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_03_11);
+            etatPlanTresorerieModel.DecaissementFournisseurs_03_11 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_03_11);
+            etatPlanTresorerieModel.DecaissementPrestataires_03_11 = string.Format(frCult, "{0:n}", DecaissementPrestataires_03_11);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_03_11 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_03_11);
+            etatPlanTresorerieModel.DecaissementSalairesNets_03_11 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_03_11);
+            etatPlanTresorerieModel.CotisationsSociales_03_11 = string.Format(frCult, "{0:n}", CotisationsSociales_03_11);
+            etatPlanTresorerieModel.IRGSalaires_03_11 = string.Format(frCult, "{0:n}", IRGSalaires_03_11);
+            etatPlanTresorerieModel.TVAPayer_03_11 = string.Format(frCult, "{0:n}", TVAPayer_03_11);
+            etatPlanTresorerieModel.IBS_IFU_03_11 = string.Format(frCult, "{0:n}", IBS_IFU_03_11);
+            etatPlanTresorerieModel.TotalDepense_03_11 = string.Format(frCult, "{0:n}", TotalDepense_03_11);
+            etatPlanTresorerieModel.SoldeFinal_03_11 = string.Format(frCult, "{0:n}", SoldeFinal_03_11);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année03 Mois12
+
+            etatPlanTresorerieModel.SoldeInitial_03_12 = string.Format(frCult, "{0:n}", SoldeInitial_03_12);
+            etatPlanTresorerieModel.ApportSupplementaire_03_12 = string.Format(frCult, "{0:n}", ApportSupplementaire_03_12);
+            etatPlanTresorerieModel.CMT_03_12 = string.Format(frCult, "{0:n}", CMT_03_12);
+            etatPlanTresorerieModel.PNRClassique_03_12 = string.Format(frCult, "{0:n}", PNRClassique_03_12);
+            etatPlanTresorerieModel.ApportPersonnel_03_12 = string.Format(frCult, "{0:n}", ApportPersonnel_03_12);
+            etatPlanTresorerieModel.PNRLoyer_03_12 = string.Format(frCult, "{0:n}", PNRLoyer_03_12);
+            etatPlanTresorerieModel.EncaissementRecusClients_03_12 = string.Format(frCult, "{0:n}", EncaissementRecusClients_03_12);
+            etatPlanTresorerieModel.TotalRecette_03_12 = string.Format(frCult, "{0:n}", TotalRecette_03_12);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_03_12 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_03_12);
+            etatPlanTresorerieModel.DecaissementFournisseurs_03_12 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_03_12);
+            etatPlanTresorerieModel.DecaissementPrestataires_03_12 = string.Format(frCult, "{0:n}", DecaissementPrestataires_03_12);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_03_12 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_03_12);
+            etatPlanTresorerieModel.DecaissementSalairesNets_03_12 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_03_12);
+            etatPlanTresorerieModel.CotisationsSociales_03_12 = string.Format(frCult, "{0:n}", CotisationsSociales_03_12);
+            etatPlanTresorerieModel.IRGSalaires_03_12 = string.Format(frCult, "{0:n}", IRGSalaires_03_12);
+            etatPlanTresorerieModel.TVAPayer_03_12 = string.Format(frCult, "{0:n}", TVAPayer_03_12);
+            etatPlanTresorerieModel.IBS_IFU_03_12 = string.Format(frCult, "{0:n}", IBS_IFU_03_12);
+            etatPlanTresorerieModel.TotalDepense_03_12 = string.Format(frCult, "{0:n}", TotalDepense_03_12);
+            etatPlanTresorerieModel.SoldeFinal_03_12 = string.Format(frCult, "{0:n}", SoldeFinal_03_12);
+
+            #endregion
+
+            #endregion
+
+            #region Données etatPlanTresorerieModel Année04
+
+            #region Données EtatPlanTresorerie Année04 Mois01
+
+            etatPlanTresorerieModel.SoldeInitial_04_01 = string.Format(frCult, "{0:n}", SoldeInitial_04_01);
+            etatPlanTresorerieModel.ApportSupplementaire_04_01 = string.Format(frCult, "{0:n}", ApportSupplementaire_04_01);
+            etatPlanTresorerieModel.CMT_04_01 = string.Format(frCult, "{0:n}", CMT_04_01);
+            etatPlanTresorerieModel.PNRClassique_04_01 = string.Format(frCult, "{0:n}", PNRClassique_04_01);
+            etatPlanTresorerieModel.ApportPersonnel_04_01 = string.Format(frCult, "{0:n}", ApportPersonnel_04_01);
+            etatPlanTresorerieModel.PNRLoyer_04_01 = string.Format(frCult, "{0:n}", PNRLoyer_04_01);
+            etatPlanTresorerieModel.EncaissementRecusClients_04_01 = string.Format(frCult, "{0:n}", EncaissementRecusClients_04_01);
+            etatPlanTresorerieModel.TotalRecette_04_01 = string.Format(frCult, "{0:n}", TotalRecette_04_01);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_04_01 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_04_01);
+            etatPlanTresorerieModel.DecaissementFournisseurs_04_01 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_04_01);
+            etatPlanTresorerieModel.DecaissementPrestataires_04_01 = string.Format(frCult, "{0:n}", DecaissementPrestataires_04_01);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_04_01 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_04_01);
+            etatPlanTresorerieModel.DecaissementSalairesNets_04_01 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_04_01);
+            etatPlanTresorerieModel.CotisationsSociales_04_01 = string.Format(frCult, "{0:n}", CotisationsSociales_04_01);
+            etatPlanTresorerieModel.IRGSalaires_04_01 = string.Format(frCult, "{0:n}", IRGSalaires_04_01);
+            etatPlanTresorerieModel.TVAPayer_04_01 = string.Format(frCult, "{0:n}", TVAPayer_04_01);
+            etatPlanTresorerieModel.IBS_IFU_04_01 = string.Format(frCult, "{0:n}", IBS_IFU_04_01);
+            etatPlanTresorerieModel.TotalDepense_04_01 = string.Format(frCult, "{0:n}", TotalDepense_04_01);
+            etatPlanTresorerieModel.SoldeFinal_04_01 = string.Format(frCult, "{0:n}", SoldeFinal_04_01);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année04 Mois02
+
+            etatPlanTresorerieModel.SoldeInitial_04_02 = string.Format(frCult, "{0:n}", SoldeInitial_04_02);
+            etatPlanTresorerieModel.ApportSupplementaire_04_02 = string.Format(frCult, "{0:n}", ApportSupplementaire_04_02);
+            etatPlanTresorerieModel.CMT_04_02 = string.Format(frCult, "{0:n}", CMT_04_02);
+            etatPlanTresorerieModel.PNRClassique_04_02 = string.Format(frCult, "{0:n}", PNRClassique_04_02);
+            etatPlanTresorerieModel.ApportPersonnel_04_02 = string.Format(frCult, "{0:n}", ApportPersonnel_04_02);
+            etatPlanTresorerieModel.PNRLoyer_04_02 = string.Format(frCult, "{0:n}", PNRLoyer_04_02);
+            etatPlanTresorerieModel.EncaissementRecusClients_04_02 = string.Format(frCult, "{0:n}", EncaissementRecusClients_04_02);
+            etatPlanTresorerieModel.TotalRecette_04_02 = string.Format(frCult, "{0:n}", TotalRecette_04_02);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_04_02 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_04_02);
+            etatPlanTresorerieModel.DecaissementFournisseurs_04_02 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_04_02);
+            etatPlanTresorerieModel.DecaissementPrestataires_04_02 = string.Format(frCult, "{0:n}", DecaissementPrestataires_04_02);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_04_02 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_04_02);
+            etatPlanTresorerieModel.DecaissementSalairesNets_04_02 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_04_02);
+            etatPlanTresorerieModel.CotisationsSociales_04_02 = string.Format(frCult, "{0:n}", CotisationsSociales_04_02);
+            etatPlanTresorerieModel.IRGSalaires_04_02 = string.Format(frCult, "{0:n}", IRGSalaires_04_02);
+            etatPlanTresorerieModel.TVAPayer_04_02 = string.Format(frCult, "{0:n}", TVAPayer_04_02);
+            etatPlanTresorerieModel.IBS_IFU_04_02 = string.Format(frCult, "{0:n}", IBS_IFU_04_02);
+            etatPlanTresorerieModel.TotalDepense_04_02 = string.Format(frCult, "{0:n}", TotalDepense_04_02);
+            etatPlanTresorerieModel.SoldeFinal_04_02 = string.Format(frCult, "{0:n}", SoldeFinal_04_02);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année04 Mois03
+
+            etatPlanTresorerieModel.SoldeInitial_04_03 = string.Format(frCult, "{0:n}", SoldeInitial_04_03);
+            etatPlanTresorerieModel.ApportSupplementaire_04_03 = string.Format(frCult, "{0:n}", ApportSupplementaire_04_03);
+            etatPlanTresorerieModel.CMT_04_03 = string.Format(frCult, "{0:n}", CMT_04_03);
+            etatPlanTresorerieModel.PNRClassique_04_03 = string.Format(frCult, "{0:n}", PNRClassique_04_03);
+            etatPlanTresorerieModel.ApportPersonnel_04_03 = string.Format(frCult, "{0:n}", ApportPersonnel_04_03);
+            etatPlanTresorerieModel.PNRLoyer_04_03 = string.Format(frCult, "{0:n}", PNRLoyer_04_03);
+            etatPlanTresorerieModel.EncaissementRecusClients_04_03 = string.Format(frCult, "{0:n}", EncaissementRecusClients_04_03);
+            etatPlanTresorerieModel.TotalRecette_04_03 = string.Format(frCult, "{0:n}", TotalRecette_04_03);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_04_03 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_04_03);
+            etatPlanTresorerieModel.DecaissementFournisseurs_04_03 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_04_03);
+            etatPlanTresorerieModel.DecaissementPrestataires_04_03 = string.Format(frCult, "{0:n}", DecaissementPrestataires_04_03);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_04_03 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_04_03);
+            etatPlanTresorerieModel.DecaissementSalairesNets_04_03 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_04_03);
+            etatPlanTresorerieModel.CotisationsSociales_04_03 = string.Format(frCult, "{0:n}", CotisationsSociales_04_03);
+            etatPlanTresorerieModel.IRGSalaires_04_03 = string.Format(frCult, "{0:n}", IRGSalaires_04_03);
+            etatPlanTresorerieModel.TVAPayer_04_03 = string.Format(frCult, "{0:n}", TVAPayer_04_03);
+            etatPlanTresorerieModel.IBS_IFU_04_03 = string.Format(frCult, "{0:n}", IBS_IFU_04_03);
+            etatPlanTresorerieModel.TotalDepense_04_03 = string.Format(frCult, "{0:n}", TotalDepense_04_03);
+            etatPlanTresorerieModel.SoldeFinal_04_03 = string.Format(frCult, "{0:n}", SoldeFinal_04_03);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année04 Mois04
+
+            etatPlanTresorerieModel.SoldeInitial_04_04 = string.Format(frCult, "{0:n}", SoldeInitial_04_04);
+            etatPlanTresorerieModel.ApportSupplementaire_04_04 = string.Format(frCult, "{0:n}", ApportSupplementaire_04_04);
+            etatPlanTresorerieModel.CMT_04_04 = string.Format(frCult, "{0:n}", CMT_04_04);
+            etatPlanTresorerieModel.PNRClassique_04_04 = string.Format(frCult, "{0:n}", PNRClassique_04_04);
+            etatPlanTresorerieModel.ApportPersonnel_04_04 = string.Format(frCult, "{0:n}", ApportPersonnel_04_04);
+            etatPlanTresorerieModel.PNRLoyer_04_04 = string.Format(frCult, "{0:n}", PNRLoyer_04_04);
+            etatPlanTresorerieModel.EncaissementRecusClients_04_04 = string.Format(frCult, "{0:n}", EncaissementRecusClients_04_04);
+            etatPlanTresorerieModel.TotalRecette_04_04 = string.Format(frCult, "{0:n}", TotalRecette_04_04);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_04_04 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_04_04);
+            etatPlanTresorerieModel.DecaissementFournisseurs_04_04 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_04_04);
+            etatPlanTresorerieModel.DecaissementPrestataires_04_04 = string.Format(frCult, "{0:n}", DecaissementPrestataires_04_04);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_04_04 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_04_04);
+            etatPlanTresorerieModel.DecaissementSalairesNets_04_04 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_04_04);
+            etatPlanTresorerieModel.CotisationsSociales_04_04 = string.Format(frCult, "{0:n}", CotisationsSociales_04_04);
+            etatPlanTresorerieModel.IRGSalaires_04_04 = string.Format(frCult, "{0:n}", IRGSalaires_04_04);
+            etatPlanTresorerieModel.TVAPayer_04_04 = string.Format(frCult, "{0:n}", TVAPayer_04_04);
+            etatPlanTresorerieModel.IBS_IFU_04_04 = string.Format(frCult, "{0:n}", IBS_IFU_04_04);
+            etatPlanTresorerieModel.TotalDepense_04_04 = string.Format(frCult, "{0:n}", TotalDepense_04_04);
+            etatPlanTresorerieModel.SoldeFinal_04_04 = string.Format(frCult, "{0:n}", SoldeFinal_04_04);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année04 Mois05
+
+            etatPlanTresorerieModel.SoldeInitial_04_05 = string.Format(frCult, "{0:n}", SoldeInitial_04_05);
+            etatPlanTresorerieModel.ApportSupplementaire_04_05 = string.Format(frCult, "{0:n}", ApportSupplementaire_04_05);
+            etatPlanTresorerieModel.CMT_04_05 = string.Format(frCult, "{0:n}", CMT_04_05);
+            etatPlanTresorerieModel.PNRClassique_04_05 = string.Format(frCult, "{0:n}", PNRClassique_04_05);
+            etatPlanTresorerieModel.ApportPersonnel_04_05 = string.Format(frCult, "{0:n}", ApportPersonnel_04_05);
+            etatPlanTresorerieModel.PNRLoyer_04_05 = string.Format(frCult, "{0:n}", PNRLoyer_04_05);
+            etatPlanTresorerieModel.EncaissementRecusClients_04_05 = string.Format(frCult, "{0:n}", EncaissementRecusClients_04_05);
+            etatPlanTresorerieModel.TotalRecette_04_05 = string.Format(frCult, "{0:n}", TotalRecette_04_05);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_04_05 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_04_05);
+            etatPlanTresorerieModel.DecaissementFournisseurs_04_05 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_04_05);
+            etatPlanTresorerieModel.DecaissementPrestataires_04_05 = string.Format(frCult, "{0:n}", DecaissementPrestataires_04_05);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_04_05 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_04_05);
+            etatPlanTresorerieModel.DecaissementSalairesNets_04_05 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_04_05);
+            etatPlanTresorerieModel.CotisationsSociales_04_05 = string.Format(frCult, "{0:n}", CotisationsSociales_04_05);
+            etatPlanTresorerieModel.IRGSalaires_04_05 = string.Format(frCult, "{0:n}", IRGSalaires_04_05);
+            etatPlanTresorerieModel.TVAPayer_04_05 = string.Format(frCult, "{0:n}", TVAPayer_04_05);
+            etatPlanTresorerieModel.IBS_IFU_04_05 = string.Format(frCult, "{0:n}", IBS_IFU_04_05);
+            etatPlanTresorerieModel.TotalDepense_04_05 = string.Format(frCult, "{0:n}", TotalDepense_04_05);
+            etatPlanTresorerieModel.SoldeFinal_04_05 = string.Format(frCult, "{0:n}", SoldeFinal_04_05);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année04 Mois06
+
+            etatPlanTresorerieModel.SoldeInitial_04_06 = string.Format(frCult, "{0:n}", SoldeInitial_04_06);
+            etatPlanTresorerieModel.ApportSupplementaire_04_06 = string.Format(frCult, "{0:n}", ApportSupplementaire_04_06);
+            etatPlanTresorerieModel.CMT_04_06 = string.Format(frCult, "{0:n}", CMT_04_06);
+            etatPlanTresorerieModel.PNRClassique_04_06 = string.Format(frCult, "{0:n}", PNRClassique_04_06);
+            etatPlanTresorerieModel.ApportPersonnel_04_06 = string.Format(frCult, "{0:n}", ApportPersonnel_04_06);
+            etatPlanTresorerieModel.PNRLoyer_04_06 = string.Format(frCult, "{0:n}", PNRLoyer_04_06);
+            etatPlanTresorerieModel.EncaissementRecusClients_04_06 = string.Format(frCult, "{0:n}", EncaissementRecusClients_04_06);
+            etatPlanTresorerieModel.TotalRecette_04_06 = string.Format(frCult, "{0:n}", TotalRecette_04_06);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_04_06 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_04_06);
+            etatPlanTresorerieModel.DecaissementFournisseurs_04_06 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_04_06);
+            etatPlanTresorerieModel.DecaissementPrestataires_04_06 = string.Format(frCult, "{0:n}", DecaissementPrestataires_04_06);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_04_06 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_04_06);
+            etatPlanTresorerieModel.DecaissementSalairesNets_04_06 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_04_06);
+            etatPlanTresorerieModel.CotisationsSociales_04_06 = string.Format(frCult, "{0:n}", CotisationsSociales_04_06);
+            etatPlanTresorerieModel.IRGSalaires_04_06 = string.Format(frCult, "{0:n}", IRGSalaires_04_06);
+            etatPlanTresorerieModel.TVAPayer_04_06 = string.Format(frCult, "{0:n}", TVAPayer_04_06);
+            etatPlanTresorerieModel.IBS_IFU_04_06 = string.Format(frCult, "{0:n}", IBS_IFU_04_06);
+            etatPlanTresorerieModel.TotalDepense_04_06 = string.Format(frCult, "{0:n}", TotalDepense_04_06);
+            etatPlanTresorerieModel.SoldeFinal_04_06 = string.Format(frCult, "{0:n}", SoldeFinal_04_06);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année04 Mois07
+
+            etatPlanTresorerieModel.SoldeInitial_04_07 = string.Format(frCult, "{0:n}", SoldeInitial_04_07);
+            etatPlanTresorerieModel.ApportSupplementaire_04_07 = string.Format(frCult, "{0:n}", ApportSupplementaire_04_07);
+            etatPlanTresorerieModel.CMT_04_07 = string.Format(frCult, "{0:n}", CMT_04_07);
+            etatPlanTresorerieModel.PNRClassique_04_07 = string.Format(frCult, "{0:n}", PNRClassique_04_07);
+            etatPlanTresorerieModel.ApportPersonnel_04_07 = string.Format(frCult, "{0:n}", ApportPersonnel_04_07);
+            etatPlanTresorerieModel.PNRLoyer_04_07 = string.Format(frCult, "{0:n}", PNRLoyer_04_07);
+            etatPlanTresorerieModel.EncaissementRecusClients_04_07 = string.Format(frCult, "{0:n}", EncaissementRecusClients_04_07);
+            etatPlanTresorerieModel.TotalRecette_04_07 = string.Format(frCult, "{0:n}", TotalRecette_04_07);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_04_07 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_04_07);
+            etatPlanTresorerieModel.DecaissementFournisseurs_04_07 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_04_07);
+            etatPlanTresorerieModel.DecaissementPrestataires_04_07 = string.Format(frCult, "{0:n}", DecaissementPrestataires_04_07);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_04_07 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_04_07);
+            etatPlanTresorerieModel.DecaissementSalairesNets_04_07 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_04_07);
+            etatPlanTresorerieModel.CotisationsSociales_04_07 = string.Format(frCult, "{0:n}", CotisationsSociales_04_07);
+            etatPlanTresorerieModel.IRGSalaires_04_07 = string.Format(frCult, "{0:n}", IRGSalaires_04_07);
+            etatPlanTresorerieModel.TVAPayer_04_07 = string.Format(frCult, "{0:n}", TVAPayer_04_07);
+            etatPlanTresorerieModel.IBS_IFU_04_07 = string.Format(frCult, "{0:n}", IBS_IFU_04_07);
+            etatPlanTresorerieModel.TotalDepense_04_07 = string.Format(frCult, "{0:n}", TotalDepense_04_07);
+            etatPlanTresorerieModel.SoldeFinal_04_07 = string.Format(frCult, "{0:n}", SoldeFinal_04_07);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année04 Mois08
+
+            etatPlanTresorerieModel.SoldeInitial_04_08 = string.Format(frCult, "{0:n}", SoldeInitial_04_08);
+            etatPlanTresorerieModel.ApportSupplementaire_04_08 = string.Format(frCult, "{0:n}", ApportSupplementaire_04_08);
+            etatPlanTresorerieModel.CMT_04_08 = string.Format(frCult, "{0:n}", CMT_04_08);
+            etatPlanTresorerieModel.PNRClassique_04_08 = string.Format(frCult, "{0:n}", PNRClassique_04_08);
+            etatPlanTresorerieModel.ApportPersonnel_04_08 = string.Format(frCult, "{0:n}", ApportPersonnel_04_08);
+            etatPlanTresorerieModel.PNRLoyer_04_08 = string.Format(frCult, "{0:n}", PNRLoyer_04_08);
+            etatPlanTresorerieModel.EncaissementRecusClients_04_08 = string.Format(frCult, "{0:n}", EncaissementRecusClients_04_08);
+            etatPlanTresorerieModel.TotalRecette_04_08 = string.Format(frCult, "{0:n}", TotalRecette_04_08);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_04_08 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_04_08);
+            etatPlanTresorerieModel.DecaissementFournisseurs_04_08 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_04_08);
+            etatPlanTresorerieModel.DecaissementPrestataires_04_08 = string.Format(frCult, "{0:n}", DecaissementPrestataires_04_08);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_04_08 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_04_08);
+            etatPlanTresorerieModel.DecaissementSalairesNets_04_08 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_04_08);
+            etatPlanTresorerieModel.CotisationsSociales_04_08 = string.Format(frCult, "{0:n}", CotisationsSociales_04_08);
+            etatPlanTresorerieModel.IRGSalaires_04_08 = string.Format(frCult, "{0:n}", IRGSalaires_04_08);
+            etatPlanTresorerieModel.TVAPayer_04_08 = string.Format(frCult, "{0:n}", TVAPayer_04_08);
+            etatPlanTresorerieModel.IBS_IFU_04_08 = string.Format(frCult, "{0:n}", IBS_IFU_04_08);
+            etatPlanTresorerieModel.TotalDepense_04_08 = string.Format(frCult, "{0:n}", TotalDepense_04_08);
+            etatPlanTresorerieModel.SoldeFinal_04_08 = string.Format(frCult, "{0:n}", SoldeFinal_04_08);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année04 Mois09
+
+            etatPlanTresorerieModel.SoldeInitial_04_09 = string.Format(frCult, "{0:n}", SoldeInitial_04_09);
+            etatPlanTresorerieModel.ApportSupplementaire_04_09 = string.Format(frCult, "{0:n}", ApportSupplementaire_04_09);
+            etatPlanTresorerieModel.CMT_04_09 = string.Format(frCult, "{0:n}", CMT_04_09);
+            etatPlanTresorerieModel.PNRClassique_04_09 = string.Format(frCult, "{0:n}", PNRClassique_04_09);
+            etatPlanTresorerieModel.ApportPersonnel_04_09 = string.Format(frCult, "{0:n}", ApportPersonnel_04_09);
+            etatPlanTresorerieModel.PNRLoyer_04_09 = string.Format(frCult, "{0:n}", PNRLoyer_04_09);
+            etatPlanTresorerieModel.EncaissementRecusClients_04_09 = string.Format(frCult, "{0:n}", EncaissementRecusClients_04_09);
+            etatPlanTresorerieModel.TotalRecette_04_09 = string.Format(frCult, "{0:n}", TotalRecette_04_09);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_04_09 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_04_09);
+            etatPlanTresorerieModel.DecaissementFournisseurs_04_09 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_04_09);
+            etatPlanTresorerieModel.DecaissementPrestataires_04_09 = string.Format(frCult, "{0:n}", DecaissementPrestataires_04_09);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_04_09 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_04_09);
+            etatPlanTresorerieModel.DecaissementSalairesNets_04_09 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_04_09);
+            etatPlanTresorerieModel.CotisationsSociales_04_09 = string.Format(frCult, "{0:n}", CotisationsSociales_04_09);
+            etatPlanTresorerieModel.IRGSalaires_04_09 = string.Format(frCult, "{0:n}", IRGSalaires_04_09);
+            etatPlanTresorerieModel.TVAPayer_04_09 = string.Format(frCult, "{0:n}", TVAPayer_04_09);
+            etatPlanTresorerieModel.IBS_IFU_04_09 = string.Format(frCult, "{0:n}", IBS_IFU_04_09);
+            etatPlanTresorerieModel.TotalDepense_04_09 = string.Format(frCult, "{0:n}", TotalDepense_04_09);
+            etatPlanTresorerieModel.SoldeFinal_04_09 = string.Format(frCult, "{0:n}", SoldeFinal_04_09);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année04 Mois10
+
+            etatPlanTresorerieModel.SoldeInitial_04_10 = string.Format(frCult, "{0:n}", SoldeInitial_04_10);
+            etatPlanTresorerieModel.ApportSupplementaire_04_10 = string.Format(frCult, "{0:n}", ApportSupplementaire_04_10);
+            etatPlanTresorerieModel.CMT_04_10 = string.Format(frCult, "{0:n}", CMT_04_10);
+            etatPlanTresorerieModel.PNRClassique_04_10 = string.Format(frCult, "{0:n}", PNRClassique_04_10);
+            etatPlanTresorerieModel.ApportPersonnel_04_10 = string.Format(frCult, "{0:n}", ApportPersonnel_04_10);
+            etatPlanTresorerieModel.PNRLoyer_04_10 = string.Format(frCult, "{0:n}", PNRLoyer_04_10);
+            etatPlanTresorerieModel.EncaissementRecusClients_04_10 = string.Format(frCult, "{0:n}", EncaissementRecusClients_04_10);
+            etatPlanTresorerieModel.TotalRecette_04_10 = string.Format(frCult, "{0:n}", TotalRecette_04_10);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_04_10 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_04_10);
+            etatPlanTresorerieModel.DecaissementFournisseurs_04_10 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_04_10);
+            etatPlanTresorerieModel.DecaissementPrestataires_04_10 = string.Format(frCult, "{0:n}", DecaissementPrestataires_04_10);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_04_10 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_04_10);
+            etatPlanTresorerieModel.DecaissementSalairesNets_04_10 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_04_10);
+            etatPlanTresorerieModel.CotisationsSociales_04_10 = string.Format(frCult, "{0:n}", CotisationsSociales_04_10);
+            etatPlanTresorerieModel.IRGSalaires_04_10 = string.Format(frCult, "{0:n}", IRGSalaires_04_10);
+            etatPlanTresorerieModel.TVAPayer_04_10 = string.Format(frCult, "{0:n}", TVAPayer_04_10);
+            etatPlanTresorerieModel.IBS_IFU_04_10 = string.Format(frCult, "{0:n}", IBS_IFU_04_10);
+            etatPlanTresorerieModel.TotalDepense_04_10 = string.Format(frCult, "{0:n}", TotalDepense_04_10);
+            etatPlanTresorerieModel.SoldeFinal_04_10 = string.Format(frCult, "{0:n}", SoldeFinal_04_10);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année04 Mois11
+
+            etatPlanTresorerieModel.SoldeInitial_04_11 = string.Format(frCult, "{0:n}", SoldeInitial_04_11);
+            etatPlanTresorerieModel.ApportSupplementaire_04_11 = string.Format(frCult, "{0:n}", ApportSupplementaire_04_11);
+            etatPlanTresorerieModel.CMT_04_11 = string.Format(frCult, "{0:n}", CMT_04_11);
+            etatPlanTresorerieModel.PNRClassique_04_11 = string.Format(frCult, "{0:n}", PNRClassique_04_11);
+            etatPlanTresorerieModel.ApportPersonnel_04_11 = string.Format(frCult, "{0:n}", ApportPersonnel_04_11);
+            etatPlanTresorerieModel.PNRLoyer_04_11 = string.Format(frCult, "{0:n}", PNRLoyer_04_11);
+            etatPlanTresorerieModel.EncaissementRecusClients_04_11 = string.Format(frCult, "{0:n}", EncaissementRecusClients_04_11);
+            etatPlanTresorerieModel.TotalRecette_04_11 = string.Format(frCult, "{0:n}", TotalRecette_04_11);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_04_11 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_04_11);
+            etatPlanTresorerieModel.DecaissementFournisseurs_04_11 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_04_11);
+            etatPlanTresorerieModel.DecaissementPrestataires_04_11 = string.Format(frCult, "{0:n}", DecaissementPrestataires_04_11);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_04_11 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_04_11);
+            etatPlanTresorerieModel.DecaissementSalairesNets_04_11 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_04_11);
+            etatPlanTresorerieModel.CotisationsSociales_04_11 = string.Format(frCult, "{0:n}", CotisationsSociales_04_11);
+            etatPlanTresorerieModel.IRGSalaires_04_11 = string.Format(frCult, "{0:n}", IRGSalaires_04_11);
+            etatPlanTresorerieModel.TVAPayer_04_11 = string.Format(frCult, "{0:n}", TVAPayer_04_11);
+            etatPlanTresorerieModel.IBS_IFU_04_11 = string.Format(frCult, "{0:n}", IBS_IFU_04_11);
+            etatPlanTresorerieModel.TotalDepense_04_11 = string.Format(frCult, "{0:n}", TotalDepense_04_11);
+            etatPlanTresorerieModel.SoldeFinal_04_11 = string.Format(frCult, "{0:n}", SoldeFinal_04_11);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année04 Mois12
+
+            etatPlanTresorerieModel.SoldeInitial_04_12 = string.Format(frCult, "{0:n}", SoldeInitial_04_12);
+            etatPlanTresorerieModel.ApportSupplementaire_04_12 = string.Format(frCult, "{0:n}", ApportSupplementaire_04_12);
+            etatPlanTresorerieModel.CMT_04_12 = string.Format(frCult, "{0:n}", CMT_04_12);
+            etatPlanTresorerieModel.PNRClassique_04_12 = string.Format(frCult, "{0:n}", PNRClassique_04_12);
+            etatPlanTresorerieModel.ApportPersonnel_04_12 = string.Format(frCult, "{0:n}", ApportPersonnel_04_12);
+            etatPlanTresorerieModel.PNRLoyer_04_12 = string.Format(frCult, "{0:n}", PNRLoyer_04_12);
+            etatPlanTresorerieModel.EncaissementRecusClients_04_12 = string.Format(frCult, "{0:n}", EncaissementRecusClients_04_12);
+            etatPlanTresorerieModel.TotalRecette_04_12 = string.Format(frCult, "{0:n}", TotalRecette_04_12);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_04_12 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_04_12);
+            etatPlanTresorerieModel.DecaissementFournisseurs_04_12 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_04_12);
+            etatPlanTresorerieModel.DecaissementPrestataires_04_12 = string.Format(frCult, "{0:n}", DecaissementPrestataires_04_12);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_04_12 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_04_12);
+            etatPlanTresorerieModel.DecaissementSalairesNets_04_12 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_04_12);
+            etatPlanTresorerieModel.CotisationsSociales_04_12 = string.Format(frCult, "{0:n}", CotisationsSociales_04_12);
+            etatPlanTresorerieModel.IRGSalaires_04_12 = string.Format(frCult, "{0:n}", IRGSalaires_04_12);
+            etatPlanTresorerieModel.TVAPayer_04_12 = string.Format(frCult, "{0:n}", TVAPayer_04_12);
+            etatPlanTresorerieModel.IBS_IFU_04_12 = string.Format(frCult, "{0:n}", IBS_IFU_04_12);
+            etatPlanTresorerieModel.TotalDepense_04_12 = string.Format(frCult, "{0:n}", TotalDepense_04_12);
+            etatPlanTresorerieModel.SoldeFinal_04_12 = string.Format(frCult, "{0:n}", SoldeFinal_04_12);
+
+            #endregion
+
+            #endregion
+
+            #region Données etatPlanTresorerieModel Année05
+
+            #region Données EtatPlanTresorerie Année05 Mois01
+
+            etatPlanTresorerieModel.SoldeInitial_05_01 = string.Format(frCult, "{0:n}", SoldeInitial_05_01);
+            etatPlanTresorerieModel.ApportSupplementaire_05_01 = string.Format(frCult, "{0:n}", ApportSupplementaire_05_01);
+            etatPlanTresorerieModel.CMT_05_01 = string.Format(frCult, "{0:n}", CMT_05_01);
+            etatPlanTresorerieModel.PNRClassique_05_01 = string.Format(frCult, "{0:n}", PNRClassique_05_01);
+            etatPlanTresorerieModel.ApportPersonnel_05_01 = string.Format(frCult, "{0:n}", ApportPersonnel_05_01);
+            etatPlanTresorerieModel.PNRLoyer_05_01 = string.Format(frCult, "{0:n}", PNRLoyer_05_01);
+            etatPlanTresorerieModel.EncaissementRecusClients_05_01 = string.Format(frCult, "{0:n}", EncaissementRecusClients_05_01);
+            etatPlanTresorerieModel.TotalRecette_05_01 = string.Format(frCult, "{0:n}", TotalRecette_05_01);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_05_01 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_05_01);
+            etatPlanTresorerieModel.DecaissementFournisseurs_05_01 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_05_01);
+            etatPlanTresorerieModel.DecaissementPrestataires_05_01 = string.Format(frCult, "{0:n}", DecaissementPrestataires_05_01);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_05_01 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_05_01);
+            etatPlanTresorerieModel.DecaissementSalairesNets_05_01 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_05_01);
+            etatPlanTresorerieModel.CotisationsSociales_05_01 = string.Format(frCult, "{0:n}", CotisationsSociales_05_01);
+            etatPlanTresorerieModel.IRGSalaires_05_01 = string.Format(frCult, "{0:n}", IRGSalaires_05_01);
+            etatPlanTresorerieModel.TVAPayer_05_01 = string.Format(frCult, "{0:n}", TVAPayer_05_01);
+            etatPlanTresorerieModel.IBS_IFU_05_01 = string.Format(frCult, "{0:n}", IBS_IFU_05_01);
+            etatPlanTresorerieModel.TotalDepense_05_01 = string.Format(frCult, "{0:n}", TotalDepense_05_01);
+            etatPlanTresorerieModel.SoldeFinal_05_01 = string.Format(frCult, "{0:n}", SoldeFinal_05_01);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année05 Mois02
+
+            etatPlanTresorerieModel.SoldeInitial_05_02 = string.Format(frCult, "{0:n}", SoldeInitial_05_02);
+            etatPlanTresorerieModel.ApportSupplementaire_05_02 = string.Format(frCult, "{0:n}", ApportSupplementaire_05_02);
+            etatPlanTresorerieModel.CMT_05_02 = string.Format(frCult, "{0:n}", CMT_05_02);
+            etatPlanTresorerieModel.PNRClassique_05_02 = string.Format(frCult, "{0:n}", PNRClassique_05_02);
+            etatPlanTresorerieModel.ApportPersonnel_05_02 = string.Format(frCult, "{0:n}", ApportPersonnel_05_02);
+            etatPlanTresorerieModel.PNRLoyer_05_02 = string.Format(frCult, "{0:n}", PNRLoyer_05_02);
+            etatPlanTresorerieModel.EncaissementRecusClients_05_02 = string.Format(frCult, "{0:n}", EncaissementRecusClients_05_02);
+            etatPlanTresorerieModel.TotalRecette_05_02 = string.Format(frCult, "{0:n}", TotalRecette_05_02);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_05_02 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_05_02);
+            etatPlanTresorerieModel.DecaissementFournisseurs_05_02 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_05_02);
+            etatPlanTresorerieModel.DecaissementPrestataires_05_02 = string.Format(frCult, "{0:n}", DecaissementPrestataires_05_02);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_05_02 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_05_02);
+            etatPlanTresorerieModel.DecaissementSalairesNets_05_02 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_05_02);
+            etatPlanTresorerieModel.CotisationsSociales_05_02 = string.Format(frCult, "{0:n}", CotisationsSociales_05_02);
+            etatPlanTresorerieModel.IRGSalaires_05_02 = string.Format(frCult, "{0:n}", IRGSalaires_05_02);
+            etatPlanTresorerieModel.TVAPayer_05_02 = string.Format(frCult, "{0:n}", TVAPayer_05_02);
+            etatPlanTresorerieModel.IBS_IFU_05_02 = string.Format(frCult, "{0:n}", IBS_IFU_05_02);
+            etatPlanTresorerieModel.TotalDepense_05_02 = string.Format(frCult, "{0:n}", TotalDepense_05_02);
+            etatPlanTresorerieModel.SoldeFinal_05_02 = string.Format(frCult, "{0:n}", SoldeFinal_05_02);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année05 Mois03
+
+            etatPlanTresorerieModel.SoldeInitial_05_03 = string.Format(frCult, "{0:n}", SoldeInitial_05_03);
+            etatPlanTresorerieModel.ApportSupplementaire_05_03 = string.Format(frCult, "{0:n}", ApportSupplementaire_05_03);
+            etatPlanTresorerieModel.CMT_05_03 = string.Format(frCult, "{0:n}", CMT_05_03);
+            etatPlanTresorerieModel.PNRClassique_05_03 = string.Format(frCult, "{0:n}", PNRClassique_05_03);
+            etatPlanTresorerieModel.ApportPersonnel_05_03 = string.Format(frCult, "{0:n}", ApportPersonnel_05_03);
+            etatPlanTresorerieModel.PNRLoyer_05_03 = string.Format(frCult, "{0:n}", PNRLoyer_05_03);
+            etatPlanTresorerieModel.EncaissementRecusClients_05_03 = string.Format(frCult, "{0:n}", EncaissementRecusClients_05_03);
+            etatPlanTresorerieModel.TotalRecette_05_03 = string.Format(frCult, "{0:n}", TotalRecette_05_03);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_05_03 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_05_03);
+            etatPlanTresorerieModel.DecaissementFournisseurs_05_03 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_05_03);
+            etatPlanTresorerieModel.DecaissementPrestataires_05_03 = string.Format(frCult, "{0:n}", DecaissementPrestataires_05_03);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_05_03 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_05_03);
+            etatPlanTresorerieModel.DecaissementSalairesNets_05_03 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_05_03);
+            etatPlanTresorerieModel.CotisationsSociales_05_03 = string.Format(frCult, "{0:n}", CotisationsSociales_05_03);
+            etatPlanTresorerieModel.IRGSalaires_05_03 = string.Format(frCult, "{0:n}", IRGSalaires_05_03);
+            etatPlanTresorerieModel.TVAPayer_05_03 = string.Format(frCult, "{0:n}", TVAPayer_05_03);
+            etatPlanTresorerieModel.IBS_IFU_05_03 = string.Format(frCult, "{0:n}", IBS_IFU_05_03);
+            etatPlanTresorerieModel.TotalDepense_05_03 = string.Format(frCult, "{0:n}", TotalDepense_05_03);
+            etatPlanTresorerieModel.SoldeFinal_05_03 = string.Format(frCult, "{0:n}", SoldeFinal_05_03);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année05 Mois04
+
+            etatPlanTresorerieModel.SoldeInitial_05_04 = string.Format(frCult, "{0:n}", SoldeInitial_05_04);
+            etatPlanTresorerieModel.ApportSupplementaire_05_04 = string.Format(frCult, "{0:n}", ApportSupplementaire_05_04);
+            etatPlanTresorerieModel.CMT_05_04 = string.Format(frCult, "{0:n}", CMT_05_04);
+            etatPlanTresorerieModel.PNRClassique_05_04 = string.Format(frCult, "{0:n}", PNRClassique_05_04);
+            etatPlanTresorerieModel.ApportPersonnel_05_04 = string.Format(frCult, "{0:n}", ApportPersonnel_05_04);
+            etatPlanTresorerieModel.PNRLoyer_05_04 = string.Format(frCult, "{0:n}", PNRLoyer_05_04);
+            etatPlanTresorerieModel.EncaissementRecusClients_05_04 = string.Format(frCult, "{0:n}", EncaissementRecusClients_05_04);
+            etatPlanTresorerieModel.TotalRecette_05_04 = string.Format(frCult, "{0:n}", TotalRecette_05_04);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_05_04 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_05_04);
+            etatPlanTresorerieModel.DecaissementFournisseurs_05_04 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_05_04);
+            etatPlanTresorerieModel.DecaissementPrestataires_05_04 = string.Format(frCult, "{0:n}", DecaissementPrestataires_05_04);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_05_04 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_05_04);
+            etatPlanTresorerieModel.DecaissementSalairesNets_05_04 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_05_04);
+            etatPlanTresorerieModel.CotisationsSociales_05_04 = string.Format(frCult, "{0:n}", CotisationsSociales_05_04);
+            etatPlanTresorerieModel.IRGSalaires_05_04 = string.Format(frCult, "{0:n}", IRGSalaires_05_04);
+            etatPlanTresorerieModel.TVAPayer_05_04 = string.Format(frCult, "{0:n}", TVAPayer_05_04);
+            etatPlanTresorerieModel.IBS_IFU_05_04 = string.Format(frCult, "{0:n}", IBS_IFU_05_04);
+            etatPlanTresorerieModel.TotalDepense_05_04 = string.Format(frCult, "{0:n}", TotalDepense_05_04);
+            etatPlanTresorerieModel.SoldeFinal_05_04 = string.Format(frCult, "{0:n}", SoldeFinal_05_04);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année05 Mois05
+
+            etatPlanTresorerieModel.SoldeInitial_05_05 = string.Format(frCult, "{0:n}", SoldeInitial_05_05);
+            etatPlanTresorerieModel.ApportSupplementaire_05_05 = string.Format(frCult, "{0:n}", ApportSupplementaire_05_05);
+            etatPlanTresorerieModel.CMT_05_05 = string.Format(frCult, "{0:n}", CMT_05_05);
+            etatPlanTresorerieModel.PNRClassique_05_05 = string.Format(frCult, "{0:n}", PNRClassique_05_05);
+            etatPlanTresorerieModel.ApportPersonnel_05_05 = string.Format(frCult, "{0:n}", ApportPersonnel_05_05);
+            etatPlanTresorerieModel.PNRLoyer_05_05 = string.Format(frCult, "{0:n}", PNRLoyer_05_05);
+            etatPlanTresorerieModel.EncaissementRecusClients_05_05 = string.Format(frCult, "{0:n}", EncaissementRecusClients_05_05);
+            etatPlanTresorerieModel.TotalRecette_05_05 = string.Format(frCult, "{0:n}", TotalRecette_05_05);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_05_05 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_05_05);
+            etatPlanTresorerieModel.DecaissementFournisseurs_05_05 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_05_05);
+            etatPlanTresorerieModel.DecaissementPrestataires_05_05 = string.Format(frCult, "{0:n}", DecaissementPrestataires_05_05);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_05_05 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_05_05);
+            etatPlanTresorerieModel.DecaissementSalairesNets_05_05 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_05_05);
+            etatPlanTresorerieModel.CotisationsSociales_05_05 = string.Format(frCult, "{0:n}", CotisationsSociales_05_05);
+            etatPlanTresorerieModel.IRGSalaires_05_05 = string.Format(frCult, "{0:n}", IRGSalaires_05_05);
+            etatPlanTresorerieModel.TVAPayer_05_05 = string.Format(frCult, "{0:n}", TVAPayer_05_05);
+            etatPlanTresorerieModel.IBS_IFU_05_05 = string.Format(frCult, "{0:n}", IBS_IFU_05_05);
+            etatPlanTresorerieModel.TotalDepense_05_05 = string.Format(frCult, "{0:n}", TotalDepense_05_05);
+            etatPlanTresorerieModel.SoldeFinal_05_05 = string.Format(frCult, "{0:n}", SoldeFinal_05_05);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année05 Mois06
+
+            etatPlanTresorerieModel.SoldeInitial_05_06 = string.Format(frCult, "{0:n}", SoldeInitial_05_06);
+            etatPlanTresorerieModel.ApportSupplementaire_05_06 = string.Format(frCult, "{0:n}", ApportSupplementaire_05_06);
+            etatPlanTresorerieModel.CMT_05_06 = string.Format(frCult, "{0:n}", CMT_05_06);
+            etatPlanTresorerieModel.PNRClassique_05_06 = string.Format(frCult, "{0:n}", PNRClassique_05_06);
+            etatPlanTresorerieModel.ApportPersonnel_05_06 = string.Format(frCult, "{0:n}", ApportPersonnel_05_06);
+            etatPlanTresorerieModel.PNRLoyer_05_06 = string.Format(frCult, "{0:n}", PNRLoyer_05_06);
+            etatPlanTresorerieModel.EncaissementRecusClients_05_06 = string.Format(frCult, "{0:n}", EncaissementRecusClients_05_06);
+            etatPlanTresorerieModel.TotalRecette_05_06 = string.Format(frCult, "{0:n}", TotalRecette_05_06);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_05_06 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_05_06);
+            etatPlanTresorerieModel.DecaissementFournisseurs_05_06 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_05_06);
+            etatPlanTresorerieModel.DecaissementPrestataires_05_06 = string.Format(frCult, "{0:n}", DecaissementPrestataires_05_06);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_05_06 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_05_06);
+            etatPlanTresorerieModel.DecaissementSalairesNets_05_06 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_05_06);
+            etatPlanTresorerieModel.CotisationsSociales_05_06 = string.Format(frCult, "{0:n}", CotisationsSociales_05_06);
+            etatPlanTresorerieModel.IRGSalaires_05_06 = string.Format(frCult, "{0:n}", IRGSalaires_05_06);
+            etatPlanTresorerieModel.TVAPayer_05_06 = string.Format(frCult, "{0:n}", TVAPayer_05_06);
+            etatPlanTresorerieModel.IBS_IFU_05_06 = string.Format(frCult, "{0:n}", IBS_IFU_05_06);
+            etatPlanTresorerieModel.TotalDepense_05_06 = string.Format(frCult, "{0:n}", TotalDepense_05_06);
+            etatPlanTresorerieModel.SoldeFinal_05_06 = string.Format(frCult, "{0:n}", SoldeFinal_05_06);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année05 Mois07
+
+            etatPlanTresorerieModel.SoldeInitial_05_07 = string.Format(frCult, "{0:n}", SoldeInitial_05_07);
+            etatPlanTresorerieModel.ApportSupplementaire_05_07 = string.Format(frCult, "{0:n}", ApportSupplementaire_05_07);
+            etatPlanTresorerieModel.CMT_05_07 = string.Format(frCult, "{0:n}", CMT_05_07);
+            etatPlanTresorerieModel.PNRClassique_05_07 = string.Format(frCult, "{0:n}", PNRClassique_05_07);
+            etatPlanTresorerieModel.ApportPersonnel_05_07 = string.Format(frCult, "{0:n}", ApportPersonnel_05_07);
+            etatPlanTresorerieModel.PNRLoyer_05_07 = string.Format(frCult, "{0:n}", PNRLoyer_05_07);
+            etatPlanTresorerieModel.EncaissementRecusClients_05_07 = string.Format(frCult, "{0:n}", EncaissementRecusClients_05_07);
+            etatPlanTresorerieModel.TotalRecette_05_07 = string.Format(frCult, "{0:n}", TotalRecette_05_07);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_05_07 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_05_07);
+            etatPlanTresorerieModel.DecaissementFournisseurs_05_07 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_05_07);
+            etatPlanTresorerieModel.DecaissementPrestataires_05_07 = string.Format(frCult, "{0:n}", DecaissementPrestataires_05_07);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_05_07 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_05_07);
+            etatPlanTresorerieModel.DecaissementSalairesNets_05_07 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_05_07);
+            etatPlanTresorerieModel.CotisationsSociales_05_07 = string.Format(frCult, "{0:n}", CotisationsSociales_05_07);
+            etatPlanTresorerieModel.IRGSalaires_05_07 = string.Format(frCult, "{0:n}", IRGSalaires_05_07);
+            etatPlanTresorerieModel.TVAPayer_05_07 = string.Format(frCult, "{0:n}", TVAPayer_05_07);
+            etatPlanTresorerieModel.IBS_IFU_05_07 = string.Format(frCult, "{0:n}", IBS_IFU_05_07);
+            etatPlanTresorerieModel.TotalDepense_05_07 = string.Format(frCult, "{0:n}", TotalDepense_05_07);
+            etatPlanTresorerieModel.SoldeFinal_05_07 = string.Format(frCult, "{0:n}", SoldeFinal_05_07);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année05 Mois08
+
+            etatPlanTresorerieModel.SoldeInitial_05_08 = string.Format(frCult, "{0:n}", SoldeInitial_05_08);
+            etatPlanTresorerieModel.ApportSupplementaire_05_08 = string.Format(frCult, "{0:n}", ApportSupplementaire_05_08);
+            etatPlanTresorerieModel.CMT_05_08 = string.Format(frCult, "{0:n}", CMT_05_08);
+            etatPlanTresorerieModel.PNRClassique_05_08 = string.Format(frCult, "{0:n}", PNRClassique_05_08);
+            etatPlanTresorerieModel.ApportPersonnel_05_08 = string.Format(frCult, "{0:n}", ApportPersonnel_05_08);
+            etatPlanTresorerieModel.PNRLoyer_05_08 = string.Format(frCult, "{0:n}", PNRLoyer_05_08);
+            etatPlanTresorerieModel.EncaissementRecusClients_05_08 = string.Format(frCult, "{0:n}", EncaissementRecusClients_05_08);
+            etatPlanTresorerieModel.TotalRecette_05_08 = string.Format(frCult, "{0:n}", TotalRecette_05_08);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_05_08 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_05_08);
+            etatPlanTresorerieModel.DecaissementFournisseurs_05_08 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_05_08);
+            etatPlanTresorerieModel.DecaissementPrestataires_05_08 = string.Format(frCult, "{0:n}", DecaissementPrestataires_05_08);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_05_08 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_05_08);
+            etatPlanTresorerieModel.DecaissementSalairesNets_05_08 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_05_08);
+            etatPlanTresorerieModel.CotisationsSociales_05_08 = string.Format(frCult, "{0:n}", CotisationsSociales_05_08);
+            etatPlanTresorerieModel.IRGSalaires_05_08 = string.Format(frCult, "{0:n}", IRGSalaires_05_08);
+            etatPlanTresorerieModel.TVAPayer_05_08 = string.Format(frCult, "{0:n}", TVAPayer_05_08);
+            etatPlanTresorerieModel.IBS_IFU_05_08 = string.Format(frCult, "{0:n}", IBS_IFU_05_08);
+            etatPlanTresorerieModel.TotalDepense_05_08 = string.Format(frCult, "{0:n}", TotalDepense_05_08);
+            etatPlanTresorerieModel.SoldeFinal_05_08 = string.Format(frCult, "{0:n}", SoldeFinal_05_08);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année05 Mois09
+
+            etatPlanTresorerieModel.SoldeInitial_05_09 = string.Format(frCult, "{0:n}", SoldeInitial_05_09);
+            etatPlanTresorerieModel.ApportSupplementaire_05_09 = string.Format(frCult, "{0:n}", ApportSupplementaire_05_09);
+            etatPlanTresorerieModel.CMT_05_09 = string.Format(frCult, "{0:n}", CMT_05_09);
+            etatPlanTresorerieModel.PNRClassique_05_09 = string.Format(frCult, "{0:n}", PNRClassique_05_09);
+            etatPlanTresorerieModel.ApportPersonnel_05_09 = string.Format(frCult, "{0:n}", ApportPersonnel_05_09);
+            etatPlanTresorerieModel.PNRLoyer_05_09 = string.Format(frCult, "{0:n}", PNRLoyer_05_09);
+            etatPlanTresorerieModel.EncaissementRecusClients_05_09 = string.Format(frCult, "{0:n}", EncaissementRecusClients_05_09);
+            etatPlanTresorerieModel.TotalRecette_05_09 = string.Format(frCult, "{0:n}", TotalRecette_05_09);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_05_09 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_05_09);
+            etatPlanTresorerieModel.DecaissementFournisseurs_05_09 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_05_09);
+            etatPlanTresorerieModel.DecaissementPrestataires_05_09 = string.Format(frCult, "{0:n}", DecaissementPrestataires_05_09);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_05_09 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_05_09);
+            etatPlanTresorerieModel.DecaissementSalairesNets_05_09 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_05_09);
+            etatPlanTresorerieModel.CotisationsSociales_05_09 = string.Format(frCult, "{0:n}", CotisationsSociales_05_09);
+            etatPlanTresorerieModel.IRGSalaires_05_09 = string.Format(frCult, "{0:n}", IRGSalaires_05_09);
+            etatPlanTresorerieModel.TVAPayer_05_09 = string.Format(frCult, "{0:n}", TVAPayer_05_09);
+            etatPlanTresorerieModel.IBS_IFU_05_09 = string.Format(frCult, "{0:n}", IBS_IFU_05_09);
+            etatPlanTresorerieModel.TotalDepense_05_09 = string.Format(frCult, "{0:n}", TotalDepense_05_09);
+            etatPlanTresorerieModel.SoldeFinal_05_09 = string.Format(frCult, "{0:n}", SoldeFinal_05_09);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année05 Mois10
+
+            etatPlanTresorerieModel.SoldeInitial_05_10 = string.Format(frCult, "{0:n}", SoldeInitial_05_10);
+            etatPlanTresorerieModel.ApportSupplementaire_05_10 = string.Format(frCult, "{0:n}", ApportSupplementaire_05_10);
+            etatPlanTresorerieModel.CMT_05_10 = string.Format(frCult, "{0:n}", CMT_05_10);
+            etatPlanTresorerieModel.PNRClassique_05_10 = string.Format(frCult, "{0:n}", PNRClassique_05_10);
+            etatPlanTresorerieModel.ApportPersonnel_05_10 = string.Format(frCult, "{0:n}", ApportPersonnel_05_10);
+            etatPlanTresorerieModel.PNRLoyer_05_10 = string.Format(frCult, "{0:n}", PNRLoyer_05_10);
+            etatPlanTresorerieModel.EncaissementRecusClients_05_10 = string.Format(frCult, "{0:n}", EncaissementRecusClients_05_10);
+            etatPlanTresorerieModel.TotalRecette_05_10 = string.Format(frCult, "{0:n}", TotalRecette_05_10);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_05_10 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_05_10);
+            etatPlanTresorerieModel.DecaissementFournisseurs_05_10 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_05_10);
+            etatPlanTresorerieModel.DecaissementPrestataires_05_10 = string.Format(frCult, "{0:n}", DecaissementPrestataires_05_10);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_05_10 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_05_10);
+            etatPlanTresorerieModel.DecaissementSalairesNets_05_10 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_05_10);
+            etatPlanTresorerieModel.CotisationsSociales_05_10 = string.Format(frCult, "{0:n}", CotisationsSociales_05_10);
+            etatPlanTresorerieModel.IRGSalaires_05_10 = string.Format(frCult, "{0:n}", IRGSalaires_05_10);
+            etatPlanTresorerieModel.TVAPayer_05_10 = string.Format(frCult, "{0:n}", TVAPayer_05_10);
+            etatPlanTresorerieModel.IBS_IFU_05_10 = string.Format(frCult, "{0:n}", IBS_IFU_05_10);
+            etatPlanTresorerieModel.TotalDepense_05_10 = string.Format(frCult, "{0:n}", TotalDepense_05_10);
+            etatPlanTresorerieModel.SoldeFinal_05_10 = string.Format(frCult, "{0:n}", SoldeFinal_05_10);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année05 Mois11
+
+            etatPlanTresorerieModel.SoldeInitial_05_11 = string.Format(frCult, "{0:n}", SoldeInitial_05_11);
+            etatPlanTresorerieModel.ApportSupplementaire_05_11 = string.Format(frCult, "{0:n}", ApportSupplementaire_05_11);
+            etatPlanTresorerieModel.CMT_05_11 = string.Format(frCult, "{0:n}", CMT_05_11);
+            etatPlanTresorerieModel.PNRClassique_05_11 = string.Format(frCult, "{0:n}", PNRClassique_05_11);
+            etatPlanTresorerieModel.ApportPersonnel_05_11 = string.Format(frCult, "{0:n}", ApportPersonnel_05_11);
+            etatPlanTresorerieModel.PNRLoyer_05_11 = string.Format(frCult, "{0:n}", PNRLoyer_05_11);
+            etatPlanTresorerieModel.EncaissementRecusClients_05_11 = string.Format(frCult, "{0:n}", EncaissementRecusClients_05_11);
+            etatPlanTresorerieModel.TotalRecette_05_11 = string.Format(frCult, "{0:n}", TotalRecette_05_11);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_05_11 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_05_11);
+            etatPlanTresorerieModel.DecaissementFournisseurs_05_11 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_05_11);
+            etatPlanTresorerieModel.DecaissementPrestataires_05_11 = string.Format(frCult, "{0:n}", DecaissementPrestataires_05_11);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_05_11 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_05_11);
+            etatPlanTresorerieModel.DecaissementSalairesNets_05_11 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_05_11);
+            etatPlanTresorerieModel.CotisationsSociales_05_11 = string.Format(frCult, "{0:n}", CotisationsSociales_05_11);
+            etatPlanTresorerieModel.IRGSalaires_05_11 = string.Format(frCult, "{0:n}", IRGSalaires_05_11);
+            etatPlanTresorerieModel.TVAPayer_05_11 = string.Format(frCult, "{0:n}", TVAPayer_05_11);
+            etatPlanTresorerieModel.IBS_IFU_05_11 = string.Format(frCult, "{0:n}", IBS_IFU_05_11);
+            etatPlanTresorerieModel.TotalDepense_05_11 = string.Format(frCult, "{0:n}", TotalDepense_05_11);
+            etatPlanTresorerieModel.SoldeFinal_05_11 = string.Format(frCult, "{0:n}", SoldeFinal_05_11);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année05 Mois12
+
+            etatPlanTresorerieModel.SoldeInitial_05_12 = string.Format(frCult, "{0:n}", SoldeInitial_05_12);
+            etatPlanTresorerieModel.ApportSupplementaire_05_12 = string.Format(frCult, "{0:n}", ApportSupplementaire_05_12);
+            etatPlanTresorerieModel.CMT_05_12 = string.Format(frCult, "{0:n}", CMT_05_12);
+            etatPlanTresorerieModel.PNRClassique_05_12 = string.Format(frCult, "{0:n}", PNRClassique_05_12);
+            etatPlanTresorerieModel.ApportPersonnel_05_12 = string.Format(frCult, "{0:n}", ApportPersonnel_05_12);
+            etatPlanTresorerieModel.PNRLoyer_05_12 = string.Format(frCult, "{0:n}", PNRLoyer_05_12);
+            etatPlanTresorerieModel.EncaissementRecusClients_05_12 = string.Format(frCult, "{0:n}", EncaissementRecusClients_05_12);
+            etatPlanTresorerieModel.TotalRecette_05_12 = string.Format(frCult, "{0:n}", TotalRecette_05_12);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_05_12 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_05_12);
+            etatPlanTresorerieModel.DecaissementFournisseurs_05_12 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_05_12);
+            etatPlanTresorerieModel.DecaissementPrestataires_05_12 = string.Format(frCult, "{0:n}", DecaissementPrestataires_05_12);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_05_12 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_05_12);
+            etatPlanTresorerieModel.DecaissementSalairesNets_05_12 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_05_12);
+            etatPlanTresorerieModel.CotisationsSociales_05_12 = string.Format(frCult, "{0:n}", CotisationsSociales_05_12);
+            etatPlanTresorerieModel.IRGSalaires_05_12 = string.Format(frCult, "{0:n}", IRGSalaires_05_12);
+            etatPlanTresorerieModel.TVAPayer_05_12 = string.Format(frCult, "{0:n}", TVAPayer_05_12);
+            etatPlanTresorerieModel.IBS_IFU_05_12 = string.Format(frCult, "{0:n}", IBS_IFU_05_12);
+            etatPlanTresorerieModel.TotalDepense_05_12 = string.Format(frCult, "{0:n}", TotalDepense_05_12);
+            etatPlanTresorerieModel.SoldeFinal_05_12 = string.Format(frCult, "{0:n}", SoldeFinal_05_12);
+
+            #endregion
+
+            #endregion
+
+            #region Données etatPlanTresorerieModel Année06
+
+            #region Données EtatPlanTresorerie Année06 Mois01
+
+            etatPlanTresorerieModel.SoldeInitial_06_01 = string.Format(frCult, "{0:n}", SoldeInitial_06_01);
+            etatPlanTresorerieModel.ApportSupplementaire_06_01 = string.Format(frCult, "{0:n}", ApportSupplementaire_06_01);
+            etatPlanTresorerieModel.CMT_06_01 = string.Format(frCult, "{0:n}", CMT_06_01);
+            etatPlanTresorerieModel.PNRClassique_06_01 = string.Format(frCult, "{0:n}", PNRClassique_06_01);
+            etatPlanTresorerieModel.ApportPersonnel_06_01 = string.Format(frCult, "{0:n}", ApportPersonnel_06_01);
+            etatPlanTresorerieModel.PNRLoyer_06_01 = string.Format(frCult, "{0:n}", PNRLoyer_06_01);
+            etatPlanTresorerieModel.EncaissementRecusClients_06_01 = string.Format(frCult, "{0:n}", EncaissementRecusClients_06_01);
+            etatPlanTresorerieModel.TotalRecette_06_01 = string.Format(frCult, "{0:n}", TotalRecette_06_01);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_06_01 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_06_01);
+            etatPlanTresorerieModel.DecaissementFournisseurs_06_01 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_06_01);
+            etatPlanTresorerieModel.DecaissementPrestataires_06_01 = string.Format(frCult, "{0:n}", DecaissementPrestataires_06_01);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_06_01 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_06_01);
+            etatPlanTresorerieModel.DecaissementSalairesNets_06_01 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_06_01);
+            etatPlanTresorerieModel.CotisationsSociales_06_01 = string.Format(frCult, "{0:n}", CotisationsSociales_06_01);
+            etatPlanTresorerieModel.IRGSalaires_06_01 = string.Format(frCult, "{0:n}", IRGSalaires_06_01);
+            etatPlanTresorerieModel.TVAPayer_06_01 = string.Format(frCult, "{0:n}", TVAPayer_06_01);
+            etatPlanTresorerieModel.IBS_IFU_06_01 = string.Format(frCult, "{0:n}", IBS_IFU_06_01);
+            etatPlanTresorerieModel.TotalDepense_06_01 = string.Format(frCult, "{0:n}", TotalDepense_06_01);
+            etatPlanTresorerieModel.SoldeFinal_06_01 = string.Format(frCult, "{0:n}", SoldeFinal_06_01);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année06 Mois02
+
+            etatPlanTresorerieModel.SoldeInitial_06_02 = string.Format(frCult, "{0:n}", SoldeInitial_06_02);
+            etatPlanTresorerieModel.ApportSupplementaire_06_02 = string.Format(frCult, "{0:n}", ApportSupplementaire_06_02);
+            etatPlanTresorerieModel.CMT_06_02 = string.Format(frCult, "{0:n}", CMT_06_02);
+            etatPlanTresorerieModel.PNRClassique_06_02 = string.Format(frCult, "{0:n}", PNRClassique_06_02);
+            etatPlanTresorerieModel.ApportPersonnel_06_02 = string.Format(frCult, "{0:n}", ApportPersonnel_06_02);
+            etatPlanTresorerieModel.PNRLoyer_06_02 = string.Format(frCult, "{0:n}", PNRLoyer_06_02);
+            etatPlanTresorerieModel.EncaissementRecusClients_06_02 = string.Format(frCult, "{0:n}", EncaissementRecusClients_06_02);
+            etatPlanTresorerieModel.TotalRecette_06_02 = string.Format(frCult, "{0:n}", TotalRecette_06_02);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_06_02 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_06_02);
+            etatPlanTresorerieModel.DecaissementFournisseurs_06_02 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_06_02);
+            etatPlanTresorerieModel.DecaissementPrestataires_06_02 = string.Format(frCult, "{0:n}", DecaissementPrestataires_06_02);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_06_02 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_06_02);
+            etatPlanTresorerieModel.DecaissementSalairesNets_06_02 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_06_02);
+            etatPlanTresorerieModel.CotisationsSociales_06_02 = string.Format(frCult, "{0:n}", CotisationsSociales_06_02);
+            etatPlanTresorerieModel.IRGSalaires_06_02 = string.Format(frCult, "{0:n}", IRGSalaires_06_02);
+            etatPlanTresorerieModel.TVAPayer_06_02 = string.Format(frCult, "{0:n}", TVAPayer_06_02);
+            etatPlanTresorerieModel.IBS_IFU_06_02 = string.Format(frCult, "{0:n}", IBS_IFU_06_02);
+            etatPlanTresorerieModel.TotalDepense_06_02 = string.Format(frCult, "{0:n}", TotalDepense_06_02);
+            etatPlanTresorerieModel.SoldeFinal_06_02 = string.Format(frCult, "{0:n}", SoldeFinal_06_02);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année06 Mois03
+
+            etatPlanTresorerieModel.SoldeInitial_06_03 = string.Format(frCult, "{0:n}", SoldeInitial_06_03);
+            etatPlanTresorerieModel.ApportSupplementaire_06_03 = string.Format(frCult, "{0:n}", ApportSupplementaire_06_03);
+            etatPlanTresorerieModel.CMT_06_03 = string.Format(frCult, "{0:n}", CMT_06_03);
+            etatPlanTresorerieModel.PNRClassique_06_03 = string.Format(frCult, "{0:n}", PNRClassique_06_03);
+            etatPlanTresorerieModel.ApportPersonnel_06_03 = string.Format(frCult, "{0:n}", ApportPersonnel_06_03);
+            etatPlanTresorerieModel.PNRLoyer_06_03 = string.Format(frCult, "{0:n}", PNRLoyer_06_03);
+            etatPlanTresorerieModel.EncaissementRecusClients_06_03 = string.Format(frCult, "{0:n}", EncaissementRecusClients_06_03);
+            etatPlanTresorerieModel.TotalRecette_06_03 = string.Format(frCult, "{0:n}", TotalRecette_06_03);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_06_03 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_06_03);
+            etatPlanTresorerieModel.DecaissementFournisseurs_06_03 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_06_03);
+            etatPlanTresorerieModel.DecaissementPrestataires_06_03 = string.Format(frCult, "{0:n}", DecaissementPrestataires_06_03);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_06_03 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_06_03);
+            etatPlanTresorerieModel.DecaissementSalairesNets_06_03 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_06_03);
+            etatPlanTresorerieModel.CotisationsSociales_06_03 = string.Format(frCult, "{0:n}", CotisationsSociales_06_03);
+            etatPlanTresorerieModel.IRGSalaires_06_03 = string.Format(frCult, "{0:n}", IRGSalaires_06_03);
+            etatPlanTresorerieModel.TVAPayer_06_03 = string.Format(frCult, "{0:n}", TVAPayer_06_03);
+            etatPlanTresorerieModel.IBS_IFU_06_03 = string.Format(frCult, "{0:n}", IBS_IFU_06_03);
+            etatPlanTresorerieModel.TotalDepense_06_03 = string.Format(frCult, "{0:n}", TotalDepense_06_03);
+            etatPlanTresorerieModel.SoldeFinal_06_03 = string.Format(frCult, "{0:n}", SoldeFinal_06_03);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année06 Mois04
+
+            etatPlanTresorerieModel.SoldeInitial_06_04 = string.Format(frCult, "{0:n}", SoldeInitial_06_04);
+            etatPlanTresorerieModel.ApportSupplementaire_06_04 = string.Format(frCult, "{0:n}", ApportSupplementaire_06_04);
+            etatPlanTresorerieModel.CMT_06_04 = string.Format(frCult, "{0:n}", CMT_06_04);
+            etatPlanTresorerieModel.PNRClassique_06_04 = string.Format(frCult, "{0:n}", PNRClassique_06_04);
+            etatPlanTresorerieModel.ApportPersonnel_06_04 = string.Format(frCult, "{0:n}", ApportPersonnel_06_04);
+            etatPlanTresorerieModel.PNRLoyer_06_04 = string.Format(frCult, "{0:n}", PNRLoyer_06_04);
+            etatPlanTresorerieModel.EncaissementRecusClients_06_04 = string.Format(frCult, "{0:n}", EncaissementRecusClients_06_04);
+            etatPlanTresorerieModel.TotalRecette_06_04 = string.Format(frCult, "{0:n}", TotalRecette_06_04);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_06_04 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_06_04);
+            etatPlanTresorerieModel.DecaissementFournisseurs_06_04 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_06_04);
+            etatPlanTresorerieModel.DecaissementPrestataires_06_04 = string.Format(frCult, "{0:n}", DecaissementPrestataires_06_04);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_06_04 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_06_04);
+            etatPlanTresorerieModel.DecaissementSalairesNets_06_04 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_06_04);
+            etatPlanTresorerieModel.CotisationsSociales_06_04 = string.Format(frCult, "{0:n}", CotisationsSociales_06_04);
+            etatPlanTresorerieModel.IRGSalaires_06_04 = string.Format(frCult, "{0:n}", IRGSalaires_06_04);
+            etatPlanTresorerieModel.TVAPayer_06_04 = string.Format(frCult, "{0:n}", TVAPayer_06_04);
+            etatPlanTresorerieModel.IBS_IFU_06_04 = string.Format(frCult, "{0:n}", IBS_IFU_06_04);
+            etatPlanTresorerieModel.TotalDepense_06_04 = string.Format(frCult, "{0:n}", TotalDepense_06_04);
+            etatPlanTresorerieModel.SoldeFinal_06_04 = string.Format(frCult, "{0:n}", SoldeFinal_06_04);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année06 Mois05
+
+            etatPlanTresorerieModel.SoldeInitial_06_05 = string.Format(frCult, "{0:n}", SoldeInitial_06_05);
+            etatPlanTresorerieModel.ApportSupplementaire_06_05 = string.Format(frCult, "{0:n}", ApportSupplementaire_06_05);
+            etatPlanTresorerieModel.CMT_06_05 = string.Format(frCult, "{0:n}", CMT_06_05);
+            etatPlanTresorerieModel.PNRClassique_06_05 = string.Format(frCult, "{0:n}", PNRClassique_06_05);
+            etatPlanTresorerieModel.ApportPersonnel_06_05 = string.Format(frCult, "{0:n}", ApportPersonnel_06_05);
+            etatPlanTresorerieModel.PNRLoyer_06_05 = string.Format(frCult, "{0:n}", PNRLoyer_06_05);
+            etatPlanTresorerieModel.EncaissementRecusClients_06_05 = string.Format(frCult, "{0:n}", EncaissementRecusClients_06_05);
+            etatPlanTresorerieModel.TotalRecette_06_05 = string.Format(frCult, "{0:n}", TotalRecette_06_05);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_06_05 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_06_05);
+            etatPlanTresorerieModel.DecaissementFournisseurs_06_05 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_06_05);
+            etatPlanTresorerieModel.DecaissementPrestataires_06_05 = string.Format(frCult, "{0:n}", DecaissementPrestataires_06_05);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_06_05 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_06_05);
+            etatPlanTresorerieModel.DecaissementSalairesNets_06_05 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_06_05);
+            etatPlanTresorerieModel.CotisationsSociales_06_05 = string.Format(frCult, "{0:n}", CotisationsSociales_06_05);
+            etatPlanTresorerieModel.IRGSalaires_06_05 = string.Format(frCult, "{0:n}", IRGSalaires_06_05);
+            etatPlanTresorerieModel.TVAPayer_06_05 = string.Format(frCult, "{0:n}", TVAPayer_06_05);
+            etatPlanTresorerieModel.IBS_IFU_06_05 = string.Format(frCult, "{0:n}", IBS_IFU_06_05);
+            etatPlanTresorerieModel.TotalDepense_06_05 = string.Format(frCult, "{0:n}", TotalDepense_06_05);
+            etatPlanTresorerieModel.SoldeFinal_06_05 = string.Format(frCult, "{0:n}", SoldeFinal_06_05);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année06 Mois06
+
+            etatPlanTresorerieModel.SoldeInitial_06_06 = string.Format(frCult, "{0:n}", SoldeInitial_06_06);
+            etatPlanTresorerieModel.ApportSupplementaire_06_06 = string.Format(frCult, "{0:n}", ApportSupplementaire_06_06);
+            etatPlanTresorerieModel.CMT_06_06 = string.Format(frCult, "{0:n}", CMT_06_06);
+            etatPlanTresorerieModel.PNRClassique_06_06 = string.Format(frCult, "{0:n}", PNRClassique_06_06);
+            etatPlanTresorerieModel.ApportPersonnel_06_06 = string.Format(frCult, "{0:n}", ApportPersonnel_06_06);
+            etatPlanTresorerieModel.PNRLoyer_06_06 = string.Format(frCult, "{0:n}", PNRLoyer_06_06);
+            etatPlanTresorerieModel.EncaissementRecusClients_06_06 = string.Format(frCult, "{0:n}", EncaissementRecusClients_06_06);
+            etatPlanTresorerieModel.TotalRecette_06_06 = string.Format(frCult, "{0:n}", TotalRecette_06_06);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_06_06 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_06_06);
+            etatPlanTresorerieModel.DecaissementFournisseurs_06_06 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_06_06);
+            etatPlanTresorerieModel.DecaissementPrestataires_06_06 = string.Format(frCult, "{0:n}", DecaissementPrestataires_06_06);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_06_06 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_06_06);
+            etatPlanTresorerieModel.DecaissementSalairesNets_06_06 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_06_06);
+            etatPlanTresorerieModel.CotisationsSociales_06_06 = string.Format(frCult, "{0:n}", CotisationsSociales_06_06);
+            etatPlanTresorerieModel.IRGSalaires_06_06 = string.Format(frCult, "{0:n}", IRGSalaires_06_06);
+            etatPlanTresorerieModel.TVAPayer_06_06 = string.Format(frCult, "{0:n}", TVAPayer_06_06);
+            etatPlanTresorerieModel.IBS_IFU_06_06 = string.Format(frCult, "{0:n}", IBS_IFU_06_06);
+            etatPlanTresorerieModel.TotalDepense_06_06 = string.Format(frCult, "{0:n}", TotalDepense_06_06);
+            etatPlanTresorerieModel.SoldeFinal_06_06 = string.Format(frCult, "{0:n}", SoldeFinal_06_06);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année06 Mois07
+
+            etatPlanTresorerieModel.SoldeInitial_06_07 = string.Format(frCult, "{0:n}", SoldeInitial_06_07);
+            etatPlanTresorerieModel.ApportSupplementaire_06_07 = string.Format(frCult, "{0:n}", ApportSupplementaire_06_07);
+            etatPlanTresorerieModel.CMT_06_07 = string.Format(frCult, "{0:n}", CMT_06_07);
+            etatPlanTresorerieModel.PNRClassique_06_07 = string.Format(frCult, "{0:n}", PNRClassique_06_07);
+            etatPlanTresorerieModel.ApportPersonnel_06_07 = string.Format(frCult, "{0:n}", ApportPersonnel_06_07);
+            etatPlanTresorerieModel.PNRLoyer_06_07 = string.Format(frCult, "{0:n}", PNRLoyer_06_07);
+            etatPlanTresorerieModel.EncaissementRecusClients_06_07 = string.Format(frCult, "{0:n}", EncaissementRecusClients_06_07);
+            etatPlanTresorerieModel.TotalRecette_06_07 = string.Format(frCult, "{0:n}", TotalRecette_06_07);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_06_07 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_06_07);
+            etatPlanTresorerieModel.DecaissementFournisseurs_06_07 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_06_07);
+            etatPlanTresorerieModel.DecaissementPrestataires_06_07 = string.Format(frCult, "{0:n}", DecaissementPrestataires_06_07);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_06_07 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_06_07);
+            etatPlanTresorerieModel.DecaissementSalairesNets_06_07 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_06_07);
+            etatPlanTresorerieModel.CotisationsSociales_06_07 = string.Format(frCult, "{0:n}", CotisationsSociales_06_07);
+            etatPlanTresorerieModel.IRGSalaires_06_07 = string.Format(frCult, "{0:n}", IRGSalaires_06_07);
+            etatPlanTresorerieModel.TVAPayer_06_07 = string.Format(frCult, "{0:n}", TVAPayer_06_07);
+            etatPlanTresorerieModel.IBS_IFU_06_07 = string.Format(frCult, "{0:n}", IBS_IFU_06_07);
+            etatPlanTresorerieModel.TotalDepense_06_07 = string.Format(frCult, "{0:n}", TotalDepense_06_07);
+            etatPlanTresorerieModel.SoldeFinal_06_07 = string.Format(frCult, "{0:n}", SoldeFinal_06_07);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année06 Mois08
+
+            etatPlanTresorerieModel.SoldeInitial_06_08 = string.Format(frCult, "{0:n}", SoldeInitial_06_08);
+            etatPlanTresorerieModel.ApportSupplementaire_06_08 = string.Format(frCult, "{0:n}", ApportSupplementaire_06_08);
+            etatPlanTresorerieModel.CMT_06_08 = string.Format(frCult, "{0:n}", CMT_06_08);
+            etatPlanTresorerieModel.PNRClassique_06_08 = string.Format(frCult, "{0:n}", PNRClassique_06_08);
+            etatPlanTresorerieModel.ApportPersonnel_06_08 = string.Format(frCult, "{0:n}", ApportPersonnel_06_08);
+            etatPlanTresorerieModel.PNRLoyer_06_08 = string.Format(frCult, "{0:n}", PNRLoyer_06_08);
+            etatPlanTresorerieModel.EncaissementRecusClients_06_08 = string.Format(frCult, "{0:n}", EncaissementRecusClients_06_08);
+            etatPlanTresorerieModel.TotalRecette_06_08 = string.Format(frCult, "{0:n}", TotalRecette_06_08);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_06_08 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_06_08);
+            etatPlanTresorerieModel.DecaissementFournisseurs_06_08 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_06_08);
+            etatPlanTresorerieModel.DecaissementPrestataires_06_08 = string.Format(frCult, "{0:n}", DecaissementPrestataires_06_08);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_06_08 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_06_08);
+            etatPlanTresorerieModel.DecaissementSalairesNets_06_08 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_06_08);
+            etatPlanTresorerieModel.CotisationsSociales_06_08 = string.Format(frCult, "{0:n}", CotisationsSociales_06_08);
+            etatPlanTresorerieModel.IRGSalaires_06_08 = string.Format(frCult, "{0:n}", IRGSalaires_06_08);
+            etatPlanTresorerieModel.TVAPayer_06_08 = string.Format(frCult, "{0:n}", TVAPayer_06_08);
+            etatPlanTresorerieModel.IBS_IFU_06_08 = string.Format(frCult, "{0:n}", IBS_IFU_06_08);
+            etatPlanTresorerieModel.TotalDepense_06_08 = string.Format(frCult, "{0:n}", TotalDepense_06_08);
+            etatPlanTresorerieModel.SoldeFinal_06_08 = string.Format(frCult, "{0:n}", SoldeFinal_06_08);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année06 Mois09
+
+            etatPlanTresorerieModel.SoldeInitial_06_09 = string.Format(frCult, "{0:n}", SoldeInitial_06_09);
+            etatPlanTresorerieModel.ApportSupplementaire_06_09 = string.Format(frCult, "{0:n}", ApportSupplementaire_06_09);
+            etatPlanTresorerieModel.CMT_06_09 = string.Format(frCult, "{0:n}", CMT_06_09);
+            etatPlanTresorerieModel.PNRClassique_06_09 = string.Format(frCult, "{0:n}", PNRClassique_06_09);
+            etatPlanTresorerieModel.ApportPersonnel_06_09 = string.Format(frCult, "{0:n}", ApportPersonnel_06_09);
+            etatPlanTresorerieModel.PNRLoyer_06_09 = string.Format(frCult, "{0:n}", PNRLoyer_06_09);
+            etatPlanTresorerieModel.EncaissementRecusClients_06_09 = string.Format(frCult, "{0:n}", EncaissementRecusClients_06_09);
+            etatPlanTresorerieModel.TotalRecette_06_09 = string.Format(frCult, "{0:n}", TotalRecette_06_09);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_06_09 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_06_09);
+            etatPlanTresorerieModel.DecaissementFournisseurs_06_09 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_06_09);
+            etatPlanTresorerieModel.DecaissementPrestataires_06_09 = string.Format(frCult, "{0:n}", DecaissementPrestataires_06_09);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_06_09 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_06_09);
+            etatPlanTresorerieModel.DecaissementSalairesNets_06_09 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_06_09);
+            etatPlanTresorerieModel.CotisationsSociales_06_09 = string.Format(frCult, "{0:n}", CotisationsSociales_06_09);
+            etatPlanTresorerieModel.IRGSalaires_06_09 = string.Format(frCult, "{0:n}", IRGSalaires_06_09);
+            etatPlanTresorerieModel.TVAPayer_06_09 = string.Format(frCult, "{0:n}", TVAPayer_06_09);
+            etatPlanTresorerieModel.IBS_IFU_06_09 = string.Format(frCult, "{0:n}", IBS_IFU_06_09);
+            etatPlanTresorerieModel.TotalDepense_06_09 = string.Format(frCult, "{0:n}", TotalDepense_06_09);
+            etatPlanTresorerieModel.SoldeFinal_06_09 = string.Format(frCult, "{0:n}", SoldeFinal_06_09);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année06 Mois10
+
+            etatPlanTresorerieModel.SoldeInitial_06_10 = string.Format(frCult, "{0:n}", SoldeInitial_06_10);
+            etatPlanTresorerieModel.ApportSupplementaire_06_10 = string.Format(frCult, "{0:n}", ApportSupplementaire_06_10);
+            etatPlanTresorerieModel.CMT_06_10 = string.Format(frCult, "{0:n}", CMT_06_10);
+            etatPlanTresorerieModel.PNRClassique_06_10 = string.Format(frCult, "{0:n}", PNRClassique_06_10);
+            etatPlanTresorerieModel.ApportPersonnel_06_10 = string.Format(frCult, "{0:n}", ApportPersonnel_06_10);
+            etatPlanTresorerieModel.PNRLoyer_06_10 = string.Format(frCult, "{0:n}", PNRLoyer_06_10);
+            etatPlanTresorerieModel.EncaissementRecusClients_06_10 = string.Format(frCult, "{0:n}", EncaissementRecusClients_06_10);
+            etatPlanTresorerieModel.TotalRecette_06_10 = string.Format(frCult, "{0:n}", TotalRecette_06_10);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_06_10 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_06_10);
+            etatPlanTresorerieModel.DecaissementFournisseurs_06_10 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_06_10);
+            etatPlanTresorerieModel.DecaissementPrestataires_06_10 = string.Format(frCult, "{0:n}", DecaissementPrestataires_06_10);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_06_10 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_06_10);
+            etatPlanTresorerieModel.DecaissementSalairesNets_06_10 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_06_10);
+            etatPlanTresorerieModel.CotisationsSociales_06_10 = string.Format(frCult, "{0:n}", CotisationsSociales_06_10);
+            etatPlanTresorerieModel.IRGSalaires_06_10 = string.Format(frCult, "{0:n}", IRGSalaires_06_10);
+            etatPlanTresorerieModel.TVAPayer_06_10 = string.Format(frCult, "{0:n}", TVAPayer_06_10);
+            etatPlanTresorerieModel.IBS_IFU_06_10 = string.Format(frCult, "{0:n}", IBS_IFU_06_10);
+            etatPlanTresorerieModel.TotalDepense_06_10 = string.Format(frCult, "{0:n}", TotalDepense_06_10);
+            etatPlanTresorerieModel.SoldeFinal_06_10 = string.Format(frCult, "{0:n}", SoldeFinal_06_10);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année06 Mois11
+
+            etatPlanTresorerieModel.SoldeInitial_06_11 = string.Format(frCult, "{0:n}", SoldeInitial_06_11);
+            etatPlanTresorerieModel.ApportSupplementaire_06_11 = string.Format(frCult, "{0:n}", ApportSupplementaire_06_11);
+            etatPlanTresorerieModel.CMT_06_11 = string.Format(frCult, "{0:n}", CMT_06_11);
+            etatPlanTresorerieModel.PNRClassique_06_11 = string.Format(frCult, "{0:n}", PNRClassique_06_11);
+            etatPlanTresorerieModel.ApportPersonnel_06_11 = string.Format(frCult, "{0:n}", ApportPersonnel_06_11);
+            etatPlanTresorerieModel.PNRLoyer_06_11 = string.Format(frCult, "{0:n}", PNRLoyer_06_11);
+            etatPlanTresorerieModel.EncaissementRecusClients_06_11 = string.Format(frCult, "{0:n}", EncaissementRecusClients_06_11);
+            etatPlanTresorerieModel.TotalRecette_06_11 = string.Format(frCult, "{0:n}", TotalRecette_06_11);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_06_11 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_06_11);
+            etatPlanTresorerieModel.DecaissementFournisseurs_06_11 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_06_11);
+            etatPlanTresorerieModel.DecaissementPrestataires_06_11 = string.Format(frCult, "{0:n}", DecaissementPrestataires_06_11);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_06_11 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_06_11);
+            etatPlanTresorerieModel.DecaissementSalairesNets_06_11 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_06_11);
+            etatPlanTresorerieModel.CotisationsSociales_06_11 = string.Format(frCult, "{0:n}", CotisationsSociales_06_11);
+            etatPlanTresorerieModel.IRGSalaires_06_11 = string.Format(frCult, "{0:n}", IRGSalaires_06_11);
+            etatPlanTresorerieModel.TVAPayer_06_11 = string.Format(frCult, "{0:n}", TVAPayer_06_11);
+            etatPlanTresorerieModel.IBS_IFU_06_11 = string.Format(frCult, "{0:n}", IBS_IFU_06_11);
+            etatPlanTresorerieModel.TotalDepense_06_11 = string.Format(frCult, "{0:n}", TotalDepense_06_11);
+            etatPlanTresorerieModel.SoldeFinal_06_11 = string.Format(frCult, "{0:n}", SoldeFinal_06_11);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année06 Mois12
+
+            etatPlanTresorerieModel.SoldeInitial_06_12 = string.Format(frCult, "{0:n}", SoldeInitial_06_12);
+            etatPlanTresorerieModel.ApportSupplementaire_06_12 = string.Format(frCult, "{0:n}", ApportSupplementaire_06_12);
+            etatPlanTresorerieModel.CMT_06_12 = string.Format(frCult, "{0:n}", CMT_06_12);
+            etatPlanTresorerieModel.PNRClassique_06_12 = string.Format(frCult, "{0:n}", PNRClassique_06_12);
+            etatPlanTresorerieModel.ApportPersonnel_06_12 = string.Format(frCult, "{0:n}", ApportPersonnel_06_12);
+            etatPlanTresorerieModel.PNRLoyer_06_12 = string.Format(frCult, "{0:n}", PNRLoyer_06_12);
+            etatPlanTresorerieModel.EncaissementRecusClients_06_12 = string.Format(frCult, "{0:n}", EncaissementRecusClients_06_12);
+            etatPlanTresorerieModel.TotalRecette_06_12 = string.Format(frCult, "{0:n}", TotalRecette_06_12);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_06_12 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_06_12);
+            etatPlanTresorerieModel.DecaissementFournisseurs_06_12 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_06_12);
+            etatPlanTresorerieModel.DecaissementPrestataires_06_12 = string.Format(frCult, "{0:n}", DecaissementPrestataires_06_12);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_06_12 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_06_12);
+            etatPlanTresorerieModel.DecaissementSalairesNets_06_12 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_06_12);
+            etatPlanTresorerieModel.CotisationsSociales_06_12 = string.Format(frCult, "{0:n}", CotisationsSociales_06_12);
+            etatPlanTresorerieModel.IRGSalaires_06_12 = string.Format(frCult, "{0:n}", IRGSalaires_06_12);
+            etatPlanTresorerieModel.TVAPayer_06_12 = string.Format(frCult, "{0:n}", TVAPayer_06_12);
+            etatPlanTresorerieModel.IBS_IFU_06_12 = string.Format(frCult, "{0:n}", IBS_IFU_06_12);
+            etatPlanTresorerieModel.TotalDepense_06_12 = string.Format(frCult, "{0:n}", TotalDepense_06_12);
+            etatPlanTresorerieModel.SoldeFinal_06_12 = string.Format(frCult, "{0:n}", SoldeFinal_06_12);
+
+            #endregion
+
+            #endregion
+
+            #region Données etatPlanTresorerieModel Année07
+
+            #region Données EtatPlanTresorerie Année07 Mois01
+
+            etatPlanTresorerieModel.SoldeInitial_07_01 = string.Format(frCult, "{0:n}", SoldeInitial_07_01);
+            etatPlanTresorerieModel.ApportSupplementaire_07_01 = string.Format(frCult, "{0:n}", ApportSupplementaire_07_01);
+            etatPlanTresorerieModel.CMT_07_01 = string.Format(frCult, "{0:n}", CMT_07_01);
+            etatPlanTresorerieModel.PNRClassique_07_01 = string.Format(frCult, "{0:n}", PNRClassique_07_01);
+            etatPlanTresorerieModel.ApportPersonnel_07_01 = string.Format(frCult, "{0:n}", ApportPersonnel_07_01);
+            etatPlanTresorerieModel.PNRLoyer_07_01 = string.Format(frCult, "{0:n}", PNRLoyer_07_01);
+            etatPlanTresorerieModel.EncaissementRecusClients_07_01 = string.Format(frCult, "{0:n}", EncaissementRecusClients_07_01);
+            etatPlanTresorerieModel.TotalRecette_07_01 = string.Format(frCult, "{0:n}", TotalRecette_07_01);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_07_01 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_07_01);
+            etatPlanTresorerieModel.DecaissementFournisseurs_07_01 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_07_01);
+            etatPlanTresorerieModel.DecaissementPrestataires_07_01 = string.Format(frCult, "{0:n}", DecaissementPrestataires_07_01);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_07_01 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_07_01);
+            etatPlanTresorerieModel.DecaissementSalairesNets_07_01 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_07_01);
+            etatPlanTresorerieModel.CotisationsSociales_07_01 = string.Format(frCult, "{0:n}", CotisationsSociales_07_01);
+            etatPlanTresorerieModel.IRGSalaires_07_01 = string.Format(frCult, "{0:n}", IRGSalaires_07_01);
+            etatPlanTresorerieModel.TVAPayer_07_01 = string.Format(frCult, "{0:n}", TVAPayer_07_01);
+            etatPlanTresorerieModel.IBS_IFU_07_01 = string.Format(frCult, "{0:n}", IBS_IFU_07_01);
+            etatPlanTresorerieModel.TotalDepense_07_01 = string.Format(frCult, "{0:n}", TotalDepense_07_01);
+            etatPlanTresorerieModel.SoldeFinal_07_01 = string.Format(frCult, "{0:n}", SoldeFinal_07_01);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année07 Mois02
+
+            etatPlanTresorerieModel.SoldeInitial_07_02 = string.Format(frCult, "{0:n}", SoldeInitial_07_02);
+            etatPlanTresorerieModel.ApportSupplementaire_07_02 = string.Format(frCult, "{0:n}", ApportSupplementaire_07_02);
+            etatPlanTresorerieModel.CMT_07_02 = string.Format(frCult, "{0:n}", CMT_07_02);
+            etatPlanTresorerieModel.PNRClassique_07_02 = string.Format(frCult, "{0:n}", PNRClassique_07_02);
+            etatPlanTresorerieModel.ApportPersonnel_07_02 = string.Format(frCult, "{0:n}", ApportPersonnel_07_02);
+            etatPlanTresorerieModel.PNRLoyer_07_02 = string.Format(frCult, "{0:n}", PNRLoyer_07_02);
+            etatPlanTresorerieModel.EncaissementRecusClients_07_02 = string.Format(frCult, "{0:n}", EncaissementRecusClients_07_02);
+            etatPlanTresorerieModel.TotalRecette_07_02 = string.Format(frCult, "{0:n}", TotalRecette_07_02);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_07_02 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_07_02);
+            etatPlanTresorerieModel.DecaissementFournisseurs_07_02 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_07_02);
+            etatPlanTresorerieModel.DecaissementPrestataires_07_02 = string.Format(frCult, "{0:n}", DecaissementPrestataires_07_02);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_07_02 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_07_02);
+            etatPlanTresorerieModel.DecaissementSalairesNets_07_02 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_07_02);
+            etatPlanTresorerieModel.CotisationsSociales_07_02 = string.Format(frCult, "{0:n}", CotisationsSociales_07_02);
+            etatPlanTresorerieModel.IRGSalaires_07_02 = string.Format(frCult, "{0:n}", IRGSalaires_07_02);
+            etatPlanTresorerieModel.TVAPayer_07_02 = string.Format(frCult, "{0:n}", TVAPayer_07_02);
+            etatPlanTresorerieModel.IBS_IFU_07_02 = string.Format(frCult, "{0:n}", IBS_IFU_07_02);
+            etatPlanTresorerieModel.TotalDepense_07_02 = string.Format(frCult, "{0:n}", TotalDepense_07_02);
+            etatPlanTresorerieModel.SoldeFinal_07_02 = string.Format(frCult, "{0:n}", SoldeFinal_07_02);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année07 Mois03
+
+            etatPlanTresorerieModel.SoldeInitial_07_03 = string.Format(frCult, "{0:n}", SoldeInitial_07_03);
+            etatPlanTresorerieModel.ApportSupplementaire_07_03 = string.Format(frCult, "{0:n}", ApportSupplementaire_07_03);
+            etatPlanTresorerieModel.CMT_07_03 = string.Format(frCult, "{0:n}", CMT_07_03);
+            etatPlanTresorerieModel.PNRClassique_07_03 = string.Format(frCult, "{0:n}", PNRClassique_07_03);
+            etatPlanTresorerieModel.ApportPersonnel_07_03 = string.Format(frCult, "{0:n}", ApportPersonnel_07_03);
+            etatPlanTresorerieModel.PNRLoyer_07_03 = string.Format(frCult, "{0:n}", PNRLoyer_07_03);
+            etatPlanTresorerieModel.EncaissementRecusClients_07_03 = string.Format(frCult, "{0:n}", EncaissementRecusClients_07_03);
+            etatPlanTresorerieModel.TotalRecette_07_03 = string.Format(frCult, "{0:n}", TotalRecette_07_03);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_07_03 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_07_03);
+            etatPlanTresorerieModel.DecaissementFournisseurs_07_03 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_07_03);
+            etatPlanTresorerieModel.DecaissementPrestataires_07_03 = string.Format(frCult, "{0:n}", DecaissementPrestataires_07_03);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_07_03 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_07_03);
+            etatPlanTresorerieModel.DecaissementSalairesNets_07_03 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_07_03);
+            etatPlanTresorerieModel.CotisationsSociales_07_03 = string.Format(frCult, "{0:n}", CotisationsSociales_07_03);
+            etatPlanTresorerieModel.IRGSalaires_07_03 = string.Format(frCult, "{0:n}", IRGSalaires_07_03);
+            etatPlanTresorerieModel.TVAPayer_07_03 = string.Format(frCult, "{0:n}", TVAPayer_07_03);
+            etatPlanTresorerieModel.IBS_IFU_07_03 = string.Format(frCult, "{0:n}", IBS_IFU_07_03);
+            etatPlanTresorerieModel.TotalDepense_07_03 = string.Format(frCult, "{0:n}", TotalDepense_07_03);
+            etatPlanTresorerieModel.SoldeFinal_07_03 = string.Format(frCult, "{0:n}", SoldeFinal_07_03);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année07 Mois04
+
+            etatPlanTresorerieModel.SoldeInitial_07_04 = string.Format(frCult, "{0:n}", SoldeInitial_07_04);
+            etatPlanTresorerieModel.ApportSupplementaire_07_04 = string.Format(frCult, "{0:n}", ApportSupplementaire_07_04);
+            etatPlanTresorerieModel.CMT_07_04 = string.Format(frCult, "{0:n}", CMT_07_04);
+            etatPlanTresorerieModel.PNRClassique_07_04 = string.Format(frCult, "{0:n}", PNRClassique_07_04);
+            etatPlanTresorerieModel.ApportPersonnel_07_04 = string.Format(frCult, "{0:n}", ApportPersonnel_07_04);
+            etatPlanTresorerieModel.PNRLoyer_07_04 = string.Format(frCult, "{0:n}", PNRLoyer_07_04);
+            etatPlanTresorerieModel.EncaissementRecusClients_07_04 = string.Format(frCult, "{0:n}", EncaissementRecusClients_07_04);
+            etatPlanTresorerieModel.TotalRecette_07_04 = string.Format(frCult, "{0:n}", TotalRecette_07_04);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_07_04 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_07_04);
+            etatPlanTresorerieModel.DecaissementFournisseurs_07_04 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_07_04);
+            etatPlanTresorerieModel.DecaissementPrestataires_07_04 = string.Format(frCult, "{0:n}", DecaissementPrestataires_07_04);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_07_04 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_07_04);
+            etatPlanTresorerieModel.DecaissementSalairesNets_07_04 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_07_04);
+            etatPlanTresorerieModel.CotisationsSociales_07_04 = string.Format(frCult, "{0:n}", CotisationsSociales_07_04);
+            etatPlanTresorerieModel.IRGSalaires_07_04 = string.Format(frCult, "{0:n}", IRGSalaires_07_04);
+            etatPlanTresorerieModel.TVAPayer_07_04 = string.Format(frCult, "{0:n}", TVAPayer_07_04);
+            etatPlanTresorerieModel.IBS_IFU_07_04 = string.Format(frCult, "{0:n}", IBS_IFU_07_04);
+            etatPlanTresorerieModel.TotalDepense_07_04 = string.Format(frCult, "{0:n}", TotalDepense_07_04);
+            etatPlanTresorerieModel.SoldeFinal_07_04 = string.Format(frCult, "{0:n}", SoldeFinal_07_04);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année07 Mois05
+
+            etatPlanTresorerieModel.SoldeInitial_07_05 = string.Format(frCult, "{0:n}", SoldeInitial_07_05);
+            etatPlanTresorerieModel.ApportSupplementaire_07_05 = string.Format(frCult, "{0:n}", ApportSupplementaire_07_05);
+            etatPlanTresorerieModel.CMT_07_05 = string.Format(frCult, "{0:n}", CMT_07_05);
+            etatPlanTresorerieModel.PNRClassique_07_05 = string.Format(frCult, "{0:n}", PNRClassique_07_05);
+            etatPlanTresorerieModel.ApportPersonnel_07_05 = string.Format(frCult, "{0:n}", ApportPersonnel_07_05);
+            etatPlanTresorerieModel.PNRLoyer_07_05 = string.Format(frCult, "{0:n}", PNRLoyer_07_05);
+            etatPlanTresorerieModel.EncaissementRecusClients_07_05 = string.Format(frCult, "{0:n}", EncaissementRecusClients_07_05);
+            etatPlanTresorerieModel.TotalRecette_07_05 = string.Format(frCult, "{0:n}", TotalRecette_07_05);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_07_05 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_07_05);
+            etatPlanTresorerieModel.DecaissementFournisseurs_07_05 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_07_05);
+            etatPlanTresorerieModel.DecaissementPrestataires_07_05 = string.Format(frCult, "{0:n}", DecaissementPrestataires_07_05);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_07_05 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_07_05);
+            etatPlanTresorerieModel.DecaissementSalairesNets_07_05 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_07_05);
+            etatPlanTresorerieModel.CotisationsSociales_07_05 = string.Format(frCult, "{0:n}", CotisationsSociales_07_05);
+            etatPlanTresorerieModel.IRGSalaires_07_05 = string.Format(frCult, "{0:n}", IRGSalaires_07_05);
+            etatPlanTresorerieModel.TVAPayer_07_05 = string.Format(frCult, "{0:n}", TVAPayer_07_05);
+            etatPlanTresorerieModel.IBS_IFU_07_05 = string.Format(frCult, "{0:n}", IBS_IFU_07_05);
+            etatPlanTresorerieModel.TotalDepense_07_05 = string.Format(frCult, "{0:n}", TotalDepense_07_05);
+            etatPlanTresorerieModel.SoldeFinal_07_05 = string.Format(frCult, "{0:n}", SoldeFinal_07_05);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année07 Mois06
+
+            etatPlanTresorerieModel.SoldeInitial_07_06 = string.Format(frCult, "{0:n}", SoldeInitial_07_06);
+            etatPlanTresorerieModel.ApportSupplementaire_07_06 = string.Format(frCult, "{0:n}", ApportSupplementaire_07_06);
+            etatPlanTresorerieModel.CMT_07_06 = string.Format(frCult, "{0:n}", CMT_07_06);
+            etatPlanTresorerieModel.PNRClassique_07_06 = string.Format(frCult, "{0:n}", PNRClassique_07_06);
+            etatPlanTresorerieModel.ApportPersonnel_07_06 = string.Format(frCult, "{0:n}", ApportPersonnel_07_06);
+            etatPlanTresorerieModel.PNRLoyer_07_06 = string.Format(frCult, "{0:n}", PNRLoyer_07_06);
+            etatPlanTresorerieModel.EncaissementRecusClients_07_06 = string.Format(frCult, "{0:n}", EncaissementRecusClients_07_06);
+            etatPlanTresorerieModel.TotalRecette_07_06 = string.Format(frCult, "{0:n}", TotalRecette_07_06);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_07_06 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_07_06);
+            etatPlanTresorerieModel.DecaissementFournisseurs_07_06 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_07_06);
+            etatPlanTresorerieModel.DecaissementPrestataires_07_06 = string.Format(frCult, "{0:n}", DecaissementPrestataires_07_06);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_07_06 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_07_06);
+            etatPlanTresorerieModel.DecaissementSalairesNets_07_06 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_07_06);
+            etatPlanTresorerieModel.CotisationsSociales_07_06 = string.Format(frCult, "{0:n}", CotisationsSociales_07_06);
+            etatPlanTresorerieModel.IRGSalaires_07_06 = string.Format(frCult, "{0:n}", IRGSalaires_07_06);
+            etatPlanTresorerieModel.TVAPayer_07_06 = string.Format(frCult, "{0:n}", TVAPayer_07_06);
+            etatPlanTresorerieModel.IBS_IFU_07_06 = string.Format(frCult, "{0:n}", IBS_IFU_07_06);
+            etatPlanTresorerieModel.TotalDepense_07_06 = string.Format(frCult, "{0:n}", TotalDepense_07_06);
+            etatPlanTresorerieModel.SoldeFinal_07_06 = string.Format(frCult, "{0:n}", SoldeFinal_07_06);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année07 Mois07
+
+            etatPlanTresorerieModel.SoldeInitial_07_07 = string.Format(frCult, "{0:n}", SoldeInitial_07_07);
+            etatPlanTresorerieModel.ApportSupplementaire_07_07 = string.Format(frCult, "{0:n}", ApportSupplementaire_07_07);
+            etatPlanTresorerieModel.CMT_07_07 = string.Format(frCult, "{0:n}", CMT_07_07);
+            etatPlanTresorerieModel.PNRClassique_07_07 = string.Format(frCult, "{0:n}", PNRClassique_07_07);
+            etatPlanTresorerieModel.ApportPersonnel_07_07 = string.Format(frCult, "{0:n}", ApportPersonnel_07_07);
+            etatPlanTresorerieModel.PNRLoyer_07_07 = string.Format(frCult, "{0:n}", PNRLoyer_07_07);
+            etatPlanTresorerieModel.EncaissementRecusClients_07_07 = string.Format(frCult, "{0:n}", EncaissementRecusClients_07_07);
+            etatPlanTresorerieModel.TotalRecette_07_07 = string.Format(frCult, "{0:n}", TotalRecette_07_07);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_07_07 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_07_07);
+            etatPlanTresorerieModel.DecaissementFournisseurs_07_07 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_07_07);
+            etatPlanTresorerieModel.DecaissementPrestataires_07_07 = string.Format(frCult, "{0:n}", DecaissementPrestataires_07_07);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_07_07 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_07_07);
+            etatPlanTresorerieModel.DecaissementSalairesNets_07_07 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_07_07);
+            etatPlanTresorerieModel.CotisationsSociales_07_07 = string.Format(frCult, "{0:n}", CotisationsSociales_07_07);
+            etatPlanTresorerieModel.IRGSalaires_07_07 = string.Format(frCult, "{0:n}", IRGSalaires_07_07);
+            etatPlanTresorerieModel.TVAPayer_07_07 = string.Format(frCult, "{0:n}", TVAPayer_07_07);
+            etatPlanTresorerieModel.IBS_IFU_07_07 = string.Format(frCult, "{0:n}", IBS_IFU_07_07);
+            etatPlanTresorerieModel.TotalDepense_07_07 = string.Format(frCult, "{0:n}", TotalDepense_07_07);
+            etatPlanTresorerieModel.SoldeFinal_07_07 = string.Format(frCult, "{0:n}", SoldeFinal_07_07);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année07 Mois08
+
+            etatPlanTresorerieModel.SoldeInitial_07_08 = string.Format(frCult, "{0:n}", SoldeInitial_07_08);
+            etatPlanTresorerieModel.ApportSupplementaire_07_08 = string.Format(frCult, "{0:n}", ApportSupplementaire_07_08);
+            etatPlanTresorerieModel.CMT_07_08 = string.Format(frCult, "{0:n}", CMT_07_08);
+            etatPlanTresorerieModel.PNRClassique_07_08 = string.Format(frCult, "{0:n}", PNRClassique_07_08);
+            etatPlanTresorerieModel.ApportPersonnel_07_08 = string.Format(frCult, "{0:n}", ApportPersonnel_07_08);
+            etatPlanTresorerieModel.PNRLoyer_07_08 = string.Format(frCult, "{0:n}", PNRLoyer_07_08);
+            etatPlanTresorerieModel.EncaissementRecusClients_07_08 = string.Format(frCult, "{0:n}", EncaissementRecusClients_07_08);
+            etatPlanTresorerieModel.TotalRecette_07_08 = string.Format(frCult, "{0:n}", TotalRecette_07_08);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_07_08 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_07_08);
+            etatPlanTresorerieModel.DecaissementFournisseurs_07_08 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_07_08);
+            etatPlanTresorerieModel.DecaissementPrestataires_07_08 = string.Format(frCult, "{0:n}", DecaissementPrestataires_07_08);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_07_08 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_07_08);
+            etatPlanTresorerieModel.DecaissementSalairesNets_07_08 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_07_08);
+            etatPlanTresorerieModel.CotisationsSociales_07_08 = string.Format(frCult, "{0:n}", CotisationsSociales_07_08);
+            etatPlanTresorerieModel.IRGSalaires_07_08 = string.Format(frCult, "{0:n}", IRGSalaires_07_08);
+            etatPlanTresorerieModel.TVAPayer_07_08 = string.Format(frCult, "{0:n}", TVAPayer_07_08);
+            etatPlanTresorerieModel.IBS_IFU_07_08 = string.Format(frCult, "{0:n}", IBS_IFU_07_08);
+            etatPlanTresorerieModel.TotalDepense_07_08 = string.Format(frCult, "{0:n}", TotalDepense_07_08);
+            etatPlanTresorerieModel.SoldeFinal_07_08 = string.Format(frCult, "{0:n}", SoldeFinal_07_08);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année07 Mois09
+
+            etatPlanTresorerieModel.SoldeInitial_07_09 = string.Format(frCult, "{0:n}", SoldeInitial_07_09);
+            etatPlanTresorerieModel.ApportSupplementaire_07_09 = string.Format(frCult, "{0:n}", ApportSupplementaire_07_09);
+            etatPlanTresorerieModel.CMT_07_09 = string.Format(frCult, "{0:n}", CMT_07_09);
+            etatPlanTresorerieModel.PNRClassique_07_09 = string.Format(frCult, "{0:n}", PNRClassique_07_09);
+            etatPlanTresorerieModel.ApportPersonnel_07_09 = string.Format(frCult, "{0:n}", ApportPersonnel_07_09);
+            etatPlanTresorerieModel.PNRLoyer_07_09 = string.Format(frCult, "{0:n}", PNRLoyer_07_09);
+            etatPlanTresorerieModel.EncaissementRecusClients_07_09 = string.Format(frCult, "{0:n}", EncaissementRecusClients_07_09);
+            etatPlanTresorerieModel.TotalRecette_07_09 = string.Format(frCult, "{0:n}", TotalRecette_07_09);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_07_09 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_07_09);
+            etatPlanTresorerieModel.DecaissementFournisseurs_07_09 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_07_09);
+            etatPlanTresorerieModel.DecaissementPrestataires_07_09 = string.Format(frCult, "{0:n}", DecaissementPrestataires_07_09);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_07_09 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_07_09);
+            etatPlanTresorerieModel.DecaissementSalairesNets_07_09 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_07_09);
+            etatPlanTresorerieModel.CotisationsSociales_07_09 = string.Format(frCult, "{0:n}", CotisationsSociales_07_09);
+            etatPlanTresorerieModel.IRGSalaires_07_09 = string.Format(frCult, "{0:n}", IRGSalaires_07_09);
+            etatPlanTresorerieModel.TVAPayer_07_09 = string.Format(frCult, "{0:n}", TVAPayer_07_09);
+            etatPlanTresorerieModel.IBS_IFU_07_09 = string.Format(frCult, "{0:n}", IBS_IFU_07_09);
+            etatPlanTresorerieModel.TotalDepense_07_09 = string.Format(frCult, "{0:n}", TotalDepense_07_09);
+            etatPlanTresorerieModel.SoldeFinal_07_09 = string.Format(frCult, "{0:n}", SoldeFinal_07_09);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année07 Mois10
+
+            etatPlanTresorerieModel.SoldeInitial_07_10 = string.Format(frCult, "{0:n}", SoldeInitial_07_10);
+            etatPlanTresorerieModel.ApportSupplementaire_07_10 = string.Format(frCult, "{0:n}", ApportSupplementaire_07_10);
+            etatPlanTresorerieModel.CMT_07_10 = string.Format(frCult, "{0:n}", CMT_07_10);
+            etatPlanTresorerieModel.PNRClassique_07_10 = string.Format(frCult, "{0:n}", PNRClassique_07_10);
+            etatPlanTresorerieModel.ApportPersonnel_07_10 = string.Format(frCult, "{0:n}", ApportPersonnel_07_10);
+            etatPlanTresorerieModel.PNRLoyer_07_10 = string.Format(frCult, "{0:n}", PNRLoyer_07_10);
+            etatPlanTresorerieModel.EncaissementRecusClients_07_10 = string.Format(frCult, "{0:n}", EncaissementRecusClients_07_10);
+            etatPlanTresorerieModel.TotalRecette_07_10 = string.Format(frCult, "{0:n}", TotalRecette_07_10);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_07_10 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_07_10);
+            etatPlanTresorerieModel.DecaissementFournisseurs_07_10 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_07_10);
+            etatPlanTresorerieModel.DecaissementPrestataires_07_10 = string.Format(frCult, "{0:n}", DecaissementPrestataires_07_10);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_07_10 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_07_10);
+            etatPlanTresorerieModel.DecaissementSalairesNets_07_10 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_07_10);
+            etatPlanTresorerieModel.CotisationsSociales_07_10 = string.Format(frCult, "{0:n}", CotisationsSociales_07_10);
+            etatPlanTresorerieModel.IRGSalaires_07_10 = string.Format(frCult, "{0:n}", IRGSalaires_07_10);
+            etatPlanTresorerieModel.TVAPayer_07_10 = string.Format(frCult, "{0:n}", TVAPayer_07_10);
+            etatPlanTresorerieModel.IBS_IFU_07_10 = string.Format(frCult, "{0:n}", IBS_IFU_07_10);
+            etatPlanTresorerieModel.TotalDepense_07_10 = string.Format(frCult, "{0:n}", TotalDepense_07_10);
+            etatPlanTresorerieModel.SoldeFinal_07_10 = string.Format(frCult, "{0:n}", SoldeFinal_07_10);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année07 Mois11
+
+            etatPlanTresorerieModel.SoldeInitial_07_11 = string.Format(frCult, "{0:n}", SoldeInitial_07_11);
+            etatPlanTresorerieModel.ApportSupplementaire_07_11 = string.Format(frCult, "{0:n}", ApportSupplementaire_07_11);
+            etatPlanTresorerieModel.CMT_07_11 = string.Format(frCult, "{0:n}", CMT_07_11);
+            etatPlanTresorerieModel.PNRClassique_07_11 = string.Format(frCult, "{0:n}", PNRClassique_07_11);
+            etatPlanTresorerieModel.ApportPersonnel_07_11 = string.Format(frCult, "{0:n}", ApportPersonnel_07_11);
+            etatPlanTresorerieModel.PNRLoyer_07_11 = string.Format(frCult, "{0:n}", PNRLoyer_07_11);
+            etatPlanTresorerieModel.EncaissementRecusClients_07_11 = string.Format(frCult, "{0:n}", EncaissementRecusClients_07_11);
+            etatPlanTresorerieModel.TotalRecette_07_11 = string.Format(frCult, "{0:n}", TotalRecette_07_11);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_07_11 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_07_11);
+            etatPlanTresorerieModel.DecaissementFournisseurs_07_11 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_07_11);
+            etatPlanTresorerieModel.DecaissementPrestataires_07_11 = string.Format(frCult, "{0:n}", DecaissementPrestataires_07_11);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_07_11 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_07_11);
+            etatPlanTresorerieModel.DecaissementSalairesNets_07_11 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_07_11);
+            etatPlanTresorerieModel.CotisationsSociales_07_11 = string.Format(frCult, "{0:n}", CotisationsSociales_07_11);
+            etatPlanTresorerieModel.IRGSalaires_07_11 = string.Format(frCult, "{0:n}", IRGSalaires_07_11);
+            etatPlanTresorerieModel.TVAPayer_07_11 = string.Format(frCult, "{0:n}", TVAPayer_07_11);
+            etatPlanTresorerieModel.IBS_IFU_07_11 = string.Format(frCult, "{0:n}", IBS_IFU_07_11);
+            etatPlanTresorerieModel.TotalDepense_07_11 = string.Format(frCult, "{0:n}", TotalDepense_07_11);
+            etatPlanTresorerieModel.SoldeFinal_07_11 = string.Format(frCult, "{0:n}", SoldeFinal_07_11);
+
+            #endregion
+
+            #region Données EtatPlanTresorerie Année07 Mois12
+
+            etatPlanTresorerieModel.SoldeInitial_07_12 = string.Format(frCult, "{0:n}", SoldeInitial_07_12);
+            etatPlanTresorerieModel.ApportSupplementaire_07_12 = string.Format(frCult, "{0:n}", ApportSupplementaire_07_12);
+            etatPlanTresorerieModel.CMT_07_12 = string.Format(frCult, "{0:n}", CMT_07_12);
+            etatPlanTresorerieModel.PNRClassique_07_12 = string.Format(frCult, "{0:n}", PNRClassique_07_12);
+            etatPlanTresorerieModel.ApportPersonnel_07_12 = string.Format(frCult, "{0:n}", ApportPersonnel_07_12);
+            etatPlanTresorerieModel.PNRLoyer_07_12 = string.Format(frCult, "{0:n}", PNRLoyer_07_12);
+            etatPlanTresorerieModel.EncaissementRecusClients_07_12 = string.Format(frCult, "{0:n}", EncaissementRecusClients_07_12);
+            etatPlanTresorerieModel.TotalRecette_07_12 = string.Format(frCult, "{0:n}", TotalRecette_07_12);
+            etatPlanTresorerieModel.AcquisitionEquipementAmenagement_07_12 = string.Format(frCult, "{0:n}", AcquisitionEquipementAmenagement_07_12);
+            etatPlanTresorerieModel.DecaissementFournisseurs_07_12 = string.Format(frCult, "{0:n}", DecaissementFournisseurs_07_12);
+            etatPlanTresorerieModel.DecaissementPrestataires_07_12 = string.Format(frCult, "{0:n}", DecaissementPrestataires_07_12);
+            etatPlanTresorerieModel.PaiementFGAssurancesFraisLieesCreation_07_12 = string.Format(frCult, "{0:n}", PaiementFGAssurancesFraisLieesCreation_07_12);
+            etatPlanTresorerieModel.DecaissementSalairesNets_07_12 = string.Format(frCult, "{0:n}", DecaissementSalairesNets_07_12);
+            etatPlanTresorerieModel.CotisationsSociales_07_12 = string.Format(frCult, "{0:n}", CotisationsSociales_07_12);
+            etatPlanTresorerieModel.IRGSalaires_07_12 = string.Format(frCult, "{0:n}", IRGSalaires_07_12);
+            etatPlanTresorerieModel.TVAPayer_07_12 = string.Format(frCult, "{0:n}", TVAPayer_07_12);
+            etatPlanTresorerieModel.IBS_IFU_07_12 = string.Format(frCult, "{0:n}", IBS_IFU_07_12);
+            etatPlanTresorerieModel.TotalDepense_07_12 = string.Format(frCult, "{0:n}", TotalDepense_07_12);
+            etatPlanTresorerieModel.SoldeFinal_07_12 = string.Format(frCult, "{0:n}", SoldeFinal_07_12);
+
+            #endregion
+
+            #endregion
+
+            #endregion
 
             return PartialView($"_{nameof(EtatPlanTresorerie)}", etatPlanTresorerieModel);
         }
@@ -1816,7 +7309,83 @@ namespace Anade.Khadamat.Web.Controllers
                 ViewData["CompletOuiNon"] = "Non";
             }
 
+            System.Globalization.CultureInfo frCult = System.Globalization.CultureInfo.CreateSpecificCulture("fr-FR");
+
+            #region Données EtatEvaluationProjet
+
+            decimal MontantTresorerieNetAnnee01 = 0;
+            decimal MontantCashFlowActualisesAnnee01 = 0;
+            decimal MontantCumulCFActualisesAnnee01 = 0;
+
+            decimal MontantTresorerieNetAnnee02 = 0;
+            decimal MontantCashFlowActualisesAnnee02 = 0;
+            decimal MontantCumulCFActualisesAnnee02 = 0;
+
+            decimal MontantTresorerieNetAnnee03 = 0;
+            decimal MontantCashFlowActualisesAnnee03 = 0;
+            decimal MontantCumulCFActualisesAnnee03 = 0;
+
+            decimal MontantTresorerieNetAnnee04 = 0;
+            decimal MontantCashFlowActualisesAnnee04 = 0;
+            decimal MontantCumulCFActualisesAnnee04 = 0;
+
+            decimal MontantTresorerieNetAnnee05 = 0;
+            decimal MontantCashFlowActualisesAnnee05 = 0;
+            decimal MontantCumulCFActualisesAnnee05 = 0;
+
+            decimal MontantTresorerieNetAnnee06 = 0;
+            decimal MontantCashFlowActualisesAnnee06 = 0;
+            decimal MontantCumulCFActualisesAnnee06 = 0;
+
+            decimal MontantTresorerieNetAnnee07 = 0;
+            decimal MontantCashFlowActualisesAnnee07 = 0;
+            decimal MontantCumulCFActualisesAnnee07 = 0;
+
+            decimal MontantValeurActuelleNette = 0;
+            decimal TauxValeurActuelleNette = 0;
+            string DelaiRecuperation = "01 an";
+            decimal InvestissementInitial = 0;
+
+            #endregion
+
             EtatEvaluationProjetModel etatEvaluationProjetModel = new();
+
+            #region Données EtatEvaluationProjetModel
+
+            etatEvaluationProjetModel.MontantTresorerieNetAnnee01 = string.Format(frCult, "{0:n}", MontantTresorerieNetAnnee01);
+            etatEvaluationProjetModel.MontantCashFlowActualisesAnnee01 = string.Format(frCult, "{0:n}", MontantCashFlowActualisesAnnee01);
+            etatEvaluationProjetModel.MontantCumulCFActualisesAnnee01 = string.Format(frCult, "{0:n}", MontantCumulCFActualisesAnnee01);
+
+            etatEvaluationProjetModel.MontantTresorerieNetAnnee02 = string.Format(frCult, "{0:n}", MontantTresorerieNetAnnee02);
+            etatEvaluationProjetModel.MontantCashFlowActualisesAnnee02 = string.Format(frCult, "{0:n}", MontantCashFlowActualisesAnnee02);
+            etatEvaluationProjetModel.MontantCumulCFActualisesAnnee02 = string.Format(frCult, "{0:n}", MontantCumulCFActualisesAnnee02);
+
+            etatEvaluationProjetModel.MontantTresorerieNetAnnee03 = string.Format(frCult, "{0:n}", MontantTresorerieNetAnnee03);
+            etatEvaluationProjetModel.MontantCashFlowActualisesAnnee03 = string.Format(frCult, "{0:n}", MontantCashFlowActualisesAnnee03);
+            etatEvaluationProjetModel.MontantCumulCFActualisesAnnee03 = string.Format(frCult, "{0:n}", MontantCumulCFActualisesAnnee03);
+
+            etatEvaluationProjetModel.MontantTresorerieNetAnnee04 = string.Format(frCult, "{0:n}", MontantTresorerieNetAnnee04);
+            etatEvaluationProjetModel.MontantCashFlowActualisesAnnee04 = string.Format(frCult, "{0:n}", MontantCashFlowActualisesAnnee04);
+            etatEvaluationProjetModel.MontantCumulCFActualisesAnnee04 = string.Format(frCult, "{0:n}", MontantCumulCFActualisesAnnee04);
+
+            etatEvaluationProjetModel.MontantTresorerieNetAnnee05 = string.Format(frCult, "{0:n}", MontantTresorerieNetAnnee05);
+            etatEvaluationProjetModel.MontantCashFlowActualisesAnnee05 = string.Format(frCult, "{0:n}", MontantCashFlowActualisesAnnee05);
+            etatEvaluationProjetModel.MontantCumulCFActualisesAnnee05 = string.Format(frCult, "{0:n}", MontantCumulCFActualisesAnnee05);
+
+            etatEvaluationProjetModel.MontantTresorerieNetAnnee06 = string.Format(frCult, "{0:n}", MontantTresorerieNetAnnee06);
+            etatEvaluationProjetModel.MontantCashFlowActualisesAnnee06 = string.Format(frCult, "{0:n}", MontantCashFlowActualisesAnnee06);
+            etatEvaluationProjetModel.MontantCumulCFActualisesAnnee06 = string.Format(frCult, "{0:n}", MontantCumulCFActualisesAnnee06);
+
+            etatEvaluationProjetModel.MontantTresorerieNetAnnee07 = string.Format(frCult, "{0:n}", MontantTresorerieNetAnnee07);
+            etatEvaluationProjetModel.MontantCashFlowActualisesAnnee07 = string.Format(frCult, "{0:n}", MontantCashFlowActualisesAnnee07);
+            etatEvaluationProjetModel.MontantCumulCFActualisesAnnee07 = string.Format(frCult, "{0:n}", MontantCumulCFActualisesAnnee07);
+
+            etatEvaluationProjetModel.MontantValeurActuelleNette = string.Format(frCult, "{0:n}", MontantValeurActuelleNette);
+            etatEvaluationProjetModel.TauxValeurActuelleNette = string.Format(frCult, "{0:n}", TauxValeurActuelleNette);
+            etatEvaluationProjetModel.DelaiRecuperation = DelaiRecuperation;
+            etatEvaluationProjetModel.InvestissementInitial = string.Format(frCult, "{0:n}", InvestissementInitial);
+
+            #endregion
 
             return PartialView($"_{nameof(EtatEvaluationProjet)}", etatEvaluationProjetModel);
         }

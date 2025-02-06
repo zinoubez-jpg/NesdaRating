@@ -1,7 +1,5 @@
 ﻿@model Anade.Khadamat.Domain.EtatPlanTresorerieModel
 
-
-
 <head>
     <title>Ajouter Buisiness Plan</title>
     <meta charset="utf-8">
@@ -49,9 +47,8 @@
 
 </head>
 
-
 <div class="modal-header">
-    <h5 class="modal-title" id="modalLabel">Ajouter Business Plan</h5>
+    <h5 class="modal-title" id="modalLabel">Etat Plan Tresorerie</h5>
     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -76,7 +73,7 @@
 
                                         <div class="card text-bg-primary mb-3">
 
-                                            <div class="card-header">Structure d'investissement</div>
+                                            <div class="card-header">Etat Plan Tresorerie</div>
 
                                             <div class="card-body">
 
@@ -88,7 +85,7 @@
 
                                                             <div class="col-sm-3 form-group">
                                                                 <span class="form-label">Année.</span>
-                                                                <select id="AnneeId" asp-items="@ViewBag.AnneeID as SelectList" class="form-control select2" required onchange="toggle(); TestValeur();">
+                                                                <select id="AnneeId" asp-items="@ViewBag.AnneeID as SelectList" class="form-control select2" required onchange="CalculeTFT();">
                                                                     <option value="">- - - - - -</option>
                                                                 </select>
                                                                 <span class="select-arrow"></span>
@@ -128,7 +125,7 @@
                                                                         <td id="SoldeInitial11Id" style="text-align: center;">-</td>
                                                                         <td id="SoldeInitial12Id" style="text-align: center;">-</td>
                                                                     </tr>
-                                                                    <tr id="hidethis" style="display: none;">
+                                                                    <tr id="ApportSupplementaireDisplayId" style="display: none;">
                                                                         <td>Apport supplémentaire</td>
                                                                         <td id="ApportSupplementaire01Id" style="text-align: center;">-</td>
                                                                         <td id="ApportSupplementaire02Id" style="text-align: center;">-</td>
@@ -143,7 +140,7 @@
                                                                         <td id="ApportSupplementaire11Id" style="text-align: center;">-</td>
                                                                         <td id="ApportSupplementaire12Id" style="text-align: center;">-</td>
                                                                     </tr>
-                                                                    <tr>
+                                                                    <tr id="CMTDisplayId" style="display: none;">
                                                                         <td>CMT</td>
                                                                         <td id="CMT01Id" style="text-align: center;">-</td>
                                                                         <td id="CMT02Id" style="text-align: center;">-</td>
@@ -158,7 +155,7 @@
                                                                         <td id="CMT11Id" style="text-align: center;">-</td>
                                                                         <td id="CMT12Id" style="text-align: center;">-</td>
                                                                     </tr>
-                                                                    <tr>
+                                                                    <tr id="PNRClassiqueDisplayId" style="display: none;">
                                                                         <td>PNR classique</td>
                                                                         <td id="PNRClassique01Id" style="text-align: center;">-</td>
                                                                         <td id="PNRClassique02Id" style="text-align: center;">-</td>
@@ -173,7 +170,7 @@
                                                                         <td id="PNRClassique11Id" style="text-align: center;">-</td>
                                                                         <td id="PNRClassique12Id" style="text-align: center;">-</td>
                                                                     </tr>
-                                                                    <tr>
+                                                                    <tr id="ApportPersonnelDisplayId" style="display: none;">
                                                                         <td>Apport personnel</td>
                                                                         <td id="ApportPersonnel01Id" style="text-align: center;">-</td>
                                                                         <td id="ApportPersonnel02Id" style="text-align: center;">-</td>
@@ -188,7 +185,7 @@
                                                                         <td id="ApportPersonnel11Id" style="text-align: center;">-</td>
                                                                         <td id="ApportPersonnel12Id" style="text-align: center;">-</td>
                                                                     </tr>
-                                                                    <tr>
+                                                                    <tr id="PNRLoyerDisplayId" style="display: none;">
                                                                         <td>PNR loyer</td>
                                                                         <td id="PNRLoyer01Id" style="text-align: center;">-</td>
                                                                         <td id="PNRLoyer02Id" style="text-align: center;">-</td>
@@ -2435,7 +2432,6 @@
                                     </div>
 
                                     <div class="form-group modal-footer">
-                                        <input type="submit" class="btn btn-outline-primary" value="Add" />
                                         <button class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
                                     </div>
 
@@ -2953,21 +2949,19 @@
         ApportSupplementaireModel.value = parseFloat(supp_espace_montant(ApportSupplementaire.value));
     }
 
-    function toggle() {
-        if (document.getElementById("hidethis").style.display == 'none') {
-            document.getElementById("hidethis").style.display = 'table-row'; // set to table-row instead of an empty string
-        } else {
-            document.getElementById("hidethis").style.display = 'none';
-        }
-    }
-
-    function TestValeur() {
+    function CalculeTFT() {
 
         e = document.getElementById("AnneeId");
         var AnneeIdValue = e.value;
 
         switch (AnneeIdValue) {
             case "":
+
+                document.getElementById("ApportSupplementaireDisplayId").style.display = 'table-row';
+                document.getElementById("CMTDisplayId").style.display = 'table-row';
+                document.getElementById("PNRClassiqueDisplayId").style.display = 'table-row';
+                document.getElementById("ApportPersonnelDisplayId").style.display = 'table-row';
+                document.getElementById("PNRLoyerDisplayId").style.display = 'table-row';
 
                 document.getElementById('SoldeInitial01Id').innerHTML = "-";
                 document.getElementById('SoldeInitial02Id').innerHTML = "-";
@@ -3217,6 +3211,13 @@
                 document.getElementById('SoldeFinal12Id').innerHTML = "-";
                 break;
             case "1":
+
+                document.getElementById("ApportSupplementaireDisplayId").style.display = 'table-row';
+                document.getElementById("CMTDisplayId").style.display = 'table-row';
+                document.getElementById("PNRClassiqueDisplayId").style.display = 'table-row';
+                document.getElementById("ApportPersonnelDisplayId").style.display = 'table-row';
+                document.getElementById("PNRLoyerDisplayId").style.display = 'table-row';
+
                 document.getElementById('SoldeInitial01Id').innerHTML = SoldeInitial_01_01_Id.value;
                 document.getElementById('SoldeInitial02Id').innerHTML = SoldeInitial_01_02_Id.value;
                 document.getElementById('SoldeInitial03Id').innerHTML = SoldeInitial_01_03_Id.value;
@@ -3466,6 +3467,13 @@
 
                 break;
             case "2":
+
+                document.getElementById("ApportSupplementaireDisplayId").style.display = 'none';
+                document.getElementById("CMTDisplayId").style.display = 'none';
+                document.getElementById("PNRClassiqueDisplayId").style.display = 'none';
+                document.getElementById("ApportPersonnelDisplayId").style.display = 'none';
+                document.getElementById("PNRLoyerDisplayId").style.display = 'none';
+
                 document.getElementById('SoldeInitial01Id').innerHTML = SoldeInitial_02_01_Id.value;
                 document.getElementById('SoldeInitial02Id').innerHTML = SoldeInitial_02_02_Id.value;
                 document.getElementById('SoldeInitial03Id').innerHTML = SoldeInitial_02_03_Id.value;
@@ -3715,6 +3723,13 @@
 
                 break;
             case "3":
+
+                document.getElementById("ApportSupplementaireDisplayId").style.display = 'none';
+                document.getElementById("CMTDisplayId").style.display = 'none';
+                document.getElementById("PNRClassiqueDisplayId").style.display = 'none';
+                document.getElementById("ApportPersonnelDisplayId").style.display = 'none';
+                document.getElementById("PNRLoyerDisplayId").style.display = 'none';
+
                 document.getElementById('SoldeInitial01Id').innerHTML = SoldeInitial_03_01_Id.value;
                 document.getElementById('SoldeInitial02Id').innerHTML = SoldeInitial_03_02_Id.value;
                 document.getElementById('SoldeInitial03Id').innerHTML = SoldeInitial_03_03_Id.value;
@@ -3964,6 +3979,13 @@
 
                 break;
             case "4":
+
+                document.getElementById("ApportSupplementaireDisplayId").style.display = 'none';
+                document.getElementById("CMTDisplayId").style.display = 'none';
+                document.getElementById("PNRClassiqueDisplayId").style.display = 'none';
+                document.getElementById("ApportPersonnelDisplayId").style.display = 'none';
+                document.getElementById("PNRLoyerDisplayId").style.display = 'none';
+
                 document.getElementById('SoldeInitial01Id').innerHTML = SoldeInitial_04_01_Id.value;
                 document.getElementById('SoldeInitial02Id').innerHTML = SoldeInitial_04_02_Id.value;
                 document.getElementById('SoldeInitial03Id').innerHTML = SoldeInitial_04_03_Id.value;
@@ -4213,6 +4235,13 @@
 
                 break;
             case "5":
+
+                document.getElementById("ApportSupplementaireDisplayId").style.display = 'none';
+                document.getElementById("CMTDisplayId").style.display = 'none';
+                document.getElementById("PNRClassiqueDisplayId").style.display = 'none';
+                document.getElementById("ApportPersonnelDisplayId").style.display = 'none';
+                document.getElementById("PNRLoyerDisplayId").style.display = 'none';
+
                 document.getElementById('SoldeInitial01Id').innerHTML = SoldeInitial_05_01_Id.value;
                 document.getElementById('SoldeInitial02Id').innerHTML = SoldeInitial_05_02_Id.value;
                 document.getElementById('SoldeInitial03Id').innerHTML = SoldeInitial_05_03_Id.value;
@@ -4462,6 +4491,13 @@
 
                 break;
             case "6":
+
+                document.getElementById("ApportSupplementaireDisplayId").style.display = 'none';
+                document.getElementById("CMTDisplayId").style.display = 'none';
+                document.getElementById("PNRClassiqueDisplayId").style.display = 'none';
+                document.getElementById("ApportPersonnelDisplayId").style.display = 'none';
+                document.getElementById("PNRLoyerDisplayId").style.display = 'none';
+
                 document.getElementById('SoldeInitial01Id').innerHTML = SoldeInitial_06_01_Id.value;
                 document.getElementById('SoldeInitial02Id').innerHTML = SoldeInitial_06_02_Id.value;
                 document.getElementById('SoldeInitial03Id').innerHTML = SoldeInitial_06_03_Id.value;
@@ -4711,6 +4747,13 @@
 
                 break;
             case "7":
+
+                document.getElementById("ApportSupplementaireDisplayId").style.display = 'none';
+                document.getElementById("CMTDisplayId").style.display = 'none';
+                document.getElementById("PNRClassiqueDisplayId").style.display = 'none';
+                document.getElementById("ApportPersonnelDisplayId").style.display = 'none';
+                document.getElementById("PNRLoyerDisplayId").style.display = 'none';
+
                 document.getElementById('SoldeInitial01Id').innerHTML = SoldeInitial_07_01_Id.value;
                 document.getElementById('SoldeInitial02Id').innerHTML = SoldeInitial_07_02_Id.value;
                 document.getElementById('SoldeInitial03Id').innerHTML = SoldeInitial_07_03_Id.value;
