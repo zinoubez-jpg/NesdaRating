@@ -2553,20 +2553,20 @@ namespace Anade.Khadamat.Web.Controllers
                 // RegimeImpositionId == 2 Forfaitaire
                 if ((modelBusinessPlan.InformationBase.RegimeImpositionId == 2) && (Forfait_Bascul04 == "IFU"))
                 {
-                    Calcul_Imposition_Annee04 = MontantChiffreAffaire04 * (decimal)modelBusinessPlan.StructureFinancement.TauxIFU/100;
+                    Calcul_Imposition_Annee04 = MontantChiffreAffaire04 * (decimal)modelBusinessPlan.StructureFinancement.TauxIFU / 100;
                 }
                 else
                 {
                     // RegimeImpositionId == 2 Forfaitaire
                     if ((modelBusinessPlan.InformationBase.RegimeImpositionId == 2) && (Forfait_Bascul04 == "Bascul") && (modelBusinessPlan.InformationBase.CommuneBP.WilayaBP.GrandSud == false) && (modelBusinessPlan.InformationBase.FormeJuridiqueId == 1))
                     {
-                        Calcul_Imposition_Annee04 = ResultatExploitation04 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS/100;
+                        Calcul_Imposition_Annee04 = ResultatExploitation04 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS / 100;
                     }
                     else
                     {
                         if ((modelBusinessPlan.InformationBase.RegimeImpositionId == 2) && (Forfait_Bascul04 == "Bascul") && (modelBusinessPlan.InformationBase.CommuneBP.WilayaBP.GrandSud == true) && (modelBusinessPlan.InformationBase.FormeJuridiqueId == 1))
                         {
-                            Calcul_Imposition_Annee04 = (ResultatExploitation04 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS/100) / 2;
+                            Calcul_Imposition_Annee04 = (ResultatExploitation04 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS / 100) / 2;
                         }
                         else
                         {
@@ -2580,14 +2580,14 @@ namespace Anade.Khadamat.Web.Controllers
                                 // RegimeImpositionId == 1 Réel
                                 if ((modelBusinessPlan.InformationBase.RegimeImpositionId == 1) && (modelBusinessPlan.InformationBase.CommuneBP.WilayaBP.GrandSud == false))
                                 {
-                                    Calcul_Imposition_Annee04 = ResultatExploitation04 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS/100;
+                                    Calcul_Imposition_Annee04 = ResultatExploitation04 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS / 100;
                                 }
                                 else
                                 {
                                     // RegimeImpositionId == 1 Réel
                                     if ((modelBusinessPlan.InformationBase.RegimeImpositionId == 1) && (modelBusinessPlan.InformationBase.CommuneBP.WilayaBP.GrandSud == true))
                                     {
-                                        Calcul_Imposition_Annee04 = (ResultatExploitation04 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS/100) / 2;
+                                        Calcul_Imposition_Annee04 = (ResultatExploitation04 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS / 100) / 2;
                                     }
                                     else
                                     {
@@ -2606,20 +2606,20 @@ namespace Anade.Khadamat.Web.Controllers
                 // RegimeImpositionId == 2 Forfaitaire
                 if ((modelBusinessPlan.InformationBase.RegimeImpositionId == 2) && (Forfait_Bascul05 == "IFU"))
                 {
-                    Calcul_Imposition_Annee05 = MontantChiffreAffaire05 * (decimal)modelBusinessPlan.StructureFinancement.TauxIFU/100;
+                    Calcul_Imposition_Annee05 = MontantChiffreAffaire05 * (decimal)modelBusinessPlan.StructureFinancement.TauxIFU / 100;
                 }
                 else
                 {
                     // RegimeImpositionId == 2 Forfaitaire
                     if ((modelBusinessPlan.InformationBase.RegimeImpositionId == 2) && (Forfait_Bascul05 == "Bascul") && (modelBusinessPlan.InformationBase.CommuneBP.WilayaBP.GrandSud == false) && (modelBusinessPlan.InformationBase.FormeJuridiqueId == 1))
                     {
-                        Calcul_Imposition_Annee05 = ResultatExploitation05 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS/100;
+                        Calcul_Imposition_Annee05 = ResultatExploitation05 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS / 100;
                     }
                     else
                     {
                         if ((modelBusinessPlan.InformationBase.RegimeImpositionId == 2) && (Forfait_Bascul05 == "Bascul") && (modelBusinessPlan.InformationBase.CommuneBP.WilayaBP.GrandSud == true) && (modelBusinessPlan.InformationBase.FormeJuridiqueId == 1))
                         {
-                            Calcul_Imposition_Annee05 = (ResultatExploitation05 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS/100) / 2;
+                            Calcul_Imposition_Annee05 = (ResultatExploitation05 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS / 100) / 2;
                         }
                         else
                         {
@@ -2633,14 +2633,14 @@ namespace Anade.Khadamat.Web.Controllers
                                 // RegimeImpositionId == 1 Réel
                                 if ((modelBusinessPlan.InformationBase.RegimeImpositionId == 1) && (modelBusinessPlan.InformationBase.CommuneBP.WilayaBP.GrandSud == false))
                                 {
-                                    Calcul_Imposition_Annee05 = ResultatExploitation05 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS/100;
+                                    Calcul_Imposition_Annee05 = ResultatExploitation05 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS / 100;
                                 }
                                 else
                                 {
                                     // RegimeImpositionId == 1 Réel
                                     if ((modelBusinessPlan.InformationBase.RegimeImpositionId == 1) && (modelBusinessPlan.InformationBase.CommuneBP.WilayaBP.GrandSud == true))
                                     {
-                                        Calcul_Imposition_Annee05 = (ResultatExploitation05 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS/100) / 2;
+                                        Calcul_Imposition_Annee05 = (ResultatExploitation05 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS / 100) / 2;
                                     }
                                     else
                                     {
@@ -2659,20 +2659,20 @@ namespace Anade.Khadamat.Web.Controllers
                 // RegimeImpositionId == 2 Forfaitaire
                 if ((modelBusinessPlan.InformationBase.RegimeImpositionId == 2) && (Forfait_Bascul06 == "IFU"))
                 {
-                    Calcul_Imposition_Annee06 = MontantChiffreAffaire06 * (decimal)modelBusinessPlan.StructureFinancement.TauxIFU/100;
+                    Calcul_Imposition_Annee06 = MontantChiffreAffaire06 * (decimal)modelBusinessPlan.StructureFinancement.TauxIFU / 100;
                 }
                 else
                 {
                     // RegimeImpositionId == 2 Forfaitaire
                     if ((modelBusinessPlan.InformationBase.RegimeImpositionId == 2) && (Forfait_Bascul06 == "Bascul") && (modelBusinessPlan.InformationBase.CommuneBP.WilayaBP.GrandSud == false) && (modelBusinessPlan.InformationBase.FormeJuridiqueId == 1))
                     {
-                        Calcul_Imposition_Annee06 = ResultatExploitation06 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS/100;
+                        Calcul_Imposition_Annee06 = ResultatExploitation06 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS / 100;
                     }
                     else
                     {
                         if ((modelBusinessPlan.InformationBase.RegimeImpositionId == 2) && (Forfait_Bascul06 == "Bascul") && (modelBusinessPlan.InformationBase.CommuneBP.WilayaBP.GrandSud == true) && (modelBusinessPlan.InformationBase.FormeJuridiqueId == 1))
                         {
-                            Calcul_Imposition_Annee06 = (ResultatExploitation06 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS/100) / 2;
+                            Calcul_Imposition_Annee06 = (ResultatExploitation06 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS / 100) / 2;
                         }
                         else
                         {
@@ -2686,14 +2686,14 @@ namespace Anade.Khadamat.Web.Controllers
                                 // RegimeImpositionId == 1 Réel
                                 if ((modelBusinessPlan.InformationBase.RegimeImpositionId == 1) && (modelBusinessPlan.InformationBase.CommuneBP.WilayaBP.GrandSud == false))
                                 {
-                                    Calcul_Imposition_Annee06 = ResultatExploitation06 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS/100;
+                                    Calcul_Imposition_Annee06 = ResultatExploitation06 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS / 100;
                                 }
                                 else
                                 {
                                     // RegimeImpositionId == 1 Réel
                                     if ((modelBusinessPlan.InformationBase.RegimeImpositionId == 1) && (modelBusinessPlan.InformationBase.CommuneBP.WilayaBP.GrandSud == true))
                                     {
-                                        Calcul_Imposition_Annee06 = (ResultatExploitation06 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS/100) / 2;
+                                        Calcul_Imposition_Annee06 = (ResultatExploitation06 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS / 100) / 2;
                                     }
                                     else
                                     {
@@ -2712,20 +2712,20 @@ namespace Anade.Khadamat.Web.Controllers
                 // RegimeImpositionId == 2 Forfaitaire
                 if ((modelBusinessPlan.InformationBase.RegimeImpositionId == 2) && (Forfait_Bascul07 == "IFU"))
                 {
-                    Calcul_Imposition_Annee07 = MontantChiffreAffaire07 * (decimal)modelBusinessPlan.StructureFinancement.TauxIFU/100;
+                    Calcul_Imposition_Annee07 = MontantChiffreAffaire07 * (decimal)modelBusinessPlan.StructureFinancement.TauxIFU / 100;
                 }
                 else
                 {
                     // RegimeImpositionId == 2 Forfaitaire
                     if ((modelBusinessPlan.InformationBase.RegimeImpositionId == 2) && (Forfait_Bascul07 == "Bascul") && (modelBusinessPlan.InformationBase.CommuneBP.WilayaBP.GrandSud == false) && (modelBusinessPlan.InformationBase.FormeJuridiqueId == 1))
                     {
-                        Calcul_Imposition_Annee07 = ResultatExploitation07 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS/100;
+                        Calcul_Imposition_Annee07 = ResultatExploitation07 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS / 100;
                     }
                     else
                     {
                         if ((modelBusinessPlan.InformationBase.RegimeImpositionId == 2) && (Forfait_Bascul07 == "Bascul") && (modelBusinessPlan.InformationBase.CommuneBP.WilayaBP.GrandSud == true) && (modelBusinessPlan.InformationBase.FormeJuridiqueId == 1))
                         {
-                            Calcul_Imposition_Annee07 = (ResultatExploitation07 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS/100) / 2;
+                            Calcul_Imposition_Annee07 = (ResultatExploitation07 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS / 100) / 2;
                         }
                         else
                         {
@@ -2739,14 +2739,14 @@ namespace Anade.Khadamat.Web.Controllers
                                 // RegimeImpositionId == 1 Réel
                                 if ((modelBusinessPlan.InformationBase.RegimeImpositionId == 1) && (modelBusinessPlan.InformationBase.CommuneBP.WilayaBP.GrandSud == false))
                                 {
-                                    Calcul_Imposition_Annee07 = ResultatExploitation07 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS/100;
+                                    Calcul_Imposition_Annee07 = ResultatExploitation07 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS / 100;
                                 }
                                 else
                                 {
                                     // RegimeImpositionId == 1 Réel
                                     if ((modelBusinessPlan.InformationBase.RegimeImpositionId == 1) && (modelBusinessPlan.InformationBase.CommuneBP.WilayaBP.GrandSud == true))
                                     {
-                                        Calcul_Imposition_Annee07 = (ResultatExploitation07 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS/100) / 2;
+                                        Calcul_Imposition_Annee07 = (ResultatExploitation07 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS / 100) / 2;
                                     }
                                     else
                                     {
@@ -2775,20 +2775,20 @@ namespace Anade.Khadamat.Web.Controllers
                     // RegimeImpositionId == 2 Forfaitaire
                     if ((modelBusinessPlan.InformationBase.RegimeImpositionId == 2) && (Forfait_Bascul07 == "IFU"))
                     {
-                        Calcul_Imposition_Annee07 = MontantChiffreAffaire07 * (decimal)modelBusinessPlan.StructureFinancement.TauxIFU/100;
+                        Calcul_Imposition_Annee07 = MontantChiffreAffaire07 * (decimal)modelBusinessPlan.StructureFinancement.TauxIFU / 100;
                     }
                     else
                     {
                         // RegimeImpositionId == 2 Forfaitaire
                         if ((modelBusinessPlan.InformationBase.RegimeImpositionId == 2) && (Forfait_Bascul07 == "Bascul") && (modelBusinessPlan.InformationBase.CommuneBP.WilayaBP.GrandSud == false) && (modelBusinessPlan.InformationBase.FormeJuridiqueId == 1))
                         {
-                            Calcul_Imposition_Annee07 = ResultatExploitation07 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS/100;
+                            Calcul_Imposition_Annee07 = ResultatExploitation07 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS / 100;
                         }
                         else
                         {
                             if ((modelBusinessPlan.InformationBase.RegimeImpositionId == 2) && (Forfait_Bascul07 == "Bascul") && (modelBusinessPlan.InformationBase.CommuneBP.WilayaBP.GrandSud == true) && (modelBusinessPlan.InformationBase.FormeJuridiqueId == 1))
                             {
-                                Calcul_Imposition_Annee07 = (ResultatExploitation07 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS/100) / 2;
+                                Calcul_Imposition_Annee07 = (ResultatExploitation07 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS / 100) / 2;
                             }
                             else
                             {
@@ -2802,14 +2802,14 @@ namespace Anade.Khadamat.Web.Controllers
                                     // RegimeImpositionId == 1 Réel
                                     if ((modelBusinessPlan.InformationBase.RegimeImpositionId == 1) && (modelBusinessPlan.InformationBase.CommuneBP.WilayaBP.GrandSud == false))
                                     {
-                                        Calcul_Imposition_Annee07 = ResultatExploitation07 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS/100;
+                                        Calcul_Imposition_Annee07 = ResultatExploitation07 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS / 100;
                                     }
                                     else
                                     {
                                         // RegimeImpositionId == 1 Réel
                                         if ((modelBusinessPlan.InformationBase.RegimeImpositionId == 1) && (modelBusinessPlan.InformationBase.CommuneBP.WilayaBP.GrandSud == true))
                                         {
-                                            Calcul_Imposition_Annee07 = (ResultatExploitation07 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS/100) / 2;
+                                            Calcul_Imposition_Annee07 = (ResultatExploitation07 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS / 100) / 2;
                                         }
                                         else
                                         {
@@ -2877,9 +2877,9 @@ namespace Anade.Khadamat.Web.Controllers
 
             #endregion
 
-                #region Données EtatCompteResultat
+            #region Données EtatCompteResultat
 
-                etatCompteResultatPrevisionnel.ChiffreAffaires01 = string.Format(frCult, "{0:n}", MontantChiffreAffaire01);
+            etatCompteResultatPrevisionnel.ChiffreAffaires01 = string.Format(frCult, "{0:n}", MontantChiffreAffaire01);
             etatCompteResultatPrevisionnel.ChiffreAffaires02 = string.Format(frCult, "{0:n}", MontantChiffreAffaire02);
             etatCompteResultatPrevisionnel.ChiffreAffaires03 = string.Format(frCult, "{0:n}", MontantChiffreAffaire03);
             etatCompteResultatPrevisionnel.ChiffreAffaires04 = string.Format(frCult, "{0:n}", MontantChiffreAffaire04);
@@ -3021,6 +3021,7498 @@ namespace Anade.Khadamat.Web.Controllers
             }
 
             System.Globalization.CultureInfo frCult = System.Globalization.CultureInfo.CreateSpecificCulture("fr-FR");
+
+            List<DetailChiffreAffaire> detailChiffreAffaire = _detailChiffreAffaireBusinessService.GetAllFiltered(x => x.BusinessPlanId == id);
+
+            #region Calcule des encaissements et décaissements
+
+            decimal MontantChiffreAffaire01 = 0;
+            decimal MontantChiffreAffaire02 = 0;
+            decimal MontantChiffreAffaire03 = 0;
+            decimal MontantChiffreAffaire04 = 0;
+            decimal MontantChiffreAffaire05 = 0;
+            decimal MontantChiffreAffaire06 = 0;
+            decimal MontantChiffreAffaire07 = 0;
+
+            if (detailChiffreAffaire.Count != 0)
+            {
+                for (int i = 0; i < detailChiffreAffaire.Count; i++)
+                {
+                    if (detailChiffreAffaire[i].AnneeId == 1)
+                    {
+                        MontantChiffreAffaire01 += detailChiffreAffaire[i].Montant;
+                    }
+                    if (detailChiffreAffaire[i].AnneeId == 2)
+                    {
+                        MontantChiffreAffaire02 += detailChiffreAffaire[i].Montant;
+                    }
+                    if (detailChiffreAffaire[i].AnneeId == 3)
+                    {
+                        MontantChiffreAffaire03 += detailChiffreAffaire[i].Montant;
+                    }
+                    if (detailChiffreAffaire[i].AnneeId == 4)
+                    {
+                        MontantChiffreAffaire04 += detailChiffreAffaire[i].Montant;
+                    }
+                    if (detailChiffreAffaire[i].AnneeId == 5)
+                    {
+                        MontantChiffreAffaire05 += detailChiffreAffaire[i].Montant;
+                    }
+                    if (detailChiffreAffaire[i].AnneeId == 6)
+                    {
+                        MontantChiffreAffaire06 += detailChiffreAffaire[i].Montant;
+                    }
+                    if (detailChiffreAffaire[i].AnneeId == 7)
+                    {
+                        MontantChiffreAffaire07 += detailChiffreAffaire[i].Montant;
+                    }
+                }
+            }
+
+            decimal frequence_Activte_stable = (decimal)8.33 / 100;
+
+            #region Variables frequence Activte
+
+            decimal frequence_Activte_01 = frequence_Activte_stable;
+            decimal frequence_Activte_02 = frequence_Activte_stable;
+            decimal frequence_Activte_03 = frequence_Activte_stable;
+            decimal frequence_Activte_04 = frequence_Activte_stable;
+            decimal frequence_Activte_05 = frequence_Activte_stable;
+            decimal frequence_Activte_06 = frequence_Activte_stable;
+            decimal frequence_Activte_07 = frequence_Activte_stable;
+            decimal frequence_Activte_08 = frequence_Activte_stable;
+            decimal frequence_Activte_09 = frequence_Activte_stable;
+            decimal frequence_Activte_10 = frequence_Activte_stable;
+            decimal frequence_Activte_11 = frequence_Activte_stable;
+            decimal frequence_Activte_12 = (decimal)8.37 / 100;
+
+            #endregion
+
+            decimal MontantChiffreAffaire0101 = 0;
+            decimal MontantChiffreAffaire0201 = 0;
+            decimal MontantChiffreAffaire0301 = 0;
+            decimal MontantChiffreAffaire0401 = 0;
+            decimal MontantChiffreAffaire0501 = 0;
+            decimal MontantChiffreAffaire0601 = 0;
+            decimal MontantChiffreAffaire0701 = 0;
+            decimal MontantChiffreAffaire0801 = 0;
+            decimal MontantChiffreAffaire0901 = 0;
+            decimal MontantChiffreAffaire1001 = 0;
+            decimal MontantChiffreAffaire1101 = 0;
+            decimal MontantChiffreAffaire1201 = 0;
+
+            decimal MontantChiffreAffaire0102 = 0;
+            decimal MontantChiffreAffaire0202 = 0;
+            decimal MontantChiffreAffaire0302 = 0;
+            decimal MontantChiffreAffaire0402 = 0;
+            decimal MontantChiffreAffaire0502 = 0;
+            decimal MontantChiffreAffaire0602 = 0;
+            decimal MontantChiffreAffaire0702 = 0;
+            decimal MontantChiffreAffaire0802 = 0;
+            decimal MontantChiffreAffaire0902 = 0;
+            decimal MontantChiffreAffaire1002 = 0;
+            decimal MontantChiffreAffaire1102 = 0;
+            decimal MontantChiffreAffaire1202 = 0;
+
+            decimal MontantChiffreAffaire0103 = 0;
+            decimal MontantChiffreAffaire0203 = 0;
+            decimal MontantChiffreAffaire0303 = 0;
+            decimal MontantChiffreAffaire0403 = 0;
+            decimal MontantChiffreAffaire0503 = 0;
+            decimal MontantChiffreAffaire0603 = 0;
+            decimal MontantChiffreAffaire0703 = 0;
+            decimal MontantChiffreAffaire0803 = 0;
+            decimal MontantChiffreAffaire0903 = 0;
+            decimal MontantChiffreAffaire1003 = 0;
+            decimal MontantChiffreAffaire1103 = 0;
+            decimal MontantChiffreAffaire1203 = 0;
+
+            decimal MontantChiffreAffaire0104 = 0;
+            decimal MontantChiffreAffaire0204 = 0;
+            decimal MontantChiffreAffaire0304 = 0;
+            decimal MontantChiffreAffaire0404 = 0;
+            decimal MontantChiffreAffaire0504 = 0;
+            decimal MontantChiffreAffaire0604 = 0;
+            decimal MontantChiffreAffaire0704 = 0;
+            decimal MontantChiffreAffaire0804 = 0;
+            decimal MontantChiffreAffaire0904 = 0;
+            decimal MontantChiffreAffaire1004 = 0;
+            decimal MontantChiffreAffaire1104 = 0;
+            decimal MontantChiffreAffaire1204 = 0;
+
+            decimal MontantChiffreAffaire0105 = 0;
+            decimal MontantChiffreAffaire0205 = 0;
+            decimal MontantChiffreAffaire0305 = 0;
+            decimal MontantChiffreAffaire0405 = 0;
+            decimal MontantChiffreAffaire0505 = 0;
+            decimal MontantChiffreAffaire0605 = 0;
+            decimal MontantChiffreAffaire0705 = 0;
+            decimal MontantChiffreAffaire0805 = 0;
+            decimal MontantChiffreAffaire0905 = 0;
+            decimal MontantChiffreAffaire1005 = 0;
+            decimal MontantChiffreAffaire1105 = 0;
+            decimal MontantChiffreAffaire1205 = 0;
+
+            decimal MontantChiffreAffaire0106 = 0;
+            decimal MontantChiffreAffaire0206 = 0;
+            decimal MontantChiffreAffaire0306 = 0;
+            decimal MontantChiffreAffaire0406 = 0;
+            decimal MontantChiffreAffaire0506 = 0;
+            decimal MontantChiffreAffaire0606 = 0;
+            decimal MontantChiffreAffaire0706 = 0;
+            decimal MontantChiffreAffaire0806 = 0;
+            decimal MontantChiffreAffaire0906 = 0;
+            decimal MontantChiffreAffaire1006 = 0;
+            decimal MontantChiffreAffaire1106 = 0;
+            decimal MontantChiffreAffaire1206 = 0;
+
+            decimal MontantChiffreAffaire0107 = 0;
+            decimal MontantChiffreAffaire0207 = 0;
+            decimal MontantChiffreAffaire0307 = 0;
+            decimal MontantChiffreAffaire0407 = 0;
+            decimal MontantChiffreAffaire0507 = 0;
+            decimal MontantChiffreAffaire0607 = 0;
+            decimal MontantChiffreAffaire0707 = 0;
+            decimal MontantChiffreAffaire0807 = 0;
+            decimal MontantChiffreAffaire0907 = 0;
+            decimal MontantChiffreAffaire1007 = 0;
+            decimal MontantChiffreAffaire1107 = 0;
+            decimal MontantChiffreAffaire1207 = 0;
+
+
+
+
+
+
+
+            MontantChiffreAffaire0101 = MontantChiffreAffaire01 * frequence_Activte_01;
+            MontantChiffreAffaire0201 = MontantChiffreAffaire01 * frequence_Activte_02;
+            MontantChiffreAffaire0301 = MontantChiffreAffaire01 * frequence_Activte_03;
+            MontantChiffreAffaire0401 = MontantChiffreAffaire01 * frequence_Activte_04;
+            MontantChiffreAffaire0501 = MontantChiffreAffaire01 * frequence_Activte_05;
+            MontantChiffreAffaire0601 = MontantChiffreAffaire01 * frequence_Activte_06;
+            MontantChiffreAffaire0701 = MontantChiffreAffaire01 * frequence_Activte_07;
+            MontantChiffreAffaire0801 = MontantChiffreAffaire01 * frequence_Activte_08;
+            MontantChiffreAffaire0901 = MontantChiffreAffaire01 * frequence_Activte_09;
+            MontantChiffreAffaire1001 = MontantChiffreAffaire01 * frequence_Activte_10;
+            MontantChiffreAffaire1101 = MontantChiffreAffaire01 * frequence_Activte_11;
+            MontantChiffreAffaire1201 = MontantChiffreAffaire01 * frequence_Activte_12;
+
+            MontantChiffreAffaire0102 = MontantChiffreAffaire02 * frequence_Activte_01;
+            MontantChiffreAffaire0202 = MontantChiffreAffaire02 * frequence_Activte_02;
+            MontantChiffreAffaire0302 = MontantChiffreAffaire02 * frequence_Activte_03;
+            MontantChiffreAffaire0402 = MontantChiffreAffaire02 * frequence_Activte_04;
+            MontantChiffreAffaire0502 = MontantChiffreAffaire02 * frequence_Activte_05;
+            MontantChiffreAffaire0602 = MontantChiffreAffaire02 * frequence_Activte_06;
+            MontantChiffreAffaire0702 = MontantChiffreAffaire02 * frequence_Activte_07;
+            MontantChiffreAffaire0802 = MontantChiffreAffaire02 * frequence_Activte_08;
+            MontantChiffreAffaire0902 = MontantChiffreAffaire02 * frequence_Activte_09;
+            MontantChiffreAffaire1002 = MontantChiffreAffaire02 * frequence_Activte_10;
+            MontantChiffreAffaire1102 = MontantChiffreAffaire02 * frequence_Activte_11;
+            MontantChiffreAffaire1202 = MontantChiffreAffaire02 * frequence_Activte_12;
+
+            MontantChiffreAffaire0103 = MontantChiffreAffaire03 * frequence_Activte_01;
+            MontantChiffreAffaire0203 = MontantChiffreAffaire03 * frequence_Activte_02;
+            MontantChiffreAffaire0303 = MontantChiffreAffaire03 * frequence_Activte_03;
+            MontantChiffreAffaire0403 = MontantChiffreAffaire03 * frequence_Activte_04;
+            MontantChiffreAffaire0503 = MontantChiffreAffaire03 * frequence_Activte_05;
+            MontantChiffreAffaire0603 = MontantChiffreAffaire03 * frequence_Activte_06;
+            MontantChiffreAffaire0703 = MontantChiffreAffaire03 * frequence_Activte_07;
+            MontantChiffreAffaire0803 = MontantChiffreAffaire03 * frequence_Activte_08;
+            MontantChiffreAffaire0903 = MontantChiffreAffaire03 * frequence_Activte_09;
+            MontantChiffreAffaire1003 = MontantChiffreAffaire03 * frequence_Activte_10;
+            MontantChiffreAffaire1103 = MontantChiffreAffaire03 * frequence_Activte_11;
+            MontantChiffreAffaire1203 = MontantChiffreAffaire03 * frequence_Activte_12;
+
+            MontantChiffreAffaire0104 = MontantChiffreAffaire04 * frequence_Activte_01;
+            MontantChiffreAffaire0204 = MontantChiffreAffaire04 * frequence_Activte_02;
+            MontantChiffreAffaire0304 = MontantChiffreAffaire04 * frequence_Activte_03;
+            MontantChiffreAffaire0404 = MontantChiffreAffaire04 * frequence_Activte_04;
+            MontantChiffreAffaire0504 = MontantChiffreAffaire04 * frequence_Activte_05;
+            MontantChiffreAffaire0604 = MontantChiffreAffaire04 * frequence_Activte_06;
+            MontantChiffreAffaire0704 = MontantChiffreAffaire04 * frequence_Activte_07;
+            MontantChiffreAffaire0804 = MontantChiffreAffaire04 * frequence_Activte_08;
+            MontantChiffreAffaire0904 = MontantChiffreAffaire04 * frequence_Activte_09;
+            MontantChiffreAffaire1004 = MontantChiffreAffaire04 * frequence_Activte_10;
+            MontantChiffreAffaire1104 = MontantChiffreAffaire04 * frequence_Activte_11;
+            MontantChiffreAffaire1204 = MontantChiffreAffaire04 * frequence_Activte_12;
+
+            MontantChiffreAffaire0105 = MontantChiffreAffaire05 * frequence_Activte_01;
+            MontantChiffreAffaire0205 = MontantChiffreAffaire05 * frequence_Activte_02;
+            MontantChiffreAffaire0305 = MontantChiffreAffaire05 * frequence_Activte_03;
+            MontantChiffreAffaire0405 = MontantChiffreAffaire05 * frequence_Activte_04;
+            MontantChiffreAffaire0505 = MontantChiffreAffaire05 * frequence_Activte_05;
+            MontantChiffreAffaire0605 = MontantChiffreAffaire05 * frequence_Activte_06;
+            MontantChiffreAffaire0705 = MontantChiffreAffaire05 * frequence_Activte_07;
+            MontantChiffreAffaire0805 = MontantChiffreAffaire05 * frequence_Activte_08;
+            MontantChiffreAffaire0905 = MontantChiffreAffaire05 * frequence_Activte_09;
+            MontantChiffreAffaire1005 = MontantChiffreAffaire05 * frequence_Activte_10;
+            MontantChiffreAffaire1105 = MontantChiffreAffaire05 * frequence_Activte_11;
+            MontantChiffreAffaire1205 = MontantChiffreAffaire05 * frequence_Activte_12;
+
+            MontantChiffreAffaire0106 = MontantChiffreAffaire06 * frequence_Activte_01;
+            MontantChiffreAffaire0206 = MontantChiffreAffaire06 * frequence_Activte_02;
+            MontantChiffreAffaire0306 = MontantChiffreAffaire06 * frequence_Activte_03;
+            MontantChiffreAffaire0406 = MontantChiffreAffaire06 * frequence_Activte_04;
+            MontantChiffreAffaire0506 = MontantChiffreAffaire06 * frequence_Activte_05;
+            MontantChiffreAffaire0606 = MontantChiffreAffaire06 * frequence_Activte_06;
+            MontantChiffreAffaire0706 = MontantChiffreAffaire06 * frequence_Activte_07;
+            MontantChiffreAffaire0806 = MontantChiffreAffaire06 * frequence_Activte_08;
+            MontantChiffreAffaire0906 = MontantChiffreAffaire06 * frequence_Activte_09;
+            MontantChiffreAffaire1006 = MontantChiffreAffaire06 * frequence_Activte_10;
+            MontantChiffreAffaire1106 = MontantChiffreAffaire06 * frequence_Activte_11;
+            MontantChiffreAffaire1206 = MontantChiffreAffaire06 * frequence_Activte_12;
+
+            MontantChiffreAffaire0107 = MontantChiffreAffaire07 * frequence_Activte_01;
+            MontantChiffreAffaire0207 = MontantChiffreAffaire07 * frequence_Activte_02;
+            MontantChiffreAffaire0307 = MontantChiffreAffaire07 * frequence_Activte_03;
+            MontantChiffreAffaire0407 = MontantChiffreAffaire07 * frequence_Activte_04;
+            MontantChiffreAffaire0507 = MontantChiffreAffaire07 * frequence_Activte_05;
+            MontantChiffreAffaire0607 = MontantChiffreAffaire07 * frequence_Activte_06;
+            MontantChiffreAffaire0707 = MontantChiffreAffaire07 * frequence_Activte_07;
+            MontantChiffreAffaire0807 = MontantChiffreAffaire07 * frequence_Activte_08;
+            MontantChiffreAffaire0907 = MontantChiffreAffaire07 * frequence_Activte_09;
+            MontantChiffreAffaire1007 = MontantChiffreAffaire07 * frequence_Activte_10;
+            MontantChiffreAffaire1107 = MontantChiffreAffaire07 * frequence_Activte_11;
+            MontantChiffreAffaire1207 = MontantChiffreAffaire07 * frequence_Activte_12;
+
+            int janvier = 30;
+            int fevrier = 60;
+            int mars = 90;
+            int avril = 120;
+            int mai = 150;
+            int juin = 180;
+            int juillet = 210;
+            int aout = 240;
+            int septembre = 270;
+            int octobre = 300;
+            int novembre = 330;
+            int decembre = 360;
+
+            int delaiClient = 0;
+            int decalage01 = 0;
+            int decalage02 = 0;
+
+            decimal montantDecalage = 0;
+
+            #region  Encaissement Clients
+
+            decimal Encaissement_Reçus_Clients0101 = 0;
+            decimal Encaissement_Reçus_Clients0201 = 0;
+            decimal Encaissement_Reçus_Clients0301 = 0;
+            decimal Encaissement_Reçus_Clients0401 = 0;
+            decimal Encaissement_Reçus_Clients0501 = 0;
+            decimal Encaissement_Reçus_Clients0601 = 0;
+            decimal Encaissement_Reçus_Clients0701 = 0;
+            decimal Encaissement_Reçus_Clients0801 = 0;
+            decimal Encaissement_Reçus_Clients0901 = 0;
+            decimal Encaissement_Reçus_Clients1001 = 0;
+            decimal Encaissement_Reçus_Clients1101 = 0;
+            decimal Encaissement_Reçus_Clients1201 = 0;
+
+            decimal Encaissement_Reçus_Clients0102 = 0;
+            decimal Encaissement_Reçus_Clients0202 = 0;
+            decimal Encaissement_Reçus_Clients0302 = 0;
+            decimal Encaissement_Reçus_Clients0402 = 0;
+            decimal Encaissement_Reçus_Clients0502 = 0;
+            decimal Encaissement_Reçus_Clients0602 = 0;
+            decimal Encaissement_Reçus_Clients0702 = 0;
+            decimal Encaissement_Reçus_Clients0802 = 0;
+            decimal Encaissement_Reçus_Clients0902 = 0;
+            decimal Encaissement_Reçus_Clients1002 = 0;
+            decimal Encaissement_Reçus_Clients1102 = 0;
+            decimal Encaissement_Reçus_Clients1202 = 0;
+
+            decimal Encaissement_Reçus_Clients0103 = 0;
+            decimal Encaissement_Reçus_Clients0203 = 0;
+            decimal Encaissement_Reçus_Clients0303 = 0;
+            decimal Encaissement_Reçus_Clients0403 = 0;
+            decimal Encaissement_Reçus_Clients0503 = 0;
+            decimal Encaissement_Reçus_Clients0603 = 0;
+            decimal Encaissement_Reçus_Clients0703 = 0;
+            decimal Encaissement_Reçus_Clients0803 = 0;
+            decimal Encaissement_Reçus_Clients0903 = 0;
+            decimal Encaissement_Reçus_Clients1003 = 0;
+            decimal Encaissement_Reçus_Clients1103 = 0;
+            decimal Encaissement_Reçus_Clients1203 = 0;
+
+            decimal Encaissement_Reçus_Clients0104 = 0;
+            decimal Encaissement_Reçus_Clients0204 = 0;
+            decimal Encaissement_Reçus_Clients0304 = 0;
+            decimal Encaissement_Reçus_Clients0404 = 0;
+            decimal Encaissement_Reçus_Clients0504 = 0;
+            decimal Encaissement_Reçus_Clients0604 = 0;
+            decimal Encaissement_Reçus_Clients0704 = 0;
+            decimal Encaissement_Reçus_Clients0804 = 0;
+            decimal Encaissement_Reçus_Clients0904 = 0;
+            decimal Encaissement_Reçus_Clients1004 = 0;
+            decimal Encaissement_Reçus_Clients1104 = 0;
+            decimal Encaissement_Reçus_Clients1204 = 0;
+
+            decimal Encaissement_Reçus_Clients0105 = 0;
+            decimal Encaissement_Reçus_Clients0205 = 0;
+            decimal Encaissement_Reçus_Clients0305 = 0;
+            decimal Encaissement_Reçus_Clients0405 = 0;
+            decimal Encaissement_Reçus_Clients0505 = 0;
+            decimal Encaissement_Reçus_Clients0605 = 0;
+            decimal Encaissement_Reçus_Clients0705 = 0;
+            decimal Encaissement_Reçus_Clients0805 = 0;
+            decimal Encaissement_Reçus_Clients0905 = 0;
+            decimal Encaissement_Reçus_Clients1005 = 0;
+            decimal Encaissement_Reçus_Clients1105 = 0;
+            decimal Encaissement_Reçus_Clients1205 = 0;
+
+            decimal Encaissement_Reçus_Clients0106 = 0;
+            decimal Encaissement_Reçus_Clients0206 = 0;
+            decimal Encaissement_Reçus_Clients0306 = 0;
+            decimal Encaissement_Reçus_Clients0406 = 0;
+            decimal Encaissement_Reçus_Clients0506 = 0;
+            decimal Encaissement_Reçus_Clients0606 = 0;
+            decimal Encaissement_Reçus_Clients0706 = 0;
+            decimal Encaissement_Reçus_Clients0806 = 0;
+            decimal Encaissement_Reçus_Clients0906 = 0;
+            decimal Encaissement_Reçus_Clients1006 = 0;
+            decimal Encaissement_Reçus_Clients1106 = 0;
+            decimal Encaissement_Reçus_Clients1206 = 0;
+
+            decimal Encaissement_Reçus_Clients0107 = 0;
+            decimal Encaissement_Reçus_Clients0207 = 0;
+            decimal Encaissement_Reçus_Clients0307 = 0;
+            decimal Encaissement_Reçus_Clients0407 = 0;
+            decimal Encaissement_Reçus_Clients0507 = 0;
+            decimal Encaissement_Reçus_Clients0607 = 0;
+            decimal Encaissement_Reçus_Clients0707 = 0;
+            decimal Encaissement_Reçus_Clients0807 = 0;
+            decimal Encaissement_Reçus_Clients0907 = 0;
+            decimal Encaissement_Reçus_Clients1007 = 0;
+            decimal Encaissement_Reçus_Clients1107 = 0;
+            decimal Encaissement_Reçus_Clients1207 = 0;
+
+            #endregion
+
+            delaiClient = modelBusinessPlan.InformationBase.DelaiClient;
+
+            #region  Encaissement Clients Année 01
+
+            if (delaiClient < 360 && delaiClient >= 0)
+            {
+                #region  Encaissement janvier
+
+                montantDecalage = MontantChiffreAffaire0101 / 30;
+
+                if (janvier > delaiClient)
+                {
+                    decalage01 = janvier - delaiClient;
+                    decalage02 = 30 - decalage01;
+
+                    Encaissement_Reçus_Clients0101 = montantDecalage * decalage01;
+                    Encaissement_Reçus_Clients0201 = montantDecalage * decalage02;
+
+                }
+                else
+                {
+                    if (fevrier > delaiClient)
+                    {
+                        decalage01 = fevrier - delaiClient;
+                        decalage02 = 30 - decalage01;
+
+                        Encaissement_Reçus_Clients0201 = montantDecalage * decalage01;
+                        Encaissement_Reçus_Clients0301 = montantDecalage * decalage02;
+
+                    }
+                    else
+                    {
+                        if (mars > delaiClient)
+                        {
+                            decalage01 = mars - delaiClient;
+                            decalage02 = 30 - decalage01;
+
+                            Encaissement_Reçus_Clients0301 = montantDecalage * decalage01;
+                            Encaissement_Reçus_Clients0401 = montantDecalage * decalage02;
+
+                        }
+                        else
+                        {
+                            if (avril > delaiClient)
+                            {
+                                decalage01 = avril - delaiClient;
+                                decalage02 = 30 - decalage01;
+
+                                Encaissement_Reçus_Clients0401 = montantDecalage * decalage01;
+                                Encaissement_Reçus_Clients0501 = montantDecalage * decalage02;
+
+                            }
+                            else
+                            {
+                                if (mai > delaiClient)
+                                {
+                                    decalage01 = mai - delaiClient;
+                                    decalage02 = 30 - decalage01;
+
+                                    Encaissement_Reçus_Clients0501 = montantDecalage * decalage01;
+                                    Encaissement_Reçus_Clients0601 = montantDecalage * decalage02;
+
+                                }
+                                else
+                                {
+                                    if (juin > delaiClient)
+                                    {
+                                        decalage01 = juin - delaiClient;
+                                        decalage02 = 30 - decalage01;
+
+                                        Encaissement_Reçus_Clients0601 = montantDecalage * decalage01;
+                                        Encaissement_Reçus_Clients0701 = montantDecalage * decalage02;
+
+                                    }
+                                    else
+                                    {
+                                        if (juillet > delaiClient)
+                                        {
+                                            decalage01 = juillet - delaiClient;
+                                            decalage02 = 30 - decalage01;
+
+                                            Encaissement_Reçus_Clients0701 = montantDecalage * decalage01;
+                                            Encaissement_Reçus_Clients0801 = montantDecalage * decalage02;
+
+                                        }
+                                        else
+                                        {
+                                            if (aout > delaiClient)
+                                            {
+                                                decalage01 = aout - delaiClient;
+                                                decalage02 = 30 - decalage01;
+
+                                                Encaissement_Reçus_Clients0801 = montantDecalage * decalage01;
+                                                Encaissement_Reçus_Clients0901 = montantDecalage * decalage02;
+
+                                            }
+                                            else
+                                            {
+                                                if (septembre > delaiClient)
+                                                {
+                                                    decalage01 = septembre - delaiClient;
+                                                    decalage02 = 30 - decalage01;
+
+                                                    Encaissement_Reçus_Clients0901 = montantDecalage * decalage01;
+                                                    Encaissement_Reçus_Clients1001 = montantDecalage * decalage02;
+
+                                                }
+                                                else
+                                                {
+                                                    if (octobre > delaiClient)
+                                                    {
+                                                        decalage01 = octobre - delaiClient;
+                                                        decalage02 = 30 - decalage01;
+
+                                                        Encaissement_Reçus_Clients1001 = montantDecalage * decalage01;
+                                                        Encaissement_Reçus_Clients1101 = montantDecalage * decalage02;
+
+                                                    }
+                                                    else
+                                                    {
+                                                        if (novembre > delaiClient)
+                                                        {
+                                                            decalage01 = novembre - delaiClient;
+                                                            decalage02 = 30 - decalage01;
+
+                                                            Encaissement_Reçus_Clients1101 = montantDecalage * decalage01;
+                                                            Encaissement_Reçus_Clients1201 = montantDecalage * decalage02;
+
+                                                        }
+                                                        else
+                                                        {
+                                                            if (decembre > delaiClient)
+                                                            {
+                                                                decalage01 = decembre - delaiClient;
+                                                                decalage02 = 30 - decalage01;
+
+                                                                Encaissement_Reçus_Clients1201 = montantDecalage * decalage01;
+                                                                Encaissement_Reçus_Clients0102 = montantDecalage * decalage02;
+
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                #endregion
+
+                #region  Encaissement fevrier
+
+                montantDecalage = MontantChiffreAffaire0201 / 30;
+
+                if (fevrier - 30 > delaiClient)
+                {
+                    decalage01 = fevrier - 30 - delaiClient;
+                    decalage02 = 30 - decalage01;
+
+                    Encaissement_Reçus_Clients0201 += montantDecalage * decalage01;
+                    Encaissement_Reçus_Clients0301 += montantDecalage * decalage02;
+                }
+                else
+                {
+                    if (mars - 30 > delaiClient)
+                    {
+                        decalage01 = mars - 30 - delaiClient;
+                        decalage02 = 30 - decalage01;
+
+                        Encaissement_Reçus_Clients0301 += montantDecalage * decalage01;
+                        Encaissement_Reçus_Clients0401 += montantDecalage * decalage02;
+
+                    }
+                    else
+                    {
+                        if (avril - 30 > delaiClient)
+                        {
+                            decalage01 = avril - 30 - delaiClient;
+                            decalage02 = 30 - decalage01;
+
+                            Encaissement_Reçus_Clients0401 += montantDecalage * decalage01;
+                            Encaissement_Reçus_Clients0501 += montantDecalage * decalage02;
+
+                        }
+                        else
+                        {
+                            if (mai - 30 > delaiClient)
+                            {
+                                decalage01 = mai - 30 - delaiClient;
+                                decalage02 = 30 - decalage01;
+
+                                Encaissement_Reçus_Clients0501 += montantDecalage * decalage01;
+                                Encaissement_Reçus_Clients0601 += montantDecalage * decalage02;
+
+                            }
+                            else
+                            {
+                                if (juin - 30 > delaiClient)
+                                {
+                                    decalage01 = juin - 30 - delaiClient;
+                                    decalage02 = 30 - decalage01;
+
+                                    Encaissement_Reçus_Clients0601 += montantDecalage * decalage01;
+                                    Encaissement_Reçus_Clients0701 += montantDecalage * decalage02;
+
+                                }
+                                else
+                                {
+                                    if (juillet - 30 > delaiClient)
+                                    {
+                                        decalage01 = juillet - 30 - delaiClient;
+                                        decalage02 = 30 - decalage01;
+
+                                        Encaissement_Reçus_Clients0701 += montantDecalage * decalage01;
+                                        Encaissement_Reçus_Clients0801 += montantDecalage * decalage02;
+
+                                    }
+                                    else
+                                    {
+                                        if (aout - 30 > delaiClient)
+                                        {
+                                            decalage01 = aout - 30 - delaiClient;
+                                            decalage02 = 30 - decalage01;
+
+                                            Encaissement_Reçus_Clients0801 += montantDecalage * decalage01;
+                                            Encaissement_Reçus_Clients0901 += montantDecalage * decalage02;
+
+                                        }
+                                        else
+                                        {
+                                            if (septembre - 30 > delaiClient)
+                                            {
+                                                decalage01 = septembre - 30 - delaiClient;
+                                                decalage02 = 30 - decalage01;
+
+                                                Encaissement_Reçus_Clients0901 += montantDecalage * decalage01;
+                                                Encaissement_Reçus_Clients1001 += montantDecalage * decalage02;
+
+                                            }
+                                            else
+                                            {
+                                                if (octobre - 30 > delaiClient)
+                                                {
+                                                    decalage01 = octobre - 30 - delaiClient;
+                                                    decalage02 = 30 - decalage01;
+
+                                                    Encaissement_Reçus_Clients1001 += montantDecalage * decalage01;
+                                                    Encaissement_Reçus_Clients1101 += montantDecalage * decalage02;
+
+                                                }
+                                                else
+                                                {
+                                                    if (novembre - 30 > delaiClient)
+                                                    {
+                                                        decalage01 = novembre - 30 - delaiClient;
+                                                        decalage02 = 30 - decalage01;
+
+                                                        Encaissement_Reçus_Clients1101 += montantDecalage * decalage01;
+                                                        Encaissement_Reçus_Clients1201 += montantDecalage * decalage02;
+
+                                                    }
+                                                    else
+                                                    {
+                                                        if (decembre - 30 > delaiClient)
+                                                        {
+                                                            decalage01 = decembre - 30 - delaiClient;
+                                                            decalage02 = 30 - decalage01;
+
+                                                            Encaissement_Reçus_Clients1201 += montantDecalage * decalage01;
+                                                            Encaissement_Reçus_Clients0102 += montantDecalage * decalage02;
+
+                                                        }
+                                                        else
+                                                        {
+                                                            if (decembre > delaiClient)
+                                                            {
+                                                                decalage01 = decembre - delaiClient;
+                                                                decalage02 = 30 - decalage01;
+
+                                                                Encaissement_Reçus_Clients0102 += montantDecalage * decalage01;
+                                                                Encaissement_Reçus_Clients0202 += montantDecalage * decalage02;
+
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                #endregion
+
+                #region  Encaissement mars
+
+                montantDecalage = MontantChiffreAffaire0301 / 30;
+
+                if (mars - 60 > delaiClient)
+                {
+                    decalage01 = mars - 60 - delaiClient;
+                    decalage02 = 30 - decalage01;
+
+                    Encaissement_Reçus_Clients0301 += montantDecalage * decalage01;
+                    Encaissement_Reçus_Clients0401 += montantDecalage * decalage02;
+                }
+                else
+                {
+                    if (avril - 60 > delaiClient)
+                    {
+                        decalage01 = avril - 60 - delaiClient;
+                        decalage02 = 30 - decalage01;
+
+                        Encaissement_Reçus_Clients0401 += montantDecalage * decalage01;
+                        Encaissement_Reçus_Clients0501 += montantDecalage * decalage02;
+
+                    }
+                    else
+                    {
+                        if (mai - 60 > delaiClient)
+                        {
+                            decalage01 = mai - 60 - delaiClient;
+                            decalage02 = 30 - decalage01;
+
+                            Encaissement_Reçus_Clients0501 += montantDecalage * decalage01;
+                            Encaissement_Reçus_Clients0601 += montantDecalage * decalage02;
+
+                        }
+                        else
+                        {
+                            if (juin - 60 > delaiClient)
+                            {
+                                decalage01 = juin - 60 - delaiClient;
+                                decalage02 = 30 - decalage01;
+
+                                Encaissement_Reçus_Clients0601 += montantDecalage * decalage01;
+                                Encaissement_Reçus_Clients0701 += montantDecalage * decalage02;
+
+                            }
+                            else
+                            {
+                                if (juillet - 60 > delaiClient)
+                                {
+                                    decalage01 = juillet - 60 - delaiClient;
+                                    decalage02 = 30 - decalage01;
+
+                                    Encaissement_Reçus_Clients0701 += montantDecalage * decalage01;
+                                    Encaissement_Reçus_Clients0801 += montantDecalage * decalage02;
+
+                                }
+                                else
+                                {
+                                    if (aout - 60 > delaiClient)
+                                    {
+                                        decalage01 = aout - 60 - delaiClient;
+                                        decalage02 = 30 - decalage01;
+
+                                        Encaissement_Reçus_Clients0801 += montantDecalage * decalage01;
+                                        Encaissement_Reçus_Clients0901 += montantDecalage * decalage02;
+
+                                    }
+                                    else
+                                    {
+                                        if (septembre - 60 > delaiClient)
+                                        {
+                                            decalage01 = septembre - 60 - delaiClient;
+                                            decalage02 = 30 - decalage01;
+
+                                            Encaissement_Reçus_Clients0901 += montantDecalage * decalage01;
+                                            Encaissement_Reçus_Clients1001 += montantDecalage * decalage02;
+
+                                        }
+                                        else
+                                        {
+                                            if (octobre - 60 > delaiClient)
+                                            {
+                                                decalage01 = octobre - 60 - delaiClient;
+                                                decalage02 = 30 - decalage01;
+
+                                                Encaissement_Reçus_Clients1001 += montantDecalage * decalage01;
+                                                Encaissement_Reçus_Clients1101 += montantDecalage * decalage02;
+
+                                            }
+                                            else
+                                            {
+                                                if (novembre - 60 > delaiClient)
+                                                {
+                                                    decalage01 = novembre - 60 - delaiClient;
+                                                    decalage02 = 30 - decalage01;
+
+                                                    Encaissement_Reçus_Clients1101 += montantDecalage * decalage01;
+                                                    Encaissement_Reçus_Clients1201 += montantDecalage * decalage02;
+
+                                                }
+                                                else
+                                                {
+                                                    if (decembre - 60 > delaiClient)
+                                                    {
+                                                        decalage01 = decembre - 60 - delaiClient;
+                                                        decalage02 = 30 - decalage01;
+
+                                                        Encaissement_Reçus_Clients1201 += montantDecalage * decalage01;
+                                                        Encaissement_Reçus_Clients0102 += montantDecalage * decalage02;
+
+                                                    }
+                                                    else
+                                                    {
+                                                        if (novembre > delaiClient)
+                                                        {
+                                                            decalage01 = novembre - delaiClient;
+                                                            decalage02 = 30 - decalage01;
+
+                                                            Encaissement_Reçus_Clients0102 += montantDecalage * decalage01;
+                                                            Encaissement_Reçus_Clients0202 += montantDecalage * decalage02;
+
+                                                        }
+                                                        else
+                                                        {
+                                                            if (decembre > delaiClient)
+                                                            {
+                                                                decalage01 = decembre - delaiClient;
+                                                                decalage02 = 30 - decalage01;
+
+                                                                Encaissement_Reçus_Clients0202 += montantDecalage * decalage01;
+                                                                Encaissement_Reçus_Clients0302 += montantDecalage * decalage02;
+
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                #endregion
+
+                #region  Encaissement avril
+
+                montantDecalage = MontantChiffreAffaire0401 / 30;
+
+                if (avril - 90 > delaiClient)
+                {
+                    decalage01 = avril - 90 - delaiClient;
+                    decalage02 = 30 - decalage01;
+
+                    Encaissement_Reçus_Clients0401 += montantDecalage * decalage01;
+                    Encaissement_Reçus_Clients0501 += montantDecalage * decalage02;
+                }
+                else
+                {
+                    if (mai - 90 > delaiClient)
+                    {
+                        decalage01 = mai - 90 - delaiClient;
+                        decalage02 = 30 - decalage01;
+
+                        Encaissement_Reçus_Clients0501 += montantDecalage * decalage01;
+                        Encaissement_Reçus_Clients0601 += montantDecalage * decalage02;
+
+                    }
+                    else
+                    {
+                        if (juin - 90 > delaiClient)
+                        {
+                            decalage01 = juin - 90 - delaiClient;
+                            decalage02 = 30 - decalage01;
+
+                            Encaissement_Reçus_Clients0601 += montantDecalage * decalage01;
+                            Encaissement_Reçus_Clients0701 += montantDecalage * decalage02;
+
+                        }
+                        else
+                        {
+                            if (juillet - 90 > delaiClient)
+                            {
+                                decalage01 = juillet - 90 - delaiClient;
+                                decalage02 = 30 - decalage01;
+
+                                Encaissement_Reçus_Clients0701 += montantDecalage * decalage01;
+                                Encaissement_Reçus_Clients0801 += montantDecalage * decalage02;
+
+                            }
+                            else
+                            {
+                                if (aout - 90 > delaiClient)
+                                {
+                                    decalage01 = aout - 90 - delaiClient;
+                                    decalage02 = 30 - decalage01;
+
+                                    Encaissement_Reçus_Clients0801 += montantDecalage * decalage01;
+                                    Encaissement_Reçus_Clients0901 += montantDecalage * decalage02;
+
+                                }
+                                else
+                                {
+                                    if (septembre - 90 > delaiClient)
+                                    {
+                                        decalage01 = septembre - 90 - delaiClient;
+                                        decalage02 = 30 - decalage01;
+
+                                        Encaissement_Reçus_Clients0901 += montantDecalage * decalage01;
+                                        Encaissement_Reçus_Clients1001 += montantDecalage * decalage02;
+
+                                    }
+                                    else
+                                    {
+                                        if (octobre - 90 > delaiClient)
+                                        {
+                                            decalage01 = octobre - 90 - delaiClient;
+                                            decalage02 = 30 - decalage01;
+
+                                            Encaissement_Reçus_Clients1001 += montantDecalage * decalage01;
+                                            Encaissement_Reçus_Clients1101 += montantDecalage * decalage02;
+
+                                        }
+                                        else
+                                        {
+                                            if (novembre - 90 > delaiClient)
+                                            {
+                                                decalage01 = novembre - 90 - delaiClient;
+                                                decalage02 = 30 - decalage01;
+
+                                                Encaissement_Reçus_Clients1101 += montantDecalage * decalage01;
+                                                Encaissement_Reçus_Clients1201 += montantDecalage * decalage02;
+
+                                            }
+                                            else
+                                            {
+                                                if (decembre - 90 > delaiClient)
+                                                {
+                                                    decalage01 = decembre - 90 - delaiClient;
+                                                    decalage02 = 30 - decalage01;
+
+                                                    Encaissement_Reçus_Clients1201 += montantDecalage * decalage01;
+                                                    Encaissement_Reçus_Clients0102 += montantDecalage * decalage02;
+
+                                                }
+                                                else
+                                                {
+                                                    if (octobre > delaiClient)
+                                                    {
+                                                        decalage01 = octobre - delaiClient;
+                                                        decalage02 = 30 - decalage01;
+
+                                                        Encaissement_Reçus_Clients0102 += montantDecalage * decalage01;
+                                                        Encaissement_Reçus_Clients0202 += montantDecalage * decalage02;
+
+                                                    }
+                                                    else
+                                                    {
+                                                        if (novembre > delaiClient)
+                                                        {
+                                                            decalage01 = novembre - delaiClient;
+                                                            decalage02 = 30 - decalage01;
+
+                                                            Encaissement_Reçus_Clients0202 += montantDecalage * decalage01;
+                                                            Encaissement_Reçus_Clients0302 += montantDecalage * decalage02;
+
+                                                        }
+                                                        else
+                                                        {
+                                                            if (decembre > delaiClient)
+                                                            {
+                                                                decalage01 = decembre - delaiClient;
+                                                                decalage02 = 30 - decalage01;
+
+                                                                Encaissement_Reçus_Clients0302 += montantDecalage * decalage01;
+                                                                Encaissement_Reçus_Clients0402 += montantDecalage * decalage02;
+
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                #endregion
+
+                #region  Encaissement mai
+
+                montantDecalage = MontantChiffreAffaire0501 / 30;
+
+                if (mai - 120 > delaiClient)
+                {
+                    decalage01 = mai - 120 - delaiClient;
+                    decalage02 = 30 - decalage01;
+
+                    Encaissement_Reçus_Clients0501 += montantDecalage * decalage01;
+                    Encaissement_Reçus_Clients0601 += montantDecalage * decalage02;
+                }
+                else
+                {
+                    if (juin - 120 > delaiClient)
+                    {
+                        decalage01 = juin - 120 - delaiClient;
+                        decalage02 = 30 - decalage01;
+
+                        Encaissement_Reçus_Clients0601 += montantDecalage * decalage01;
+                        Encaissement_Reçus_Clients0701 += montantDecalage * decalage02;
+
+                    }
+                    else
+                    {
+                        if (juillet - 120 > delaiClient)
+                        {
+                            decalage01 = juillet - 120 - delaiClient;
+                            decalage02 = 30 - decalage01;
+
+                            Encaissement_Reçus_Clients0701 += montantDecalage * decalage01;
+                            Encaissement_Reçus_Clients0801 += montantDecalage * decalage02;
+
+                        }
+                        else
+                        {
+                            if (aout - 120 > delaiClient)
+                            {
+                                decalage01 = aout - 120 - delaiClient;
+                                decalage02 = 30 - decalage01;
+
+                                Encaissement_Reçus_Clients0801 += montantDecalage * decalage01;
+                                Encaissement_Reçus_Clients0901 += montantDecalage * decalage02;
+
+                            }
+                            else
+                            {
+                                if (septembre - 120 > delaiClient)
+                                {
+                                    decalage01 = septembre - 120 - delaiClient;
+                                    decalage02 = 30 - decalage01;
+
+                                    Encaissement_Reçus_Clients0901 += montantDecalage * decalage01;
+                                    Encaissement_Reçus_Clients1001 += montantDecalage * decalage02;
+
+                                }
+                                else
+                                {
+                                    if (octobre - 120 > delaiClient)
+                                    {
+                                        decalage01 = octobre - 120 - delaiClient;
+                                        decalage02 = 30 - decalage01;
+
+                                        Encaissement_Reçus_Clients1001 += montantDecalage * decalage01;
+                                        Encaissement_Reçus_Clients1101 += montantDecalage * decalage02;
+
+                                    }
+                                    else
+                                    {
+                                        if (novembre - 120 > delaiClient)
+                                        {
+                                            decalage01 = novembre - 120 - delaiClient;
+                                            decalage02 = 30 - decalage01;
+
+                                            Encaissement_Reçus_Clients1101 += montantDecalage * decalage01;
+                                            Encaissement_Reçus_Clients1201 += montantDecalage * decalage02;
+
+                                        }
+                                        else
+                                        {
+                                            if (decembre - 120 > delaiClient)
+                                            {
+                                                decalage01 = decembre - 120 - delaiClient;
+                                                decalage02 = 30 - decalage01;
+
+                                                Encaissement_Reçus_Clients1201 += montantDecalage * decalage01;
+                                                Encaissement_Reçus_Clients0102 += montantDecalage * decalage02;
+
+                                            }
+                                            else
+                                            {
+                                                if (septembre > delaiClient)
+                                                {
+                                                    decalage01 = septembre - delaiClient;
+                                                    decalage02 = 30 - decalage01;
+
+                                                    Encaissement_Reçus_Clients0102 += montantDecalage * decalage01;
+                                                    Encaissement_Reçus_Clients0202 += montantDecalage * decalage02;
+
+                                                }
+                                                else
+                                                {
+                                                    if (octobre > delaiClient)
+                                                    {
+                                                        decalage01 = octobre - delaiClient;
+                                                        decalage02 = 30 - decalage01;
+
+                                                        Encaissement_Reçus_Clients0202 += montantDecalage * decalage01;
+                                                        Encaissement_Reçus_Clients0302 += montantDecalage * decalage02;
+
+                                                    }
+                                                    else
+                                                    {
+                                                        if (novembre > delaiClient)
+                                                        {
+                                                            decalage01 = novembre - delaiClient;
+                                                            decalage02 = 30 - decalage01;
+
+                                                            Encaissement_Reçus_Clients0302 += montantDecalage * decalage01;
+                                                            Encaissement_Reçus_Clients0402 += montantDecalage * decalage02;
+
+                                                        }
+                                                        else
+                                                        {
+                                                            if (decembre > delaiClient)
+                                                            {
+                                                                decalage01 = decembre - delaiClient;
+                                                                decalage02 = 30 - decalage01;
+
+                                                                Encaissement_Reçus_Clients0402 += montantDecalage * decalage01;
+                                                                Encaissement_Reçus_Clients0502 += montantDecalage * decalage02;
+
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                #endregion
+
+                #region  Encaissement juin
+
+                montantDecalage = MontantChiffreAffaire0601 / 30;
+
+                if (juin - 150 > delaiClient)
+                {
+                    decalage01 = juin - 150 - delaiClient;
+                    decalage02 = 30 - decalage01;
+
+                    Encaissement_Reçus_Clients0601 += montantDecalage * decalage01;
+                    Encaissement_Reçus_Clients0701 += montantDecalage * decalage02;
+                }
+                else
+                {
+                    if (juillet - 150 > delaiClient)
+                    {
+                        decalage01 = juillet - 150 - delaiClient;
+                        decalage02 = 30 - decalage01;
+
+                        Encaissement_Reçus_Clients0701 += montantDecalage * decalage01;
+                        Encaissement_Reçus_Clients0801 += montantDecalage * decalage02;
+
+                    }
+                    else
+                    {
+                        if (aout - 150 > delaiClient)
+                        {
+                            decalage01 = aout - 150 - delaiClient;
+                            decalage02 = 30 - decalage01;
+
+                            Encaissement_Reçus_Clients0801 += montantDecalage * decalage01;
+                            Encaissement_Reçus_Clients0901 += montantDecalage * decalage02;
+
+                        }
+                        else
+                        {
+                            if (septembre - 150 > delaiClient)
+                            {
+                                decalage01 = septembre - 150 - delaiClient;
+                                decalage02 = 30 - decalage01;
+
+                                Encaissement_Reçus_Clients0901 += montantDecalage * decalage01;
+                                Encaissement_Reçus_Clients1001 += montantDecalage * decalage02;
+
+                            }
+                            else
+                            {
+                                if (octobre - 150 > delaiClient)
+                                {
+                                    decalage01 = octobre - 150 - delaiClient;
+                                    decalage02 = 30 - decalage01;
+
+                                    Encaissement_Reçus_Clients1001 += montantDecalage * decalage01;
+                                    Encaissement_Reçus_Clients1101 += montantDecalage * decalage02;
+
+                                }
+                                else
+                                {
+                                    if (novembre - 150 > delaiClient)
+                                    {
+                                        decalage01 = novembre - 150 - delaiClient;
+                                        decalage02 = 30 - decalage01;
+
+                                        Encaissement_Reçus_Clients1101 += montantDecalage * decalage01;
+                                        Encaissement_Reçus_Clients1201 += montantDecalage * decalage02;
+
+                                    }
+                                    else
+                                    {
+                                        if (decembre - 150 > delaiClient)
+                                        {
+                                            decalage01 = decembre - 150 - delaiClient;
+                                            decalage02 = 30 - decalage01;
+
+                                            Encaissement_Reçus_Clients1201 += montantDecalage * decalage01;
+                                            Encaissement_Reçus_Clients0102 += montantDecalage * decalage02;
+
+                                        }
+                                        else
+                                        {
+                                            if (aout > delaiClient)
+                                            {
+                                                decalage01 = aout - delaiClient;
+                                                decalage02 = 30 - decalage01;
+
+                                                Encaissement_Reçus_Clients0102 += montantDecalage * decalage01;
+                                                Encaissement_Reçus_Clients0202 += montantDecalage * decalage02;
+
+                                            }
+                                            else
+                                            {
+                                                if (septembre > delaiClient)
+                                                {
+                                                    decalage01 = septembre - delaiClient;
+                                                    decalage02 = 30 - decalage01;
+
+                                                    Encaissement_Reçus_Clients0202 += montantDecalage * decalage01;
+                                                    Encaissement_Reçus_Clients0302 += montantDecalage * decalage02;
+
+                                                }
+                                                else
+                                                {
+                                                    if (octobre > delaiClient)
+                                                    {
+                                                        decalage01 = octobre - delaiClient;
+                                                        decalage02 = 30 - decalage01;
+
+                                                        Encaissement_Reçus_Clients0302 += montantDecalage * decalage01;
+                                                        Encaissement_Reçus_Clients0402 += montantDecalage * decalage02;
+
+                                                    }
+                                                    else
+                                                    {
+                                                        if (novembre > delaiClient)
+                                                        {
+                                                            decalage01 = novembre - delaiClient;
+                                                            decalage02 = 30 - decalage01;
+
+                                                            Encaissement_Reçus_Clients0402 += montantDecalage * decalage01;
+                                                            Encaissement_Reçus_Clients0502 += montantDecalage * decalage02;
+
+                                                        }
+                                                        else
+                                                        {
+                                                            if (decembre > delaiClient)
+                                                            {
+                                                                decalage01 = decembre - delaiClient;
+                                                                decalage02 = 30 - decalage01;
+
+                                                                Encaissement_Reçus_Clients0502 += montantDecalage * decalage01;
+                                                                Encaissement_Reçus_Clients0602 += montantDecalage * decalage02;
+
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                #endregion
+
+                #region  Encaissement juillet
+
+                montantDecalage = MontantChiffreAffaire0701 / 30;
+
+                if (juillet - 180 > delaiClient)
+                {
+                    decalage01 = juillet - 180 - delaiClient;
+                    decalage02 = 30 - decalage01;
+
+                    Encaissement_Reçus_Clients0701 += montantDecalage * decalage01;
+                    Encaissement_Reçus_Clients0801 += montantDecalage * decalage02;
+                }
+                else
+                {
+                    if (aout - 180 > delaiClient)
+                    {
+                        decalage01 = aout - 180 - delaiClient;
+                        decalage02 = 30 - decalage01;
+
+                        Encaissement_Reçus_Clients0801 += montantDecalage * decalage01;
+                        Encaissement_Reçus_Clients0901 += montantDecalage * decalage02;
+
+                    }
+                    else
+                    {
+                        if (septembre - 180 > delaiClient)
+                        {
+                            decalage01 = septembre - 180 - delaiClient;
+                            decalage02 = 30 - decalage01;
+
+                            Encaissement_Reçus_Clients0901 += montantDecalage * decalage01;
+                            Encaissement_Reçus_Clients1001 += montantDecalage * decalage02;
+
+                        }
+                        else
+                        {
+                            if (octobre - 180 > delaiClient)
+                            {
+                                decalage01 = octobre - 180 - delaiClient;
+                                decalage02 = 30 - decalage01;
+
+                                Encaissement_Reçus_Clients1001 += montantDecalage * decalage01;
+                                Encaissement_Reçus_Clients1101 += montantDecalage * decalage02;
+
+                            }
+                            else
+                            {
+                                if (novembre - 180 > delaiClient)
+                                {
+                                    decalage01 = novembre - 180 - delaiClient;
+                                    decalage02 = 30 - decalage01;
+
+                                    Encaissement_Reçus_Clients1101 += montantDecalage * decalage01;
+                                    Encaissement_Reçus_Clients1201 += montantDecalage * decalage02;
+
+                                }
+                                else
+                                {
+                                    if (decembre - 180 > delaiClient)
+                                    {
+                                        decalage01 = decembre - 180 - delaiClient;
+                                        decalage02 = 30 - decalage01;
+
+                                        Encaissement_Reçus_Clients1201 += montantDecalage * decalage01;
+                                        Encaissement_Reçus_Clients0102 += montantDecalage * decalage02;
+
+                                    }
+                                    else
+                                    {
+                                        if (juillet > delaiClient)
+                                        {
+                                            decalage01 = juillet - delaiClient;
+                                            decalage02 = 30 - decalage01;
+
+                                            Encaissement_Reçus_Clients0102 += montantDecalage * decalage01;
+                                            Encaissement_Reçus_Clients0202 += montantDecalage * decalage02;
+
+                                        }
+                                        else
+                                        {
+                                            if (aout > delaiClient)
+                                            {
+                                                decalage01 = aout - delaiClient;
+                                                decalage02 = 30 - decalage01;
+
+                                                Encaissement_Reçus_Clients0202 += montantDecalage * decalage01;
+                                                Encaissement_Reçus_Clients0302 += montantDecalage * decalage02;
+
+                                            }
+                                            else
+                                            {
+                                                if (septembre > delaiClient)
+                                                {
+                                                    decalage01 = septembre - delaiClient;
+                                                    decalage02 = 30 - decalage01;
+
+                                                    Encaissement_Reçus_Clients0302 += montantDecalage * decalage01;
+                                                    Encaissement_Reçus_Clients0402 += montantDecalage * decalage02;
+
+                                                }
+                                                else
+                                                {
+                                                    if (octobre > delaiClient)
+                                                    {
+                                                        decalage01 = octobre - delaiClient;
+                                                        decalage02 = 30 - decalage01;
+
+                                                        Encaissement_Reçus_Clients0402 += montantDecalage * decalage01;
+                                                        Encaissement_Reçus_Clients0502 += montantDecalage * decalage02;
+
+                                                    }
+                                                    else
+                                                    {
+                                                        if (novembre > delaiClient)
+                                                        {
+                                                            decalage01 = novembre - delaiClient;
+                                                            decalage02 = 30 - decalage01;
+
+                                                            Encaissement_Reçus_Clients0502 += montantDecalage * decalage01;
+                                                            Encaissement_Reçus_Clients0602 += montantDecalage * decalage02;
+
+                                                        }
+                                                        else
+                                                        {
+                                                            if (decembre > delaiClient)
+                                                            {
+                                                                decalage01 = decembre - delaiClient;
+                                                                decalage02 = 30 - decalage01;
+
+                                                                Encaissement_Reçus_Clients0602 += montantDecalage * decalage01;
+                                                                Encaissement_Reçus_Clients0702 += montantDecalage * decalage02;
+
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                #endregion
+
+                #region  Encaissement août
+
+                montantDecalage = MontantChiffreAffaire0801 / 30;
+
+                if (aout - 210 > delaiClient)
+                {
+                    decalage01 = aout - 210 - delaiClient;
+                    decalage02 = 30 - decalage01;
+
+                    Encaissement_Reçus_Clients0801 += montantDecalage * decalage01;
+                    Encaissement_Reçus_Clients0901 += montantDecalage * decalage02;
+                }
+                else
+                {
+                    if (septembre - 210 > delaiClient)
+                    {
+                        decalage01 = septembre - 210 - delaiClient;
+                        decalage02 = 30 - decalage01;
+
+                        Encaissement_Reçus_Clients0901 += montantDecalage * decalage01;
+                        Encaissement_Reçus_Clients1001 += montantDecalage * decalage02;
+
+                    }
+                    else
+                    {
+                        if (octobre - 210 > delaiClient)
+                        {
+                            decalage01 = octobre - 210 - delaiClient;
+                            decalage02 = 30 - decalage01;
+
+                            Encaissement_Reçus_Clients1001 += montantDecalage * decalage01;
+                            Encaissement_Reçus_Clients1101 += montantDecalage * decalage02;
+
+                        }
+                        else
+                        {
+                            if (novembre - 210 > delaiClient)
+                            {
+                                decalage01 = novembre - 210 - delaiClient;
+                                decalage02 = 30 - decalage01;
+
+                                Encaissement_Reçus_Clients1101 += montantDecalage * decalage01;
+                                Encaissement_Reçus_Clients1201 += montantDecalage * decalage02;
+
+                            }
+                            else
+                            {
+                                if (decembre - 210 > delaiClient)
+                                {
+                                    decalage01 = decembre - 210 - delaiClient;
+                                    decalage02 = 30 - decalage01;
+
+                                    Encaissement_Reçus_Clients1201 += montantDecalage * decalage01;
+                                    Encaissement_Reçus_Clients0102 += montantDecalage * decalage02;
+
+                                }
+                                else
+                                {
+                                    if (juin > delaiClient)
+                                    {
+                                        decalage01 = juin - delaiClient;
+                                        decalage02 = 30 - decalage01;
+
+                                        Encaissement_Reçus_Clients0102 += montantDecalage * decalage01;
+                                        Encaissement_Reçus_Clients0202 += montantDecalage * decalage02;
+
+                                    }
+                                    else
+                                    {
+                                        if (juillet > delaiClient)
+                                        {
+                                            decalage01 = juillet - delaiClient;
+                                            decalage02 = 30 - decalage01;
+
+                                            Encaissement_Reçus_Clients0202 += montantDecalage * decalage01;
+                                            Encaissement_Reçus_Clients0302 += montantDecalage * decalage02;
+
+                                        }
+                                        else
+                                        {
+                                            if (aout > delaiClient)
+                                            {
+                                                decalage01 = aout - delaiClient;
+                                                decalage02 = 30 - decalage01;
+
+                                                Encaissement_Reçus_Clients0302 += montantDecalage * decalage01;
+                                                Encaissement_Reçus_Clients0402 += montantDecalage * decalage02;
+
+                                            }
+                                            else
+                                            {
+                                                if (septembre > delaiClient)
+                                                {
+                                                    decalage01 = septembre - delaiClient;
+                                                    decalage02 = 30 - decalage01;
+
+                                                    Encaissement_Reçus_Clients0402 += montantDecalage * decalage01;
+                                                    Encaissement_Reçus_Clients0502 += montantDecalage * decalage02;
+
+                                                }
+                                                else
+                                                {
+                                                    if (octobre > delaiClient)
+                                                    {
+                                                        decalage01 = octobre - delaiClient;
+                                                        decalage02 = 30 - decalage01;
+
+                                                        Encaissement_Reçus_Clients0502 += montantDecalage * decalage01;
+                                                        Encaissement_Reçus_Clients0602 += montantDecalage * decalage02;
+
+                                                    }
+                                                    else
+                                                    {
+                                                        if (novembre > delaiClient)
+                                                        {
+                                                            decalage01 = novembre - delaiClient;
+                                                            decalage02 = 30 - decalage01;
+
+                                                            Encaissement_Reçus_Clients0602 += montantDecalage * decalage01;
+                                                            Encaissement_Reçus_Clients0702 += montantDecalage * decalage02;
+
+                                                        }
+                                                        else
+                                                        {
+                                                            if (decembre > delaiClient)
+                                                            {
+                                                                decalage01 = decembre - delaiClient;
+                                                                decalage02 = 30 - decalage01;
+
+                                                                Encaissement_Reçus_Clients0702 += montantDecalage * decalage01;
+                                                                Encaissement_Reçus_Clients0802 += montantDecalage * decalage02;
+
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+                }
+
+                #endregion
+
+                #region  Encaissement septembre
+
+                montantDecalage = MontantChiffreAffaire0901 / 30;
+
+                if (septembre - 240 > delaiClient)
+                {
+                    decalage01 = septembre - 240 - delaiClient;
+                    decalage02 = 30 - decalage01;
+
+                    Encaissement_Reçus_Clients0901 += montantDecalage * decalage01;
+                    Encaissement_Reçus_Clients1001 += montantDecalage * decalage02;
+                }
+                else
+                {
+                    if (octobre - 240 > delaiClient)
+                    {
+                        decalage01 = octobre - 240 - delaiClient;
+                        decalage02 = 30 - decalage01;
+
+                        Encaissement_Reçus_Clients1001 += montantDecalage * decalage01;
+                        Encaissement_Reçus_Clients1101 += montantDecalage * decalage02;
+
+                    }
+                    else
+                    {
+                        if (novembre - 240 > delaiClient)
+                        {
+                            decalage01 = novembre - 240 - delaiClient;
+                            decalage02 = 30 - decalage01;
+
+                            Encaissement_Reçus_Clients1101 += montantDecalage * decalage01;
+                            Encaissement_Reçus_Clients1201 += montantDecalage * decalage02;
+
+                        }
+                        else
+                        {
+                            if (decembre - 240 > delaiClient)
+                            {
+                                decalage01 = decembre - 240 - delaiClient;
+                                decalage02 = 30 - decalage01;
+
+                                Encaissement_Reçus_Clients1201 += montantDecalage * decalage01;
+                                Encaissement_Reçus_Clients0102 += montantDecalage * decalage02;
+
+                            }
+                            else
+                            {
+                                if (mai > delaiClient)
+                                {
+                                    decalage01 = mai - delaiClient;
+                                    decalage02 = 30 - decalage01;
+
+                                    Encaissement_Reçus_Clients0102 += montantDecalage * decalage01;
+                                    Encaissement_Reçus_Clients0202 += montantDecalage * decalage02;
+
+                                }
+                                else
+                                {
+                                    if (juin > delaiClient)
+                                    {
+                                        decalage01 = juin - delaiClient;
+                                        decalage02 = 30 - decalage01;
+
+                                        Encaissement_Reçus_Clients0202 += montantDecalage * decalage01;
+                                        Encaissement_Reçus_Clients0302 += montantDecalage * decalage02;
+
+                                    }
+                                    else
+                                    {
+                                        if (juillet > delaiClient)
+                                        {
+                                            decalage01 = juillet - delaiClient;
+                                            decalage02 = 30 - decalage01;
+
+                                            Encaissement_Reçus_Clients0302 += montantDecalage * decalage01;
+                                            Encaissement_Reçus_Clients0402 += montantDecalage * decalage02;
+
+                                        }
+                                        else
+                                        {
+                                            if (aout > delaiClient)
+                                            {
+                                                decalage01 = aout - delaiClient;
+                                                decalage02 = 30 - decalage01;
+
+                                                Encaissement_Reçus_Clients0402 += montantDecalage * decalage01;
+                                                Encaissement_Reçus_Clients0502 += montantDecalage * decalage02;
+
+                                            }
+                                            else
+                                            {
+                                                if (septembre > delaiClient)
+                                                {
+                                                    decalage01 = septembre - delaiClient;
+                                                    decalage02 = 30 - decalage01;
+
+                                                    Encaissement_Reçus_Clients0502 += montantDecalage * decalage01;
+                                                    Encaissement_Reçus_Clients0602 += montantDecalage * decalage02;
+
+                                                }
+                                                else
+                                                {
+                                                    if (octobre > delaiClient)
+                                                    {
+                                                        decalage01 = octobre - delaiClient;
+                                                        decalage02 = 30 - decalage01;
+
+                                                        Encaissement_Reçus_Clients0602 += montantDecalage * decalage01;
+                                                        Encaissement_Reçus_Clients0702 += montantDecalage * decalage02;
+
+                                                    }
+                                                    else
+                                                    {
+                                                        if (novembre > delaiClient)
+                                                        {
+                                                            decalage01 = novembre - delaiClient;
+                                                            decalage02 = 30 - decalage01;
+
+                                                            Encaissement_Reçus_Clients0702 += montantDecalage * decalage01;
+                                                            Encaissement_Reçus_Clients0802 += montantDecalage * decalage02;
+
+                                                        }
+                                                        else
+                                                        {
+                                                            if (decembre > delaiClient)
+                                                            {
+                                                                decalage01 = decembre - delaiClient;
+                                                                decalage02 = 30 - decalage01;
+
+                                                                Encaissement_Reçus_Clients0802 += montantDecalage * decalage01;
+                                                                Encaissement_Reçus_Clients0902 += montantDecalage * decalage02;
+
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                #endregion
+
+                #region  Encaissement octobre
+
+                montantDecalage = MontantChiffreAffaire1001 / 30;
+
+                if (octobre - 270 > delaiClient)
+                {
+                    decalage01 = octobre - 270 - delaiClient;
+                    decalage02 = 30 - decalage01;
+
+                    Encaissement_Reçus_Clients1001 += montantDecalage * decalage01;
+                    Encaissement_Reçus_Clients1101 += montantDecalage * decalage02;
+                }
+                else
+                {
+                    if (novembre - 270 > delaiClient)
+                    {
+                        decalage01 = novembre - 270 - delaiClient;
+                        decalage02 = 30 - decalage01;
+
+                        Encaissement_Reçus_Clients1101 += montantDecalage * decalage01;
+                        Encaissement_Reçus_Clients1201 += montantDecalage * decalage02;
+
+                    }
+                    else
+                    {
+                        if (decembre - 270 > delaiClient)
+                        {
+                            decalage01 = decembre - 270 - delaiClient;
+                            decalage02 = 30 - decalage01;
+
+                            Encaissement_Reçus_Clients1201 += montantDecalage * decalage01;
+                            Encaissement_Reçus_Clients0102 += montantDecalage * decalage02;
+
+                        }
+                        else
+                        {
+                            if (avril > delaiClient)
+                            {
+                                decalage01 = avril - delaiClient;
+                                decalage02 = 30 - decalage01;
+
+                                Encaissement_Reçus_Clients0102 += montantDecalage * decalage01;
+                                Encaissement_Reçus_Clients0202 += montantDecalage * decalage02;
+
+                            }
+                            else
+                            {
+                                if (mai > delaiClient)
+                                {
+                                    decalage01 = mai - delaiClient;
+                                    decalage02 = 30 - decalage01;
+
+                                    Encaissement_Reçus_Clients0202 += montantDecalage * decalage01;
+                                    Encaissement_Reçus_Clients0302 += montantDecalage * decalage02;
+
+                                }
+                                else
+                                {
+                                    if (juin > delaiClient)
+                                    {
+                                        decalage01 = juin - delaiClient;
+                                        decalage02 = 30 - decalage01;
+
+                                        Encaissement_Reçus_Clients0302 += montantDecalage * decalage01;
+                                        Encaissement_Reçus_Clients0402 += montantDecalage * decalage02;
+
+                                    }
+                                    else
+                                    {
+                                        if (juillet > delaiClient)
+                                        {
+                                            decalage01 = juillet - delaiClient;
+                                            decalage02 = 30 - decalage01;
+
+                                            Encaissement_Reçus_Clients0402 += montantDecalage * decalage01;
+                                            Encaissement_Reçus_Clients0502 += montantDecalage * decalage02;
+
+                                        }
+                                        else
+                                        {
+                                            if (aout > delaiClient)
+                                            {
+                                                decalage01 = aout - delaiClient;
+                                                decalage02 = 30 - decalage01;
+
+                                                Encaissement_Reçus_Clients0502 += montantDecalage * decalage01;
+                                                Encaissement_Reçus_Clients0602 += montantDecalage * decalage02;
+
+                                            }
+                                            else
+                                            {
+                                                if (septembre > delaiClient)
+                                                {
+                                                    decalage01 = septembre - delaiClient;
+                                                    decalage02 = 30 - decalage01;
+
+                                                    Encaissement_Reçus_Clients0602 += montantDecalage * decalage01;
+                                                    Encaissement_Reçus_Clients0702 += montantDecalage * decalage02;
+
+                                                }
+                                                else
+                                                {
+                                                    if (octobre > delaiClient)
+                                                    {
+                                                        decalage01 = octobre - delaiClient;
+                                                        decalage02 = 30 - decalage01;
+
+                                                        Encaissement_Reçus_Clients0702 += montantDecalage * decalage01;
+                                                        Encaissement_Reçus_Clients0802 += montantDecalage * decalage02;
+
+                                                    }
+                                                    else
+                                                    {
+                                                        if (novembre > delaiClient)
+                                                        {
+                                                            decalage01 = novembre - delaiClient;
+                                                            decalage02 = 30 - decalage01;
+
+                                                            Encaissement_Reçus_Clients0802 += montantDecalage * decalage01;
+                                                            Encaissement_Reçus_Clients0902 += montantDecalage * decalage02;
+
+                                                        }
+                                                        else
+                                                        {
+                                                            if (decembre > delaiClient)
+                                                            {
+                                                                decalage01 = decembre - delaiClient;
+                                                                decalage02 = 30 - decalage01;
+
+                                                                Encaissement_Reçus_Clients0902 += montantDecalage * decalage01;
+                                                                Encaissement_Reçus_Clients1002 += montantDecalage * decalage02;
+
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                #endregion
+
+                #region  Encaissement novembre
+
+                montantDecalage = MontantChiffreAffaire1101 / 30;
+
+                if (novembre - 300 > delaiClient)
+                {
+                    decalage01 = novembre - 300 - delaiClient;
+                    decalage02 = 30 - decalage01;
+
+                    Encaissement_Reçus_Clients1101 += montantDecalage * decalage01;
+                    Encaissement_Reçus_Clients1201 += montantDecalage * decalage02;
+                }
+                else
+                {
+                    if (decembre - 300 > delaiClient)
+                    {
+                        decalage01 = decembre - 300 - delaiClient;
+                        decalage02 = 30 - decalage01;
+
+                        Encaissement_Reçus_Clients1201 += montantDecalage * decalage01;
+                        Encaissement_Reçus_Clients0102 += montantDecalage * decalage02;
+
+                    }
+                    else
+                    {
+                        if (mars > delaiClient)
+                        {
+                            decalage01 = mars - delaiClient;
+                            decalage02 = 30 - decalage01;
+
+                            Encaissement_Reçus_Clients0102 += montantDecalage * decalage01;
+                            Encaissement_Reçus_Clients0202 += montantDecalage * decalage02;
+
+                        }
+                        else
+                        {
+                            if (avril > delaiClient)
+                            {
+                                decalage01 = avril - delaiClient;
+                                decalage02 = 30 - decalage01;
+
+                                Encaissement_Reçus_Clients0202 += montantDecalage * decalage01;
+                                Encaissement_Reçus_Clients0302 += montantDecalage * decalage02;
+
+                            }
+                            else
+                            {
+                                if (mai > delaiClient)
+                                {
+                                    decalage01 = mai - delaiClient;
+                                    decalage02 = 30 - decalage01;
+
+                                    Encaissement_Reçus_Clients0302 += montantDecalage * decalage01;
+                                    Encaissement_Reçus_Clients0402 += montantDecalage * decalage02;
+
+                                }
+                                else
+                                {
+                                    if (juin > delaiClient)
+                                    {
+                                        decalage01 = juin - delaiClient;
+                                        decalage02 = 30 - decalage01;
+
+                                        Encaissement_Reçus_Clients0402 += montantDecalage * decalage01;
+                                        Encaissement_Reçus_Clients0502 += montantDecalage * decalage02;
+
+                                    }
+                                    else
+                                    {
+                                        if (juillet > delaiClient)
+                                        {
+                                            decalage01 = juillet - delaiClient;
+                                            decalage02 = 30 - decalage01;
+
+                                            Encaissement_Reçus_Clients0502 += montantDecalage * decalage01;
+                                            Encaissement_Reçus_Clients0602 += montantDecalage * decalage02;
+
+                                        }
+                                        else
+                                        {
+                                            if (aout > delaiClient)
+                                            {
+                                                decalage01 = aout - delaiClient;
+                                                decalage02 = 30 - decalage01;
+
+                                                Encaissement_Reçus_Clients0602 += montantDecalage * decalage01;
+                                                Encaissement_Reçus_Clients0702 += montantDecalage * decalage02;
+
+                                            }
+                                            else
+                                            {
+                                                if (septembre > delaiClient)
+                                                {
+                                                    decalage01 = septembre - delaiClient;
+                                                    decalage02 = 30 - decalage01;
+
+                                                    Encaissement_Reçus_Clients0702 += montantDecalage * decalage01;
+                                                    Encaissement_Reçus_Clients0802 += montantDecalage * decalage02;
+
+                                                }
+                                                else
+                                                {
+                                                    if (octobre > delaiClient)
+                                                    {
+                                                        decalage01 = octobre - delaiClient;
+                                                        decalage02 = 30 - decalage01;
+
+                                                        Encaissement_Reçus_Clients0802 += montantDecalage * decalage01;
+                                                        Encaissement_Reçus_Clients0902 += montantDecalage * decalage02;
+
+                                                    }
+                                                    else
+                                                    {
+                                                        if (novembre > delaiClient)
+                                                        {
+                                                            decalage01 = novembre - delaiClient;
+                                                            decalage02 = 30 - decalage01;
+
+                                                            Encaissement_Reçus_Clients0902 += montantDecalage * decalage01;
+                                                            Encaissement_Reçus_Clients1002 += montantDecalage * decalage02;
+
+                                                        }
+                                                        else
+                                                        {
+                                                            if (decembre > delaiClient)
+                                                            {
+                                                                decalage01 = decembre - delaiClient;
+                                                                decalage02 = 30 - decalage01;
+
+                                                                Encaissement_Reçus_Clients1002 += montantDecalage * decalage01;
+                                                                Encaissement_Reçus_Clients1102 += montantDecalage * decalage02;
+
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                    }
+                }
+
+                #endregion
+
+                #region  Encaissement decembre
+
+                montantDecalage = MontantChiffreAffaire1201 / 30;
+
+                if (decembre - 330 > delaiClient)
+                {
+                    decalage01 = decembre - 330 - delaiClient;
+                    decalage02 = 30 - decalage01;
+
+                    Encaissement_Reçus_Clients1201 += montantDecalage * decalage01;
+                    Encaissement_Reçus_Clients0102 += montantDecalage * decalage02;
+                }
+                else
+                {
+                    if (fevrier > delaiClient)
+                    {
+                        decalage01 = fevrier - delaiClient;
+                        decalage02 = 30 - decalage01;
+
+                        Encaissement_Reçus_Clients0102 += montantDecalage * decalage01;
+                        Encaissement_Reçus_Clients0202 += montantDecalage * decalage02;
+
+                    }
+                    else
+                    {
+                        if (mars > delaiClient)
+                        {
+                            decalage01 = mars - delaiClient;
+                            decalage02 = 30 - decalage01;
+
+                            Encaissement_Reçus_Clients0202 += montantDecalage * decalage01;
+                            Encaissement_Reçus_Clients0302 += montantDecalage * decalage02;
+
+                        }
+                        else
+                        {
+                            if (avril > delaiClient)
+                            {
+                                decalage01 = avril - delaiClient;
+                                decalage02 = 30 - decalage01;
+
+                                Encaissement_Reçus_Clients0302 += montantDecalage * decalage01;
+                                Encaissement_Reçus_Clients0402 += montantDecalage * decalage02;
+
+                            }
+                            else
+                            {
+                                if (mai > delaiClient)
+                                {
+                                    decalage01 = mai - delaiClient;
+                                    decalage02 = 30 - decalage01;
+
+                                    Encaissement_Reçus_Clients0402 += montantDecalage * decalage01;
+                                    Encaissement_Reçus_Clients0502 += montantDecalage * decalage02;
+
+                                }
+                                else
+                                {
+                                    if (juin > delaiClient)
+                                    {
+                                        decalage01 = juin - delaiClient;
+                                        decalage02 = 30 - decalage01;
+
+                                        Encaissement_Reçus_Clients0502 += montantDecalage * decalage01;
+                                        Encaissement_Reçus_Clients0602 += montantDecalage * decalage02;
+
+                                    }
+                                    else
+                                    {
+                                        if (juillet > delaiClient)
+                                        {
+                                            decalage01 = juillet - delaiClient;
+                                            decalage02 = 30 - decalage01;
+
+                                            Encaissement_Reçus_Clients0602 += montantDecalage * decalage01;
+                                            Encaissement_Reçus_Clients0702 += montantDecalage * decalage02;
+
+                                        }
+                                        else
+                                        {
+                                            if (aout > delaiClient)
+                                            {
+                                                decalage01 = aout - delaiClient;
+                                                decalage02 = 30 - decalage01;
+
+                                                Encaissement_Reçus_Clients0702 += montantDecalage * decalage01;
+                                                Encaissement_Reçus_Clients0802 += montantDecalage * decalage02;
+
+                                            }
+                                            else
+                                            {
+                                                if (septembre > delaiClient)
+                                                {
+                                                    decalage01 = septembre - delaiClient;
+                                                    decalage02 = 30 - decalage01;
+
+                                                    Encaissement_Reçus_Clients0802 += montantDecalage * decalage01;
+                                                    Encaissement_Reçus_Clients0902 += montantDecalage * decalage02;
+
+                                                }
+                                                else
+                                                {
+                                                    if (octobre > delaiClient)
+                                                    {
+                                                        decalage01 = octobre - delaiClient;
+                                                        decalage02 = 30 - decalage01;
+
+                                                        Encaissement_Reçus_Clients0902 += montantDecalage * decalage01;
+                                                        Encaissement_Reçus_Clients1002 += montantDecalage * decalage02;
+
+                                                    }
+                                                    else
+                                                    {
+                                                        if (novembre > delaiClient)
+                                                        {
+                                                            decalage01 = novembre - delaiClient;
+                                                            decalage02 = 30 - decalage01;
+
+                                                            Encaissement_Reçus_Clients1002 += montantDecalage * decalage01;
+                                                            Encaissement_Reçus_Clients1102 += montantDecalage * decalage02;
+
+                                                        }
+                                                        else
+                                                        {
+                                                            if (decembre > delaiClient)
+                                                            {
+                                                                decalage01 = decembre - delaiClient;
+                                                                decalage02 = 30 - decalage01;
+
+                                                                Encaissement_Reçus_Clients1102 += montantDecalage * decalage01;
+                                                                Encaissement_Reçus_Clients1202 += montantDecalage * decalage02;
+
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+
+                #endregion
+
+            }
+
+            #endregion
+
+            #region  Encaissement Clients Année 02
+
+            if (delaiClient < 360 && delaiClient >= 0)
+            {
+                #region  Encaissement janvier
+
+                montantDecalage = MontantChiffreAffaire0102 / 30;
+
+                if (janvier > delaiClient)
+                {
+                    decalage01 = janvier - delaiClient;
+                    decalage02 = 30 - decalage01;
+
+                    Encaissement_Reçus_Clients0102 += montantDecalage * decalage01;
+                    Encaissement_Reçus_Clients0202 += montantDecalage * decalage02;
+
+                }
+                else
+                {
+                    if (fevrier > delaiClient)
+                    {
+                        decalage01 = fevrier - delaiClient;
+                        decalage02 = 30 - decalage01;
+
+                        Encaissement_Reçus_Clients0202 += montantDecalage * decalage01;
+                        Encaissement_Reçus_Clients0302 += montantDecalage * decalage02;
+
+                    }
+                    else
+                    {
+                        if (mars > delaiClient)
+                        {
+                            decalage01 = mars - delaiClient;
+                            decalage02 = 30 - decalage01;
+
+                            Encaissement_Reçus_Clients0302 += montantDecalage * decalage01;
+                            Encaissement_Reçus_Clients0402 += montantDecalage * decalage02;
+
+                        }
+                        else
+                        {
+                            if (avril > delaiClient)
+                            {
+                                decalage01 = avril - delaiClient;
+                                decalage02 = 30 - decalage01;
+
+                                Encaissement_Reçus_Clients0402 += montantDecalage * decalage01;
+                                Encaissement_Reçus_Clients0502 += montantDecalage * decalage02;
+
+                            }
+                            else
+                            {
+                                if (mai > delaiClient)
+                                {
+                                    decalage01 = mai - delaiClient;
+                                    decalage02 = 30 - decalage01;
+
+                                    Encaissement_Reçus_Clients0502 += montantDecalage * decalage01;
+                                    Encaissement_Reçus_Clients0602 += montantDecalage * decalage02;
+
+                                }
+                                else
+                                {
+                                    if (juin > delaiClient)
+                                    {
+                                        decalage01 = juin - delaiClient;
+                                        decalage02 = 30 - decalage01;
+
+                                        Encaissement_Reçus_Clients0602 += montantDecalage * decalage01;
+                                        Encaissement_Reçus_Clients0702 += montantDecalage * decalage02;
+
+                                    }
+                                    else
+                                    {
+                                        if (juillet > delaiClient)
+                                        {
+                                            decalage01 = juillet - delaiClient;
+                                            decalage02 = 30 - decalage01;
+
+                                            Encaissement_Reçus_Clients0702 += montantDecalage * decalage01;
+                                            Encaissement_Reçus_Clients0802 += montantDecalage * decalage02;
+
+                                        }
+                                        else
+                                        {
+                                            if (aout > delaiClient)
+                                            {
+                                                decalage01 = aout - delaiClient;
+                                                decalage02 = 30 - decalage01;
+
+                                                Encaissement_Reçus_Clients0802 += montantDecalage * decalage01;
+                                                Encaissement_Reçus_Clients0902 += montantDecalage * decalage02;
+
+                                            }
+                                            else
+                                            {
+                                                if (septembre > delaiClient)
+                                                {
+                                                    decalage01 = septembre - delaiClient;
+                                                    decalage02 = 30 - decalage01;
+
+                                                    Encaissement_Reçus_Clients0902 += montantDecalage * decalage01;
+                                                    Encaissement_Reçus_Clients1002 += montantDecalage * decalage02;
+
+                                                }
+                                                else
+                                                {
+                                                    if (octobre > delaiClient)
+                                                    {
+                                                        decalage01 = octobre - delaiClient;
+                                                        decalage02 = 30 - decalage01;
+
+                                                        Encaissement_Reçus_Clients1002 += montantDecalage * decalage01;
+                                                        Encaissement_Reçus_Clients1102 += montantDecalage * decalage02;
+
+                                                    }
+                                                    else
+                                                    {
+                                                        if (novembre > delaiClient)
+                                                        {
+                                                            decalage01 = novembre - delaiClient;
+                                                            decalage02 = 30 - decalage01;
+
+                                                            Encaissement_Reçus_Clients1102 += montantDecalage * decalage01;
+                                                            Encaissement_Reçus_Clients1202 += montantDecalage * decalage02;
+
+                                                        }
+                                                        else
+                                                        {
+                                                            if (decembre > delaiClient)
+                                                            {
+                                                                decalage01 = decembre - delaiClient;
+                                                                decalage02 = 30 - decalage01;
+
+                                                                Encaissement_Reçus_Clients1202 += montantDecalage * decalage01;
+                                                                Encaissement_Reçus_Clients0103 += montantDecalage * decalage02;
+
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                #endregion
+
+                #region  Encaissement fevrier
+
+                montantDecalage = MontantChiffreAffaire0202 / 30;
+
+                if (fevrier - 30 > delaiClient)
+                {
+                    decalage01 = fevrier - 30 - delaiClient;
+                    decalage02 = 30 - decalage01;
+
+                    Encaissement_Reçus_Clients0202 += montantDecalage * decalage01;
+                    Encaissement_Reçus_Clients0302 += montantDecalage * decalage02;
+                }
+                else
+                {
+                    if (mars - 30 > delaiClient)
+                    {
+                        decalage01 = mars - 30 - delaiClient;
+                        decalage02 = 30 - decalage01;
+
+                        Encaissement_Reçus_Clients0302 += montantDecalage * decalage01;
+                        Encaissement_Reçus_Clients0402 += montantDecalage * decalage02;
+
+                    }
+                    else
+                    {
+                        if (avril - 30 > delaiClient)
+                        {
+                            decalage01 = avril - 30 - delaiClient;
+                            decalage02 = 30 - decalage01;
+
+                            Encaissement_Reçus_Clients0402 += montantDecalage * decalage01;
+                            Encaissement_Reçus_Clients0502 += montantDecalage * decalage02;
+
+                        }
+                        else
+                        {
+                            if (mai - 30 > delaiClient)
+                            {
+                                decalage01 = mai - 30 - delaiClient;
+                                decalage02 = 30 - decalage01;
+
+                                Encaissement_Reçus_Clients0502 += montantDecalage * decalage01;
+                                Encaissement_Reçus_Clients0602 += montantDecalage * decalage02;
+
+                            }
+                            else
+                            {
+                                if (juin - 30 > delaiClient)
+                                {
+                                    decalage01 = juin - 30 - delaiClient;
+                                    decalage02 = 30 - decalage01;
+
+                                    Encaissement_Reçus_Clients0602 += montantDecalage * decalage01;
+                                    Encaissement_Reçus_Clients0702 += montantDecalage * decalage02;
+
+                                }
+                                else
+                                {
+                                    if (juillet - 30 > delaiClient)
+                                    {
+                                        decalage01 = juillet - 30 - delaiClient;
+                                        decalage02 = 30 - decalage01;
+
+                                        Encaissement_Reçus_Clients0702 += montantDecalage * decalage01;
+                                        Encaissement_Reçus_Clients0802 += montantDecalage * decalage02;
+
+                                    }
+                                    else
+                                    {
+                                        if (aout - 30 > delaiClient)
+                                        {
+                                            decalage01 = aout - 30 - delaiClient;
+                                            decalage02 = 30 - decalage01;
+
+                                            Encaissement_Reçus_Clients0802 += montantDecalage * decalage01;
+                                            Encaissement_Reçus_Clients0902 += montantDecalage * decalage02;
+
+                                        }
+                                        else
+                                        {
+                                            if (septembre - 30 > delaiClient)
+                                            {
+                                                decalage01 = septembre - 30 - delaiClient;
+                                                decalage02 = 30 - decalage01;
+
+                                                Encaissement_Reçus_Clients0902 += montantDecalage * decalage01;
+                                                Encaissement_Reçus_Clients1002 += montantDecalage * decalage02;
+
+                                            }
+                                            else
+                                            {
+                                                if (octobre - 30 > delaiClient)
+                                                {
+                                                    decalage01 = octobre - 30 - delaiClient;
+                                                    decalage02 = 30 - decalage01;
+
+                                                    Encaissement_Reçus_Clients1002 += montantDecalage * decalage01;
+                                                    Encaissement_Reçus_Clients1102 += montantDecalage * decalage02;
+
+                                                }
+                                                else
+                                                {
+                                                    if (novembre - 30 > delaiClient)
+                                                    {
+                                                        decalage01 = novembre - 30 - delaiClient;
+                                                        decalage02 = 30 - decalage01;
+
+                                                        Encaissement_Reçus_Clients1102 += montantDecalage * decalage01;
+                                                        Encaissement_Reçus_Clients1202 += montantDecalage * decalage02;
+
+                                                    }
+                                                    else
+                                                    {
+                                                        if (decembre - 30 > delaiClient)
+                                                        {
+                                                            decalage01 = decembre - 30 - delaiClient;
+                                                            decalage02 = 30 - decalage01;
+
+                                                            Encaissement_Reçus_Clients1202 += montantDecalage * decalage01;
+                                                            Encaissement_Reçus_Clients0103 += montantDecalage * decalage02;
+
+                                                        }
+                                                        else
+                                                        {
+                                                            if (decembre > delaiClient)
+                                                            {
+                                                                decalage01 = decembre - delaiClient;
+                                                                decalage02 = 30 - decalage01;
+
+                                                                Encaissement_Reçus_Clients0103 += montantDecalage * decalage01;
+                                                                Encaissement_Reçus_Clients0203 += montantDecalage * decalage02;
+
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                #endregion
+
+                #region  Encaissement mars
+
+                montantDecalage = MontantChiffreAffaire0302 / 30;
+
+                if (mars - 60 > delaiClient)
+                {
+                    decalage01 = mars - 60 - delaiClient;
+                    decalage02 = 30 - decalage01;
+
+                    Encaissement_Reçus_Clients0302 += montantDecalage * decalage01;
+                    Encaissement_Reçus_Clients0402 += montantDecalage * decalage02;
+                }
+                else
+                {
+                    if (avril - 60 > delaiClient)
+                    {
+                        decalage01 = avril - 60 - delaiClient;
+                        decalage02 = 30 - decalage01;
+
+                        Encaissement_Reçus_Clients0402 += montantDecalage * decalage01;
+                        Encaissement_Reçus_Clients0502 += montantDecalage * decalage02;
+
+                    }
+                    else
+                    {
+                        if (mai - 60 > delaiClient)
+                        {
+                            decalage01 = mai - 60 - delaiClient;
+                            decalage02 = 30 - decalage01;
+
+                            Encaissement_Reçus_Clients0502 += montantDecalage * decalage01;
+                            Encaissement_Reçus_Clients0602 += montantDecalage * decalage02;
+
+                        }
+                        else
+                        {
+                            if (juin - 60 > delaiClient)
+                            {
+                                decalage01 = juin - 60 - delaiClient;
+                                decalage02 = 30 - decalage01;
+
+                                Encaissement_Reçus_Clients0602 += montantDecalage * decalage01;
+                                Encaissement_Reçus_Clients0702 += montantDecalage * decalage02;
+
+                            }
+                            else
+                            {
+                                if (juillet - 60 > delaiClient)
+                                {
+                                    decalage01 = juillet - 60 - delaiClient;
+                                    decalage02 = 30 - decalage01;
+
+                                    Encaissement_Reçus_Clients0702 += montantDecalage * decalage01;
+                                    Encaissement_Reçus_Clients0802 += montantDecalage * decalage02;
+
+                                }
+                                else
+                                {
+                                    if (aout - 60 > delaiClient)
+                                    {
+                                        decalage01 = aout - 60 - delaiClient;
+                                        decalage02 = 30 - decalage01;
+
+                                        Encaissement_Reçus_Clients0802 += montantDecalage * decalage01;
+                                        Encaissement_Reçus_Clients0902 += montantDecalage * decalage02;
+
+                                    }
+                                    else
+                                    {
+                                        if (septembre - 60 > delaiClient)
+                                        {
+                                            decalage01 = septembre - 60 - delaiClient;
+                                            decalage02 = 30 - decalage01;
+
+                                            Encaissement_Reçus_Clients0902 += montantDecalage * decalage01;
+                                            Encaissement_Reçus_Clients1002 += montantDecalage * decalage02;
+
+                                        }
+                                        else
+                                        {
+                                            if (octobre - 60 > delaiClient)
+                                            {
+                                                decalage01 = octobre - 60 - delaiClient;
+                                                decalage02 = 30 - decalage01;
+
+                                                Encaissement_Reçus_Clients1002 += montantDecalage * decalage01;
+                                                Encaissement_Reçus_Clients1102 += montantDecalage * decalage02;
+
+                                            }
+                                            else
+                                            {
+                                                if (novembre - 60 > delaiClient)
+                                                {
+                                                    decalage01 = novembre - 60 - delaiClient;
+                                                    decalage02 = 30 - decalage01;
+
+                                                    Encaissement_Reçus_Clients1102 += montantDecalage * decalage01;
+                                                    Encaissement_Reçus_Clients1202 += montantDecalage * decalage02;
+
+                                                }
+                                                else
+                                                {
+                                                    if (decembre - 60 > delaiClient)
+                                                    {
+                                                        decalage01 = decembre - 60 - delaiClient;
+                                                        decalage02 = 30 - decalage01;
+
+                                                        Encaissement_Reçus_Clients1202 += montantDecalage * decalage01;
+                                                        Encaissement_Reçus_Clients0103 += montantDecalage * decalage02;
+
+                                                    }
+                                                    else
+                                                    {
+                                                        if (novembre > delaiClient)
+                                                        {
+                                                            decalage01 = novembre - delaiClient;
+                                                            decalage02 = 30 - decalage01;
+
+                                                            Encaissement_Reçus_Clients0103 += montantDecalage * decalage01;
+                                                            Encaissement_Reçus_Clients0203 += montantDecalage * decalage02;
+
+                                                        }
+                                                        else
+                                                        {
+                                                            if (decembre > delaiClient)
+                                                            {
+                                                                decalage01 = decembre - delaiClient;
+                                                                decalage02 = 30 - decalage01;
+
+                                                                Encaissement_Reçus_Clients0203 += montantDecalage * decalage01;
+                                                                Encaissement_Reçus_Clients0303 += montantDecalage * decalage02;
+
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                #endregion
+
+                #region  Encaissement avril
+
+                montantDecalage = MontantChiffreAffaire0402 / 30;
+
+                if (avril - 90 > delaiClient)
+                {
+                    decalage01 = avril - 90 - delaiClient;
+                    decalage02 = 30 - decalage01;
+
+                    Encaissement_Reçus_Clients0402 += montantDecalage * decalage01;
+                    Encaissement_Reçus_Clients0502 += montantDecalage * decalage02;
+                }
+                else
+                {
+                    if (mai - 90 > delaiClient)
+                    {
+                        decalage01 = mai - 90 - delaiClient;
+                        decalage02 = 30 - decalage01;
+
+                        Encaissement_Reçus_Clients0502 += montantDecalage * decalage01;
+                        Encaissement_Reçus_Clients0602 += montantDecalage * decalage02;
+
+                    }
+                    else
+                    {
+                        if (juin - 90 > delaiClient)
+                        {
+                            decalage01 = juin - 90 - delaiClient;
+                            decalage02 = 30 - decalage01;
+
+                            Encaissement_Reçus_Clients0602 += montantDecalage * decalage01;
+                            Encaissement_Reçus_Clients0702 += montantDecalage * decalage02;
+
+                        }
+                        else
+                        {
+                            if (juillet - 90 > delaiClient)
+                            {
+                                decalage01 = juillet - 90 - delaiClient;
+                                decalage02 = 30 - decalage01;
+
+                                Encaissement_Reçus_Clients0702 += montantDecalage * decalage01;
+                                Encaissement_Reçus_Clients0802 += montantDecalage * decalage02;
+
+                            }
+                            else
+                            {
+                                if (aout - 90 > delaiClient)
+                                {
+                                    decalage01 = aout - 90 - delaiClient;
+                                    decalage02 = 30 - decalage01;
+
+                                    Encaissement_Reçus_Clients0802 += montantDecalage * decalage01;
+                                    Encaissement_Reçus_Clients0902 += montantDecalage * decalage02;
+
+                                }
+                                else
+                                {
+                                    if (septembre - 90 > delaiClient)
+                                    {
+                                        decalage01 = septembre - 90 - delaiClient;
+                                        decalage02 = 30 - decalage01;
+
+                                        Encaissement_Reçus_Clients0902 += montantDecalage * decalage01;
+                                        Encaissement_Reçus_Clients1002 += montantDecalage * decalage02;
+
+                                    }
+                                    else
+                                    {
+                                        if (octobre - 90 > delaiClient)
+                                        {
+                                            decalage01 = octobre - 90 - delaiClient;
+                                            decalage02 = 30 - decalage01;
+
+                                            Encaissement_Reçus_Clients1002 += montantDecalage * decalage01;
+                                            Encaissement_Reçus_Clients1102 += montantDecalage * decalage02;
+
+                                        }
+                                        else
+                                        {
+                                            if (novembre - 90 > delaiClient)
+                                            {
+                                                decalage01 = novembre - 90 - delaiClient;
+                                                decalage02 = 30 - decalage01;
+
+                                                Encaissement_Reçus_Clients1102 += montantDecalage * decalage01;
+                                                Encaissement_Reçus_Clients1202 += montantDecalage * decalage02;
+
+                                            }
+                                            else
+                                            {
+                                                if (decembre - 90 > delaiClient)
+                                                {
+                                                    decalage01 = decembre - 90 - delaiClient;
+                                                    decalage02 = 30 - decalage01;
+
+                                                    Encaissement_Reçus_Clients1202 += montantDecalage * decalage01;
+                                                    Encaissement_Reçus_Clients0103 += montantDecalage * decalage02;
+
+                                                }
+                                                else
+                                                {
+                                                    if (octobre > delaiClient)
+                                                    {
+                                                        decalage01 = octobre - delaiClient;
+                                                        decalage02 = 30 - decalage01;
+
+                                                        Encaissement_Reçus_Clients0103 += montantDecalage * decalage01;
+                                                        Encaissement_Reçus_Clients0203 += montantDecalage * decalage02;
+
+                                                    }
+                                                    else
+                                                    {
+                                                        if (novembre > delaiClient)
+                                                        {
+                                                            decalage01 = novembre - delaiClient;
+                                                            decalage02 = 30 - decalage01;
+
+                                                            Encaissement_Reçus_Clients0203 += montantDecalage * decalage01;
+                                                            Encaissement_Reçus_Clients0303 += montantDecalage * decalage02;
+
+                                                        }
+                                                        else
+                                                        {
+                                                            if (decembre > delaiClient)
+                                                            {
+                                                                decalage01 = decembre - delaiClient;
+                                                                decalage02 = 30 - decalage01;
+
+                                                                Encaissement_Reçus_Clients0303 += montantDecalage * decalage01;
+                                                                Encaissement_Reçus_Clients0403 += montantDecalage * decalage02;
+
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                #endregion
+
+                #region  Encaissement mai
+
+                montantDecalage = MontantChiffreAffaire0502 / 30;
+
+                if (mai - 120 > delaiClient)
+                {
+                    decalage01 = mai - 120 - delaiClient;
+                    decalage02 = 30 - decalage01;
+
+                    Encaissement_Reçus_Clients0502 += montantDecalage * decalage01;
+                    Encaissement_Reçus_Clients0602 += montantDecalage * decalage02;
+                }
+                else
+                {
+                    if (juin - 120 > delaiClient)
+                    {
+                        decalage01 = juin - 120 - delaiClient;
+                        decalage02 = 30 - decalage01;
+
+                        Encaissement_Reçus_Clients0602 += montantDecalage * decalage01;
+                        Encaissement_Reçus_Clients0702 += montantDecalage * decalage02;
+
+                    }
+                    else
+                    {
+                        if (juillet - 120 > delaiClient)
+                        {
+                            decalage01 = juillet - 120 - delaiClient;
+                            decalage02 = 30 - decalage01;
+
+                            Encaissement_Reçus_Clients0702 += montantDecalage * decalage01;
+                            Encaissement_Reçus_Clients0802 += montantDecalage * decalage02;
+
+                        }
+                        else
+                        {
+                            if (aout - 120 > delaiClient)
+                            {
+                                decalage01 = aout - 120 - delaiClient;
+                                decalage02 = 30 - decalage01;
+
+                                Encaissement_Reçus_Clients0802 += montantDecalage * decalage01;
+                                Encaissement_Reçus_Clients0902 += montantDecalage * decalage02;
+
+                            }
+                            else
+                            {
+                                if (septembre - 120 > delaiClient)
+                                {
+                                    decalage01 = septembre - 120 - delaiClient;
+                                    decalage02 = 30 - decalage01;
+
+                                    Encaissement_Reçus_Clients0902 += montantDecalage * decalage01;
+                                    Encaissement_Reçus_Clients1002 += montantDecalage * decalage02;
+
+                                }
+                                else
+                                {
+                                    if (octobre - 120 > delaiClient)
+                                    {
+                                        decalage01 = octobre - 120 - delaiClient;
+                                        decalage02 = 30 - decalage01;
+
+                                        Encaissement_Reçus_Clients1002 += montantDecalage * decalage01;
+                                        Encaissement_Reçus_Clients1102 += montantDecalage * decalage02;
+
+                                    }
+                                    else
+                                    {
+                                        if (novembre - 120 > delaiClient)
+                                        {
+                                            decalage01 = novembre - 120 - delaiClient;
+                                            decalage02 = 30 - decalage01;
+
+                                            Encaissement_Reçus_Clients1102 += montantDecalage * decalage01;
+                                            Encaissement_Reçus_Clients1202 += montantDecalage * decalage02;
+
+                                        }
+                                        else
+                                        {
+                                            if (decembre - 120 > delaiClient)
+                                            {
+                                                decalage01 = decembre - 120 - delaiClient;
+                                                decalage02 = 30 - decalage01;
+
+                                                Encaissement_Reçus_Clients1202 += montantDecalage * decalage01;
+                                                Encaissement_Reçus_Clients0103 += montantDecalage * decalage02;
+
+                                            }
+                                            else
+                                            {
+                                                if (septembre > delaiClient)
+                                                {
+                                                    decalage01 = septembre - delaiClient;
+                                                    decalage02 = 30 - decalage01;
+
+                                                    Encaissement_Reçus_Clients0103 += montantDecalage * decalage01;
+                                                    Encaissement_Reçus_Clients0203 += montantDecalage * decalage02;
+
+                                                }
+                                                else
+                                                {
+                                                    if (octobre > delaiClient)
+                                                    {
+                                                        decalage01 = octobre - delaiClient;
+                                                        decalage02 = 30 - decalage01;
+
+                                                        Encaissement_Reçus_Clients0203 += montantDecalage * decalage01;
+                                                        Encaissement_Reçus_Clients0303 += montantDecalage * decalage02;
+
+                                                    }
+                                                    else
+                                                    {
+                                                        if (novembre > delaiClient)
+                                                        {
+                                                            decalage01 = novembre - delaiClient;
+                                                            decalage02 = 30 - decalage01;
+
+                                                            Encaissement_Reçus_Clients0303 += montantDecalage * decalage01;
+                                                            Encaissement_Reçus_Clients0403 += montantDecalage * decalage02;
+
+                                                        }
+                                                        else
+                                                        {
+                                                            if (decembre > delaiClient)
+                                                            {
+                                                                decalage01 = decembre - delaiClient;
+                                                                decalage02 = 30 - decalage01;
+
+                                                                Encaissement_Reçus_Clients0403 += montantDecalage * decalage01;
+                                                                Encaissement_Reçus_Clients0503 += montantDecalage * decalage02;
+
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                #endregion
+
+                #region  Encaissement juin
+
+                montantDecalage = MontantChiffreAffaire0602 / 30;
+
+                if (juin - 150 > delaiClient)
+                {
+                    decalage01 = juin - 150 - delaiClient;
+                    decalage02 = 30 - decalage01;
+
+                    Encaissement_Reçus_Clients0602 += montantDecalage * decalage01;
+                    Encaissement_Reçus_Clients0702 += montantDecalage * decalage02;
+                }
+                else
+                {
+                    if (juillet - 150 > delaiClient)
+                    {
+                        decalage01 = juillet - 150 - delaiClient;
+                        decalage02 = 30 - decalage01;
+
+                        Encaissement_Reçus_Clients0702 += montantDecalage * decalage01;
+                        Encaissement_Reçus_Clients0802 += montantDecalage * decalage02;
+
+                    }
+                    else
+                    {
+                        if (aout - 150 > delaiClient)
+                        {
+                            decalage01 = aout - 150 - delaiClient;
+                            decalage02 = 30 - decalage01;
+
+                            Encaissement_Reçus_Clients0802 += montantDecalage * decalage01;
+                            Encaissement_Reçus_Clients0902 += montantDecalage * decalage02;
+
+                        }
+                        else
+                        {
+                            if (septembre - 150 > delaiClient)
+                            {
+                                decalage01 = septembre - 150 - delaiClient;
+                                decalage02 = 30 - decalage01;
+
+                                Encaissement_Reçus_Clients0902 += montantDecalage * decalage01;
+                                Encaissement_Reçus_Clients1002 += montantDecalage * decalage02;
+
+                            }
+                            else
+                            {
+                                if (octobre - 150 > delaiClient)
+                                {
+                                    decalage01 = octobre - 150 - delaiClient;
+                                    decalage02 = 30 - decalage01;
+
+                                    Encaissement_Reçus_Clients1002 += montantDecalage * decalage01;
+                                    Encaissement_Reçus_Clients1102 += montantDecalage * decalage02;
+
+                                }
+                                else
+                                {
+                                    if (novembre - 150 > delaiClient)
+                                    {
+                                        decalage01 = novembre - 150 - delaiClient;
+                                        decalage02 = 30 - decalage01;
+
+                                        Encaissement_Reçus_Clients1102 += montantDecalage * decalage01;
+                                        Encaissement_Reçus_Clients1202 += montantDecalage * decalage02;
+
+                                    }
+                                    else
+                                    {
+                                        if (decembre - 150 > delaiClient)
+                                        {
+                                            decalage01 = decembre - 150 - delaiClient;
+                                            decalage02 = 30 - decalage01;
+
+                                            Encaissement_Reçus_Clients1202 += montantDecalage * decalage01;
+                                            Encaissement_Reçus_Clients0103 += montantDecalage * decalage02;
+
+                                        }
+                                        else
+                                        {
+                                            if (aout > delaiClient)
+                                            {
+                                                decalage01 = aout - delaiClient;
+                                                decalage02 = 30 - decalage01;
+
+                                                Encaissement_Reçus_Clients0103 += montantDecalage * decalage01;
+                                                Encaissement_Reçus_Clients0203 += montantDecalage * decalage02;
+
+                                            }
+                                            else
+                                            {
+                                                if (septembre > delaiClient)
+                                                {
+                                                    decalage01 = septembre - delaiClient;
+                                                    decalage02 = 30 - decalage01;
+
+                                                    Encaissement_Reçus_Clients0203 += montantDecalage * decalage01;
+                                                    Encaissement_Reçus_Clients0303 += montantDecalage * decalage02;
+
+                                                }
+                                                else
+                                                {
+                                                    if (octobre > delaiClient)
+                                                    {
+                                                        decalage01 = octobre - delaiClient;
+                                                        decalage02 = 30 - decalage01;
+
+                                                        Encaissement_Reçus_Clients0303 += montantDecalage * decalage01;
+                                                        Encaissement_Reçus_Clients0403 += montantDecalage * decalage02;
+
+                                                    }
+                                                    else
+                                                    {
+                                                        if (novembre > delaiClient)
+                                                        {
+                                                            decalage01 = novembre - delaiClient;
+                                                            decalage02 = 30 - decalage01;
+
+                                                            Encaissement_Reçus_Clients0403 += montantDecalage * decalage01;
+                                                            Encaissement_Reçus_Clients0503 += montantDecalage * decalage02;
+
+                                                        }
+                                                        else
+                                                        {
+                                                            if (decembre > delaiClient)
+                                                            {
+                                                                decalage01 = decembre - delaiClient;
+                                                                decalage02 = 30 - decalage01;
+
+                                                                Encaissement_Reçus_Clients0503 += montantDecalage * decalage01;
+                                                                Encaissement_Reçus_Clients0603 += montantDecalage * decalage02;
+
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                #endregion
+
+                #region  Encaissement juillet
+
+                montantDecalage = MontantChiffreAffaire0702 / 30;
+
+                if (juillet - 180 > delaiClient)
+                {
+                    decalage01 = juillet - 180 - delaiClient;
+                    decalage02 = 30 - decalage01;
+
+                    Encaissement_Reçus_Clients0702 += montantDecalage * decalage01;
+                    Encaissement_Reçus_Clients0802 += montantDecalage * decalage02;
+                }
+                else
+                {
+                    if (aout - 180 > delaiClient)
+                    {
+                        decalage01 = aout - 180 - delaiClient;
+                        decalage02 = 30 - decalage01;
+
+                        Encaissement_Reçus_Clients0802 += montantDecalage * decalage01;
+                        Encaissement_Reçus_Clients0902 += montantDecalage * decalage02;
+
+                    }
+                    else
+                    {
+                        if (septembre - 180 > delaiClient)
+                        {
+                            decalage01 = septembre - 180 - delaiClient;
+                            decalage02 = 30 - decalage01;
+
+                            Encaissement_Reçus_Clients0902 += montantDecalage * decalage01;
+                            Encaissement_Reçus_Clients1002 += montantDecalage * decalage02;
+
+                        }
+                        else
+                        {
+                            if (octobre - 180 > delaiClient)
+                            {
+                                decalage01 = octobre - 180 - delaiClient;
+                                decalage02 = 30 - decalage01;
+
+                                Encaissement_Reçus_Clients1002 += montantDecalage * decalage01;
+                                Encaissement_Reçus_Clients1102 += montantDecalage * decalage02;
+
+                            }
+                            else
+                            {
+                                if (novembre - 180 > delaiClient)
+                                {
+                                    decalage01 = novembre - 180 - delaiClient;
+                                    decalage02 = 30 - decalage01;
+
+                                    Encaissement_Reçus_Clients1102 += montantDecalage * decalage01;
+                                    Encaissement_Reçus_Clients1202 += montantDecalage * decalage02;
+
+                                }
+                                else
+                                {
+                                    if (decembre - 180 > delaiClient)
+                                    {
+                                        decalage01 = decembre - 180 - delaiClient;
+                                        decalage02 = 30 - decalage01;
+
+                                        Encaissement_Reçus_Clients1202 += montantDecalage * decalage01;
+                                        Encaissement_Reçus_Clients0103 += montantDecalage * decalage02;
+
+                                    }
+                                    else
+                                    {
+                                        if (juillet > delaiClient)
+                                        {
+                                            decalage01 = juillet - delaiClient;
+                                            decalage02 = 30 - decalage01;
+
+                                            Encaissement_Reçus_Clients0103 += montantDecalage * decalage01;
+                                            Encaissement_Reçus_Clients0203 += montantDecalage * decalage02;
+
+                                        }
+                                        else
+                                        {
+                                            if (aout > delaiClient)
+                                            {
+                                                decalage01 = aout - delaiClient;
+                                                decalage02 = 30 - decalage01;
+
+                                                Encaissement_Reçus_Clients0203 += montantDecalage * decalage01;
+                                                Encaissement_Reçus_Clients0303 += montantDecalage * decalage02;
+
+                                            }
+                                            else
+                                            {
+                                                if (septembre > delaiClient)
+                                                {
+                                                    decalage01 = septembre - delaiClient;
+                                                    decalage02 = 30 - decalage01;
+
+                                                    Encaissement_Reçus_Clients0303 += montantDecalage * decalage01;
+                                                    Encaissement_Reçus_Clients0403 += montantDecalage * decalage02;
+
+                                                }
+                                                else
+                                                {
+                                                    if (octobre > delaiClient)
+                                                    {
+                                                        decalage01 = octobre - delaiClient;
+                                                        decalage02 = 30 - decalage01;
+
+                                                        Encaissement_Reçus_Clients0403 += montantDecalage * decalage01;
+                                                        Encaissement_Reçus_Clients0503 += montantDecalage * decalage02;
+
+                                                    }
+                                                    else
+                                                    {
+                                                        if (novembre > delaiClient)
+                                                        {
+                                                            decalage01 = novembre - delaiClient;
+                                                            decalage02 = 30 - decalage01;
+
+                                                            Encaissement_Reçus_Clients0503 += montantDecalage * decalage01;
+                                                            Encaissement_Reçus_Clients0603 += montantDecalage * decalage02;
+
+                                                        }
+                                                        else
+                                                        {
+                                                            if (decembre > delaiClient)
+                                                            {
+                                                                decalage01 = decembre - delaiClient;
+                                                                decalage02 = 30 - decalage01;
+
+                                                                Encaissement_Reçus_Clients0603 += montantDecalage * decalage01;
+                                                                Encaissement_Reçus_Clients0703 += montantDecalage * decalage02;
+
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                #endregion
+
+                #region  Encaissement août
+
+                montantDecalage = MontantChiffreAffaire0802 / 30;
+
+                if (aout - 210 > delaiClient)
+                {
+                    decalage01 = aout - 210 - delaiClient;
+                    decalage02 = 30 - decalage01;
+
+                    Encaissement_Reçus_Clients0802 += montantDecalage * decalage01;
+                    Encaissement_Reçus_Clients0902 += montantDecalage * decalage02;
+                }
+                else
+                {
+                    if (septembre - 210 > delaiClient)
+                    {
+                        decalage01 = septembre - 210 - delaiClient;
+                        decalage02 = 30 - decalage01;
+
+                        Encaissement_Reçus_Clients0902 += montantDecalage * decalage01;
+                        Encaissement_Reçus_Clients1002 += montantDecalage * decalage02;
+
+                    }
+                    else
+                    {
+                        if (octobre - 210 > delaiClient)
+                        {
+                            decalage01 = octobre - 210 - delaiClient;
+                            decalage02 = 30 - decalage01;
+
+                            Encaissement_Reçus_Clients1002 += montantDecalage * decalage01;
+                            Encaissement_Reçus_Clients1102 += montantDecalage * decalage02;
+
+                        }
+                        else
+                        {
+                            if (novembre - 210 > delaiClient)
+                            {
+                                decalage01 = novembre - 210 - delaiClient;
+                                decalage02 = 30 - decalage01;
+
+                                Encaissement_Reçus_Clients1102 += montantDecalage * decalage01;
+                                Encaissement_Reçus_Clients1202 += montantDecalage * decalage02;
+
+                            }
+                            else
+                            {
+                                if (decembre - 210 > delaiClient)
+                                {
+                                    decalage01 = decembre - 210 - delaiClient;
+                                    decalage02 = 30 - decalage01;
+
+                                    Encaissement_Reçus_Clients1202 += montantDecalage * decalage01;
+                                    Encaissement_Reçus_Clients0103 += montantDecalage * decalage02;
+
+                                }
+                                else
+                                {
+                                    if (juin > delaiClient)
+                                    {
+                                        decalage01 = juin - delaiClient;
+                                        decalage02 = 30 - decalage01;
+
+                                        Encaissement_Reçus_Clients0103 += montantDecalage * decalage01;
+                                        Encaissement_Reçus_Clients0203 += montantDecalage * decalage02;
+
+                                    }
+                                    else
+                                    {
+                                        if (juillet > delaiClient)
+                                        {
+                                            decalage01 = juillet - delaiClient;
+                                            decalage02 = 30 - decalage01;
+
+                                            Encaissement_Reçus_Clients0203 += montantDecalage * decalage01;
+                                            Encaissement_Reçus_Clients0303 += montantDecalage * decalage02;
+
+                                        }
+                                        else
+                                        {
+                                            if (aout > delaiClient)
+                                            {
+                                                decalage01 = aout - delaiClient;
+                                                decalage02 = 30 - decalage01;
+
+                                                Encaissement_Reçus_Clients0303 += montantDecalage * decalage01;
+                                                Encaissement_Reçus_Clients0403 += montantDecalage * decalage02;
+
+                                            }
+                                            else
+                                            {
+                                                if (septembre > delaiClient)
+                                                {
+                                                    decalage01 = septembre - delaiClient;
+                                                    decalage02 = 30 - decalage01;
+
+                                                    Encaissement_Reçus_Clients0403 += montantDecalage * decalage01;
+                                                    Encaissement_Reçus_Clients0503 += montantDecalage * decalage02;
+
+                                                }
+                                                else
+                                                {
+                                                    if (octobre > delaiClient)
+                                                    {
+                                                        decalage01 = octobre - delaiClient;
+                                                        decalage02 = 30 - decalage01;
+
+                                                        Encaissement_Reçus_Clients0503 += montantDecalage * decalage01;
+                                                        Encaissement_Reçus_Clients0603 += montantDecalage * decalage02;
+
+                                                    }
+                                                    else
+                                                    {
+                                                        if (novembre > delaiClient)
+                                                        {
+                                                            decalage01 = novembre - delaiClient;
+                                                            decalage02 = 30 - decalage01;
+
+                                                            Encaissement_Reçus_Clients0603 += montantDecalage * decalage01;
+                                                            Encaissement_Reçus_Clients0703 += montantDecalage * decalage02;
+
+                                                        }
+                                                        else
+                                                        {
+                                                            if (decembre > delaiClient)
+                                                            {
+                                                                decalage01 = decembre - delaiClient;
+                                                                decalage02 = 30 - decalage01;
+
+                                                                Encaissement_Reçus_Clients0703 += montantDecalage * decalage01;
+                                                                Encaissement_Reçus_Clients0803 += montantDecalage * decalage02;
+
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+                }
+
+                #endregion
+
+                #region  Encaissement septembre
+
+                montantDecalage = MontantChiffreAffaire0902 / 30;
+
+                if (septembre - 240 > delaiClient)
+                {
+                    decalage01 = septembre - 240 - delaiClient;
+                    decalage02 = 30 - decalage01;
+
+                    Encaissement_Reçus_Clients0902 += montantDecalage * decalage01;
+                    Encaissement_Reçus_Clients1002 += montantDecalage * decalage02;
+                }
+                else
+                {
+                    if (octobre - 240 > delaiClient)
+                    {
+                        decalage01 = octobre - 240 - delaiClient;
+                        decalage02 = 30 - decalage01;
+
+                        Encaissement_Reçus_Clients1002 += montantDecalage * decalage01;
+                        Encaissement_Reçus_Clients1102 += montantDecalage * decalage02;
+
+                    }
+                    else
+                    {
+                        if (novembre - 240 > delaiClient)
+                        {
+                            decalage01 = novembre - 240 - delaiClient;
+                            decalage02 = 30 - decalage01;
+
+                            Encaissement_Reçus_Clients1102 += montantDecalage * decalage01;
+                            Encaissement_Reçus_Clients1202 += montantDecalage * decalage02;
+
+                        }
+                        else
+                        {
+                            if (decembre - 240 > delaiClient)
+                            {
+                                decalage01 = decembre - 240 - delaiClient;
+                                decalage02 = 30 - decalage01;
+
+                                Encaissement_Reçus_Clients1202 += montantDecalage * decalage01;
+                                Encaissement_Reçus_Clients0103 += montantDecalage * decalage02;
+
+                            }
+                            else
+                            {
+                                if (mai > delaiClient)
+                                {
+                                    decalage01 = mai - delaiClient;
+                                    decalage02 = 30 - decalage01;
+
+                                    Encaissement_Reçus_Clients0103 += montantDecalage * decalage01;
+                                    Encaissement_Reçus_Clients0203 += montantDecalage * decalage02;
+
+                                }
+                                else
+                                {
+                                    if (juin > delaiClient)
+                                    {
+                                        decalage01 = juin - delaiClient;
+                                        decalage02 = 30 - decalage01;
+
+                                        Encaissement_Reçus_Clients0203 += montantDecalage * decalage01;
+                                        Encaissement_Reçus_Clients0303 += montantDecalage * decalage02;
+
+                                    }
+                                    else
+                                    {
+                                        if (juillet > delaiClient)
+                                        {
+                                            decalage01 = juillet - delaiClient;
+                                            decalage02 = 30 - decalage01;
+
+                                            Encaissement_Reçus_Clients0303 += montantDecalage * decalage01;
+                                            Encaissement_Reçus_Clients0403 += montantDecalage * decalage02;
+
+                                        }
+                                        else
+                                        {
+                                            if (aout > delaiClient)
+                                            {
+                                                decalage01 = aout - delaiClient;
+                                                decalage02 = 30 - decalage01;
+
+                                                Encaissement_Reçus_Clients0403 += montantDecalage * decalage01;
+                                                Encaissement_Reçus_Clients0503 += montantDecalage * decalage02;
+
+                                            }
+                                            else
+                                            {
+                                                if (septembre > delaiClient)
+                                                {
+                                                    decalage01 = septembre - delaiClient;
+                                                    decalage02 = 30 - decalage01;
+
+                                                    Encaissement_Reçus_Clients0503 += montantDecalage * decalage01;
+                                                    Encaissement_Reçus_Clients0603 += montantDecalage * decalage02;
+
+                                                }
+                                                else
+                                                {
+                                                    if (octobre > delaiClient)
+                                                    {
+                                                        decalage01 = octobre - delaiClient;
+                                                        decalage02 = 30 - decalage01;
+
+                                                        Encaissement_Reçus_Clients0603 += montantDecalage * decalage01;
+                                                        Encaissement_Reçus_Clients0703 += montantDecalage * decalage02;
+
+                                                    }
+                                                    else
+                                                    {
+                                                        if (novembre > delaiClient)
+                                                        {
+                                                            decalage01 = novembre - delaiClient;
+                                                            decalage02 = 30 - decalage01;
+
+                                                            Encaissement_Reçus_Clients0703 += montantDecalage * decalage01;
+                                                            Encaissement_Reçus_Clients0803 += montantDecalage * decalage02;
+
+                                                        }
+                                                        else
+                                                        {
+                                                            if (decembre > delaiClient)
+                                                            {
+                                                                decalage01 = decembre - delaiClient;
+                                                                decalage02 = 30 - decalage01;
+
+                                                                Encaissement_Reçus_Clients0803 += montantDecalage * decalage01;
+                                                                Encaissement_Reçus_Clients0903 += montantDecalage * decalage02;
+
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                #endregion
+
+                #region  Encaissement octobre
+
+                montantDecalage = MontantChiffreAffaire1002 / 30;
+
+                if (octobre - 270 > delaiClient)
+                {
+                    decalage01 = octobre - 270 - delaiClient;
+                    decalage02 = 30 - decalage01;
+
+                    Encaissement_Reçus_Clients1002 += montantDecalage * decalage01;
+                    Encaissement_Reçus_Clients1102 += montantDecalage * decalage02;
+                }
+                else
+                {
+                    if (novembre - 270 > delaiClient)
+                    {
+                        decalage01 = novembre - 270 - delaiClient;
+                        decalage02 = 30 - decalage01;
+
+                        Encaissement_Reçus_Clients1102 += montantDecalage * decalage01;
+                        Encaissement_Reçus_Clients1202 += montantDecalage * decalage02;
+
+                    }
+                    else
+                    {
+                        if (decembre - 270 > delaiClient)
+                        {
+                            decalage01 = decembre - 270 - delaiClient;
+                            decalage02 = 30 - decalage01;
+
+                            Encaissement_Reçus_Clients1202 += montantDecalage * decalage01;
+                            Encaissement_Reçus_Clients0103 += montantDecalage * decalage02;
+
+                        }
+                        else
+                        {
+                            if (avril > delaiClient)
+                            {
+                                decalage01 = avril - delaiClient;
+                                decalage02 = 30 - decalage01;
+
+                                Encaissement_Reçus_Clients0103 += montantDecalage * decalage01;
+                                Encaissement_Reçus_Clients0203 += montantDecalage * decalage02;
+
+                            }
+                            else
+                            {
+                                if (mai > delaiClient)
+                                {
+                                    decalage01 = mai - delaiClient;
+                                    decalage02 = 30 - decalage01;
+
+                                    Encaissement_Reçus_Clients0203 += montantDecalage * decalage01;
+                                    Encaissement_Reçus_Clients0303 += montantDecalage * decalage02;
+
+                                }
+                                else
+                                {
+                                    if (juin > delaiClient)
+                                    {
+                                        decalage01 = juin - delaiClient;
+                                        decalage02 = 30 - decalage01;
+
+                                        Encaissement_Reçus_Clients0303 += montantDecalage * decalage01;
+                                        Encaissement_Reçus_Clients0403 += montantDecalage * decalage02;
+
+                                    }
+                                    else
+                                    {
+                                        if (juillet > delaiClient)
+                                        {
+                                            decalage01 = juillet - delaiClient;
+                                            decalage02 = 30 - decalage01;
+
+                                            Encaissement_Reçus_Clients0403 += montantDecalage * decalage01;
+                                            Encaissement_Reçus_Clients0503 += montantDecalage * decalage02;
+
+                                        }
+                                        else
+                                        {
+                                            if (aout > delaiClient)
+                                            {
+                                                decalage01 = aout - delaiClient;
+                                                decalage02 = 30 - decalage01;
+
+                                                Encaissement_Reçus_Clients0503 += montantDecalage * decalage01;
+                                                Encaissement_Reçus_Clients0603 += montantDecalage * decalage02;
+
+                                            }
+                                            else
+                                            {
+                                                if (septembre > delaiClient)
+                                                {
+                                                    decalage01 = septembre - delaiClient;
+                                                    decalage02 = 30 - decalage01;
+
+                                                    Encaissement_Reçus_Clients0603 += montantDecalage * decalage01;
+                                                    Encaissement_Reçus_Clients0703 += montantDecalage * decalage02;
+
+                                                }
+                                                else
+                                                {
+                                                    if (octobre > delaiClient)
+                                                    {
+                                                        decalage01 = octobre - delaiClient;
+                                                        decalage02 = 30 - decalage01;
+
+                                                        Encaissement_Reçus_Clients0703 += montantDecalage * decalage01;
+                                                        Encaissement_Reçus_Clients0803 += montantDecalage * decalage02;
+
+                                                    }
+                                                    else
+                                                    {
+                                                        if (novembre > delaiClient)
+                                                        {
+                                                            decalage01 = novembre - delaiClient;
+                                                            decalage02 = 30 - decalage01;
+
+                                                            Encaissement_Reçus_Clients0803 += montantDecalage * decalage01;
+                                                            Encaissement_Reçus_Clients0903 += montantDecalage * decalage02;
+
+                                                        }
+                                                        else
+                                                        {
+                                                            if (decembre > delaiClient)
+                                                            {
+                                                                decalage01 = decembre - delaiClient;
+                                                                decalage02 = 30 - decalage01;
+
+                                                                Encaissement_Reçus_Clients0903 += montantDecalage * decalage01;
+                                                                Encaissement_Reçus_Clients1003 += montantDecalage * decalage02;
+
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                #endregion
+
+                #region  Encaissement novembre
+
+                montantDecalage = MontantChiffreAffaire1102 / 30;
+
+                if (novembre - 300 > delaiClient)
+                {
+                    decalage01 = novembre - 300 - delaiClient;
+                    decalage02 = 30 - decalage01;
+
+                    Encaissement_Reçus_Clients1102 += montantDecalage * decalage01;
+                    Encaissement_Reçus_Clients1202 += montantDecalage * decalage02;
+                }
+                else
+                {
+                    if (decembre - 300 > delaiClient)
+                    {
+                        decalage01 = decembre - 300 - delaiClient;
+                        decalage02 = 30 - decalage01;
+
+                        Encaissement_Reçus_Clients1202 += montantDecalage * decalage01;
+                        Encaissement_Reçus_Clients0103 += montantDecalage * decalage02;
+
+                    }
+                    else
+                    {
+                        if (mars > delaiClient)
+                        {
+                            decalage01 = mars - delaiClient;
+                            decalage02 = 30 - decalage01;
+
+                            Encaissement_Reçus_Clients0103 += montantDecalage * decalage01;
+                            Encaissement_Reçus_Clients0203 += montantDecalage * decalage02;
+
+                        }
+                        else
+                        {
+                            if (avril > delaiClient)
+                            {
+                                decalage01 = avril - delaiClient;
+                                decalage02 = 30 - decalage01;
+
+                                Encaissement_Reçus_Clients0203 += montantDecalage * decalage01;
+                                Encaissement_Reçus_Clients0303 += montantDecalage * decalage02;
+
+                            }
+                            else
+                            {
+                                if (mai > delaiClient)
+                                {
+                                    decalage01 = mai - delaiClient;
+                                    decalage02 = 30 - decalage01;
+
+                                    Encaissement_Reçus_Clients0303 += montantDecalage * decalage01;
+                                    Encaissement_Reçus_Clients0403 += montantDecalage * decalage02;
+
+                                }
+                                else
+                                {
+                                    if (juin > delaiClient)
+                                    {
+                                        decalage01 = juin - delaiClient;
+                                        decalage02 = 30 - decalage01;
+
+                                        Encaissement_Reçus_Clients0403 += montantDecalage * decalage01;
+                                        Encaissement_Reçus_Clients0503 += montantDecalage * decalage02;
+
+                                    }
+                                    else
+                                    {
+                                        if (juillet > delaiClient)
+                                        {
+                                            decalage01 = juillet - delaiClient;
+                                            decalage02 = 30 - decalage01;
+
+                                            Encaissement_Reçus_Clients0503 += montantDecalage * decalage01;
+                                            Encaissement_Reçus_Clients0603 += montantDecalage * decalage02;
+
+                                        }
+                                        else
+                                        {
+                                            if (aout > delaiClient)
+                                            {
+                                                decalage01 = aout - delaiClient;
+                                                decalage02 = 30 - decalage01;
+
+                                                Encaissement_Reçus_Clients0603 += montantDecalage * decalage01;
+                                                Encaissement_Reçus_Clients0703 += montantDecalage * decalage02;
+
+                                            }
+                                            else
+                                            {
+                                                if (septembre > delaiClient)
+                                                {
+                                                    decalage01 = septembre - delaiClient;
+                                                    decalage02 = 30 - decalage01;
+
+                                                    Encaissement_Reçus_Clients0703 += montantDecalage * decalage01;
+                                                    Encaissement_Reçus_Clients0803 += montantDecalage * decalage02;
+
+                                                }
+                                                else
+                                                {
+                                                    if (octobre > delaiClient)
+                                                    {
+                                                        decalage01 = octobre - delaiClient;
+                                                        decalage02 = 30 - decalage01;
+
+                                                        Encaissement_Reçus_Clients0803 += montantDecalage * decalage01;
+                                                        Encaissement_Reçus_Clients0903 += montantDecalage * decalage02;
+
+                                                    }
+                                                    else
+                                                    {
+                                                        if (novembre > delaiClient)
+                                                        {
+                                                            decalage01 = novembre - delaiClient;
+                                                            decalage02 = 30 - decalage01;
+
+                                                            Encaissement_Reçus_Clients0903 += montantDecalage * decalage01;
+                                                            Encaissement_Reçus_Clients1003 += montantDecalage * decalage02;
+
+                                                        }
+                                                        else
+                                                        {
+                                                            if (decembre > delaiClient)
+                                                            {
+                                                                decalage01 = decembre - delaiClient;
+                                                                decalage02 = 30 - decalage01;
+
+                                                                Encaissement_Reçus_Clients1003 += montantDecalage * decalage01;
+                                                                Encaissement_Reçus_Clients1103 += montantDecalage * decalage02;
+
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                    }
+                }
+
+                #endregion
+
+                #region  Encaissement decembre
+
+                montantDecalage = MontantChiffreAffaire1202 / 30;
+
+                if (decembre - 330 > delaiClient)
+                {
+                    decalage01 = decembre - 330 - delaiClient;
+                    decalage02 = 30 - decalage01;
+
+                    Encaissement_Reçus_Clients1202 += montantDecalage * decalage01;
+                    Encaissement_Reçus_Clients0103 += montantDecalage * decalage02;
+                }
+                else
+                {
+                    if (fevrier > delaiClient)
+                    {
+                        decalage01 = fevrier - delaiClient;
+                        decalage02 = 30 - decalage01;
+
+                        Encaissement_Reçus_Clients0103 += montantDecalage * decalage01;
+                        Encaissement_Reçus_Clients0203 += montantDecalage * decalage02;
+
+                    }
+                    else
+                    {
+                        if (mars > delaiClient)
+                        {
+                            decalage01 = mars - delaiClient;
+                            decalage02 = 30 - decalage01;
+
+                            Encaissement_Reçus_Clients0203 += montantDecalage * decalage01;
+                            Encaissement_Reçus_Clients0303 += montantDecalage * decalage02;
+
+                        }
+                        else
+                        {
+                            if (avril > delaiClient)
+                            {
+                                decalage01 = avril - delaiClient;
+                                decalage02 = 30 - decalage01;
+
+                                Encaissement_Reçus_Clients0303 += montantDecalage * decalage01;
+                                Encaissement_Reçus_Clients0403 += montantDecalage * decalage02;
+
+                            }
+                            else
+                            {
+                                if (mai > delaiClient)
+                                {
+                                    decalage01 = mai - delaiClient;
+                                    decalage02 = 30 - decalage01;
+
+                                    Encaissement_Reçus_Clients0403 += montantDecalage * decalage01;
+                                    Encaissement_Reçus_Clients0503 += montantDecalage * decalage02;
+
+                                }
+                                else
+                                {
+                                    if (juin > delaiClient)
+                                    {
+                                        decalage01 = juin - delaiClient;
+                                        decalage02 = 30 - decalage01;
+
+                                        Encaissement_Reçus_Clients0503 += montantDecalage * decalage01;
+                                        Encaissement_Reçus_Clients0603 += montantDecalage * decalage02;
+
+                                    }
+                                    else
+                                    {
+                                        if (juillet > delaiClient)
+                                        {
+                                            decalage01 = juillet - delaiClient;
+                                            decalage02 = 30 - decalage01;
+
+                                            Encaissement_Reçus_Clients0603 += montantDecalage * decalage01;
+                                            Encaissement_Reçus_Clients0703 += montantDecalage * decalage02;
+
+                                        }
+                                        else
+                                        {
+                                            if (aout > delaiClient)
+                                            {
+                                                decalage01 = aout - delaiClient;
+                                                decalage02 = 30 - decalage01;
+
+                                                Encaissement_Reçus_Clients0703 += montantDecalage * decalage01;
+                                                Encaissement_Reçus_Clients0803 += montantDecalage * decalage02;
+
+                                            }
+                                            else
+                                            {
+                                                if (septembre > delaiClient)
+                                                {
+                                                    decalage01 = septembre - delaiClient;
+                                                    decalage02 = 30 - decalage01;
+
+                                                    Encaissement_Reçus_Clients0803 += montantDecalage * decalage01;
+                                                    Encaissement_Reçus_Clients0903 += montantDecalage * decalage02;
+
+                                                }
+                                                else
+                                                {
+                                                    if (octobre > delaiClient)
+                                                    {
+                                                        decalage01 = octobre - delaiClient;
+                                                        decalage02 = 30 - decalage01;
+
+                                                        Encaissement_Reçus_Clients0903 += montantDecalage * decalage01;
+                                                        Encaissement_Reçus_Clients1003 += montantDecalage * decalage02;
+
+                                                    }
+                                                    else
+                                                    {
+                                                        if (novembre > delaiClient)
+                                                        {
+                                                            decalage01 = novembre - delaiClient;
+                                                            decalage02 = 30 - decalage01;
+
+                                                            Encaissement_Reçus_Clients1003 += montantDecalage * decalage01;
+                                                            Encaissement_Reçus_Clients1103 += montantDecalage * decalage02;
+
+                                                        }
+                                                        else
+                                                        {
+                                                            if (decembre > delaiClient)
+                                                            {
+                                                                decalage01 = decembre - delaiClient;
+                                                                decalage02 = 30 - decalage01;
+
+                                                                Encaissement_Reçus_Clients1103 += montantDecalage * decalage01;
+                                                                Encaissement_Reçus_Clients1203 += montantDecalage * decalage02;
+
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+
+                #endregion
+
+            }
+
+            #endregion
+
+            #region  Encaissement Clients Année 03
+
+            if (delaiClient < 360 && delaiClient >= 0)
+            {
+                #region  Encaissement janvier
+
+                montantDecalage = MontantChiffreAffaire0103 / 30;
+
+                if (janvier > delaiClient)
+                {
+                    decalage01 = janvier - delaiClient;
+                    decalage02 = 30 - decalage01;
+
+                    Encaissement_Reçus_Clients0103 += montantDecalage * decalage01;
+                    Encaissement_Reçus_Clients0203 += montantDecalage * decalage02;
+
+                }
+                else
+                {
+                    if (fevrier > delaiClient)
+                    {
+                        decalage01 = fevrier - delaiClient;
+                        decalage02 = 30 - decalage01;
+
+                        Encaissement_Reçus_Clients0203 += montantDecalage * decalage01;
+                        Encaissement_Reçus_Clients0303 += montantDecalage * decalage02;
+
+                    }
+                    else
+                    {
+                        if (mars > delaiClient)
+                        {
+                            decalage01 = mars - delaiClient;
+                            decalage02 = 30 - decalage01;
+
+                            Encaissement_Reçus_Clients0303 += montantDecalage * decalage01;
+                            Encaissement_Reçus_Clients0403 += montantDecalage * decalage02;
+
+                        }
+                        else
+                        {
+                            if (avril > delaiClient)
+                            {
+                                decalage01 = avril - delaiClient;
+                                decalage02 = 30 - decalage01;
+
+                                Encaissement_Reçus_Clients0403 += montantDecalage * decalage01;
+                                Encaissement_Reçus_Clients0503 += montantDecalage * decalage02;
+
+                            }
+                            else
+                            {
+                                if (mai > delaiClient)
+                                {
+                                    decalage01 = mai - delaiClient;
+                                    decalage02 = 30 - decalage01;
+
+                                    Encaissement_Reçus_Clients0503 += montantDecalage * decalage01;
+                                    Encaissement_Reçus_Clients0603 += montantDecalage * decalage02;
+
+                                }
+                                else
+                                {
+                                    if (juin > delaiClient)
+                                    {
+                                        decalage01 = juin - delaiClient;
+                                        decalage02 = 30 - decalage01;
+
+                                        Encaissement_Reçus_Clients0603 += montantDecalage * decalage01;
+                                        Encaissement_Reçus_Clients0703 += montantDecalage * decalage02;
+
+                                    }
+                                    else
+                                    {
+                                        if (juillet > delaiClient)
+                                        {
+                                            decalage01 = juillet - delaiClient;
+                                            decalage02 = 30 - decalage01;
+
+                                            Encaissement_Reçus_Clients0703 += montantDecalage * decalage01;
+                                            Encaissement_Reçus_Clients0803 += montantDecalage * decalage02;
+
+                                        }
+                                        else
+                                        {
+                                            if (aout > delaiClient)
+                                            {
+                                                decalage01 = aout - delaiClient;
+                                                decalage02 = 30 - decalage01;
+
+                                                Encaissement_Reçus_Clients0803 += montantDecalage * decalage01;
+                                                Encaissement_Reçus_Clients0903 += montantDecalage * decalage02;
+
+                                            }
+                                            else
+                                            {
+                                                if (septembre > delaiClient)
+                                                {
+                                                    decalage01 = septembre - delaiClient;
+                                                    decalage02 = 30 - decalage01;
+
+                                                    Encaissement_Reçus_Clients0903 += montantDecalage * decalage01;
+                                                    Encaissement_Reçus_Clients1003 += montantDecalage * decalage02;
+
+                                                }
+                                                else
+                                                {
+                                                    if (octobre > delaiClient)
+                                                    {
+                                                        decalage01 = octobre - delaiClient;
+                                                        decalage02 = 30 - decalage01;
+
+                                                        Encaissement_Reçus_Clients1003 += montantDecalage * decalage01;
+                                                        Encaissement_Reçus_Clients1103 += montantDecalage * decalage02;
+
+                                                    }
+                                                    else
+                                                    {
+                                                        if (novembre > delaiClient)
+                                                        {
+                                                            decalage01 = novembre - delaiClient;
+                                                            decalage02 = 30 - decalage01;
+
+                                                            Encaissement_Reçus_Clients1103 += montantDecalage * decalage01;
+                                                            Encaissement_Reçus_Clients1203 += montantDecalage * decalage02;
+
+                                                        }
+                                                        else
+                                                        {
+                                                            if (decembre > delaiClient)
+                                                            {
+                                                                decalage01 = decembre - delaiClient;
+                                                                decalage02 = 30 - decalage01;
+
+                                                                Encaissement_Reçus_Clients1203 += montantDecalage * decalage01;
+                                                                Encaissement_Reçus_Clients0104 += montantDecalage * decalage02;
+
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                #endregion
+
+                #region  Encaissement fevrier
+
+                montantDecalage = MontantChiffreAffaire0203 / 30;
+
+                if (fevrier - 30 > delaiClient)
+                {
+                    decalage01 = fevrier - 30 - delaiClient;
+                    decalage02 = 30 - decalage01;
+
+                    Encaissement_Reçus_Clients0203 += montantDecalage * decalage01;
+                    Encaissement_Reçus_Clients0303 += montantDecalage * decalage02;
+                }
+                else
+                {
+                    if (mars - 30 > delaiClient)
+                    {
+                        decalage01 = mars - 30 - delaiClient;
+                        decalage02 = 30 - decalage01;
+
+                        Encaissement_Reçus_Clients0303 += montantDecalage * decalage01;
+                        Encaissement_Reçus_Clients0403 += montantDecalage * decalage02;
+
+                    }
+                    else
+                    {
+                        if (avril - 30 > delaiClient)
+                        {
+                            decalage01 = avril - 30 - delaiClient;
+                            decalage02 = 30 - decalage01;
+
+                            Encaissement_Reçus_Clients0403 += montantDecalage * decalage01;
+                            Encaissement_Reçus_Clients0503 += montantDecalage * decalage02;
+
+                        }
+                        else
+                        {
+                            if (mai - 30 > delaiClient)
+                            {
+                                decalage01 = mai - 30 - delaiClient;
+                                decalage02 = 30 - decalage01;
+
+                                Encaissement_Reçus_Clients0503 += montantDecalage * decalage01;
+                                Encaissement_Reçus_Clients0603 += montantDecalage * decalage02;
+
+                            }
+                            else
+                            {
+                                if (juin - 30 > delaiClient)
+                                {
+                                    decalage01 = juin - 30 - delaiClient;
+                                    decalage02 = 30 - decalage01;
+
+                                    Encaissement_Reçus_Clients0603 += montantDecalage * decalage01;
+                                    Encaissement_Reçus_Clients0703 += montantDecalage * decalage02;
+
+                                }
+                                else
+                                {
+                                    if (juillet - 30 > delaiClient)
+                                    {
+                                        decalage01 = juillet - 30 - delaiClient;
+                                        decalage02 = 30 - decalage01;
+
+                                        Encaissement_Reçus_Clients0703 += montantDecalage * decalage01;
+                                        Encaissement_Reçus_Clients0803 += montantDecalage * decalage02;
+
+                                    }
+                                    else
+                                    {
+                                        if (aout - 30 > delaiClient)
+                                        {
+                                            decalage01 = aout - 30 - delaiClient;
+                                            decalage02 = 30 - decalage01;
+
+                                            Encaissement_Reçus_Clients0803 += montantDecalage * decalage01;
+                                            Encaissement_Reçus_Clients0903 += montantDecalage * decalage02;
+
+                                        }
+                                        else
+                                        {
+                                            if (septembre - 30 > delaiClient)
+                                            {
+                                                decalage01 = septembre - 30 - delaiClient;
+                                                decalage02 = 30 - decalage01;
+
+                                                Encaissement_Reçus_Clients0903 += montantDecalage * decalage01;
+                                                Encaissement_Reçus_Clients1003 += montantDecalage * decalage02;
+
+                                            }
+                                            else
+                                            {
+                                                if (octobre - 30 > delaiClient)
+                                                {
+                                                    decalage01 = octobre - 30 - delaiClient;
+                                                    decalage02 = 30 - decalage01;
+
+                                                    Encaissement_Reçus_Clients1003 += montantDecalage * decalage01;
+                                                    Encaissement_Reçus_Clients1103 += montantDecalage * decalage02;
+
+                                                }
+                                                else
+                                                {
+                                                    if (novembre - 30 > delaiClient)
+                                                    {
+                                                        decalage01 = novembre - 30 - delaiClient;
+                                                        decalage02 = 30 - decalage01;
+
+                                                        Encaissement_Reçus_Clients1103 += montantDecalage * decalage01;
+                                                        Encaissement_Reçus_Clients1203 += montantDecalage * decalage02;
+
+                                                    }
+                                                    else
+                                                    {
+                                                        if (decembre - 30 > delaiClient)
+                                                        {
+                                                            decalage01 = decembre - 30 - delaiClient;
+                                                            decalage02 = 30 - decalage01;
+
+                                                            Encaissement_Reçus_Clients1203 += montantDecalage * decalage01;
+                                                            Encaissement_Reçus_Clients0104 += montantDecalage * decalage02;
+
+                                                        }
+                                                        else
+                                                        {
+                                                            if (decembre > delaiClient)
+                                                            {
+                                                                decalage01 = decembre - delaiClient;
+                                                                decalage02 = 30 - decalage01;
+
+                                                                Encaissement_Reçus_Clients0104 += montantDecalage * decalage01;
+                                                                Encaissement_Reçus_Clients0204 += montantDecalage * decalage02;
+
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                #endregion
+
+                #region  Encaissement mars
+
+                montantDecalage = MontantChiffreAffaire0303 / 30;
+
+                if (mars - 60 > delaiClient)
+                {
+                    decalage01 = mars - 60 - delaiClient;
+                    decalage02 = 30 - decalage01;
+
+                    Encaissement_Reçus_Clients0303 += montantDecalage * decalage01;
+                    Encaissement_Reçus_Clients0403 += montantDecalage * decalage02;
+                }
+                else
+                {
+                    if (avril - 60 > delaiClient)
+                    {
+                        decalage01 = avril - 60 - delaiClient;
+                        decalage02 = 30 - decalage01;
+
+                        Encaissement_Reçus_Clients0403 += montantDecalage * decalage01;
+                        Encaissement_Reçus_Clients0503 += montantDecalage * decalage02;
+
+                    }
+                    else
+                    {
+                        if (mai - 60 > delaiClient)
+                        {
+                            decalage01 = mai - 60 - delaiClient;
+                            decalage02 = 30 - decalage01;
+
+                            Encaissement_Reçus_Clients0503 += montantDecalage * decalage01;
+                            Encaissement_Reçus_Clients0603 += montantDecalage * decalage02;
+
+                        }
+                        else
+                        {
+                            if (juin - 60 > delaiClient)
+                            {
+                                decalage01 = juin - 60 - delaiClient;
+                                decalage02 = 30 - decalage01;
+
+                                Encaissement_Reçus_Clients0603 += montantDecalage * decalage01;
+                                Encaissement_Reçus_Clients0703 += montantDecalage * decalage02;
+
+                            }
+                            else
+                            {
+                                if (juillet - 60 > delaiClient)
+                                {
+                                    decalage01 = juillet - 60 - delaiClient;
+                                    decalage02 = 30 - decalage01;
+
+                                    Encaissement_Reçus_Clients0703 += montantDecalage * decalage01;
+                                    Encaissement_Reçus_Clients0803 += montantDecalage * decalage02;
+
+                                }
+                                else
+                                {
+                                    if (aout - 60 > delaiClient)
+                                    {
+                                        decalage01 = aout - 60 - delaiClient;
+                                        decalage02 = 30 - decalage01;
+
+                                        Encaissement_Reçus_Clients0803 += montantDecalage * decalage01;
+                                        Encaissement_Reçus_Clients0903 += montantDecalage * decalage02;
+
+                                    }
+                                    else
+                                    {
+                                        if (septembre - 60 > delaiClient)
+                                        {
+                                            decalage01 = septembre - 60 - delaiClient;
+                                            decalage02 = 30 - decalage01;
+
+                                            Encaissement_Reçus_Clients0903 += montantDecalage * decalage01;
+                                            Encaissement_Reçus_Clients1003 += montantDecalage * decalage02;
+
+                                        }
+                                        else
+                                        {
+                                            if (octobre - 60 > delaiClient)
+                                            {
+                                                decalage01 = octobre - 60 - delaiClient;
+                                                decalage02 = 30 - decalage01;
+
+                                                Encaissement_Reçus_Clients1003 += montantDecalage * decalage01;
+                                                Encaissement_Reçus_Clients1103 += montantDecalage * decalage02;
+
+                                            }
+                                            else
+                                            {
+                                                if (novembre - 60 > delaiClient)
+                                                {
+                                                    decalage01 = novembre - 60 - delaiClient;
+                                                    decalage02 = 30 - decalage01;
+
+                                                    Encaissement_Reçus_Clients1103 += montantDecalage * decalage01;
+                                                    Encaissement_Reçus_Clients1203 += montantDecalage * decalage02;
+
+                                                }
+                                                else
+                                                {
+                                                    if (decembre - 60 > delaiClient)
+                                                    {
+                                                        decalage01 = decembre - 60 - delaiClient;
+                                                        decalage02 = 30 - decalage01;
+
+                                                        Encaissement_Reçus_Clients1203 += montantDecalage * decalage01;
+                                                        Encaissement_Reçus_Clients0104 += montantDecalage * decalage02;
+
+                                                    }
+                                                    else
+                                                    {
+                                                        if (novembre > delaiClient)
+                                                        {
+                                                            decalage01 = novembre - delaiClient;
+                                                            decalage02 = 30 - decalage01;
+
+                                                            Encaissement_Reçus_Clients0104 += montantDecalage * decalage01;
+                                                            Encaissement_Reçus_Clients0204 += montantDecalage * decalage02;
+
+                                                        }
+                                                        else
+                                                        {
+                                                            if (decembre > delaiClient)
+                                                            {
+                                                                decalage01 = decembre - delaiClient;
+                                                                decalage02 = 30 - decalage01;
+
+                                                                Encaissement_Reçus_Clients0204 += montantDecalage * decalage01;
+                                                                Encaissement_Reçus_Clients0304 += montantDecalage * decalage02;
+
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                #endregion
+
+                #region  Encaissement avril
+
+                montantDecalage = MontantChiffreAffaire0403 / 30;
+
+                if (avril - 90 > delaiClient)
+                {
+                    decalage01 = avril - 90 - delaiClient;
+                    decalage02 = 30 - decalage01;
+
+                    Encaissement_Reçus_Clients0403 += montantDecalage * decalage01;
+                    Encaissement_Reçus_Clients0503 += montantDecalage * decalage02;
+                }
+                else
+                {
+                    if (mai - 90 > delaiClient)
+                    {
+                        decalage01 = mai - 90 - delaiClient;
+                        decalage02 = 30 - decalage01;
+
+                        Encaissement_Reçus_Clients0503 += montantDecalage * decalage01;
+                        Encaissement_Reçus_Clients0603 += montantDecalage * decalage02;
+
+                    }
+                    else
+                    {
+                        if (juin - 90 > delaiClient)
+                        {
+                            decalage01 = juin - 90 - delaiClient;
+                            decalage02 = 30 - decalage01;
+
+                            Encaissement_Reçus_Clients0603 += montantDecalage * decalage01;
+                            Encaissement_Reçus_Clients0703 += montantDecalage * decalage02;
+
+                        }
+                        else
+                        {
+                            if (juillet - 90 > delaiClient)
+                            {
+                                decalage01 = juillet - 90 - delaiClient;
+                                decalage02 = 30 - decalage01;
+
+                                Encaissement_Reçus_Clients0703 += montantDecalage * decalage01;
+                                Encaissement_Reçus_Clients0803 += montantDecalage * decalage02;
+
+                            }
+                            else
+                            {
+                                if (aout - 90 > delaiClient)
+                                {
+                                    decalage01 = aout - 90 - delaiClient;
+                                    decalage02 = 30 - decalage01;
+
+                                    Encaissement_Reçus_Clients0803 += montantDecalage * decalage01;
+                                    Encaissement_Reçus_Clients0903 += montantDecalage * decalage02;
+
+                                }
+                                else
+                                {
+                                    if (septembre - 90 > delaiClient)
+                                    {
+                                        decalage01 = septembre - 90 - delaiClient;
+                                        decalage02 = 30 - decalage01;
+
+                                        Encaissement_Reçus_Clients0903 += montantDecalage * decalage01;
+                                        Encaissement_Reçus_Clients1003 += montantDecalage * decalage02;
+
+                                    }
+                                    else
+                                    {
+                                        if (octobre - 90 > delaiClient)
+                                        {
+                                            decalage01 = octobre - 90 - delaiClient;
+                                            decalage02 = 30 - decalage01;
+
+                                            Encaissement_Reçus_Clients1003 += montantDecalage * decalage01;
+                                            Encaissement_Reçus_Clients1103 += montantDecalage * decalage02;
+
+                                        }
+                                        else
+                                        {
+                                            if (novembre - 90 > delaiClient)
+                                            {
+                                                decalage01 = novembre - 90 - delaiClient;
+                                                decalage02 = 30 - decalage01;
+
+                                                Encaissement_Reçus_Clients1103 += montantDecalage * decalage01;
+                                                Encaissement_Reçus_Clients1203 += montantDecalage * decalage02;
+
+                                            }
+                                            else
+                                            {
+                                                if (decembre - 90 > delaiClient)
+                                                {
+                                                    decalage01 = decembre - 90 - delaiClient;
+                                                    decalage02 = 30 - decalage01;
+
+                                                    Encaissement_Reçus_Clients1203 += montantDecalage * decalage01;
+                                                    Encaissement_Reçus_Clients0104 += montantDecalage * decalage02;
+
+                                                }
+                                                else
+                                                {
+                                                    if (octobre > delaiClient)
+                                                    {
+                                                        decalage01 = octobre - delaiClient;
+                                                        decalage02 = 30 - decalage01;
+
+                                                        Encaissement_Reçus_Clients0104 += montantDecalage * decalage01;
+                                                        Encaissement_Reçus_Clients0204 += montantDecalage * decalage02;
+
+                                                    }
+                                                    else
+                                                    {
+                                                        if (novembre > delaiClient)
+                                                        {
+                                                            decalage01 = novembre - delaiClient;
+                                                            decalage02 = 30 - decalage01;
+
+                                                            Encaissement_Reçus_Clients0204 += montantDecalage * decalage01;
+                                                            Encaissement_Reçus_Clients0304 += montantDecalage * decalage02;
+
+                                                        }
+                                                        else
+                                                        {
+                                                            if (decembre > delaiClient)
+                                                            {
+                                                                decalage01 = decembre - delaiClient;
+                                                                decalage02 = 30 - decalage01;
+
+                                                                Encaissement_Reçus_Clients0304 += montantDecalage * decalage01;
+                                                                Encaissement_Reçus_Clients0404 += montantDecalage * decalage02;
+
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                #endregion
+
+                #region  Encaissement mai
+
+                montantDecalage = MontantChiffreAffaire0503 / 30;
+
+                if (mai - 120 > delaiClient)
+                {
+                    decalage01 = mai - 120 - delaiClient;
+                    decalage02 = 30 - decalage01;
+
+                    Encaissement_Reçus_Clients0503 += montantDecalage * decalage01;
+                    Encaissement_Reçus_Clients0603 += montantDecalage * decalage02;
+                }
+                else
+                {
+                    if (juin - 120 > delaiClient)
+                    {
+                        decalage01 = juin - 120 - delaiClient;
+                        decalage02 = 30 - decalage01;
+
+                        Encaissement_Reçus_Clients0603 += montantDecalage * decalage01;
+                        Encaissement_Reçus_Clients0703 += montantDecalage * decalage02;
+
+                    }
+                    else
+                    {
+                        if (juillet - 120 > delaiClient)
+                        {
+                            decalage01 = juillet - 120 - delaiClient;
+                            decalage02 = 30 - decalage01;
+
+                            Encaissement_Reçus_Clients0703 += montantDecalage * decalage01;
+                            Encaissement_Reçus_Clients0803 += montantDecalage * decalage02;
+
+                        }
+                        else
+                        {
+                            if (aout - 120 > delaiClient)
+                            {
+                                decalage01 = aout - 120 - delaiClient;
+                                decalage02 = 30 - decalage01;
+
+                                Encaissement_Reçus_Clients0803 += montantDecalage * decalage01;
+                                Encaissement_Reçus_Clients0903 += montantDecalage * decalage02;
+
+                            }
+                            else
+                            {
+                                if (septembre - 120 > delaiClient)
+                                {
+                                    decalage01 = septembre - 120 - delaiClient;
+                                    decalage02 = 30 - decalage01;
+
+                                    Encaissement_Reçus_Clients0903 += montantDecalage * decalage01;
+                                    Encaissement_Reçus_Clients1003 += montantDecalage * decalage02;
+
+                                }
+                                else
+                                {
+                                    if (octobre - 120 > delaiClient)
+                                    {
+                                        decalage01 = octobre - 120 - delaiClient;
+                                        decalage02 = 30 - decalage01;
+
+                                        Encaissement_Reçus_Clients1003 += montantDecalage * decalage01;
+                                        Encaissement_Reçus_Clients1103 += montantDecalage * decalage02;
+
+                                    }
+                                    else
+                                    {
+                                        if (novembre - 120 > delaiClient)
+                                        {
+                                            decalage01 = novembre - 120 - delaiClient;
+                                            decalage02 = 30 - decalage01;
+
+                                            Encaissement_Reçus_Clients1103 += montantDecalage * decalage01;
+                                            Encaissement_Reçus_Clients1203 += montantDecalage * decalage02;
+
+                                        }
+                                        else
+                                        {
+                                            if (decembre - 120 > delaiClient)
+                                            {
+                                                decalage01 = decembre - 120 - delaiClient;
+                                                decalage02 = 30 - decalage01;
+
+                                                Encaissement_Reçus_Clients1203 += montantDecalage * decalage01;
+                                                Encaissement_Reçus_Clients0104 += montantDecalage * decalage02;
+
+                                            }
+                                            else
+                                            {
+                                                if (septembre > delaiClient)
+                                                {
+                                                    decalage01 = septembre - delaiClient;
+                                                    decalage02 = 30 - decalage01;
+
+                                                    Encaissement_Reçus_Clients0104 += montantDecalage * decalage01;
+                                                    Encaissement_Reçus_Clients0204 += montantDecalage * decalage02;
+
+                                                }
+                                                else
+                                                {
+                                                    if (octobre > delaiClient)
+                                                    {
+                                                        decalage01 = octobre - delaiClient;
+                                                        decalage02 = 30 - decalage01;
+
+                                                        Encaissement_Reçus_Clients0204 += montantDecalage * decalage01;
+                                                        Encaissement_Reçus_Clients0304 += montantDecalage * decalage02;
+
+                                                    }
+                                                    else
+                                                    {
+                                                        if (novembre > delaiClient)
+                                                        {
+                                                            decalage01 = novembre - delaiClient;
+                                                            decalage02 = 30 - decalage01;
+
+                                                            Encaissement_Reçus_Clients0304 += montantDecalage * decalage01;
+                                                            Encaissement_Reçus_Clients0404 += montantDecalage * decalage02;
+
+                                                        }
+                                                        else
+                                                        {
+                                                            if (decembre > delaiClient)
+                                                            {
+                                                                decalage01 = decembre - delaiClient;
+                                                                decalage02 = 30 - decalage01;
+
+                                                                Encaissement_Reçus_Clients0404 += montantDecalage * decalage01;
+                                                                Encaissement_Reçus_Clients0504 += montantDecalage * decalage02;
+
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                #endregion
+
+                #region  Encaissement juin
+
+                montantDecalage = MontantChiffreAffaire0603 / 30;
+
+                if (juin - 150 > delaiClient)
+                {
+                    decalage01 = juin - 150 - delaiClient;
+                    decalage02 = 30 - decalage01;
+
+                    Encaissement_Reçus_Clients0603 += montantDecalage * decalage01;
+                    Encaissement_Reçus_Clients0703 += montantDecalage * decalage02;
+                }
+                else
+                {
+                    if (juillet - 150 > delaiClient)
+                    {
+                        decalage01 = juillet - 150 - delaiClient;
+                        decalage02 = 30 - decalage01;
+
+                        Encaissement_Reçus_Clients0703 += montantDecalage * decalage01;
+                        Encaissement_Reçus_Clients0803 += montantDecalage * decalage02;
+
+                    }
+                    else
+                    {
+                        if (aout - 150 > delaiClient)
+                        {
+                            decalage01 = aout - 150 - delaiClient;
+                            decalage02 = 30 - decalage01;
+
+                            Encaissement_Reçus_Clients0803 += montantDecalage * decalage01;
+                            Encaissement_Reçus_Clients0903 += montantDecalage * decalage02;
+
+                        }
+                        else
+                        {
+                            if (septembre - 150 > delaiClient)
+                            {
+                                decalage01 = septembre - 150 - delaiClient;
+                                decalage02 = 30 - decalage01;
+
+                                Encaissement_Reçus_Clients0903 += montantDecalage * decalage01;
+                                Encaissement_Reçus_Clients1003 += montantDecalage * decalage02;
+
+                            }
+                            else
+                            {
+                                if (octobre - 150 > delaiClient)
+                                {
+                                    decalage01 = octobre - 150 - delaiClient;
+                                    decalage02 = 30 - decalage01;
+
+                                    Encaissement_Reçus_Clients1003 += montantDecalage * decalage01;
+                                    Encaissement_Reçus_Clients1103 += montantDecalage * decalage02;
+
+                                }
+                                else
+                                {
+                                    if (novembre - 150 > delaiClient)
+                                    {
+                                        decalage01 = novembre - 150 - delaiClient;
+                                        decalage02 = 30 - decalage01;
+
+                                        Encaissement_Reçus_Clients1103 += montantDecalage * decalage01;
+                                        Encaissement_Reçus_Clients1203 += montantDecalage * decalage02;
+
+                                    }
+                                    else
+                                    {
+                                        if (decembre - 150 > delaiClient)
+                                        {
+                                            decalage01 = decembre - 150 - delaiClient;
+                                            decalage02 = 30 - decalage01;
+
+                                            Encaissement_Reçus_Clients1203 += montantDecalage * decalage01;
+                                            Encaissement_Reçus_Clients0104 += montantDecalage * decalage02;
+
+                                        }
+                                        else
+                                        {
+                                            if (aout > delaiClient)
+                                            {
+                                                decalage01 = aout - delaiClient;
+                                                decalage02 = 30 - decalage01;
+
+                                                Encaissement_Reçus_Clients0104 += montantDecalage * decalage01;
+                                                Encaissement_Reçus_Clients0204 += montantDecalage * decalage02;
+
+                                            }
+                                            else
+                                            {
+                                                if (septembre > delaiClient)
+                                                {
+                                                    decalage01 = septembre - delaiClient;
+                                                    decalage02 = 30 - decalage01;
+
+                                                    Encaissement_Reçus_Clients0204 += montantDecalage * decalage01;
+                                                    Encaissement_Reçus_Clients0304 += montantDecalage * decalage02;
+
+                                                }
+                                                else
+                                                {
+                                                    if (octobre > delaiClient)
+                                                    {
+                                                        decalage01 = octobre - delaiClient;
+                                                        decalage02 = 30 - decalage01;
+
+                                                        Encaissement_Reçus_Clients0304 += montantDecalage * decalage01;
+                                                        Encaissement_Reçus_Clients0404 += montantDecalage * decalage02;
+
+                                                    }
+                                                    else
+                                                    {
+                                                        if (novembre > delaiClient)
+                                                        {
+                                                            decalage01 = novembre - delaiClient;
+                                                            decalage02 = 30 - decalage01;
+
+                                                            Encaissement_Reçus_Clients0404 += montantDecalage * decalage01;
+                                                            Encaissement_Reçus_Clients0504 += montantDecalage * decalage02;
+
+                                                        }
+                                                        else
+                                                        {
+                                                            if (decembre > delaiClient)
+                                                            {
+                                                                decalage01 = decembre - delaiClient;
+                                                                decalage02 = 30 - decalage01;
+
+                                                                Encaissement_Reçus_Clients0504 += montantDecalage * decalage01;
+                                                                Encaissement_Reçus_Clients0604 += montantDecalage * decalage02;
+
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                #endregion
+
+                #region  Encaissement juillet
+
+                montantDecalage = MontantChiffreAffaire0703 / 30;
+
+                if (juillet - 180 > delaiClient)
+                {
+                    decalage01 = juillet - 180 - delaiClient;
+                    decalage02 = 30 - decalage01;
+
+                    Encaissement_Reçus_Clients0703 += montantDecalage * decalage01;
+                    Encaissement_Reçus_Clients0803 += montantDecalage * decalage02;
+                }
+                else
+                {
+                    if (aout - 180 > delaiClient)
+                    {
+                        decalage01 = aout - 180 - delaiClient;
+                        decalage02 = 30 - decalage01;
+
+                        Encaissement_Reçus_Clients0803 += montantDecalage * decalage01;
+                        Encaissement_Reçus_Clients0903 += montantDecalage * decalage02;
+
+                    }
+                    else
+                    {
+                        if (septembre - 180 > delaiClient)
+                        {
+                            decalage01 = septembre - 180 - delaiClient;
+                            decalage02 = 30 - decalage01;
+
+                            Encaissement_Reçus_Clients0903 += montantDecalage * decalage01;
+                            Encaissement_Reçus_Clients1003 += montantDecalage * decalage02;
+
+                        }
+                        else
+                        {
+                            if (octobre - 180 > delaiClient)
+                            {
+                                decalage01 = octobre - 180 - delaiClient;
+                                decalage02 = 30 - decalage01;
+
+                                Encaissement_Reçus_Clients1003 += montantDecalage * decalage01;
+                                Encaissement_Reçus_Clients1103 += montantDecalage * decalage02;
+
+                            }
+                            else
+                            {
+                                if (novembre - 180 > delaiClient)
+                                {
+                                    decalage01 = novembre - 180 - delaiClient;
+                                    decalage02 = 30 - decalage01;
+
+                                    Encaissement_Reçus_Clients1103 += montantDecalage * decalage01;
+                                    Encaissement_Reçus_Clients1203 += montantDecalage * decalage02;
+
+                                }
+                                else
+                                {
+                                    if (decembre - 180 > delaiClient)
+                                    {
+                                        decalage01 = decembre - 180 - delaiClient;
+                                        decalage02 = 30 - decalage01;
+
+                                        Encaissement_Reçus_Clients1203 += montantDecalage * decalage01;
+                                        Encaissement_Reçus_Clients0104 += montantDecalage * decalage02;
+
+                                    }
+                                    else
+                                    {
+                                        if (juillet > delaiClient)
+                                        {
+                                            decalage01 = juillet - delaiClient;
+                                            decalage02 = 30 - decalage01;
+
+                                            Encaissement_Reçus_Clients0104 += montantDecalage * decalage01;
+                                            Encaissement_Reçus_Clients0204 += montantDecalage * decalage02;
+
+                                        }
+                                        else
+                                        {
+                                            if (aout > delaiClient)
+                                            {
+                                                decalage01 = aout - delaiClient;
+                                                decalage02 = 30 - decalage01;
+
+                                                Encaissement_Reçus_Clients0204 += montantDecalage * decalage01;
+                                                Encaissement_Reçus_Clients0304 += montantDecalage * decalage02;
+
+                                            }
+                                            else
+                                            {
+                                                if (septembre > delaiClient)
+                                                {
+                                                    decalage01 = septembre - delaiClient;
+                                                    decalage02 = 30 - decalage01;
+
+                                                    Encaissement_Reçus_Clients0304 += montantDecalage * decalage01;
+                                                    Encaissement_Reçus_Clients0404 += montantDecalage * decalage02;
+
+                                                }
+                                                else
+                                                {
+                                                    if (octobre > delaiClient)
+                                                    {
+                                                        decalage01 = octobre - delaiClient;
+                                                        decalage02 = 30 - decalage01;
+
+                                                        Encaissement_Reçus_Clients0404 += montantDecalage * decalage01;
+                                                        Encaissement_Reçus_Clients0504 += montantDecalage * decalage02;
+
+                                                    }
+                                                    else
+                                                    {
+                                                        if (novembre > delaiClient)
+                                                        {
+                                                            decalage01 = novembre - delaiClient;
+                                                            decalage02 = 30 - decalage01;
+
+                                                            Encaissement_Reçus_Clients0504 += montantDecalage * decalage01;
+                                                            Encaissement_Reçus_Clients0604 += montantDecalage * decalage02;
+
+                                                        }
+                                                        else
+                                                        {
+                                                            if (decembre > delaiClient)
+                                                            {
+                                                                decalage01 = decembre - delaiClient;
+                                                                decalage02 = 30 - decalage01;
+
+                                                                Encaissement_Reçus_Clients0604 += montantDecalage * decalage01;
+                                                                Encaissement_Reçus_Clients0704 += montantDecalage * decalage02;
+
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                #endregion
+
+                #region  Encaissement août
+
+                montantDecalage = MontantChiffreAffaire0803 / 30;
+
+                if (aout - 210 > delaiClient)
+                {
+                    decalage01 = aout - 210 - delaiClient;
+                    decalage02 = 30 - decalage01;
+
+                    Encaissement_Reçus_Clients0803 += montantDecalage * decalage01;
+                    Encaissement_Reçus_Clients0903 += montantDecalage * decalage02;
+                }
+                else
+                {
+                    if (septembre - 210 > delaiClient)
+                    {
+                        decalage01 = septembre - 210 - delaiClient;
+                        decalage02 = 30 - decalage01;
+
+                        Encaissement_Reçus_Clients0903 += montantDecalage * decalage01;
+                        Encaissement_Reçus_Clients1003 += montantDecalage * decalage02;
+
+                    }
+                    else
+                    {
+                        if (octobre - 210 > delaiClient)
+                        {
+                            decalage01 = octobre - 210 - delaiClient;
+                            decalage02 = 30 - decalage01;
+
+                            Encaissement_Reçus_Clients1003 += montantDecalage * decalage01;
+                            Encaissement_Reçus_Clients1103 += montantDecalage * decalage02;
+
+                        }
+                        else
+                        {
+                            if (novembre - 210 > delaiClient)
+                            {
+                                decalage01 = novembre - 210 - delaiClient;
+                                decalage02 = 30 - decalage01;
+
+                                Encaissement_Reçus_Clients1103 += montantDecalage * decalage01;
+                                Encaissement_Reçus_Clients1203 += montantDecalage * decalage02;
+
+                            }
+                            else
+                            {
+                                if (decembre - 210 > delaiClient)
+                                {
+                                    decalage01 = decembre - 210 - delaiClient;
+                                    decalage02 = 30 - decalage01;
+
+                                    Encaissement_Reçus_Clients1203 += montantDecalage * decalage01;
+                                    Encaissement_Reçus_Clients0104 += montantDecalage * decalage02;
+
+                                }
+                                else
+                                {
+                                    if (juin > delaiClient)
+                                    {
+                                        decalage01 = juin - delaiClient;
+                                        decalage02 = 30 - decalage01;
+
+                                        Encaissement_Reçus_Clients0104 += montantDecalage * decalage01;
+                                        Encaissement_Reçus_Clients0204 += montantDecalage * decalage02;
+
+                                    }
+                                    else
+                                    {
+                                        if (juillet > delaiClient)
+                                        {
+                                            decalage01 = juillet - delaiClient;
+                                            decalage02 = 30 - decalage01;
+
+                                            Encaissement_Reçus_Clients0204 += montantDecalage * decalage01;
+                                            Encaissement_Reçus_Clients0304 += montantDecalage * decalage02;
+
+                                        }
+                                        else
+                                        {
+                                            if (aout > delaiClient)
+                                            {
+                                                decalage01 = aout - delaiClient;
+                                                decalage02 = 30 - decalage01;
+
+                                                Encaissement_Reçus_Clients0304 += montantDecalage * decalage01;
+                                                Encaissement_Reçus_Clients0404 += montantDecalage * decalage02;
+
+                                            }
+                                            else
+                                            {
+                                                if (septembre > delaiClient)
+                                                {
+                                                    decalage01 = septembre - delaiClient;
+                                                    decalage02 = 30 - decalage01;
+
+                                                    Encaissement_Reçus_Clients0404 += montantDecalage * decalage01;
+                                                    Encaissement_Reçus_Clients0504 += montantDecalage * decalage02;
+
+                                                }
+                                                else
+                                                {
+                                                    if (octobre > delaiClient)
+                                                    {
+                                                        decalage01 = octobre - delaiClient;
+                                                        decalage02 = 30 - decalage01;
+
+                                                        Encaissement_Reçus_Clients0504 += montantDecalage * decalage01;
+                                                        Encaissement_Reçus_Clients0604 += montantDecalage * decalage02;
+
+                                                    }
+                                                    else
+                                                    {
+                                                        if (novembre > delaiClient)
+                                                        {
+                                                            decalage01 = novembre - delaiClient;
+                                                            decalage02 = 30 - decalage01;
+
+                                                            Encaissement_Reçus_Clients0604 += montantDecalage * decalage01;
+                                                            Encaissement_Reçus_Clients0704 += montantDecalage * decalage02;
+
+                                                        }
+                                                        else
+                                                        {
+                                                            if (decembre > delaiClient)
+                                                            {
+                                                                decalage01 = decembre - delaiClient;
+                                                                decalage02 = 30 - decalage01;
+
+                                                                Encaissement_Reçus_Clients0704 += montantDecalage * decalage01;
+                                                                Encaissement_Reçus_Clients0804 += montantDecalage * decalage02;
+
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+                }
+
+                #endregion
+
+                #region  Encaissement septembre
+
+                montantDecalage = MontantChiffreAffaire0903 / 30;
+
+                if (septembre - 240 > delaiClient)
+                {
+                    decalage01 = septembre - 240 - delaiClient;
+                    decalage02 = 30 - decalage01;
+
+                    Encaissement_Reçus_Clients0903 += montantDecalage * decalage01;
+                    Encaissement_Reçus_Clients1003 += montantDecalage * decalage02;
+                }
+                else
+                {
+                    if (octobre - 240 > delaiClient)
+                    {
+                        decalage01 = octobre - 240 - delaiClient;
+                        decalage02 = 30 - decalage01;
+
+                        Encaissement_Reçus_Clients1003 += montantDecalage * decalage01;
+                        Encaissement_Reçus_Clients1103 += montantDecalage * decalage02;
+
+                    }
+                    else
+                    {
+                        if (novembre - 240 > delaiClient)
+                        {
+                            decalage01 = novembre - 240 - delaiClient;
+                            decalage02 = 30 - decalage01;
+
+                            Encaissement_Reçus_Clients1103 += montantDecalage * decalage01;
+                            Encaissement_Reçus_Clients1203 += montantDecalage * decalage02;
+
+                        }
+                        else
+                        {
+                            if (decembre - 240 > delaiClient)
+                            {
+                                decalage01 = decembre - 240 - delaiClient;
+                                decalage02 = 30 - decalage01;
+
+                                Encaissement_Reçus_Clients1203 += montantDecalage * decalage01;
+                                Encaissement_Reçus_Clients0104 += montantDecalage * decalage02;
+
+                            }
+                            else
+                            {
+                                if (mai > delaiClient)
+                                {
+                                    decalage01 = mai - delaiClient;
+                                    decalage02 = 30 - decalage01;
+
+                                    Encaissement_Reçus_Clients0104 += montantDecalage * decalage01;
+                                    Encaissement_Reçus_Clients0204 += montantDecalage * decalage02;
+
+                                }
+                                else
+                                {
+                                    if (juin > delaiClient)
+                                    {
+                                        decalage01 = juin - delaiClient;
+                                        decalage02 = 30 - decalage01;
+
+                                        Encaissement_Reçus_Clients0204 += montantDecalage * decalage01;
+                                        Encaissement_Reçus_Clients0304 += montantDecalage * decalage02;
+
+                                    }
+                                    else
+                                    {
+                                        if (juillet > delaiClient)
+                                        {
+                                            decalage01 = juillet - delaiClient;
+                                            decalage02 = 30 - decalage01;
+
+                                            Encaissement_Reçus_Clients0304 += montantDecalage * decalage01;
+                                            Encaissement_Reçus_Clients0404 += montantDecalage * decalage02;
+
+                                        }
+                                        else
+                                        {
+                                            if (aout > delaiClient)
+                                            {
+                                                decalage01 = aout - delaiClient;
+                                                decalage02 = 30 - decalage01;
+
+                                                Encaissement_Reçus_Clients0404 += montantDecalage * decalage01;
+                                                Encaissement_Reçus_Clients0504 += montantDecalage * decalage02;
+
+                                            }
+                                            else
+                                            {
+                                                if (septembre > delaiClient)
+                                                {
+                                                    decalage01 = septembre - delaiClient;
+                                                    decalage02 = 30 - decalage01;
+
+                                                    Encaissement_Reçus_Clients0504 += montantDecalage * decalage01;
+                                                    Encaissement_Reçus_Clients0604 += montantDecalage * decalage02;
+
+                                                }
+                                                else
+                                                {
+                                                    if (octobre > delaiClient)
+                                                    {
+                                                        decalage01 = octobre - delaiClient;
+                                                        decalage02 = 30 - decalage01;
+
+                                                        Encaissement_Reçus_Clients0604 += montantDecalage * decalage01;
+                                                        Encaissement_Reçus_Clients0704 += montantDecalage * decalage02;
+
+                                                    }
+                                                    else
+                                                    {
+                                                        if (novembre > delaiClient)
+                                                        {
+                                                            decalage01 = novembre - delaiClient;
+                                                            decalage02 = 30 - decalage01;
+
+                                                            Encaissement_Reçus_Clients0704 += montantDecalage * decalage01;
+                                                            Encaissement_Reçus_Clients0804 += montantDecalage * decalage02;
+
+                                                        }
+                                                        else
+                                                        {
+                                                            if (decembre > delaiClient)
+                                                            {
+                                                                decalage01 = decembre - delaiClient;
+                                                                decalage02 = 30 - decalage01;
+
+                                                                Encaissement_Reçus_Clients0804 += montantDecalage * decalage01;
+                                                                Encaissement_Reçus_Clients0904 += montantDecalage * decalage02;
+
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                #endregion
+
+                #region  Encaissement octobre
+
+                montantDecalage = MontantChiffreAffaire1003 / 30;
+
+                if (octobre - 270 > delaiClient)
+                {
+                    decalage01 = octobre - 270 - delaiClient;
+                    decalage02 = 30 - decalage01;
+
+                    Encaissement_Reçus_Clients1003 += montantDecalage * decalage01;
+                    Encaissement_Reçus_Clients1103 += montantDecalage * decalage02;
+                }
+                else
+                {
+                    if (novembre - 270 > delaiClient)
+                    {
+                        decalage01 = novembre - 270 - delaiClient;
+                        decalage02 = 30 - decalage01;
+
+                        Encaissement_Reçus_Clients1103 += montantDecalage * decalage01;
+                        Encaissement_Reçus_Clients1203 += montantDecalage * decalage02;
+
+                    }
+                    else
+                    {
+                        if (decembre - 270 > delaiClient)
+                        {
+                            decalage01 = decembre - 270 - delaiClient;
+                            decalage02 = 30 - decalage01;
+
+                            Encaissement_Reçus_Clients1203 += montantDecalage * decalage01;
+                            Encaissement_Reçus_Clients0104 += montantDecalage * decalage02;
+
+                        }
+                        else
+                        {
+                            if (avril > delaiClient)
+                            {
+                                decalage01 = avril - delaiClient;
+                                decalage02 = 30 - decalage01;
+
+                                Encaissement_Reçus_Clients0104 += montantDecalage * decalage01;
+                                Encaissement_Reçus_Clients0204 += montantDecalage * decalage02;
+
+                            }
+                            else
+                            {
+                                if (mai > delaiClient)
+                                {
+                                    decalage01 = mai - delaiClient;
+                                    decalage02 = 30 - decalage01;
+
+                                    Encaissement_Reçus_Clients0204 += montantDecalage * decalage01;
+                                    Encaissement_Reçus_Clients0304 += montantDecalage * decalage02;
+
+                                }
+                                else
+                                {
+                                    if (juin > delaiClient)
+                                    {
+                                        decalage01 = juin - delaiClient;
+                                        decalage02 = 30 - decalage01;
+
+                                        Encaissement_Reçus_Clients0304 += montantDecalage * decalage01;
+                                        Encaissement_Reçus_Clients0404 += montantDecalage * decalage02;
+
+                                    }
+                                    else
+                                    {
+                                        if (juillet > delaiClient)
+                                        {
+                                            decalage01 = juillet - delaiClient;
+                                            decalage02 = 30 - decalage01;
+
+                                            Encaissement_Reçus_Clients0404 += montantDecalage * decalage01;
+                                            Encaissement_Reçus_Clients0504 += montantDecalage * decalage02;
+
+                                        }
+                                        else
+                                        {
+                                            if (aout > delaiClient)
+                                            {
+                                                decalage01 = aout - delaiClient;
+                                                decalage02 = 30 - decalage01;
+
+                                                Encaissement_Reçus_Clients0504 += montantDecalage * decalage01;
+                                                Encaissement_Reçus_Clients0604 += montantDecalage * decalage02;
+
+                                            }
+                                            else
+                                            {
+                                                if (septembre > delaiClient)
+                                                {
+                                                    decalage01 = septembre - delaiClient;
+                                                    decalage02 = 30 - decalage01;
+
+                                                    Encaissement_Reçus_Clients0604 += montantDecalage * decalage01;
+                                                    Encaissement_Reçus_Clients0704 += montantDecalage * decalage02;
+
+                                                }
+                                                else
+                                                {
+                                                    if (octobre > delaiClient)
+                                                    {
+                                                        decalage01 = octobre - delaiClient;
+                                                        decalage02 = 30 - decalage01;
+
+                                                        Encaissement_Reçus_Clients0704 += montantDecalage * decalage01;
+                                                        Encaissement_Reçus_Clients0804 += montantDecalage * decalage02;
+
+                                                    }
+                                                    else
+                                                    {
+                                                        if (novembre > delaiClient)
+                                                        {
+                                                            decalage01 = novembre - delaiClient;
+                                                            decalage02 = 30 - decalage01;
+
+                                                            Encaissement_Reçus_Clients0804 += montantDecalage * decalage01;
+                                                            Encaissement_Reçus_Clients0904 += montantDecalage * decalage02;
+
+                                                        }
+                                                        else
+                                                        {
+                                                            if (decembre > delaiClient)
+                                                            {
+                                                                decalage01 = decembre - delaiClient;
+                                                                decalage02 = 30 - decalage01;
+
+                                                                Encaissement_Reçus_Clients0904 += montantDecalage * decalage01;
+                                                                Encaissement_Reçus_Clients1004 += montantDecalage * decalage02;
+
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                #endregion
+
+                #region  Encaissement novembre
+
+                montantDecalage = MontantChiffreAffaire1103 / 30;
+
+                if (novembre - 300 > delaiClient)
+                {
+                    decalage01 = novembre - 300 - delaiClient;
+                    decalage02 = 30 - decalage01;
+
+                    Encaissement_Reçus_Clients1103 += montantDecalage * decalage01;
+                    Encaissement_Reçus_Clients1203 += montantDecalage * decalage02;
+                }
+                else
+                {
+                    if (decembre - 300 > delaiClient)
+                    {
+                        decalage01 = decembre - 300 - delaiClient;
+                        decalage02 = 30 - decalage01;
+
+                        Encaissement_Reçus_Clients1203 += montantDecalage * decalage01;
+                        Encaissement_Reçus_Clients0104 += montantDecalage * decalage02;
+
+                    }
+                    else
+                    {
+                        if (mars > delaiClient)
+                        {
+                            decalage01 = mars - delaiClient;
+                            decalage02 = 30 - decalage01;
+
+                            Encaissement_Reçus_Clients0104 += montantDecalage * decalage01;
+                            Encaissement_Reçus_Clients0204 += montantDecalage * decalage02;
+
+                        }
+                        else
+                        {
+                            if (avril > delaiClient)
+                            {
+                                decalage01 = avril - delaiClient;
+                                decalage02 = 30 - decalage01;
+
+                                Encaissement_Reçus_Clients0204 += montantDecalage * decalage01;
+                                Encaissement_Reçus_Clients0304 += montantDecalage * decalage02;
+
+                            }
+                            else
+                            {
+                                if (mai > delaiClient)
+                                {
+                                    decalage01 = mai - delaiClient;
+                                    decalage02 = 30 - decalage01;
+
+                                    Encaissement_Reçus_Clients0304 += montantDecalage * decalage01;
+                                    Encaissement_Reçus_Clients0404 += montantDecalage * decalage02;
+
+                                }
+                                else
+                                {
+                                    if (juin > delaiClient)
+                                    {
+                                        decalage01 = juin - delaiClient;
+                                        decalage02 = 30 - decalage01;
+
+                                        Encaissement_Reçus_Clients0404 += montantDecalage * decalage01;
+                                        Encaissement_Reçus_Clients0504 += montantDecalage * decalage02;
+
+                                    }
+                                    else
+                                    {
+                                        if (juillet > delaiClient)
+                                        {
+                                            decalage01 = juillet - delaiClient;
+                                            decalage02 = 30 - decalage01;
+
+                                            Encaissement_Reçus_Clients0504 += montantDecalage * decalage01;
+                                            Encaissement_Reçus_Clients0604 += montantDecalage * decalage02;
+
+                                        }
+                                        else
+                                        {
+                                            if (aout > delaiClient)
+                                            {
+                                                decalage01 = aout - delaiClient;
+                                                decalage02 = 30 - decalage01;
+
+                                                Encaissement_Reçus_Clients0604 += montantDecalage * decalage01;
+                                                Encaissement_Reçus_Clients0704 += montantDecalage * decalage02;
+
+                                            }
+                                            else
+                                            {
+                                                if (septembre > delaiClient)
+                                                {
+                                                    decalage01 = septembre - delaiClient;
+                                                    decalage02 = 30 - decalage01;
+
+                                                    Encaissement_Reçus_Clients0704 += montantDecalage * decalage01;
+                                                    Encaissement_Reçus_Clients0804 += montantDecalage * decalage02;
+
+                                                }
+                                                else
+                                                {
+                                                    if (octobre > delaiClient)
+                                                    {
+                                                        decalage01 = octobre - delaiClient;
+                                                        decalage02 = 30 - decalage01;
+
+                                                        Encaissement_Reçus_Clients0804 += montantDecalage * decalage01;
+                                                        Encaissement_Reçus_Clients0904 += montantDecalage * decalage02;
+
+                                                    }
+                                                    else
+                                                    {
+                                                        if (novembre > delaiClient)
+                                                        {
+                                                            decalage01 = novembre - delaiClient;
+                                                            decalage02 = 30 - decalage01;
+
+                                                            Encaissement_Reçus_Clients0904 += montantDecalage * decalage01;
+                                                            Encaissement_Reçus_Clients1004 += montantDecalage * decalage02;
+
+                                                        }
+                                                        else
+                                                        {
+                                                            if (decembre > delaiClient)
+                                                            {
+                                                                decalage01 = decembre - delaiClient;
+                                                                decalage02 = 30 - decalage01;
+
+                                                                Encaissement_Reçus_Clients1004 += montantDecalage * decalage01;
+                                                                Encaissement_Reçus_Clients1104 += montantDecalage * decalage02;
+
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                    }
+                }
+
+                #endregion
+
+                #region  Encaissement decembre
+
+                montantDecalage = MontantChiffreAffaire1203 / 30;
+
+                if (decembre - 330 > delaiClient)
+                {
+                    decalage01 = decembre - 330 - delaiClient;
+                    decalage02 = 30 - decalage01;
+
+                    Encaissement_Reçus_Clients1203 += montantDecalage * decalage01;
+                    Encaissement_Reçus_Clients0104 += montantDecalage * decalage02;
+                }
+                else
+                {
+                    if (fevrier > delaiClient)
+                    {
+                        decalage01 = fevrier - delaiClient;
+                        decalage02 = 30 - decalage01;
+
+                        Encaissement_Reçus_Clients0104 += montantDecalage * decalage01;
+                        Encaissement_Reçus_Clients0204 += montantDecalage * decalage02;
+
+                    }
+                    else
+                    {
+                        if (mars > delaiClient)
+                        {
+                            decalage01 = mars - delaiClient;
+                            decalage02 = 30 - decalage01;
+
+                            Encaissement_Reçus_Clients0204 += montantDecalage * decalage01;
+                            Encaissement_Reçus_Clients0304 += montantDecalage * decalage02;
+
+                        }
+                        else
+                        {
+                            if (avril > delaiClient)
+                            {
+                                decalage01 = avril - delaiClient;
+                                decalage02 = 30 - decalage01;
+
+                                Encaissement_Reçus_Clients0304 += montantDecalage * decalage01;
+                                Encaissement_Reçus_Clients0404 += montantDecalage * decalage02;
+
+                            }
+                            else
+                            {
+                                if (mai > delaiClient)
+                                {
+                                    decalage01 = mai - delaiClient;
+                                    decalage02 = 30 - decalage01;
+
+                                    Encaissement_Reçus_Clients0404 += montantDecalage * decalage01;
+                                    Encaissement_Reçus_Clients0504 += montantDecalage * decalage02;
+
+                                }
+                                else
+                                {
+                                    if (juin > delaiClient)
+                                    {
+                                        decalage01 = juin - delaiClient;
+                                        decalage02 = 30 - decalage01;
+
+                                        Encaissement_Reçus_Clients0504 += montantDecalage * decalage01;
+                                        Encaissement_Reçus_Clients0604 += montantDecalage * decalage02;
+
+                                    }
+                                    else
+                                    {
+                                        if (juillet > delaiClient)
+                                        {
+                                            decalage01 = juillet - delaiClient;
+                                            decalage02 = 30 - decalage01;
+
+                                            Encaissement_Reçus_Clients0604 += montantDecalage * decalage01;
+                                            Encaissement_Reçus_Clients0704 += montantDecalage * decalage02;
+
+                                        }
+                                        else
+                                        {
+                                            if (aout > delaiClient)
+                                            {
+                                                decalage01 = aout - delaiClient;
+                                                decalage02 = 30 - decalage01;
+
+                                                Encaissement_Reçus_Clients0704 += montantDecalage * decalage01;
+                                                Encaissement_Reçus_Clients0804 += montantDecalage * decalage02;
+
+                                            }
+                                            else
+                                            {
+                                                if (septembre > delaiClient)
+                                                {
+                                                    decalage01 = septembre - delaiClient;
+                                                    decalage02 = 30 - decalage01;
+
+                                                    Encaissement_Reçus_Clients0804 += montantDecalage * decalage01;
+                                                    Encaissement_Reçus_Clients0904 += montantDecalage * decalage02;
+
+                                                }
+                                                else
+                                                {
+                                                    if (octobre > delaiClient)
+                                                    {
+                                                        decalage01 = octobre - delaiClient;
+                                                        decalage02 = 30 - decalage01;
+
+                                                        Encaissement_Reçus_Clients0904 += montantDecalage * decalage01;
+                                                        Encaissement_Reçus_Clients1004 += montantDecalage * decalage02;
+
+                                                    }
+                                                    else
+                                                    {
+                                                        if (novembre > delaiClient)
+                                                        {
+                                                            decalage01 = novembre - delaiClient;
+                                                            decalage02 = 30 - decalage01;
+
+                                                            Encaissement_Reçus_Clients1004 += montantDecalage * decalage01;
+                                                            Encaissement_Reçus_Clients1104 += montantDecalage * decalage02;
+
+                                                        }
+                                                        else
+                                                        {
+                                                            if (decembre > delaiClient)
+                                                            {
+                                                                decalage01 = decembre - delaiClient;
+                                                                decalage02 = 30 - decalage01;
+
+                                                                Encaissement_Reçus_Clients1104 += montantDecalage * decalage01;
+                                                                Encaissement_Reçus_Clients1204 += montantDecalage * decalage02;
+
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+
+                #endregion
+
+            }
+
+            #endregion
+
+            // Remplacer 1204 par 1205 --> 0103 par 0104
+            #region  Encaissement Clients Année 04
+
+            if (delaiClient < 360 && delaiClient >= 0)
+            {
+                #region  Encaissement janvier
+
+                montantDecalage = MontantChiffreAffaire0103 / 30;
+
+                if (janvier > delaiClient)
+                {
+                    decalage01 = janvier - delaiClient;
+                    decalage02 = 30 - decalage01;
+
+                    Encaissement_Reçus_Clients0103 += montantDecalage * decalage01;
+                    Encaissement_Reçus_Clients0203 += montantDecalage * decalage02;
+
+                }
+                else
+                {
+                    if (fevrier > delaiClient)
+                    {
+                        decalage01 = fevrier - delaiClient;
+                        decalage02 = 30 - decalage01;
+
+                        Encaissement_Reçus_Clients0203 += montantDecalage * decalage01;
+                        Encaissement_Reçus_Clients0303 += montantDecalage * decalage02;
+
+                    }
+                    else
+                    {
+                        if (mars > delaiClient)
+                        {
+                            decalage01 = mars - delaiClient;
+                            decalage02 = 30 - decalage01;
+
+                            Encaissement_Reçus_Clients0303 += montantDecalage * decalage01;
+                            Encaissement_Reçus_Clients0403 += montantDecalage * decalage02;
+
+                        }
+                        else
+                        {
+                            if (avril > delaiClient)
+                            {
+                                decalage01 = avril - delaiClient;
+                                decalage02 = 30 - decalage01;
+
+                                Encaissement_Reçus_Clients0403 += montantDecalage * decalage01;
+                                Encaissement_Reçus_Clients0503 += montantDecalage * decalage02;
+
+                            }
+                            else
+                            {
+                                if (mai > delaiClient)
+                                {
+                                    decalage01 = mai - delaiClient;
+                                    decalage02 = 30 - decalage01;
+
+                                    Encaissement_Reçus_Clients0503 += montantDecalage * decalage01;
+                                    Encaissement_Reçus_Clients0603 += montantDecalage * decalage02;
+
+                                }
+                                else
+                                {
+                                    if (juin > delaiClient)
+                                    {
+                                        decalage01 = juin - delaiClient;
+                                        decalage02 = 30 - decalage01;
+
+                                        Encaissement_Reçus_Clients0603 += montantDecalage * decalage01;
+                                        Encaissement_Reçus_Clients0703 += montantDecalage * decalage02;
+
+                                    }
+                                    else
+                                    {
+                                        if (juillet > delaiClient)
+                                        {
+                                            decalage01 = juillet - delaiClient;
+                                            decalage02 = 30 - decalage01;
+
+                                            Encaissement_Reçus_Clients0703 += montantDecalage * decalage01;
+                                            Encaissement_Reçus_Clients0803 += montantDecalage * decalage02;
+
+                                        }
+                                        else
+                                        {
+                                            if (aout > delaiClient)
+                                            {
+                                                decalage01 = aout - delaiClient;
+                                                decalage02 = 30 - decalage01;
+
+                                                Encaissement_Reçus_Clients0803 += montantDecalage * decalage01;
+                                                Encaissement_Reçus_Clients0903 += montantDecalage * decalage02;
+
+                                            }
+                                            else
+                                            {
+                                                if (septembre > delaiClient)
+                                                {
+                                                    decalage01 = septembre - delaiClient;
+                                                    decalage02 = 30 - decalage01;
+
+                                                    Encaissement_Reçus_Clients0903 += montantDecalage * decalage01;
+                                                    Encaissement_Reçus_Clients1003 += montantDecalage * decalage02;
+
+                                                }
+                                                else
+                                                {
+                                                    if (octobre > delaiClient)
+                                                    {
+                                                        decalage01 = octobre - delaiClient;
+                                                        decalage02 = 30 - decalage01;
+
+                                                        Encaissement_Reçus_Clients1003 += montantDecalage * decalage01;
+                                                        Encaissement_Reçus_Clients1103 += montantDecalage * decalage02;
+
+                                                    }
+                                                    else
+                                                    {
+                                                        if (novembre > delaiClient)
+                                                        {
+                                                            decalage01 = novembre - delaiClient;
+                                                            decalage02 = 30 - decalage01;
+
+                                                            Encaissement_Reçus_Clients1103 += montantDecalage * decalage01;
+                                                            Encaissement_Reçus_Clients1203 += montantDecalage * decalage02;
+
+                                                        }
+                                                        else
+                                                        {
+                                                            if (decembre > delaiClient)
+                                                            {
+                                                                decalage01 = decembre - delaiClient;
+                                                                decalage02 = 30 - decalage01;
+
+                                                                Encaissement_Reçus_Clients1203 += montantDecalage * decalage01;
+                                                                Encaissement_Reçus_Clients0104 += montantDecalage * decalage02;
+
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                #endregion
+
+                #region  Encaissement fevrier
+
+                montantDecalage = MontantChiffreAffaire0203 / 30;
+
+                if (fevrier - 30 > delaiClient)
+                {
+                    decalage01 = fevrier - 30 - delaiClient;
+                    decalage02 = 30 - decalage01;
+
+                    Encaissement_Reçus_Clients0203 += montantDecalage * decalage01;
+                    Encaissement_Reçus_Clients0303 += montantDecalage * decalage02;
+                }
+                else
+                {
+                    if (mars - 30 > delaiClient)
+                    {
+                        decalage01 = mars - 30 - delaiClient;
+                        decalage02 = 30 - decalage01;
+
+                        Encaissement_Reçus_Clients0303 += montantDecalage * decalage01;
+                        Encaissement_Reçus_Clients0403 += montantDecalage * decalage02;
+
+                    }
+                    else
+                    {
+                        if (avril - 30 > delaiClient)
+                        {
+                            decalage01 = avril - 30 - delaiClient;
+                            decalage02 = 30 - decalage01;
+
+                            Encaissement_Reçus_Clients0403 += montantDecalage * decalage01;
+                            Encaissement_Reçus_Clients0503 += montantDecalage * decalage02;
+
+                        }
+                        else
+                        {
+                            if (mai - 30 > delaiClient)
+                            {
+                                decalage01 = mai - 30 - delaiClient;
+                                decalage02 = 30 - decalage01;
+
+                                Encaissement_Reçus_Clients0503 += montantDecalage * decalage01;
+                                Encaissement_Reçus_Clients0603 += montantDecalage * decalage02;
+
+                            }
+                            else
+                            {
+                                if (juin - 30 > delaiClient)
+                                {
+                                    decalage01 = juin - 30 - delaiClient;
+                                    decalage02 = 30 - decalage01;
+
+                                    Encaissement_Reçus_Clients0603 += montantDecalage * decalage01;
+                                    Encaissement_Reçus_Clients0703 += montantDecalage * decalage02;
+
+                                }
+                                else
+                                {
+                                    if (juillet - 30 > delaiClient)
+                                    {
+                                        decalage01 = juillet - 30 - delaiClient;
+                                        decalage02 = 30 - decalage01;
+
+                                        Encaissement_Reçus_Clients0703 += montantDecalage * decalage01;
+                                        Encaissement_Reçus_Clients0803 += montantDecalage * decalage02;
+
+                                    }
+                                    else
+                                    {
+                                        if (aout - 30 > delaiClient)
+                                        {
+                                            decalage01 = aout - 30 - delaiClient;
+                                            decalage02 = 30 - decalage01;
+
+                                            Encaissement_Reçus_Clients0803 += montantDecalage * decalage01;
+                                            Encaissement_Reçus_Clients0903 += montantDecalage * decalage02;
+
+                                        }
+                                        else
+                                        {
+                                            if (septembre - 30 > delaiClient)
+                                            {
+                                                decalage01 = septembre - 30 - delaiClient;
+                                                decalage02 = 30 - decalage01;
+
+                                                Encaissement_Reçus_Clients0903 += montantDecalage * decalage01;
+                                                Encaissement_Reçus_Clients1003 += montantDecalage * decalage02;
+
+                                            }
+                                            else
+                                            {
+                                                if (octobre - 30 > delaiClient)
+                                                {
+                                                    decalage01 = octobre - 30 - delaiClient;
+                                                    decalage02 = 30 - decalage01;
+
+                                                    Encaissement_Reçus_Clients1003 += montantDecalage * decalage01;
+                                                    Encaissement_Reçus_Clients1103 += montantDecalage * decalage02;
+
+                                                }
+                                                else
+                                                {
+                                                    if (novembre - 30 > delaiClient)
+                                                    {
+                                                        decalage01 = novembre - 30 - delaiClient;
+                                                        decalage02 = 30 - decalage01;
+
+                                                        Encaissement_Reçus_Clients1103 += montantDecalage * decalage01;
+                                                        Encaissement_Reçus_Clients1203 += montantDecalage * decalage02;
+
+                                                    }
+                                                    else
+                                                    {
+                                                        if (decembre - 30 > delaiClient)
+                                                        {
+                                                            decalage01 = decembre - 30 - delaiClient;
+                                                            decalage02 = 30 - decalage01;
+
+                                                            Encaissement_Reçus_Clients1203 += montantDecalage * decalage01;
+                                                            Encaissement_Reçus_Clients0104 += montantDecalage * decalage02;
+
+                                                        }
+                                                        else
+                                                        {
+                                                            if (decembre > delaiClient)
+                                                            {
+                                                                decalage01 = decembre - delaiClient;
+                                                                decalage02 = 30 - decalage01;
+
+                                                                Encaissement_Reçus_Clients0104 += montantDecalage * decalage01;
+                                                                Encaissement_Reçus_Clients0204 += montantDecalage * decalage02;
+
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                #endregion
+
+                #region  Encaissement mars
+
+                montantDecalage = MontantChiffreAffaire0303 / 30;
+
+                if (mars - 60 > delaiClient)
+                {
+                    decalage01 = mars - 60 - delaiClient;
+                    decalage02 = 30 - decalage01;
+
+                    Encaissement_Reçus_Clients0303 += montantDecalage * decalage01;
+                    Encaissement_Reçus_Clients0403 += montantDecalage * decalage02;
+                }
+                else
+                {
+                    if (avril - 60 > delaiClient)
+                    {
+                        decalage01 = avril - 60 - delaiClient;
+                        decalage02 = 30 - decalage01;
+
+                        Encaissement_Reçus_Clients0403 += montantDecalage * decalage01;
+                        Encaissement_Reçus_Clients0503 += montantDecalage * decalage02;
+
+                    }
+                    else
+                    {
+                        if (mai - 60 > delaiClient)
+                        {
+                            decalage01 = mai - 60 - delaiClient;
+                            decalage02 = 30 - decalage01;
+
+                            Encaissement_Reçus_Clients0503 += montantDecalage * decalage01;
+                            Encaissement_Reçus_Clients0603 += montantDecalage * decalage02;
+
+                        }
+                        else
+                        {
+                            if (juin - 60 > delaiClient)
+                            {
+                                decalage01 = juin - 60 - delaiClient;
+                                decalage02 = 30 - decalage01;
+
+                                Encaissement_Reçus_Clients0603 += montantDecalage * decalage01;
+                                Encaissement_Reçus_Clients0703 += montantDecalage * decalage02;
+
+                            }
+                            else
+                            {
+                                if (juillet - 60 > delaiClient)
+                                {
+                                    decalage01 = juillet - 60 - delaiClient;
+                                    decalage02 = 30 - decalage01;
+
+                                    Encaissement_Reçus_Clients0703 += montantDecalage * decalage01;
+                                    Encaissement_Reçus_Clients0803 += montantDecalage * decalage02;
+
+                                }
+                                else
+                                {
+                                    if (aout - 60 > delaiClient)
+                                    {
+                                        decalage01 = aout - 60 - delaiClient;
+                                        decalage02 = 30 - decalage01;
+
+                                        Encaissement_Reçus_Clients0803 += montantDecalage * decalage01;
+                                        Encaissement_Reçus_Clients0903 += montantDecalage * decalage02;
+
+                                    }
+                                    else
+                                    {
+                                        if (septembre - 60 > delaiClient)
+                                        {
+                                            decalage01 = septembre - 60 - delaiClient;
+                                            decalage02 = 30 - decalage01;
+
+                                            Encaissement_Reçus_Clients0903 += montantDecalage * decalage01;
+                                            Encaissement_Reçus_Clients1003 += montantDecalage * decalage02;
+
+                                        }
+                                        else
+                                        {
+                                            if (octobre - 60 > delaiClient)
+                                            {
+                                                decalage01 = octobre - 60 - delaiClient;
+                                                decalage02 = 30 - decalage01;
+
+                                                Encaissement_Reçus_Clients1003 += montantDecalage * decalage01;
+                                                Encaissement_Reçus_Clients1103 += montantDecalage * decalage02;
+
+                                            }
+                                            else
+                                            {
+                                                if (novembre - 60 > delaiClient)
+                                                {
+                                                    decalage01 = novembre - 60 - delaiClient;
+                                                    decalage02 = 30 - decalage01;
+
+                                                    Encaissement_Reçus_Clients1103 += montantDecalage * decalage01;
+                                                    Encaissement_Reçus_Clients1203 += montantDecalage * decalage02;
+
+                                                }
+                                                else
+                                                {
+                                                    if (decembre - 60 > delaiClient)
+                                                    {
+                                                        decalage01 = decembre - 60 - delaiClient;
+                                                        decalage02 = 30 - decalage01;
+
+                                                        Encaissement_Reçus_Clients1203 += montantDecalage * decalage01;
+                                                        Encaissement_Reçus_Clients0104 += montantDecalage * decalage02;
+
+                                                    }
+                                                    else
+                                                    {
+                                                        if (novembre > delaiClient)
+                                                        {
+                                                            decalage01 = novembre - delaiClient;
+                                                            decalage02 = 30 - decalage01;
+
+                                                            Encaissement_Reçus_Clients0104 += montantDecalage * decalage01;
+                                                            Encaissement_Reçus_Clients0204 += montantDecalage * decalage02;
+
+                                                        }
+                                                        else
+                                                        {
+                                                            if (decembre > delaiClient)
+                                                            {
+                                                                decalage01 = decembre - delaiClient;
+                                                                decalage02 = 30 - decalage01;
+
+                                                                Encaissement_Reçus_Clients0204 += montantDecalage * decalage01;
+                                                                Encaissement_Reçus_Clients0304 += montantDecalage * decalage02;
+
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                #endregion
+
+                #region  Encaissement avril
+
+                montantDecalage = MontantChiffreAffaire0403 / 30;
+
+                if (avril - 90 > delaiClient)
+                {
+                    decalage01 = avril - 90 - delaiClient;
+                    decalage02 = 30 - decalage01;
+
+                    Encaissement_Reçus_Clients0403 += montantDecalage * decalage01;
+                    Encaissement_Reçus_Clients0503 += montantDecalage * decalage02;
+                }
+                else
+                {
+                    if (mai - 90 > delaiClient)
+                    {
+                        decalage01 = mai - 90 - delaiClient;
+                        decalage02 = 30 - decalage01;
+
+                        Encaissement_Reçus_Clients0503 += montantDecalage * decalage01;
+                        Encaissement_Reçus_Clients0603 += montantDecalage * decalage02;
+
+                    }
+                    else
+                    {
+                        if (juin - 90 > delaiClient)
+                        {
+                            decalage01 = juin - 90 - delaiClient;
+                            decalage02 = 30 - decalage01;
+
+                            Encaissement_Reçus_Clients0603 += montantDecalage * decalage01;
+                            Encaissement_Reçus_Clients0703 += montantDecalage * decalage02;
+
+                        }
+                        else
+                        {
+                            if (juillet - 90 > delaiClient)
+                            {
+                                decalage01 = juillet - 90 - delaiClient;
+                                decalage02 = 30 - decalage01;
+
+                                Encaissement_Reçus_Clients0703 += montantDecalage * decalage01;
+                                Encaissement_Reçus_Clients0803 += montantDecalage * decalage02;
+
+                            }
+                            else
+                            {
+                                if (aout - 90 > delaiClient)
+                                {
+                                    decalage01 = aout - 90 - delaiClient;
+                                    decalage02 = 30 - decalage01;
+
+                                    Encaissement_Reçus_Clients0803 += montantDecalage * decalage01;
+                                    Encaissement_Reçus_Clients0903 += montantDecalage * decalage02;
+
+                                }
+                                else
+                                {
+                                    if (septembre - 90 > delaiClient)
+                                    {
+                                        decalage01 = septembre - 90 - delaiClient;
+                                        decalage02 = 30 - decalage01;
+
+                                        Encaissement_Reçus_Clients0903 += montantDecalage * decalage01;
+                                        Encaissement_Reçus_Clients1003 += montantDecalage * decalage02;
+
+                                    }
+                                    else
+                                    {
+                                        if (octobre - 90 > delaiClient)
+                                        {
+                                            decalage01 = octobre - 90 - delaiClient;
+                                            decalage02 = 30 - decalage01;
+
+                                            Encaissement_Reçus_Clients1003 += montantDecalage * decalage01;
+                                            Encaissement_Reçus_Clients1103 += montantDecalage * decalage02;
+
+                                        }
+                                        else
+                                        {
+                                            if (novembre - 90 > delaiClient)
+                                            {
+                                                decalage01 = novembre - 90 - delaiClient;
+                                                decalage02 = 30 - decalage01;
+
+                                                Encaissement_Reçus_Clients1103 += montantDecalage * decalage01;
+                                                Encaissement_Reçus_Clients1203 += montantDecalage * decalage02;
+
+                                            }
+                                            else
+                                            {
+                                                if (decembre - 90 > delaiClient)
+                                                {
+                                                    decalage01 = decembre - 90 - delaiClient;
+                                                    decalage02 = 30 - decalage01;
+
+                                                    Encaissement_Reçus_Clients1203 += montantDecalage * decalage01;
+                                                    Encaissement_Reçus_Clients0104 += montantDecalage * decalage02;
+
+                                                }
+                                                else
+                                                {
+                                                    if (octobre > delaiClient)
+                                                    {
+                                                        decalage01 = octobre - delaiClient;
+                                                        decalage02 = 30 - decalage01;
+
+                                                        Encaissement_Reçus_Clients0104 += montantDecalage * decalage01;
+                                                        Encaissement_Reçus_Clients0204 += montantDecalage * decalage02;
+
+                                                    }
+                                                    else
+                                                    {
+                                                        if (novembre > delaiClient)
+                                                        {
+                                                            decalage01 = novembre - delaiClient;
+                                                            decalage02 = 30 - decalage01;
+
+                                                            Encaissement_Reçus_Clients0204 += montantDecalage * decalage01;
+                                                            Encaissement_Reçus_Clients0304 += montantDecalage * decalage02;
+
+                                                        }
+                                                        else
+                                                        {
+                                                            if (decembre > delaiClient)
+                                                            {
+                                                                decalage01 = decembre - delaiClient;
+                                                                decalage02 = 30 - decalage01;
+
+                                                                Encaissement_Reçus_Clients0304 += montantDecalage * decalage01;
+                                                                Encaissement_Reçus_Clients0404 += montantDecalage * decalage02;
+
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                #endregion
+
+                #region  Encaissement mai
+
+                montantDecalage = MontantChiffreAffaire0503 / 30;
+
+                if (mai - 120 > delaiClient)
+                {
+                    decalage01 = mai - 120 - delaiClient;
+                    decalage02 = 30 - decalage01;
+
+                    Encaissement_Reçus_Clients0503 += montantDecalage * decalage01;
+                    Encaissement_Reçus_Clients0603 += montantDecalage * decalage02;
+                }
+                else
+                {
+                    if (juin - 120 > delaiClient)
+                    {
+                        decalage01 = juin - 120 - delaiClient;
+                        decalage02 = 30 - decalage01;
+
+                        Encaissement_Reçus_Clients0603 += montantDecalage * decalage01;
+                        Encaissement_Reçus_Clients0703 += montantDecalage * decalage02;
+
+                    }
+                    else
+                    {
+                        if (juillet - 120 > delaiClient)
+                        {
+                            decalage01 = juillet - 120 - delaiClient;
+                            decalage02 = 30 - decalage01;
+
+                            Encaissement_Reçus_Clients0703 += montantDecalage * decalage01;
+                            Encaissement_Reçus_Clients0803 += montantDecalage * decalage02;
+
+                        }
+                        else
+                        {
+                            if (aout - 120 > delaiClient)
+                            {
+                                decalage01 = aout - 120 - delaiClient;
+                                decalage02 = 30 - decalage01;
+
+                                Encaissement_Reçus_Clients0803 += montantDecalage * decalage01;
+                                Encaissement_Reçus_Clients0903 += montantDecalage * decalage02;
+
+                            }
+                            else
+                            {
+                                if (septembre - 120 > delaiClient)
+                                {
+                                    decalage01 = septembre - 120 - delaiClient;
+                                    decalage02 = 30 - decalage01;
+
+                                    Encaissement_Reçus_Clients0903 += montantDecalage * decalage01;
+                                    Encaissement_Reçus_Clients1003 += montantDecalage * decalage02;
+
+                                }
+                                else
+                                {
+                                    if (octobre - 120 > delaiClient)
+                                    {
+                                        decalage01 = octobre - 120 - delaiClient;
+                                        decalage02 = 30 - decalage01;
+
+                                        Encaissement_Reçus_Clients1003 += montantDecalage * decalage01;
+                                        Encaissement_Reçus_Clients1103 += montantDecalage * decalage02;
+
+                                    }
+                                    else
+                                    {
+                                        if (novembre - 120 > delaiClient)
+                                        {
+                                            decalage01 = novembre - 120 - delaiClient;
+                                            decalage02 = 30 - decalage01;
+
+                                            Encaissement_Reçus_Clients1103 += montantDecalage * decalage01;
+                                            Encaissement_Reçus_Clients1203 += montantDecalage * decalage02;
+
+                                        }
+                                        else
+                                        {
+                                            if (decembre - 120 > delaiClient)
+                                            {
+                                                decalage01 = decembre - 120 - delaiClient;
+                                                decalage02 = 30 - decalage01;
+
+                                                Encaissement_Reçus_Clients1203 += montantDecalage * decalage01;
+                                                Encaissement_Reçus_Clients0104 += montantDecalage * decalage02;
+
+                                            }
+                                            else
+                                            {
+                                                if (septembre > delaiClient)
+                                                {
+                                                    decalage01 = septembre - delaiClient;
+                                                    decalage02 = 30 - decalage01;
+
+                                                    Encaissement_Reçus_Clients0104 += montantDecalage * decalage01;
+                                                    Encaissement_Reçus_Clients0204 += montantDecalage * decalage02;
+
+                                                }
+                                                else
+                                                {
+                                                    if (octobre > delaiClient)
+                                                    {
+                                                        decalage01 = octobre - delaiClient;
+                                                        decalage02 = 30 - decalage01;
+
+                                                        Encaissement_Reçus_Clients0204 += montantDecalage * decalage01;
+                                                        Encaissement_Reçus_Clients0304 += montantDecalage * decalage02;
+
+                                                    }
+                                                    else
+                                                    {
+                                                        if (novembre > delaiClient)
+                                                        {
+                                                            decalage01 = novembre - delaiClient;
+                                                            decalage02 = 30 - decalage01;
+
+                                                            Encaissement_Reçus_Clients0304 += montantDecalage * decalage01;
+                                                            Encaissement_Reçus_Clients0404 += montantDecalage * decalage02;
+
+                                                        }
+                                                        else
+                                                        {
+                                                            if (decembre > delaiClient)
+                                                            {
+                                                                decalage01 = decembre - delaiClient;
+                                                                decalage02 = 30 - decalage01;
+
+                                                                Encaissement_Reçus_Clients0404 += montantDecalage * decalage01;
+                                                                Encaissement_Reçus_Clients0504 += montantDecalage * decalage02;
+
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                #endregion
+
+                #region  Encaissement juin
+
+                montantDecalage = MontantChiffreAffaire0603 / 30;
+
+                if (juin - 150 > delaiClient)
+                {
+                    decalage01 = juin - 150 - delaiClient;
+                    decalage02 = 30 - decalage01;
+
+                    Encaissement_Reçus_Clients0603 += montantDecalage * decalage01;
+                    Encaissement_Reçus_Clients0703 += montantDecalage * decalage02;
+                }
+                else
+                {
+                    if (juillet - 150 > delaiClient)
+                    {
+                        decalage01 = juillet - 150 - delaiClient;
+                        decalage02 = 30 - decalage01;
+
+                        Encaissement_Reçus_Clients0703 += montantDecalage * decalage01;
+                        Encaissement_Reçus_Clients0803 += montantDecalage * decalage02;
+
+                    }
+                    else
+                    {
+                        if (aout - 150 > delaiClient)
+                        {
+                            decalage01 = aout - 150 - delaiClient;
+                            decalage02 = 30 - decalage01;
+
+                            Encaissement_Reçus_Clients0803 += montantDecalage * decalage01;
+                            Encaissement_Reçus_Clients0903 += montantDecalage * decalage02;
+
+                        }
+                        else
+                        {
+                            if (septembre - 150 > delaiClient)
+                            {
+                                decalage01 = septembre - 150 - delaiClient;
+                                decalage02 = 30 - decalage01;
+
+                                Encaissement_Reçus_Clients0903 += montantDecalage * decalage01;
+                                Encaissement_Reçus_Clients1003 += montantDecalage * decalage02;
+
+                            }
+                            else
+                            {
+                                if (octobre - 150 > delaiClient)
+                                {
+                                    decalage01 = octobre - 150 - delaiClient;
+                                    decalage02 = 30 - decalage01;
+
+                                    Encaissement_Reçus_Clients1003 += montantDecalage * decalage01;
+                                    Encaissement_Reçus_Clients1103 += montantDecalage * decalage02;
+
+                                }
+                                else
+                                {
+                                    if (novembre - 150 > delaiClient)
+                                    {
+                                        decalage01 = novembre - 150 - delaiClient;
+                                        decalage02 = 30 - decalage01;
+
+                                        Encaissement_Reçus_Clients1103 += montantDecalage * decalage01;
+                                        Encaissement_Reçus_Clients1203 += montantDecalage * decalage02;
+
+                                    }
+                                    else
+                                    {
+                                        if (decembre - 150 > delaiClient)
+                                        {
+                                            decalage01 = decembre - 150 - delaiClient;
+                                            decalage02 = 30 - decalage01;
+
+                                            Encaissement_Reçus_Clients1203 += montantDecalage * decalage01;
+                                            Encaissement_Reçus_Clients0104 += montantDecalage * decalage02;
+
+                                        }
+                                        else
+                                        {
+                                            if (aout > delaiClient)
+                                            {
+                                                decalage01 = aout - delaiClient;
+                                                decalage02 = 30 - decalage01;
+
+                                                Encaissement_Reçus_Clients0104 += montantDecalage * decalage01;
+                                                Encaissement_Reçus_Clients0204 += montantDecalage * decalage02;
+
+                                            }
+                                            else
+                                            {
+                                                if (septembre > delaiClient)
+                                                {
+                                                    decalage01 = septembre - delaiClient;
+                                                    decalage02 = 30 - decalage01;
+
+                                                    Encaissement_Reçus_Clients0204 += montantDecalage * decalage01;
+                                                    Encaissement_Reçus_Clients0304 += montantDecalage * decalage02;
+
+                                                }
+                                                else
+                                                {
+                                                    if (octobre > delaiClient)
+                                                    {
+                                                        decalage01 = octobre - delaiClient;
+                                                        decalage02 = 30 - decalage01;
+
+                                                        Encaissement_Reçus_Clients0304 += montantDecalage * decalage01;
+                                                        Encaissement_Reçus_Clients0404 += montantDecalage * decalage02;
+
+                                                    }
+                                                    else
+                                                    {
+                                                        if (novembre > delaiClient)
+                                                        {
+                                                            decalage01 = novembre - delaiClient;
+                                                            decalage02 = 30 - decalage01;
+
+                                                            Encaissement_Reçus_Clients0404 += montantDecalage * decalage01;
+                                                            Encaissement_Reçus_Clients0504 += montantDecalage * decalage02;
+
+                                                        }
+                                                        else
+                                                        {
+                                                            if (decembre > delaiClient)
+                                                            {
+                                                                decalage01 = decembre - delaiClient;
+                                                                decalage02 = 30 - decalage01;
+
+                                                                Encaissement_Reçus_Clients0504 += montantDecalage * decalage01;
+                                                                Encaissement_Reçus_Clients0604 += montantDecalage * decalage02;
+
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                #endregion
+
+                #region  Encaissement juillet
+
+                montantDecalage = MontantChiffreAffaire0703 / 30;
+
+                if (juillet - 180 > delaiClient)
+                {
+                    decalage01 = juillet - 180 - delaiClient;
+                    decalage02 = 30 - decalage01;
+
+                    Encaissement_Reçus_Clients0703 += montantDecalage * decalage01;
+                    Encaissement_Reçus_Clients0803 += montantDecalage * decalage02;
+                }
+                else
+                {
+                    if (aout - 180 > delaiClient)
+                    {
+                        decalage01 = aout - 180 - delaiClient;
+                        decalage02 = 30 - decalage01;
+
+                        Encaissement_Reçus_Clients0803 += montantDecalage * decalage01;
+                        Encaissement_Reçus_Clients0903 += montantDecalage * decalage02;
+
+                    }
+                    else
+                    {
+                        if (septembre - 180 > delaiClient)
+                        {
+                            decalage01 = septembre - 180 - delaiClient;
+                            decalage02 = 30 - decalage01;
+
+                            Encaissement_Reçus_Clients0903 += montantDecalage * decalage01;
+                            Encaissement_Reçus_Clients1003 += montantDecalage * decalage02;
+
+                        }
+                        else
+                        {
+                            if (octobre - 180 > delaiClient)
+                            {
+                                decalage01 = octobre - 180 - delaiClient;
+                                decalage02 = 30 - decalage01;
+
+                                Encaissement_Reçus_Clients1003 += montantDecalage * decalage01;
+                                Encaissement_Reçus_Clients1103 += montantDecalage * decalage02;
+
+                            }
+                            else
+                            {
+                                if (novembre - 180 > delaiClient)
+                                {
+                                    decalage01 = novembre - 180 - delaiClient;
+                                    decalage02 = 30 - decalage01;
+
+                                    Encaissement_Reçus_Clients1103 += montantDecalage * decalage01;
+                                    Encaissement_Reçus_Clients1203 += montantDecalage * decalage02;
+
+                                }
+                                else
+                                {
+                                    if (decembre - 180 > delaiClient)
+                                    {
+                                        decalage01 = decembre - 180 - delaiClient;
+                                        decalage02 = 30 - decalage01;
+
+                                        Encaissement_Reçus_Clients1203 += montantDecalage * decalage01;
+                                        Encaissement_Reçus_Clients0104 += montantDecalage * decalage02;
+
+                                    }
+                                    else
+                                    {
+                                        if (juillet > delaiClient)
+                                        {
+                                            decalage01 = juillet - delaiClient;
+                                            decalage02 = 30 - decalage01;
+
+                                            Encaissement_Reçus_Clients0104 += montantDecalage * decalage01;
+                                            Encaissement_Reçus_Clients0204 += montantDecalage * decalage02;
+
+                                        }
+                                        else
+                                        {
+                                            if (aout > delaiClient)
+                                            {
+                                                decalage01 = aout - delaiClient;
+                                                decalage02 = 30 - decalage01;
+
+                                                Encaissement_Reçus_Clients0204 += montantDecalage * decalage01;
+                                                Encaissement_Reçus_Clients0304 += montantDecalage * decalage02;
+
+                                            }
+                                            else
+                                            {
+                                                if (septembre > delaiClient)
+                                                {
+                                                    decalage01 = septembre - delaiClient;
+                                                    decalage02 = 30 - decalage01;
+
+                                                    Encaissement_Reçus_Clients0304 += montantDecalage * decalage01;
+                                                    Encaissement_Reçus_Clients0404 += montantDecalage * decalage02;
+
+                                                }
+                                                else
+                                                {
+                                                    if (octobre > delaiClient)
+                                                    {
+                                                        decalage01 = octobre - delaiClient;
+                                                        decalage02 = 30 - decalage01;
+
+                                                        Encaissement_Reçus_Clients0404 += montantDecalage * decalage01;
+                                                        Encaissement_Reçus_Clients0504 += montantDecalage * decalage02;
+
+                                                    }
+                                                    else
+                                                    {
+                                                        if (novembre > delaiClient)
+                                                        {
+                                                            decalage01 = novembre - delaiClient;
+                                                            decalage02 = 30 - decalage01;
+
+                                                            Encaissement_Reçus_Clients0504 += montantDecalage * decalage01;
+                                                            Encaissement_Reçus_Clients0604 += montantDecalage * decalage02;
+
+                                                        }
+                                                        else
+                                                        {
+                                                            if (decembre > delaiClient)
+                                                            {
+                                                                decalage01 = decembre - delaiClient;
+                                                                decalage02 = 30 - decalage01;
+
+                                                                Encaissement_Reçus_Clients0604 += montantDecalage * decalage01;
+                                                                Encaissement_Reçus_Clients0704 += montantDecalage * decalage02;
+
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                #endregion
+
+                #region  Encaissement août
+
+                montantDecalage = MontantChiffreAffaire0803 / 30;
+
+                if (aout - 210 > delaiClient)
+                {
+                    decalage01 = aout - 210 - delaiClient;
+                    decalage02 = 30 - decalage01;
+
+                    Encaissement_Reçus_Clients0803 += montantDecalage * decalage01;
+                    Encaissement_Reçus_Clients0903 += montantDecalage * decalage02;
+                }
+                else
+                {
+                    if (septembre - 210 > delaiClient)
+                    {
+                        decalage01 = septembre - 210 - delaiClient;
+                        decalage02 = 30 - decalage01;
+
+                        Encaissement_Reçus_Clients0903 += montantDecalage * decalage01;
+                        Encaissement_Reçus_Clients1003 += montantDecalage * decalage02;
+
+                    }
+                    else
+                    {
+                        if (octobre - 210 > delaiClient)
+                        {
+                            decalage01 = octobre - 210 - delaiClient;
+                            decalage02 = 30 - decalage01;
+
+                            Encaissement_Reçus_Clients1003 += montantDecalage * decalage01;
+                            Encaissement_Reçus_Clients1103 += montantDecalage * decalage02;
+
+                        }
+                        else
+                        {
+                            if (novembre - 210 > delaiClient)
+                            {
+                                decalage01 = novembre - 210 - delaiClient;
+                                decalage02 = 30 - decalage01;
+
+                                Encaissement_Reçus_Clients1103 += montantDecalage * decalage01;
+                                Encaissement_Reçus_Clients1203 += montantDecalage * decalage02;
+
+                            }
+                            else
+                            {
+                                if (decembre - 210 > delaiClient)
+                                {
+                                    decalage01 = decembre - 210 - delaiClient;
+                                    decalage02 = 30 - decalage01;
+
+                                    Encaissement_Reçus_Clients1203 += montantDecalage * decalage01;
+                                    Encaissement_Reçus_Clients0104 += montantDecalage * decalage02;
+
+                                }
+                                else
+                                {
+                                    if (juin > delaiClient)
+                                    {
+                                        decalage01 = juin - delaiClient;
+                                        decalage02 = 30 - decalage01;
+
+                                        Encaissement_Reçus_Clients0104 += montantDecalage * decalage01;
+                                        Encaissement_Reçus_Clients0204 += montantDecalage * decalage02;
+
+                                    }
+                                    else
+                                    {
+                                        if (juillet > delaiClient)
+                                        {
+                                            decalage01 = juillet - delaiClient;
+                                            decalage02 = 30 - decalage01;
+
+                                            Encaissement_Reçus_Clients0204 += montantDecalage * decalage01;
+                                            Encaissement_Reçus_Clients0304 += montantDecalage * decalage02;
+
+                                        }
+                                        else
+                                        {
+                                            if (aout > delaiClient)
+                                            {
+                                                decalage01 = aout - delaiClient;
+                                                decalage02 = 30 - decalage01;
+
+                                                Encaissement_Reçus_Clients0304 += montantDecalage * decalage01;
+                                                Encaissement_Reçus_Clients0404 += montantDecalage * decalage02;
+
+                                            }
+                                            else
+                                            {
+                                                if (septembre > delaiClient)
+                                                {
+                                                    decalage01 = septembre - delaiClient;
+                                                    decalage02 = 30 - decalage01;
+
+                                                    Encaissement_Reçus_Clients0404 += montantDecalage * decalage01;
+                                                    Encaissement_Reçus_Clients0504 += montantDecalage * decalage02;
+
+                                                }
+                                                else
+                                                {
+                                                    if (octobre > delaiClient)
+                                                    {
+                                                        decalage01 = octobre - delaiClient;
+                                                        decalage02 = 30 - decalage01;
+
+                                                        Encaissement_Reçus_Clients0504 += montantDecalage * decalage01;
+                                                        Encaissement_Reçus_Clients0604 += montantDecalage * decalage02;
+
+                                                    }
+                                                    else
+                                                    {
+                                                        if (novembre > delaiClient)
+                                                        {
+                                                            decalage01 = novembre - delaiClient;
+                                                            decalage02 = 30 - decalage01;
+
+                                                            Encaissement_Reçus_Clients0604 += montantDecalage * decalage01;
+                                                            Encaissement_Reçus_Clients0704 += montantDecalage * decalage02;
+
+                                                        }
+                                                        else
+                                                        {
+                                                            if (decembre > delaiClient)
+                                                            {
+                                                                decalage01 = decembre - delaiClient;
+                                                                decalage02 = 30 - decalage01;
+
+                                                                Encaissement_Reçus_Clients0704 += montantDecalage * decalage01;
+                                                                Encaissement_Reçus_Clients0804 += montantDecalage * decalage02;
+
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+                }
+
+                #endregion
+
+                #region  Encaissement septembre
+
+                montantDecalage = MontantChiffreAffaire0903 / 30;
+
+                if (septembre - 240 > delaiClient)
+                {
+                    decalage01 = septembre - 240 - delaiClient;
+                    decalage02 = 30 - decalage01;
+
+                    Encaissement_Reçus_Clients0903 += montantDecalage * decalage01;
+                    Encaissement_Reçus_Clients1003 += montantDecalage * decalage02;
+                }
+                else
+                {
+                    if (octobre - 240 > delaiClient)
+                    {
+                        decalage01 = octobre - 240 - delaiClient;
+                        decalage02 = 30 - decalage01;
+
+                        Encaissement_Reçus_Clients1003 += montantDecalage * decalage01;
+                        Encaissement_Reçus_Clients1103 += montantDecalage * decalage02;
+
+                    }
+                    else
+                    {
+                        if (novembre - 240 > delaiClient)
+                        {
+                            decalage01 = novembre - 240 - delaiClient;
+                            decalage02 = 30 - decalage01;
+
+                            Encaissement_Reçus_Clients1103 += montantDecalage * decalage01;
+                            Encaissement_Reçus_Clients1203 += montantDecalage * decalage02;
+
+                        }
+                        else
+                        {
+                            if (decembre - 240 > delaiClient)
+                            {
+                                decalage01 = decembre - 240 - delaiClient;
+                                decalage02 = 30 - decalage01;
+
+                                Encaissement_Reçus_Clients1203 += montantDecalage * decalage01;
+                                Encaissement_Reçus_Clients0104 += montantDecalage * decalage02;
+
+                            }
+                            else
+                            {
+                                if (mai > delaiClient)
+                                {
+                                    decalage01 = mai - delaiClient;
+                                    decalage02 = 30 - decalage01;
+
+                                    Encaissement_Reçus_Clients0104 += montantDecalage * decalage01;
+                                    Encaissement_Reçus_Clients0204 += montantDecalage * decalage02;
+
+                                }
+                                else
+                                {
+                                    if (juin > delaiClient)
+                                    {
+                                        decalage01 = juin - delaiClient;
+                                        decalage02 = 30 - decalage01;
+
+                                        Encaissement_Reçus_Clients0204 += montantDecalage * decalage01;
+                                        Encaissement_Reçus_Clients0304 += montantDecalage * decalage02;
+
+                                    }
+                                    else
+                                    {
+                                        if (juillet > delaiClient)
+                                        {
+                                            decalage01 = juillet - delaiClient;
+                                            decalage02 = 30 - decalage01;
+
+                                            Encaissement_Reçus_Clients0304 += montantDecalage * decalage01;
+                                            Encaissement_Reçus_Clients0404 += montantDecalage * decalage02;
+
+                                        }
+                                        else
+                                        {
+                                            if (aout > delaiClient)
+                                            {
+                                                decalage01 = aout - delaiClient;
+                                                decalage02 = 30 - decalage01;
+
+                                                Encaissement_Reçus_Clients0404 += montantDecalage * decalage01;
+                                                Encaissement_Reçus_Clients0504 += montantDecalage * decalage02;
+
+                                            }
+                                            else
+                                            {
+                                                if (septembre > delaiClient)
+                                                {
+                                                    decalage01 = septembre - delaiClient;
+                                                    decalage02 = 30 - decalage01;
+
+                                                    Encaissement_Reçus_Clients0504 += montantDecalage * decalage01;
+                                                    Encaissement_Reçus_Clients0604 += montantDecalage * decalage02;
+
+                                                }
+                                                else
+                                                {
+                                                    if (octobre > delaiClient)
+                                                    {
+                                                        decalage01 = octobre - delaiClient;
+                                                        decalage02 = 30 - decalage01;
+
+                                                        Encaissement_Reçus_Clients0604 += montantDecalage * decalage01;
+                                                        Encaissement_Reçus_Clients0704 += montantDecalage * decalage02;
+
+                                                    }
+                                                    else
+                                                    {
+                                                        if (novembre > delaiClient)
+                                                        {
+                                                            decalage01 = novembre - delaiClient;
+                                                            decalage02 = 30 - decalage01;
+
+                                                            Encaissement_Reçus_Clients0704 += montantDecalage * decalage01;
+                                                            Encaissement_Reçus_Clients0804 += montantDecalage * decalage02;
+
+                                                        }
+                                                        else
+                                                        {
+                                                            if (decembre > delaiClient)
+                                                            {
+                                                                decalage01 = decembre - delaiClient;
+                                                                decalage02 = 30 - decalage01;
+
+                                                                Encaissement_Reçus_Clients0804 += montantDecalage * decalage01;
+                                                                Encaissement_Reçus_Clients0904 += montantDecalage * decalage02;
+
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                #endregion
+
+                #region  Encaissement octobre
+
+                montantDecalage = MontantChiffreAffaire1003 / 30;
+
+                if (octobre - 270 > delaiClient)
+                {
+                    decalage01 = octobre - 270 - delaiClient;
+                    decalage02 = 30 - decalage01;
+
+                    Encaissement_Reçus_Clients1003 += montantDecalage * decalage01;
+                    Encaissement_Reçus_Clients1103 += montantDecalage * decalage02;
+                }
+                else
+                {
+                    if (novembre - 270 > delaiClient)
+                    {
+                        decalage01 = novembre - 270 - delaiClient;
+                        decalage02 = 30 - decalage01;
+
+                        Encaissement_Reçus_Clients1103 += montantDecalage * decalage01;
+                        Encaissement_Reçus_Clients1203 += montantDecalage * decalage02;
+
+                    }
+                    else
+                    {
+                        if (decembre - 270 > delaiClient)
+                        {
+                            decalage01 = decembre - 270 - delaiClient;
+                            decalage02 = 30 - decalage01;
+
+                            Encaissement_Reçus_Clients1203 += montantDecalage * decalage01;
+                            Encaissement_Reçus_Clients0104 += montantDecalage * decalage02;
+
+                        }
+                        else
+                        {
+                            if (avril > delaiClient)
+                            {
+                                decalage01 = avril - delaiClient;
+                                decalage02 = 30 - decalage01;
+
+                                Encaissement_Reçus_Clients0104 += montantDecalage * decalage01;
+                                Encaissement_Reçus_Clients0204 += montantDecalage * decalage02;
+
+                            }
+                            else
+                            {
+                                if (mai > delaiClient)
+                                {
+                                    decalage01 = mai - delaiClient;
+                                    decalage02 = 30 - decalage01;
+
+                                    Encaissement_Reçus_Clients0204 += montantDecalage * decalage01;
+                                    Encaissement_Reçus_Clients0304 += montantDecalage * decalage02;
+
+                                }
+                                else
+                                {
+                                    if (juin > delaiClient)
+                                    {
+                                        decalage01 = juin - delaiClient;
+                                        decalage02 = 30 - decalage01;
+
+                                        Encaissement_Reçus_Clients0304 += montantDecalage * decalage01;
+                                        Encaissement_Reçus_Clients0404 += montantDecalage * decalage02;
+
+                                    }
+                                    else
+                                    {
+                                        if (juillet > delaiClient)
+                                        {
+                                            decalage01 = juillet - delaiClient;
+                                            decalage02 = 30 - decalage01;
+
+                                            Encaissement_Reçus_Clients0404 += montantDecalage * decalage01;
+                                            Encaissement_Reçus_Clients0504 += montantDecalage * decalage02;
+
+                                        }
+                                        else
+                                        {
+                                            if (aout > delaiClient)
+                                            {
+                                                decalage01 = aout - delaiClient;
+                                                decalage02 = 30 - decalage01;
+
+                                                Encaissement_Reçus_Clients0504 += montantDecalage * decalage01;
+                                                Encaissement_Reçus_Clients0604 += montantDecalage * decalage02;
+
+                                            }
+                                            else
+                                            {
+                                                if (septembre > delaiClient)
+                                                {
+                                                    decalage01 = septembre - delaiClient;
+                                                    decalage02 = 30 - decalage01;
+
+                                                    Encaissement_Reçus_Clients0604 += montantDecalage * decalage01;
+                                                    Encaissement_Reçus_Clients0704 += montantDecalage * decalage02;
+
+                                                }
+                                                else
+                                                {
+                                                    if (octobre > delaiClient)
+                                                    {
+                                                        decalage01 = octobre - delaiClient;
+                                                        decalage02 = 30 - decalage01;
+
+                                                        Encaissement_Reçus_Clients0704 += montantDecalage * decalage01;
+                                                        Encaissement_Reçus_Clients0804 += montantDecalage * decalage02;
+
+                                                    }
+                                                    else
+                                                    {
+                                                        if (novembre > delaiClient)
+                                                        {
+                                                            decalage01 = novembre - delaiClient;
+                                                            decalage02 = 30 - decalage01;
+
+                                                            Encaissement_Reçus_Clients0804 += montantDecalage * decalage01;
+                                                            Encaissement_Reçus_Clients0904 += montantDecalage * decalage02;
+
+                                                        }
+                                                        else
+                                                        {
+                                                            if (decembre > delaiClient)
+                                                            {
+                                                                decalage01 = decembre - delaiClient;
+                                                                decalage02 = 30 - decalage01;
+
+                                                                Encaissement_Reçus_Clients0904 += montantDecalage * decalage01;
+                                                                Encaissement_Reçus_Clients1004 += montantDecalage * decalage02;
+
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                #endregion
+
+                #region  Encaissement novembre
+
+                montantDecalage = MontantChiffreAffaire1103 / 30;
+
+                if (novembre - 300 > delaiClient)
+                {
+                    decalage01 = novembre - 300 - delaiClient;
+                    decalage02 = 30 - decalage01;
+
+                    Encaissement_Reçus_Clients1103 += montantDecalage * decalage01;
+                    Encaissement_Reçus_Clients1203 += montantDecalage * decalage02;
+                }
+                else
+                {
+                    if (decembre - 300 > delaiClient)
+                    {
+                        decalage01 = decembre - 300 - delaiClient;
+                        decalage02 = 30 - decalage01;
+
+                        Encaissement_Reçus_Clients1203 += montantDecalage * decalage01;
+                        Encaissement_Reçus_Clients0104 += montantDecalage * decalage02;
+
+                    }
+                    else
+                    {
+                        if (mars > delaiClient)
+                        {
+                            decalage01 = mars - delaiClient;
+                            decalage02 = 30 - decalage01;
+
+                            Encaissement_Reçus_Clients0104 += montantDecalage * decalage01;
+                            Encaissement_Reçus_Clients0204 += montantDecalage * decalage02;
+
+                        }
+                        else
+                        {
+                            if (avril > delaiClient)
+                            {
+                                decalage01 = avril - delaiClient;
+                                decalage02 = 30 - decalage01;
+
+                                Encaissement_Reçus_Clients0204 += montantDecalage * decalage01;
+                                Encaissement_Reçus_Clients0304 += montantDecalage * decalage02;
+
+                            }
+                            else
+                            {
+                                if (mai > delaiClient)
+                                {
+                                    decalage01 = mai - delaiClient;
+                                    decalage02 = 30 - decalage01;
+
+                                    Encaissement_Reçus_Clients0304 += montantDecalage * decalage01;
+                                    Encaissement_Reçus_Clients0404 += montantDecalage * decalage02;
+
+                                }
+                                else
+                                {
+                                    if (juin > delaiClient)
+                                    {
+                                        decalage01 = juin - delaiClient;
+                                        decalage02 = 30 - decalage01;
+
+                                        Encaissement_Reçus_Clients0404 += montantDecalage * decalage01;
+                                        Encaissement_Reçus_Clients0504 += montantDecalage * decalage02;
+
+                                    }
+                                    else
+                                    {
+                                        if (juillet > delaiClient)
+                                        {
+                                            decalage01 = juillet - delaiClient;
+                                            decalage02 = 30 - decalage01;
+
+                                            Encaissement_Reçus_Clients0504 += montantDecalage * decalage01;
+                                            Encaissement_Reçus_Clients0604 += montantDecalage * decalage02;
+
+                                        }
+                                        else
+                                        {
+                                            if (aout > delaiClient)
+                                            {
+                                                decalage01 = aout - delaiClient;
+                                                decalage02 = 30 - decalage01;
+
+                                                Encaissement_Reçus_Clients0604 += montantDecalage * decalage01;
+                                                Encaissement_Reçus_Clients0704 += montantDecalage * decalage02;
+
+                                            }
+                                            else
+                                            {
+                                                if (septembre > delaiClient)
+                                                {
+                                                    decalage01 = septembre - delaiClient;
+                                                    decalage02 = 30 - decalage01;
+
+                                                    Encaissement_Reçus_Clients0704 += montantDecalage * decalage01;
+                                                    Encaissement_Reçus_Clients0804 += montantDecalage * decalage02;
+
+                                                }
+                                                else
+                                                {
+                                                    if (octobre > delaiClient)
+                                                    {
+                                                        decalage01 = octobre - delaiClient;
+                                                        decalage02 = 30 - decalage01;
+
+                                                        Encaissement_Reçus_Clients0804 += montantDecalage * decalage01;
+                                                        Encaissement_Reçus_Clients0904 += montantDecalage * decalage02;
+
+                                                    }
+                                                    else
+                                                    {
+                                                        if (novembre > delaiClient)
+                                                        {
+                                                            decalage01 = novembre - delaiClient;
+                                                            decalage02 = 30 - decalage01;
+
+                                                            Encaissement_Reçus_Clients0904 += montantDecalage * decalage01;
+                                                            Encaissement_Reçus_Clients1004 += montantDecalage * decalage02;
+
+                                                        }
+                                                        else
+                                                        {
+                                                            if (decembre > delaiClient)
+                                                            {
+                                                                decalage01 = decembre - delaiClient;
+                                                                decalage02 = 30 - decalage01;
+
+                                                                Encaissement_Reçus_Clients1004 += montantDecalage * decalage01;
+                                                                Encaissement_Reçus_Clients1104 += montantDecalage * decalage02;
+
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                    }
+                }
+
+                #endregion
+
+                #region  Encaissement decembre
+
+                montantDecalage = MontantChiffreAffaire1203 / 30;
+
+                if (decembre - 330 > delaiClient)
+                {
+                    decalage01 = decembre - 330 - delaiClient;
+                    decalage02 = 30 - decalage01;
+
+                    Encaissement_Reçus_Clients1203 += montantDecalage * decalage01;
+                    Encaissement_Reçus_Clients0104 += montantDecalage * decalage02;
+                }
+                else
+                {
+                    if (fevrier > delaiClient)
+                    {
+                        decalage01 = fevrier - delaiClient;
+                        decalage02 = 30 - decalage01;
+
+                        Encaissement_Reçus_Clients0104 += montantDecalage * decalage01;
+                        Encaissement_Reçus_Clients0204 += montantDecalage * decalage02;
+
+                    }
+                    else
+                    {
+                        if (mars > delaiClient)
+                        {
+                            decalage01 = mars - delaiClient;
+                            decalage02 = 30 - decalage01;
+
+                            Encaissement_Reçus_Clients0204 += montantDecalage * decalage01;
+                            Encaissement_Reçus_Clients0304 += montantDecalage * decalage02;
+
+                        }
+                        else
+                        {
+                            if (avril > delaiClient)
+                            {
+                                decalage01 = avril - delaiClient;
+                                decalage02 = 30 - decalage01;
+
+                                Encaissement_Reçus_Clients0304 += montantDecalage * decalage01;
+                                Encaissement_Reçus_Clients0404 += montantDecalage * decalage02;
+
+                            }
+                            else
+                            {
+                                if (mai > delaiClient)
+                                {
+                                    decalage01 = mai - delaiClient;
+                                    decalage02 = 30 - decalage01;
+
+                                    Encaissement_Reçus_Clients0404 += montantDecalage * decalage01;
+                                    Encaissement_Reçus_Clients0504 += montantDecalage * decalage02;
+
+                                }
+                                else
+                                {
+                                    if (juin > delaiClient)
+                                    {
+                                        decalage01 = juin - delaiClient;
+                                        decalage02 = 30 - decalage01;
+
+                                        Encaissement_Reçus_Clients0504 += montantDecalage * decalage01;
+                                        Encaissement_Reçus_Clients0604 += montantDecalage * decalage02;
+
+                                    }
+                                    else
+                                    {
+                                        if (juillet > delaiClient)
+                                        {
+                                            decalage01 = juillet - delaiClient;
+                                            decalage02 = 30 - decalage01;
+
+                                            Encaissement_Reçus_Clients0604 += montantDecalage * decalage01;
+                                            Encaissement_Reçus_Clients0704 += montantDecalage * decalage02;
+
+                                        }
+                                        else
+                                        {
+                                            if (aout > delaiClient)
+                                            {
+                                                decalage01 = aout - delaiClient;
+                                                decalage02 = 30 - decalage01;
+
+                                                Encaissement_Reçus_Clients0704 += montantDecalage * decalage01;
+                                                Encaissement_Reçus_Clients0804 += montantDecalage * decalage02;
+
+                                            }
+                                            else
+                                            {
+                                                if (septembre > delaiClient)
+                                                {
+                                                    decalage01 = septembre - delaiClient;
+                                                    decalage02 = 30 - decalage01;
+
+                                                    Encaissement_Reçus_Clients0804 += montantDecalage * decalage01;
+                                                    Encaissement_Reçus_Clients0904 += montantDecalage * decalage02;
+
+                                                }
+                                                else
+                                                {
+                                                    if (octobre > delaiClient)
+                                                    {
+                                                        decalage01 = octobre - delaiClient;
+                                                        decalage02 = 30 - decalage01;
+
+                                                        Encaissement_Reçus_Clients0904 += montantDecalage * decalage01;
+                                                        Encaissement_Reçus_Clients1004 += montantDecalage * decalage02;
+
+                                                    }
+                                                    else
+                                                    {
+                                                        if (novembre > delaiClient)
+                                                        {
+                                                            decalage01 = novembre - delaiClient;
+                                                            decalage02 = 30 - decalage01;
+
+                                                            Encaissement_Reçus_Clients1004 += montantDecalage * decalage01;
+                                                            Encaissement_Reçus_Clients1104 += montantDecalage * decalage02;
+
+                                                        }
+                                                        else
+                                                        {
+                                                            if (decembre > delaiClient)
+                                                            {
+                                                                decalage01 = decembre - delaiClient;
+                                                                decalage02 = 30 - decalage01;
+
+                                                                Encaissement_Reçus_Clients1104 += montantDecalage * decalage01;
+                                                                Encaissement_Reçus_Clients1204 += montantDecalage * decalage02;
+
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+
+                #endregion
+
+            }
+
+            #endregion
+
+
+
+
+
+
+
+
+
+
+
+
+
+            #endregion
+
+            //fin de proçedure calcule des encaissements et décaissements
+
 
             #region Données EtatTFT
 
