@@ -239,6 +239,18 @@
 
                                     </div>
 
+                                    @*<div class="row">
+                                        <div class="col-sm-4 form-group">
+                                            <span class="form-label">Fréquence d'activité</span>
+                                            <select id="FrequenceActiviteId" asp-for="FrequenceActiviteId" asp-items="@ViewBag.FrequenceActiviteID as SelectList" class="form-control select2" required onchange="FrequenceActiviteSelect();">
+                                                <option value="">- - - - - -</option>
+                                            </select>
+                                            <span class="select-arrow"></span>
+                                            <span asp-validation-for="FrequenceActiviteId" class="text-danger"></span>
+                                            <div class="invalid-feedback">Sélectionner la Fréquence d'activite.</div>
+                                        </div>
+                                    </div>*@
+
                                     <br>
 
                                     <div class="card text-bg-primary mb-3">
@@ -319,53 +331,53 @@
 
                                                 @*<div class="col-md-6">
 
-                                                        <div class="row">
+                        <div class="row">
 
-                                                            <div class="col-sm-4">
-                                                                <div class="form-group">
-                                                                    <span class="form-label">Taux IFU</span>
-                                                                    <input id="TauxIFU" class="form-control" value="0 %" disabled>
-                                                                </div>
-                                                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <span class="form-label">Taux IFU</span>
+                                    <input id="TauxIFU" class="form-control" value="0 %" disabled>
+                                </div>
+                            </div>
 
-                                                            <div class="col-sm-8">
-                                                                <div class="form-group">
-                                                                    <span class="form-label">Différé emprunt</span>
-                                                                    <input id="DiffereEmprunt" class="form-control" value="- - - - - -" disabled>
-                                                                </div>
-                                                            </div>
+                            <div class="col-sm-8">
+                                <div class="form-group">
+                                    <span class="form-label">Différé emprunt</span>
+                                    <input id="DiffereEmprunt" class="form-control" value="- - - - - -" disabled>
+                                </div>
+                            </div>
 
-                                                        </div>
+                        </div>
 
-                                                        <div class="row">
+                        <div class="row">
 
-                                                            <div class="col-sm-4">
-                                                                <div class="form-group">
-                                                                    <span class="form-label">Taux IBS</span>
-                                                                    <input id="TauxIBS" class="form-control" value="0 %" disabled>
-                                                                </div>
-                                                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <span class="form-label">Taux IBS</span>
+                                    <input id="TauxIBS" class="form-control" value="0 %" disabled>
+                                </div>
+                            </div>
 
-                                                            <div class="col-sm-8">
-                                                                <div class="form-group">
-                                                                    <span class="form-label">Exonération fiscale</span>
-                                                                    <input id="ExonerationFiscale" class="form-control" value="- - - - - -" disabled>
-                                                                </div>
-                                                            </div>
+                            <div class="col-sm-8">
+                                <div class="form-group">
+                                    <span class="form-label">Exonération fiscale</span>
+                                    <input id="ExonerationFiscale" class="form-control" value="- - - - - -" disabled>
+                                </div>
+                            </div>
 
-                                                        </div>
+                        </div>
 
-                                                        <div class="row">
+                        <div class="row">
 
-                                                            <div class="col-sm-4">
-                                                                <div class="form-group center">
-                                                                    <button type="button" class="btn btn-outline-success" onclick="SimulerStructure();">Simuler la structure</button>
-                                                                </div>
-                                                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group center">
+                                    <button type="button" class="btn btn-outline-success" onclick="SimulerStructure();">Simuler la structure</button>
+                                </div>
+                            </div>
 
-                                                        </div>
+                        </div>
 
-                                                    </div>*@
+                    </div>*@
 
 
                                                 <div class="col-md-6">

@@ -38,6 +38,10 @@ namespace Anade.Khadamat.Domain
         public decimal ChiffreAffaire06 { get; set; }
         public decimal ChiffreAffaire07 { get; set; }
 
+        public int FrequenceActiviteId { get; set; }
+
+        public virtual FrequenceActivite FrequenceActivite { get; set; }
+
         public virtual ICollection<ChiffreAffaire> ChiffresAffaire { get; set; }
 
     }
