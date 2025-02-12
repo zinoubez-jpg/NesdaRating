@@ -17,12 +17,14 @@ namespace Anade.Khadamat.Business
         {
             Expression<Func<BusinessPlan, object>> loadEtape = x => x.Etape;
             Expression<Func<BusinessPlan, object>> loadInformationBase = x => x.InformationBase;
+            Expression<Func<BusinessPlan, object>> loadTauxTVA = x => x.InformationBase.TauxTVA;
+            Expression<Func<BusinessPlan, object>> loadRegimeImposition = x => x.InformationBase.RegimeImposition;
             Expression<Func<BusinessPlan, object>> loadStuctureInvestissement = x => x.StuctureInvestissement;
             Expression<Func<BusinessPlan, object>> loadStructureFinancement = x => x.StructureFinancement;
             Expression<Func<BusinessPlan, object>> loadEvaluationProjet = x => x.EvaluationProjet;
             Expression<Func<BusinessPlan, object>> loadWilaya = x => x.InformationBase.CommuneBP.WilayaBP;
 
-            return new Expression<Func<BusinessPlan, object>>[] { loadEtape, loadInformationBase, loadStuctureInvestissement, loadStructureFinancement, loadEvaluationProjet, loadWilaya };
+            return new Expression<Func<BusinessPlan, object>>[] { loadEtape, loadInformationBase, loadTauxTVA, loadRegimeImposition, loadStuctureInvestissement, loadStructureFinancement, loadEvaluationProjet, loadWilaya };
         }
 
         public string GenererNumero(string codeStructure, int numSequ)

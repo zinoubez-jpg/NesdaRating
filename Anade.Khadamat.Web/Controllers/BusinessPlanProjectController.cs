@@ -1599,6 +1599,105 @@ namespace Anade.Khadamat.Web.Controllers
         }
 
         [Authorize(Roles = "Analyste")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Route("{id}")]
+        public async Task<IActionResult> EtatStructureInvestissement(int id, EtatStuctureInvestissement etatStuctureInvestissement)
+        {
+            var modelBusinessPlan = _businessPlanBusinessService.GetById(id, _businessPlanBusinessService.GetDefaultLoadProperties());
+
+            var stuctureInvestissement = _stuctureInvestissementBusinessService.GetSingle(x => x.BusinessPlanId == id);
+
+            decimal EquipementsImportes = 0;
+            decimal ActifsBiologique = 0;
+            decimal MaterielProduction = 0;
+            decimal MaterielBureau = 0;
+            decimal MaterielInformatique = 0;
+            decimal MaterielAudioVisuel = 0;
+            decimal MaterielCommunication = 0;
+            decimal InstallationsEquipements = 0;
+            decimal MaterielRoulant = 0;
+            decimal Amenagement = 0;
+
+            decimal FraisGeneraux = 0;
+            decimal AssurancesLieesCreation = 0;
+            decimal FondsGarantie = 0;
+            decimal FondsRoulement = 0;
+            decimal Total = 0;
+
+            decimal ApportPersonnel = 0;
+            decimal CMT = 0;
+            decimal PNRClassique = 0;
+            decimal PNRSupplementaire = 0;
+            decimal ApportSupplementaire = 0;
+            float TauxIFU = 0;
+            float TauxIBS = 0;
+
+            decimal CoutProjetReel = 0;
+            decimal MontantCMTReel = 0;
+            decimal MontantPNRReel = 0;
+            decimal MontantApportReel = 0;
+
+            if (stuctureInvestissement == null)
+            {
+                CoutProjetReel = 10;
+                MontantCMTReel = 10;
+                MontantPNRReel = 10;
+                MontantApportReel = 10;
+            }
+            else
+            {
+                CoutProjetReel = 20;
+                MontantCMTReel = 20;
+                MontantPNRReel = 20;
+                MontantApportReel = 20;
+            }
+
+            EquipementsImportes = CoutProjetReel + MontantCMTReel + MontantPNRReel + MontantApportReel;
+
+            System.Globalization.CultureInfo frCult = System.Globalization.CultureInfo.CreateSpecificCulture("fr-FR");
+
+            etatStuctureInvestissement.EquipementsImportes = string.Format(frCult, "{0:n}", EquipementsImportes);
+            etatStuctureInvestissement.ActifsBiologique = string.Format(frCult, "{0:n}", ActifsBiologique);
+            etatStuctureInvestissement.MaterielProduction = string.Format(frCult, "{0:n}", MaterielProduction);
+            etatStuctureInvestissement.MaterielBureau = string.Format(frCult, "{0:n}", MaterielBureau);
+            etatStuctureInvestissement.MaterielInformatique = string.Format(frCult, "{0:n}", MaterielInformatique);
+            etatStuctureInvestissement.MaterielAudioVisuel = string.Format(frCult, "{0:n}", MaterielAudioVisuel);
+            etatStuctureInvestissement.MaterielCommunication = string.Format(frCult, "{0:n}", MaterielCommunication);
+            etatStuctureInvestissement.InstallationsEquipements = string.Format(frCult, "{0:n}", InstallationsEquipements);
+            etatStuctureInvestissement.MaterielRoulant = string.Format(frCult, "{0:n}", MaterielRoulant);
+            etatStuctureInvestissement.Amenagement = string.Format(frCult, "{0:n}", Amenagement);
+
+            etatStuctureInvestissement.FraisGeneraux = string.Format(frCult, "{0:n}", FraisGeneraux);
+            etatStuctureInvestissement.AssurancesLieesCreation = string.Format(frCult, "{0:n}", AssurancesLieesCreation);
+
+            FondsGarantie_Test = FondsGarantie;
+
+            etatStuctureInvestissement.FondsGarantie = string.Format(frCult, "{0:n}", FondsGarantie);
+
+
+
+
+            etatStuctureInvestissement.FondsRoulement = string.Format(frCult, "{0:n}", FondsRoulement);
+            etatStuctureInvestissement.Total = string.Format(frCult, "{0:n}", Total);
+
+            etatStuctureInvestissement.ApportPersonnel = string.Format(frCult, "{0:n}", ApportPersonnel);
+            etatStuctureInvestissement.CMT = string.Format(frCult, "{0:n}", CMT);
+            etatStuctureInvestissement.PNRClassique = string.Format(frCult, "{0:n}", PNRClassique);
+            //etatStuctureInvestissement.TauxApportPersonnel = structureFinancement.TauxStructureFinancement.ApportPersonnel.ToString();
+            //etatStuctureInvestissement.TauxCMT = structureFinancement.TauxStructureFinancement.CMT.ToString();
+            //etatStuctureInvestissement.TauxPNRClassique = structureFinancement.TauxStructureFinancement.PNRClassique.ToString();
+
+            etatStuctureInvestissement.PNRSupplementaire = string.Format(frCult, "{0:n}", PNRSupplementaire);
+            etatStuctureInvestissement.ApportSupplementaire = string.Format(frCult, "{0:n}", ApportSupplementaire);
+            etatStuctureInvestissement.TauxIFU = string.Format(frCult, "{0:n}", TauxIFU);
+            etatStuctureInvestissement.TauxIBS = string.Format(frCult, "{0:n}", TauxIBS);
+
+            return PartialView($"_{nameof(EtatStructureInvestissement)}", etatStuctureInvestissement);
+        }
+
+
+        [Authorize(Roles = "Analyste")]
         [HttpGet]
         [Route("{id}")]
         public async Task<IActionResult> EtatCompteResultat(int id)
@@ -41736,13 +41835,3265 @@ namespace Anade.Khadamat.Web.Controllers
 
             #endregion
 
+            #region Variables Sommes des décaissement TVA à décaisser
+
+            decimal SommeDecaissTVADecaisser01 = 0;
+            decimal SommeDecaissTVADecaisser02 = 0;
+            decimal SommeDecaissTVADecaisser03 = 0;
+            decimal SommeDecaissTVADecaisser04 = 0;
+            decimal SommeDecaissTVADecaisser05 = 0;
+            decimal SommeDecaissTVADecaisser06 = 0;
+            decimal SommeDecaissTVADecaisser07 = 0;
+
+            #endregion
+
+            if (modelBusinessPlan.InformationBase.RegimeImpositionId == 1)
+            {
+                if (modelBusinessPlan.InformationBase.ExonerationTVA == false)
+                {
+                    string TauxTVA_string = modelBusinessPlan.InformationBase.TauxTVA.DesignationFr;
+
+                    TauxTVA_string = TauxTVA_string.Replace("%", "");
+
+                    int TauxTVA = Int32.Parse(TauxTVA_string);
+
+                    #region Variables TVA Collectees
+
+                    decimal TVACollectees0101 = 0;
+                    decimal TVACollectees0201 = 0;
+                    decimal TVACollectees0301 = 0;
+                    decimal TVACollectees0401 = 0;
+                    decimal TVACollectees0501 = 0;
+                    decimal TVACollectees0601 = 0;
+                    decimal TVACollectees0701 = 0;
+                    decimal TVACollectees0801 = 0;
+                    decimal TVACollectees0901 = 0;
+                    decimal TVACollectees1001 = 0;
+                    decimal TVACollectees1101 = 0;
+                    decimal TVACollectees1201 = 0;
+
+                    decimal TVACollectees0102 = 0;
+                    decimal TVACollectees0202 = 0;
+                    decimal TVACollectees0302 = 0;
+                    decimal TVACollectees0402 = 0;
+                    decimal TVACollectees0502 = 0;
+                    decimal TVACollectees0602 = 0;
+                    decimal TVACollectees0702 = 0;
+                    decimal TVACollectees0802 = 0;
+                    decimal TVACollectees0902 = 0;
+                    decimal TVACollectees1002 = 0;
+                    decimal TVACollectees1102 = 0;
+                    decimal TVACollectees1202 = 0;
+
+                    decimal TVACollectees0103 = 0;
+                    decimal TVACollectees0203 = 0;
+                    decimal TVACollectees0303 = 0;
+                    decimal TVACollectees0403 = 0;
+                    decimal TVACollectees0503 = 0;
+                    decimal TVACollectees0603 = 0;
+                    decimal TVACollectees0703 = 0;
+                    decimal TVACollectees0803 = 0;
+                    decimal TVACollectees0903 = 0;
+                    decimal TVACollectees1003 = 0;
+                    decimal TVACollectees1103 = 0;
+                    decimal TVACollectees1203 = 0;
+
+                    decimal TVACollectees0104 = 0;
+                    decimal TVACollectees0204 = 0;
+                    decimal TVACollectees0304 = 0;
+                    decimal TVACollectees0404 = 0;
+                    decimal TVACollectees0504 = 0;
+                    decimal TVACollectees0604 = 0;
+                    decimal TVACollectees0704 = 0;
+                    decimal TVACollectees0804 = 0;
+                    decimal TVACollectees0904 = 0;
+                    decimal TVACollectees1004 = 0;
+                    decimal TVACollectees1104 = 0;
+                    decimal TVACollectees1204 = 0;
+
+                    decimal TVACollectees0105 = 0;
+                    decimal TVACollectees0205 = 0;
+                    decimal TVACollectees0305 = 0;
+                    decimal TVACollectees0405 = 0;
+                    decimal TVACollectees0505 = 0;
+                    decimal TVACollectees0605 = 0;
+                    decimal TVACollectees0705 = 0;
+                    decimal TVACollectees0805 = 0;
+                    decimal TVACollectees0905 = 0;
+                    decimal TVACollectees1005 = 0;
+                    decimal TVACollectees1105 = 0;
+                    decimal TVACollectees1205 = 0;
+
+                    decimal TVACollectees0106 = 0;
+                    decimal TVACollectees0206 = 0;
+                    decimal TVACollectees0306 = 0;
+                    decimal TVACollectees0406 = 0;
+                    decimal TVACollectees0506 = 0;
+                    decimal TVACollectees0606 = 0;
+                    decimal TVACollectees0706 = 0;
+                    decimal TVACollectees0806 = 0;
+                    decimal TVACollectees0906 = 0;
+                    decimal TVACollectees1006 = 0;
+                    decimal TVACollectees1106 = 0;
+                    decimal TVACollectees1206 = 0;
+
+                    decimal TVACollectees0107 = 0;
+                    decimal TVACollectees0207 = 0;
+                    decimal TVACollectees0307 = 0;
+                    decimal TVACollectees0407 = 0;
+                    decimal TVACollectees0507 = 0;
+                    decimal TVACollectees0607 = 0;
+                    decimal TVACollectees0707 = 0;
+                    decimal TVACollectees0807 = 0;
+                    decimal TVACollectees0907 = 0;
+                    decimal TVACollectees1007 = 0;
+                    decimal TVACollectees1107 = 0;
+                    decimal TVACollectees1207 = 0;
+
+                    #endregion
+
+                    #region Variables TVA Déductible
+
+                    decimal TVADeductible0101 = 0;
+                    decimal TVADeductible0201 = 0;
+                    decimal TVADeductible0301 = 0;
+                    decimal TVADeductible0401 = 0;
+                    decimal TVADeductible0501 = 0;
+                    decimal TVADeductible0601 = 0;
+                    decimal TVADeductible0701 = 0;
+                    decimal TVADeductible0801 = 0;
+                    decimal TVADeductible0901 = 0;
+                    decimal TVADeductible1001 = 0;
+                    decimal TVADeductible1101 = 0;
+                    decimal TVADeductible1201 = 0;
+
+                    decimal TVADeductible0102 = 0;
+                    decimal TVADeductible0202 = 0;
+                    decimal TVADeductible0302 = 0;
+                    decimal TVADeductible0402 = 0;
+                    decimal TVADeductible0502 = 0;
+                    decimal TVADeductible0602 = 0;
+                    decimal TVADeductible0702 = 0;
+                    decimal TVADeductible0802 = 0;
+                    decimal TVADeductible0902 = 0;
+                    decimal TVADeductible1002 = 0;
+                    decimal TVADeductible1102 = 0;
+                    decimal TVADeductible1202 = 0;
+
+                    decimal TVADeductible0103 = 0;
+                    decimal TVADeductible0203 = 0;
+                    decimal TVADeductible0303 = 0;
+                    decimal TVADeductible0403 = 0;
+                    decimal TVADeductible0503 = 0;
+                    decimal TVADeductible0603 = 0;
+                    decimal TVADeductible0703 = 0;
+                    decimal TVADeductible0803 = 0;
+                    decimal TVADeductible0903 = 0;
+                    decimal TVADeductible1003 = 0;
+                    decimal TVADeductible1103 = 0;
+                    decimal TVADeductible1203 = 0;
+
+                    decimal TVADeductible0104 = 0;
+                    decimal TVADeductible0204 = 0;
+                    decimal TVADeductible0304 = 0;
+                    decimal TVADeductible0404 = 0;
+                    decimal TVADeductible0504 = 0;
+                    decimal TVADeductible0604 = 0;
+                    decimal TVADeductible0704 = 0;
+                    decimal TVADeductible0804 = 0;
+                    decimal TVADeductible0904 = 0;
+                    decimal TVADeductible1004 = 0;
+                    decimal TVADeductible1104 = 0;
+                    decimal TVADeductible1204 = 0;
+
+                    decimal TVADeductible0105 = 0;
+                    decimal TVADeductible0205 = 0;
+                    decimal TVADeductible0305 = 0;
+                    decimal TVADeductible0405 = 0;
+                    decimal TVADeductible0505 = 0;
+                    decimal TVADeductible0605 = 0;
+                    decimal TVADeductible0705 = 0;
+                    decimal TVADeductible0805 = 0;
+                    decimal TVADeductible0905 = 0;
+                    decimal TVADeductible1005 = 0;
+                    decimal TVADeductible1105 = 0;
+                    decimal TVADeductible1205 = 0;
+
+                    decimal TVADeductible0106 = 0;
+                    decimal TVADeductible0206 = 0;
+                    decimal TVADeductible0306 = 0;
+                    decimal TVADeductible0406 = 0;
+                    decimal TVADeductible0506 = 0;
+                    decimal TVADeductible0606 = 0;
+                    decimal TVADeductible0706 = 0;
+                    decimal TVADeductible0806 = 0;
+                    decimal TVADeductible0906 = 0;
+                    decimal TVADeductible1006 = 0;
+                    decimal TVADeductible1106 = 0;
+                    decimal TVADeductible1206 = 0;
+
+                    decimal TVADeductible0107 = 0;
+                    decimal TVADeductible0207 = 0;
+                    decimal TVADeductible0307 = 0;
+                    decimal TVADeductible0407 = 0;
+                    decimal TVADeductible0507 = 0;
+                    decimal TVADeductible0607 = 0;
+                    decimal TVADeductible0707 = 0;
+                    decimal TVADeductible0807 = 0;
+                    decimal TVADeductible0907 = 0;
+                    decimal TVADeductible1007 = 0;
+                    decimal TVADeductible1107 = 0;
+                    decimal TVADeductible1207 = 0;
+
+                    #endregion
+
+                    #region Variables Précompte
+
+                    decimal Precompte0101 = 0;
+                    decimal Precompte0201 = 0;
+                    decimal Precompte0301 = 0;
+                    decimal Precompte0401 = 0;
+                    decimal Precompte0501 = 0;
+                    decimal Precompte0601 = 0;
+                    decimal Precompte0701 = 0;
+                    decimal Precompte0801 = 0;
+                    decimal Precompte0901 = 0;
+                    decimal Precompte1001 = 0;
+                    decimal Precompte1101 = 0;
+                    decimal Precompte1201 = 0;
+
+                    decimal Precompte0102 = 0;
+                    decimal Precompte0202 = 0;
+                    decimal Precompte0302 = 0;
+                    decimal Precompte0402 = 0;
+                    decimal Precompte0502 = 0;
+                    decimal Precompte0602 = 0;
+                    decimal Precompte0702 = 0;
+                    decimal Precompte0802 = 0;
+                    decimal Precompte0902 = 0;
+                    decimal Precompte1002 = 0;
+                    decimal Precompte1102 = 0;
+                    decimal Precompte1202 = 0;
+
+                    decimal Precompte0103 = 0;
+                    decimal Precompte0203 = 0;
+                    decimal Precompte0303 = 0;
+                    decimal Precompte0403 = 0;
+                    decimal Precompte0503 = 0;
+                    decimal Precompte0603 = 0;
+                    decimal Precompte0703 = 0;
+                    decimal Precompte0803 = 0;
+                    decimal Precompte0903 = 0;
+                    decimal Precompte1003 = 0;
+                    decimal Precompte1103 = 0;
+                    decimal Precompte1203 = 0;
+
+                    decimal Precompte0104 = 0;
+                    decimal Precompte0204 = 0;
+                    decimal Precompte0304 = 0;
+                    decimal Precompte0404 = 0;
+                    decimal Precompte0504 = 0;
+                    decimal Precompte0604 = 0;
+                    decimal Precompte0704 = 0;
+                    decimal Precompte0804 = 0;
+                    decimal Precompte0904 = 0;
+                    decimal Precompte1004 = 0;
+                    decimal Precompte1104 = 0;
+                    decimal Precompte1204 = 0;
+
+                    decimal Precompte0105 = 0;
+                    decimal Precompte0205 = 0;
+                    decimal Precompte0305 = 0;
+                    decimal Precompte0405 = 0;
+                    decimal Precompte0505 = 0;
+                    decimal Precompte0605 = 0;
+                    decimal Precompte0705 = 0;
+                    decimal Precompte0805 = 0;
+                    decimal Precompte0905 = 0;
+                    decimal Precompte1005 = 0;
+                    decimal Precompte1105 = 0;
+                    decimal Precompte1205 = 0;
+
+                    decimal Precompte0106 = 0;
+                    decimal Precompte0206 = 0;
+                    decimal Precompte0306 = 0;
+                    decimal Precompte0406 = 0;
+                    decimal Precompte0506 = 0;
+                    decimal Precompte0606 = 0;
+                    decimal Precompte0706 = 0;
+                    decimal Precompte0806 = 0;
+                    decimal Precompte0906 = 0;
+                    decimal Precompte1006 = 0;
+                    decimal Precompte1106 = 0;
+                    decimal Precompte1206 = 0;
+
+                    decimal Precompte0107 = 0;
+                    decimal Precompte0207 = 0;
+                    decimal Precompte0307 = 0;
+                    decimal Precompte0407 = 0;
+                    decimal Precompte0507 = 0;
+                    decimal Precompte0607 = 0;
+                    decimal Precompte0707 = 0;
+                    decimal Precompte0807 = 0;
+                    decimal Precompte0907 = 0;
+                    decimal Precompte1007 = 0;
+                    decimal Precompte1107 = 0;
+                    decimal Precompte1207 = 0;
+
+                    #endregion
+
+                    #region Variables Const TVA à décaisser
+
+                    decimal ConstTVADecaisser0101 = 0;
+                    decimal ConstTVADecaisser0201 = 0;
+                    decimal ConstTVADecaisser0301 = 0;
+                    decimal ConstTVADecaisser0401 = 0;
+                    decimal ConstTVADecaisser0501 = 0;
+                    decimal ConstTVADecaisser0601 = 0;
+                    decimal ConstTVADecaisser0701 = 0;
+                    decimal ConstTVADecaisser0801 = 0;
+                    decimal ConstTVADecaisser0901 = 0;
+                    decimal ConstTVADecaisser1001 = 0;
+                    decimal ConstTVADecaisser1101 = 0;
+                    decimal ConstTVADecaisser1201 = 0;
+
+                    decimal ConstTVADecaisser0102 = 0;
+                    decimal ConstTVADecaisser0202 = 0;
+                    decimal ConstTVADecaisser0302 = 0;
+                    decimal ConstTVADecaisser0402 = 0;
+                    decimal ConstTVADecaisser0502 = 0;
+                    decimal ConstTVADecaisser0602 = 0;
+                    decimal ConstTVADecaisser0702 = 0;
+                    decimal ConstTVADecaisser0802 = 0;
+                    decimal ConstTVADecaisser0902 = 0;
+                    decimal ConstTVADecaisser1002 = 0;
+                    decimal ConstTVADecaisser1102 = 0;
+                    decimal ConstTVADecaisser1202 = 0;
+
+                    decimal ConstTVADecaisser0103 = 0;
+                    decimal ConstTVADecaisser0203 = 0;
+                    decimal ConstTVADecaisser0303 = 0;
+                    decimal ConstTVADecaisser0403 = 0;
+                    decimal ConstTVADecaisser0503 = 0;
+                    decimal ConstTVADecaisser0603 = 0;
+                    decimal ConstTVADecaisser0703 = 0;
+                    decimal ConstTVADecaisser0803 = 0;
+                    decimal ConstTVADecaisser0903 = 0;
+                    decimal ConstTVADecaisser1003 = 0;
+                    decimal ConstTVADecaisser1103 = 0;
+                    decimal ConstTVADecaisser1203 = 0;
+
+                    decimal ConstTVADecaisser0104 = 0;
+                    decimal ConstTVADecaisser0204 = 0;
+                    decimal ConstTVADecaisser0304 = 0;
+                    decimal ConstTVADecaisser0404 = 0;
+                    decimal ConstTVADecaisser0504 = 0;
+                    decimal ConstTVADecaisser0604 = 0;
+                    decimal ConstTVADecaisser0704 = 0;
+                    decimal ConstTVADecaisser0804 = 0;
+                    decimal ConstTVADecaisser0904 = 0;
+                    decimal ConstTVADecaisser1004 = 0;
+                    decimal ConstTVADecaisser1104 = 0;
+                    decimal ConstTVADecaisser1204 = 0;
+
+                    decimal ConstTVADecaisser0105 = 0;
+                    decimal ConstTVADecaisser0205 = 0;
+                    decimal ConstTVADecaisser0305 = 0;
+                    decimal ConstTVADecaisser0405 = 0;
+                    decimal ConstTVADecaisser0505 = 0;
+                    decimal ConstTVADecaisser0605 = 0;
+                    decimal ConstTVADecaisser0705 = 0;
+                    decimal ConstTVADecaisser0805 = 0;
+                    decimal ConstTVADecaisser0905 = 0;
+                    decimal ConstTVADecaisser1005 = 0;
+                    decimal ConstTVADecaisser1105 = 0;
+                    decimal ConstTVADecaisser1205 = 0;
+
+                    decimal ConstTVADecaisser0106 = 0;
+                    decimal ConstTVADecaisser0206 = 0;
+                    decimal ConstTVADecaisser0306 = 0;
+                    decimal ConstTVADecaisser0406 = 0;
+                    decimal ConstTVADecaisser0506 = 0;
+                    decimal ConstTVADecaisser0606 = 0;
+                    decimal ConstTVADecaisser0706 = 0;
+                    decimal ConstTVADecaisser0806 = 0;
+                    decimal ConstTVADecaisser0906 = 0;
+                    decimal ConstTVADecaisser1006 = 0;
+                    decimal ConstTVADecaisser1106 = 0;
+                    decimal ConstTVADecaisser1206 = 0;
+
+                    decimal ConstTVADecaisser0107 = 0;
+                    decimal ConstTVADecaisser0207 = 0;
+                    decimal ConstTVADecaisser0307 = 0;
+                    decimal ConstTVADecaisser0407 = 0;
+                    decimal ConstTVADecaisser0507 = 0;
+                    decimal ConstTVADecaisser0607 = 0;
+                    decimal ConstTVADecaisser0707 = 0;
+                    decimal ConstTVADecaisser0807 = 0;
+                    decimal ConstTVADecaisser0907 = 0;
+                    decimal ConstTVADecaisser1007 = 0;
+                    decimal ConstTVADecaisser1107 = 0;
+                    decimal ConstTVADecaisser1207 = 0;
+
+                    #endregion
+
+                    #region Variables Décaissement TVA à décaisser
+
+                    decimal DecaissTVADecaisser0201 = 0;
+                    decimal DecaissTVADecaisser0301 = 0;
+                    decimal DecaissTVADecaisser0401 = 0;
+                    decimal DecaissTVADecaisser0501 = 0;
+                    decimal DecaissTVADecaisser0601 = 0;
+                    decimal DecaissTVADecaisser0701 = 0;
+                    decimal DecaissTVADecaisser0801 = 0;
+                    decimal DecaissTVADecaisser0901 = 0;
+                    decimal DecaissTVADecaisser1001 = 0;
+                    decimal DecaissTVADecaisser1101 = 0;
+                    decimal DecaissTVADecaisser1201 = 0;
+
+                    decimal DecaissTVADecaisser0102 = 0;
+                    decimal DecaissTVADecaisser0202 = 0;
+                    decimal DecaissTVADecaisser0302 = 0;
+                    decimal DecaissTVADecaisser0402 = 0;
+                    decimal DecaissTVADecaisser0502 = 0;
+                    decimal DecaissTVADecaisser0602 = 0;
+                    decimal DecaissTVADecaisser0702 = 0;
+                    decimal DecaissTVADecaisser0802 = 0;
+                    decimal DecaissTVADecaisser0902 = 0;
+                    decimal DecaissTVADecaisser1002 = 0;
+                    decimal DecaissTVADecaisser1102 = 0;
+                    decimal DecaissTVADecaisser1202 = 0;
+
+                    decimal DecaissTVADecaisser0103 = 0;
+                    decimal DecaissTVADecaisser0203 = 0;
+                    decimal DecaissTVADecaisser0303 = 0;
+                    decimal DecaissTVADecaisser0403 = 0;
+                    decimal DecaissTVADecaisser0503 = 0;
+                    decimal DecaissTVADecaisser0603 = 0;
+                    decimal DecaissTVADecaisser0703 = 0;
+                    decimal DecaissTVADecaisser0803 = 0;
+                    decimal DecaissTVADecaisser0903 = 0;
+                    decimal DecaissTVADecaisser1003 = 0;
+                    decimal DecaissTVADecaisser1103 = 0;
+                    decimal DecaissTVADecaisser1203 = 0;
+
+                    decimal DecaissTVADecaisser0104 = 0;
+                    decimal DecaissTVADecaisser0204 = 0;
+                    decimal DecaissTVADecaisser0304 = 0;
+                    decimal DecaissTVADecaisser0404 = 0;
+                    decimal DecaissTVADecaisser0504 = 0;
+                    decimal DecaissTVADecaisser0604 = 0;
+                    decimal DecaissTVADecaisser0704 = 0;
+                    decimal DecaissTVADecaisser0804 = 0;
+                    decimal DecaissTVADecaisser0904 = 0;
+                    decimal DecaissTVADecaisser1004 = 0;
+                    decimal DecaissTVADecaisser1104 = 0;
+                    decimal DecaissTVADecaisser1204 = 0;
+
+                    decimal DecaissTVADecaisser0105 = 0;
+                    decimal DecaissTVADecaisser0205 = 0;
+                    decimal DecaissTVADecaisser0305 = 0;
+                    decimal DecaissTVADecaisser0405 = 0;
+                    decimal DecaissTVADecaisser0505 = 0;
+                    decimal DecaissTVADecaisser0605 = 0;
+                    decimal DecaissTVADecaisser0705 = 0;
+                    decimal DecaissTVADecaisser0805 = 0;
+                    decimal DecaissTVADecaisser0905 = 0;
+                    decimal DecaissTVADecaisser1005 = 0;
+                    decimal DecaissTVADecaisser1105 = 0;
+                    decimal DecaissTVADecaisser1205 = 0;
+
+                    decimal DecaissTVADecaisser0106 = 0;
+                    decimal DecaissTVADecaisser0206 = 0;
+                    decimal DecaissTVADecaisser0306 = 0;
+                    decimal DecaissTVADecaisser0406 = 0;
+                    decimal DecaissTVADecaisser0506 = 0;
+                    decimal DecaissTVADecaisser0606 = 0;
+                    decimal DecaissTVADecaisser0706 = 0;
+                    decimal DecaissTVADecaisser0806 = 0;
+                    decimal DecaissTVADecaisser0906 = 0;
+                    decimal DecaissTVADecaisser1006 = 0;
+                    decimal DecaissTVADecaisser1106 = 0;
+                    decimal DecaissTVADecaisser1206 = 0;
+
+                    decimal DecaissTVADecaisser0107 = 0;
+                    decimal DecaissTVADecaisser0207 = 0;
+                    decimal DecaissTVADecaisser0307 = 0;
+                    decimal DecaissTVADecaisser0407 = 0;
+                    decimal DecaissTVADecaisser0507 = 0;
+                    decimal DecaissTVADecaisser0607 = 0;
+                    decimal DecaissTVADecaisser0707 = 0;
+                    decimal DecaissTVADecaisser0807 = 0;
+                    decimal DecaissTVADecaisser0907 = 0;
+                    decimal DecaissTVADecaisser1007 = 0;
+                    decimal DecaissTVADecaisser1107 = 0;
+                    decimal DecaissTVADecaisser1207 = 0;
+
+                    #endregion
 
 
+                    #region Calcule Décaissement TVA à décaisser pour l'année 01
+
+                    #region Calcule TVA Collectees
+
+                    TVACollectees0101 = MontantChiffreAffaire0101 * TauxTVA / 100;
+                    TVACollectees0201 = MontantChiffreAffaire0201 * TauxTVA / 100;
+                    TVACollectees0301 = MontantChiffreAffaire0301 * TauxTVA / 100;
+                    TVACollectees0401 = MontantChiffreAffaire0401 * TauxTVA / 100;
+                    TVACollectees0501 = MontantChiffreAffaire0501 * TauxTVA / 100;
+                    TVACollectees0601 = MontantChiffreAffaire0601 * TauxTVA / 100;
+                    TVACollectees0701 = MontantChiffreAffaire0701 * TauxTVA / 100;
+                    TVACollectees0801 = MontantChiffreAffaire0801 * TauxTVA / 100;
+                    TVACollectees0901 = MontantChiffreAffaire0901 * TauxTVA / 100;
+                    TVACollectees1001 = MontantChiffreAffaire1001 * TauxTVA / 100;
+                    TVACollectees1101 = MontantChiffreAffaire1101 * TauxTVA / 100;
+                    TVACollectees1201 = MontantChiffreAffaire1201 * TauxTVA / 100;
+
+                    #endregion
+
+                    #region Calcule TVA Déductible
+
+                    TVADeductible0101 = (MontantAchatsConsommes0101 + MontantChargesExternes0101) * 19 / 100;
+                    TVADeductible0201 = (MontantAchatsConsommes0201 + MontantChargesExternes0201) * 19 / 100;
+                    TVADeductible0301 = (MontantAchatsConsommes0301 + MontantChargesExternes0301) * 19 / 100;
+                    TVADeductible0401 = (MontantAchatsConsommes0401 + MontantChargesExternes0401) * 19 / 100;
+                    TVADeductible0501 = (MontantAchatsConsommes0501 + MontantChargesExternes0501) * 19 / 100;
+                    TVADeductible0601 = (MontantAchatsConsommes0601 + MontantChargesExternes0601) * 19 / 100;
+                    TVADeductible0701 = (MontantAchatsConsommes0701 + MontantChargesExternes0701) * 19 / 100;
+                    TVADeductible0801 = (MontantAchatsConsommes0801 + MontantChargesExternes0801) * 19 / 100;
+                    TVADeductible0901 = (MontantAchatsConsommes0901 + MontantChargesExternes0901) * 19 / 100;
+                    TVADeductible1001 = (MontantAchatsConsommes1001 + MontantChargesExternes1001) * 19 / 100;
+                    TVADeductible1101 = (MontantAchatsConsommes1101 + MontantChargesExternes1101) * 19 / 100;
+                    TVADeductible1201 = (MontantAchatsConsommes1201 + MontantChargesExternes1201) * 19 / 100;
+
+                    #endregion
+
+                    #region Calcule Précompte
+
+                    if (TVADeductible0101 > TVACollectees0101)
+                    {
+                        Precompte0101 = TVADeductible0101 - TVACollectees0101;
+                    }
+                    else
+                    {
+                        Precompte0101 = 0;
+                    }
+
+                    if ((TVADeductible0201 + Precompte0101) > TVACollectees0201)
+                    {
+                        Precompte0201 = TVADeductible0201 + Precompte0101 - TVACollectees0201;
+                    }
+                    else
+                    {
+                        Precompte0201 = 0;
+                    }
+
+                    if ((TVADeductible0301 + Precompte0201) > TVACollectees0301)
+                    {
+                        Precompte0301 = TVADeductible0301 + Precompte0201 - TVACollectees0301;
+                    }
+                    else
+                    {
+                        Precompte0301 = 0;
+                    }
+
+                    if ((TVADeductible0401 + Precompte0301) > TVACollectees0401)
+                    {
+                        Precompte0401 = TVADeductible0401 + Precompte0301 - TVACollectees0401;
+                    }
+                    else
+                    {
+                        Precompte0401 = 0;
+                    }
+
+                    if ((TVADeductible0501 + Precompte0401) > TVACollectees0501)
+                    {
+                        Precompte0501 = TVADeductible0501 + Precompte0401 - TVACollectees0501;
+                    }
+                    else
+                    {
+                        Precompte0501 = 0;
+                    }
+
+                    if ((TVADeductible0601 + Precompte0501) > TVACollectees0601)
+                    {
+                        Precompte0601 = TVADeductible0601 + Precompte0501 - TVACollectees0601;
+                    }
+                    else
+                    {
+                        Precompte0601 = 0;
+                    }
+
+                    if ((TVADeductible0701 + Precompte0601) > TVACollectees0701)
+                    {
+                        Precompte0701 = TVADeductible0701 + Precompte0601 - TVACollectees0701;
+                    }
+                    else
+                    {
+                        Precompte0701 = 0;
+                    }
+
+                    if ((TVADeductible0801 + Precompte0701) > TVACollectees0801)
+                    {
+                        Precompte0801 = TVADeductible0801 + Precompte0701 - TVACollectees0801;
+                    }
+                    else
+                    {
+                        Precompte0801 = 0;
+                    }
+
+                    if ((TVADeductible0901 + Precompte0801) > TVACollectees0901)
+                    {
+                        Precompte0901 = TVADeductible0901 + Precompte0801 - TVACollectees0901;
+                    }
+                    else
+                    {
+                        Precompte0901 = 0;
+                    }
+
+                    if ((TVADeductible1001 + Precompte0901) > TVACollectees1001)
+                    {
+                        Precompte1001 = TVADeductible1001 + Precompte0901 - TVACollectees1001;
+                    }
+                    else
+                    {
+                        Precompte1001 = 0;
+                    }
+
+                    if ((TVADeductible1101 + Precompte1001) > TVACollectees1101)
+                    {
+                        Precompte1101 = TVADeductible1101 + Precompte1001 - TVACollectees1101;
+                    }
+                    else
+                    {
+                        Precompte1101 = 0;
+                    }
+
+                    if ((TVADeductible1201 + Precompte1101) > TVACollectees1201)
+                    {
+                        Precompte1201 = TVADeductible1201 + Precompte1101 - TVACollectees1201;
+                    }
+                    else
+                    {
+                        Precompte1201 = 0;
+                    }
+
+                    #endregion
+
+                    #region Calcule Const TVA à décaisser
+
+                    if (TVACollectees0101 > TVADeductible0101)
+                    {
+                        ConstTVADecaisser0101 = TVACollectees0101 - TVADeductible0101;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser0101 = 0;
+                    }
+
+                    if (TVACollectees0201 > (TVADeductible0201 + Precompte0101))
+                    {
+                        ConstTVADecaisser0201 = TVACollectees0201 - TVADeductible0201 + Precompte0101;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser0201 = 0;
+                    }
+
+                    if (TVACollectees0301 > (TVADeductible0301 + Precompte0201))
+                    {
+                        ConstTVADecaisser0301 = TVACollectees0301 - TVADeductible0301 + Precompte0201;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser0301 = 0;
+                    }
+
+                    if (TVACollectees0401 > (TVADeductible0401 + Precompte0301))
+                    {
+                        ConstTVADecaisser0401 = TVACollectees0401 - TVADeductible0401 + Precompte0301;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser0401 = 0;
+                    }
+
+                    if (TVACollectees0501 > (TVADeductible0501 + Precompte0401))
+                    {
+                        ConstTVADecaisser0501 = TVACollectees0501 - TVADeductible0501 + Precompte0401;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser0501 = 0;
+                    }
+
+                    if (TVACollectees0601 > (TVADeductible0601 + Precompte0501))
+                    {
+                        ConstTVADecaisser0601 = TVACollectees0601 - TVADeductible0601 + Precompte0501;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser0601 = 0;
+                    }
+
+                    if (TVACollectees0701 > (TVADeductible0701 + Precompte0601))
+                    {
+                        ConstTVADecaisser0701 = TVACollectees0701 - TVADeductible0701 + Precompte0601;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser0701 = 0;
+                    }
+
+                    if (TVACollectees0801 > (TVADeductible0801 + Precompte0701))
+                    {
+                        ConstTVADecaisser0801 = TVACollectees0801 - TVADeductible0801 + Precompte0701;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser0801 = 0;
+                    }
+
+                    if (TVACollectees0901 > (TVADeductible0901 + Precompte0801))
+                    {
+                        ConstTVADecaisser0901 = TVACollectees0901 - TVADeductible0901 + Precompte0801;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser0901 = 0;
+                    }
+
+                    if (TVACollectees1001 > (TVADeductible1001 + Precompte0901))
+                    {
+                        ConstTVADecaisser1001 = TVACollectees1001 - TVADeductible1001 + Precompte0901;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser1001 = 0;
+                    }
+
+                    if (TVACollectees1101 > (TVADeductible1101 + Precompte1001))
+                    {
+                        ConstTVADecaisser1101 = TVACollectees1101 - TVADeductible1101 + Precompte1001;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser1101 = 0;
+                    }
+
+                    if (TVACollectees1201 > (TVADeductible1201 + Precompte1101))
+                    {
+                        ConstTVADecaisser1201 = TVACollectees1201 - TVADeductible1201 + Precompte1101;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser1201 = 0;
+                    }
+
+                    #endregion
+
+                    #region Calcule Décaissement TVA à décaisser
+
+                    if (ConstTVADecaisser0101 > 0)
+                    {
+                        DecaissTVADecaisser0201 = ConstTVADecaisser0101;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser0201 = 0;
+                    }
+
+                    if (ConstTVADecaisser0201 > 0)
+                    {
+                        DecaissTVADecaisser0301 = ConstTVADecaisser0201;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser0301 = 0;
+                    }
+
+                    if (ConstTVADecaisser0301 > 0)
+                    {
+                        DecaissTVADecaisser0401 = ConstTVADecaisser0301;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser0401 = 0;
+                    }
+
+                    if (ConstTVADecaisser0401 > 0)
+                    {
+                        DecaissTVADecaisser0501 = ConstTVADecaisser0401;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser0501 = 0;
+                    }
+
+                    if (ConstTVADecaisser0501 > 0)
+                    {
+                        DecaissTVADecaisser0601 = ConstTVADecaisser0501;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser0601 = 0;
+                    }
+
+                    if (ConstTVADecaisser0601 > 0)
+                    {
+                        DecaissTVADecaisser0701 = ConstTVADecaisser0601;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser0701 = 0;
+                    }
+
+                    if (ConstTVADecaisser0701 > 0)
+                    {
+                        DecaissTVADecaisser0801 = ConstTVADecaisser0701;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser0801 = 0;
+                    }
+
+                    if (ConstTVADecaisser0801 > 0)
+                    {
+                        DecaissTVADecaisser0901 = ConstTVADecaisser0801;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser0901 = 0;
+                    }
+
+                    if (ConstTVADecaisser0901 > 0)
+                    {
+                        DecaissTVADecaisser1001 = ConstTVADecaisser0901;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser1001 = 0;
+                    }
+
+                    if (ConstTVADecaisser1001 > 0)
+                    {
+                        DecaissTVADecaisser1101 = ConstTVADecaisser1001;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser1101 = 0;
+                    }
+
+                    if (ConstTVADecaisser1101 > 0)
+                    {
+                        DecaissTVADecaisser1201 = ConstTVADecaisser1101;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser1201 = 0;
+                    }
+
+                    SommeDecaissTVADecaisser01 = DecaissTVADecaisser1201
+                                               + DecaissTVADecaisser1101
+                                               + DecaissTVADecaisser1001
+                                               + DecaissTVADecaisser0901
+                                               + DecaissTVADecaisser0801
+                                               + DecaissTVADecaisser0701
+                                               + DecaissTVADecaisser0601
+                                               + DecaissTVADecaisser0501
+                                               + DecaissTVADecaisser0401
+                                               + DecaissTVADecaisser0301
+                                               + DecaissTVADecaisser0201;
 
 
+                    #endregion
+
+                    #endregion
+
+                    #region Calcule Décaissement TVA à décaisser pour l'année 02
+
+                    #region Calcule TVA Collectees
+
+                    TVACollectees0102 = MontantChiffreAffaire0102 * TauxTVA / 100;
+                    TVACollectees0202 = MontantChiffreAffaire0202 * TauxTVA / 100;
+                    TVACollectees0302 = MontantChiffreAffaire0302 * TauxTVA / 100;
+                    TVACollectees0402 = MontantChiffreAffaire0402 * TauxTVA / 100;
+                    TVACollectees0502 = MontantChiffreAffaire0502 * TauxTVA / 100;
+                    TVACollectees0602 = MontantChiffreAffaire0602 * TauxTVA / 100;
+                    TVACollectees0702 = MontantChiffreAffaire0702 * TauxTVA / 100;
+                    TVACollectees0802 = MontantChiffreAffaire0802 * TauxTVA / 100;
+                    TVACollectees0902 = MontantChiffreAffaire0902 * TauxTVA / 100;
+                    TVACollectees1002 = MontantChiffreAffaire1002 * TauxTVA / 100;
+                    TVACollectees1102 = MontantChiffreAffaire1102 * TauxTVA / 100;
+                    TVACollectees1202 = MontantChiffreAffaire1202 * TauxTVA / 100;
+
+                    #endregion
+
+                    #region Calcule TVA Déductible
+
+                    TVADeductible0102 = (MontantAchatsConsommes0102 + MontantChargesExternes0102) * 19 / 100;
+                    TVADeductible0202 = (MontantAchatsConsommes0202 + MontantChargesExternes0202) * 19 / 100;
+                    TVADeductible0302 = (MontantAchatsConsommes0302 + MontantChargesExternes0302) * 19 / 100;
+                    TVADeductible0402 = (MontantAchatsConsommes0402 + MontantChargesExternes0402) * 19 / 100;
+                    TVADeductible0502 = (MontantAchatsConsommes0502 + MontantChargesExternes0502) * 19 / 100;
+                    TVADeductible0602 = (MontantAchatsConsommes0602 + MontantChargesExternes0602) * 19 / 100;
+                    TVADeductible0702 = (MontantAchatsConsommes0702 + MontantChargesExternes0702) * 19 / 100;
+                    TVADeductible0802 = (MontantAchatsConsommes0802 + MontantChargesExternes0802) * 19 / 100;
+                    TVADeductible0902 = (MontantAchatsConsommes0902 + MontantChargesExternes0902) * 19 / 100;
+                    TVADeductible1002 = (MontantAchatsConsommes1002 + MontantChargesExternes1002) * 19 / 100;
+                    TVADeductible1102 = (MontantAchatsConsommes1102 + MontantChargesExternes1102) * 19 / 100;
+                    TVADeductible1202 = (MontantAchatsConsommes1202 + MontantChargesExternes1202) * 19 / 100;
+
+                    #endregion
+
+                    #region Calcule Précompte
+
+                    if ((TVADeductible0102 + Precompte1201) > TVACollectees0102)
+                    {
+                        Precompte0102 = TVADeductible0102 + Precompte1201 - TVACollectees0102;
+                    }
+                    else
+                    {
+                        Precompte0102 = 0;
+                    }
+
+                    if ((TVADeductible0202 + Precompte0102) > TVACollectees0202)
+                    {
+                        Precompte0202 = TVADeductible0202 + Precompte0102 - TVACollectees0202;
+                    }
+                    else
+                    {
+                        Precompte0202 = 0;
+                    }
+
+                    if ((TVADeductible0302 + Precompte0202) > TVACollectees0302)
+                    {
+                        Precompte0302 = TVADeductible0302 + Precompte0202 - TVACollectees0302;
+                    }
+                    else
+                    {
+                        Precompte0302 = 0;
+                    }
+
+                    if ((TVADeductible0402 + Precompte0302) > TVACollectees0402)
+                    {
+                        Precompte0402 = TVADeductible0402 + Precompte0302 - TVACollectees0402;
+                    }
+                    else
+                    {
+                        Precompte0402 = 0;
+                    }
+
+                    if ((TVADeductible0502 + Precompte0402) > TVACollectees0502)
+                    {
+                        Precompte0502 = TVADeductible0502 + Precompte0402 - TVACollectees0502;
+                    }
+                    else
+                    {
+                        Precompte0502 = 0;
+                    }
+
+                    if ((TVADeductible0602 + Precompte0502) > TVACollectees0602)
+                    {
+                        Precompte0602 = TVADeductible0602 + Precompte0502 - TVACollectees0602;
+                    }
+                    else
+                    {
+                        Precompte0602 = 0;
+                    }
+
+                    if ((TVADeductible0702 + Precompte0602) > TVACollectees0702)
+                    {
+                        Precompte0702 = TVADeductible0702 + Precompte0602 - TVACollectees0702;
+                    }
+                    else
+                    {
+                        Precompte0702 = 0;
+                    }
+
+                    if ((TVADeductible0802 + Precompte0702) > TVACollectees0802)
+                    {
+                        Precompte0802 = TVADeductible0802 + Precompte0702 - TVACollectees0802;
+                    }
+                    else
+                    {
+                        Precompte0802 = 0;
+                    }
+
+                    if ((TVADeductible0902 + Precompte0802) > TVACollectees0902)
+                    {
+                        Precompte0902 = TVADeductible0902 + Precompte0802 - TVACollectees0902;
+                    }
+                    else
+                    {
+                        Precompte0902 = 0;
+                    }
+
+                    if ((TVADeductible1002 + Precompte0902) > TVACollectees1002)
+                    {
+                        Precompte1002 = TVADeductible1002 + Precompte0902 - TVACollectees1002;
+                    }
+                    else
+                    {
+                        Precompte1002 = 0;
+                    }
+
+                    if ((TVADeductible1102 + Precompte1002) > TVACollectees1102)
+                    {
+                        Precompte1102 = TVADeductible1102 + Precompte1002 - TVACollectees1102;
+                    }
+                    else
+                    {
+                        Precompte1102 = 0;
+                    }
+
+                    if ((TVADeductible1202 + Precompte1102) > TVACollectees1202)
+                    {
+                        Precompte1202 = TVADeductible1202 + Precompte1102 - TVACollectees1202;
+                    }
+                    else
+                    {
+                        Precompte1202 = 0;
+                    }
+
+                    #endregion
+
+                    #region Calcule Const TVA à décaisser
+
+                    if (TVACollectees0102 > TVADeductible0102)
+                    {
+                        ConstTVADecaisser0102 = TVACollectees0102 - TVADeductible0102;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser0102 = 0;
+                    }
+
+                    if (TVACollectees0102 > (TVADeductible0102 + Precompte1201))
+                    {
+                        ConstTVADecaisser0102 = TVACollectees0102 - TVADeductible0102 + Precompte1201;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser0102 = 0;
+                    }
+
+                    if (TVACollectees0202 > (TVADeductible0202 + Precompte0102))
+                    {
+                        ConstTVADecaisser0202 = TVACollectees0202 - TVADeductible0202 + Precompte0102;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser0202 = 0;
+                    }
+
+                    if (TVACollectees0302 > (TVADeductible0302 + Precompte0202))
+                    {
+                        ConstTVADecaisser0302 = TVACollectees0302 - TVADeductible0302 + Precompte0202;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser0302 = 0;
+                    }
+
+                    if (TVACollectees0402 > (TVADeductible0402 + Precompte0302))
+                    {
+                        ConstTVADecaisser0402 = TVACollectees0402 - TVADeductible0402 + Precompte0302;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser0402 = 0;
+                    }
+
+                    if (TVACollectees0502 > (TVADeductible0502 + Precompte0402))
+                    {
+                        ConstTVADecaisser0502 = TVACollectees0502 - TVADeductible0502 + Precompte0402;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser0502 = 0;
+                    }
+
+                    if (TVACollectees0602 > (TVADeductible0602 + Precompte0502))
+                    {
+                        ConstTVADecaisser0602 = TVACollectees0602 - TVADeductible0602 + Precompte0502;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser0602 = 0;
+                    }
+
+                    if (TVACollectees0702 > (TVADeductible0702 + Precompte0602))
+                    {
+                        ConstTVADecaisser0702 = TVACollectees0702 - TVADeductible0702 + Precompte0602;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser0702 = 0;
+                    }
+
+                    if (TVACollectees0802 > (TVADeductible0802 + Precompte0702))
+                    {
+                        ConstTVADecaisser0802 = TVACollectees0802 - TVADeductible0802 + Precompte0702;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser0802 = 0;
+                    }
+
+                    if (TVACollectees0902 > (TVADeductible0902 + Precompte0802))
+                    {
+                        ConstTVADecaisser0902 = TVACollectees0902 - TVADeductible0902 + Precompte0802;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser0902 = 0;
+                    }
+
+                    if (TVACollectees1002 > (TVADeductible1002 + Precompte0902))
+                    {
+                        ConstTVADecaisser1002 = TVACollectees1002 - TVADeductible1002 + Precompte0902;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser1002 = 0;
+                    }
+
+                    if (TVACollectees1102 > (TVADeductible1102 + Precompte1002))
+                    {
+                        ConstTVADecaisser1102 = TVACollectees1102 - TVADeductible1102 + Precompte1002;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser1102 = 0;
+                    }
+
+                    if (TVACollectees1202 > (TVADeductible1202 + Precompte1102))
+                    {
+                        ConstTVADecaisser1202 = TVACollectees1202 - TVADeductible1202 + Precompte1102;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser1202 = 0;
+                    }
+
+                    #endregion
+
+                    #region Calcule Décaissement TVA à décaisser
+
+                    if (ConstTVADecaisser1201 > 0)
+                    {
+                        DecaissTVADecaisser0102 = ConstTVADecaisser1201;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser0102 = 0;
+                    }
+
+                    if (ConstTVADecaisser0102 > 0)
+                    {
+                        DecaissTVADecaisser0202 = ConstTVADecaisser0102;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser0202 = 0;
+                    }
+
+                    if (ConstTVADecaisser0202 > 0)
+                    {
+                        DecaissTVADecaisser0302 = ConstTVADecaisser0202;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser0302 = 0;
+                    }
+
+                    if (ConstTVADecaisser0302 > 0)
+                    {
+                        DecaissTVADecaisser0402 = ConstTVADecaisser0302;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser0402 = 0;
+                    }
+
+                    if (ConstTVADecaisser0402 > 0)
+                    {
+                        DecaissTVADecaisser0502 = ConstTVADecaisser0402;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser0502 = 0;
+                    }
+
+                    if (ConstTVADecaisser0502 > 0)
+                    {
+                        DecaissTVADecaisser0602 = ConstTVADecaisser0502;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser0602 = 0;
+                    }
+
+                    if (ConstTVADecaisser0602 > 0)
+                    {
+                        DecaissTVADecaisser0702 = ConstTVADecaisser0602;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser0702 = 0;
+                    }
+
+                    if (ConstTVADecaisser0702 > 0)
+                    {
+                        DecaissTVADecaisser0802 = ConstTVADecaisser0702;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser0802 = 0;
+                    }
+
+                    if (ConstTVADecaisser0802 > 0)
+                    {
+                        DecaissTVADecaisser0902 = ConstTVADecaisser0802;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser0902 = 0;
+                    }
+
+                    if (ConstTVADecaisser0902 > 0)
+                    {
+                        DecaissTVADecaisser1002 = ConstTVADecaisser0902;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser1002 = 0;
+                    }
+
+                    if (ConstTVADecaisser1002 > 0)
+                    {
+                        DecaissTVADecaisser1102 = ConstTVADecaisser1002;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser1102 = 0;
+                    }
+
+                    if (ConstTVADecaisser1102 > 0)
+                    {
+                        DecaissTVADecaisser1202 = ConstTVADecaisser1102;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser1202 = 0;
+                    }
+
+                    SommeDecaissTVADecaisser02 = DecaissTVADecaisser1202
+                                               + DecaissTVADecaisser1102
+                                               + DecaissTVADecaisser1002
+                                               + DecaissTVADecaisser0902
+                                               + DecaissTVADecaisser0802
+                                               + DecaissTVADecaisser0702
+                                               + DecaissTVADecaisser0602
+                                               + DecaissTVADecaisser0502
+                                               + DecaissTVADecaisser0402
+                                               + DecaissTVADecaisser0302
+                                               + DecaissTVADecaisser0202
+                                               + DecaissTVADecaisser0102;
 
 
+                    #endregion
 
+                    #endregion
+
+                    #region Calcule Décaissement TVA à décaisser pour l'année 03
+
+                    #region Calcule TVA Collectees
+
+                    TVACollectees0103 = MontantChiffreAffaire0103 * TauxTVA / 100;
+                    TVACollectees0203 = MontantChiffreAffaire0203 * TauxTVA / 100;
+                    TVACollectees0303 = MontantChiffreAffaire0303 * TauxTVA / 100;
+                    TVACollectees0403 = MontantChiffreAffaire0403 * TauxTVA / 100;
+                    TVACollectees0503 = MontantChiffreAffaire0503 * TauxTVA / 100;
+                    TVACollectees0603 = MontantChiffreAffaire0603 * TauxTVA / 100;
+                    TVACollectees0703 = MontantChiffreAffaire0703 * TauxTVA / 100;
+                    TVACollectees0803 = MontantChiffreAffaire0803 * TauxTVA / 100;
+                    TVACollectees0903 = MontantChiffreAffaire0903 * TauxTVA / 100;
+                    TVACollectees1003 = MontantChiffreAffaire1003 * TauxTVA / 100;
+                    TVACollectees1103 = MontantChiffreAffaire1103 * TauxTVA / 100;
+                    TVACollectees1203 = MontantChiffreAffaire1203 * TauxTVA / 100;
+
+                    #endregion
+
+                    #region Calcule TVA Déductible
+
+                    TVADeductible0103 = (MontantAchatsConsommes0103 + MontantChargesExternes0103) * 19 / 100;
+                    TVADeductible0203 = (MontantAchatsConsommes0203 + MontantChargesExternes0203) * 19 / 100;
+                    TVADeductible0303 = (MontantAchatsConsommes0303 + MontantChargesExternes0303) * 19 / 100;
+                    TVADeductible0403 = (MontantAchatsConsommes0403 + MontantChargesExternes0403) * 19 / 100;
+                    TVADeductible0503 = (MontantAchatsConsommes0503 + MontantChargesExternes0503) * 19 / 100;
+                    TVADeductible0603 = (MontantAchatsConsommes0603 + MontantChargesExternes0603) * 19 / 100;
+                    TVADeductible0703 = (MontantAchatsConsommes0703 + MontantChargesExternes0703) * 19 / 100;
+                    TVADeductible0803 = (MontantAchatsConsommes0803 + MontantChargesExternes0803) * 19 / 100;
+                    TVADeductible0903 = (MontantAchatsConsommes0903 + MontantChargesExternes0903) * 19 / 100;
+                    TVADeductible1003 = (MontantAchatsConsommes1003 + MontantChargesExternes1003) * 19 / 100;
+                    TVADeductible1103 = (MontantAchatsConsommes1103 + MontantChargesExternes1103) * 19 / 100;
+                    TVADeductible1203 = (MontantAchatsConsommes1203 + MontantChargesExternes1203) * 19 / 100;
+
+                    #endregion
+
+                    #region Calcule Précompte
+
+                    if ((TVADeductible0103 + Precompte1202) > TVACollectees0103)
+                    {
+                        Precompte0103 = TVADeductible0103 + Precompte1202 - TVACollectees0103;
+                    }
+                    else
+                    {
+                        Precompte0103 = 0;
+                    }
+
+                    if ((TVADeductible0203 + Precompte0103) > TVACollectees0203)
+                    {
+                        Precompte0203 = TVADeductible0203 + Precompte0103 - TVACollectees0203;
+                    }
+                    else
+                    {
+                        Precompte0203 = 0;
+                    }
+
+                    if ((TVADeductible0303 + Precompte0203) > TVACollectees0303)
+                    {
+                        Precompte0303 = TVADeductible0303 + Precompte0203 - TVACollectees0303;
+                    }
+                    else
+                    {
+                        Precompte0303 = 0;
+                    }
+
+                    if ((TVADeductible0403 + Precompte0303) > TVACollectees0403)
+                    {
+                        Precompte0403 = TVADeductible0403 + Precompte0303 - TVACollectees0403;
+                    }
+                    else
+                    {
+                        Precompte0403 = 0;
+                    }
+
+                    if ((TVADeductible0503 + Precompte0403) > TVACollectees0503)
+                    {
+                        Precompte0503 = TVADeductible0503 + Precompte0403 - TVACollectees0503;
+                    }
+                    else
+                    {
+                        Precompte0503 = 0;
+                    }
+
+                    if ((TVADeductible0603 + Precompte0503) > TVACollectees0603)
+                    {
+                        Precompte0603 = TVADeductible0603 + Precompte0503 - TVACollectees0603;
+                    }
+                    else
+                    {
+                        Precompte0603 = 0;
+                    }
+
+                    if ((TVADeductible0703 + Precompte0603) > TVACollectees0703)
+                    {
+                        Precompte0703 = TVADeductible0703 + Precompte0603 - TVACollectees0703;
+                    }
+                    else
+                    {
+                        Precompte0703 = 0;
+                    }
+
+                    if ((TVADeductible0803 + Precompte0703) > TVACollectees0803)
+                    {
+                        Precompte0803 = TVADeductible0803 + Precompte0703 - TVACollectees0803;
+                    }
+                    else
+                    {
+                        Precompte0803 = 0;
+                    }
+
+                    if ((TVADeductible0903 + Precompte0803) > TVACollectees0903)
+                    {
+                        Precompte0903 = TVADeductible0903 + Precompte0803 - TVACollectees0903;
+                    }
+                    else
+                    {
+                        Precompte0903 = 0;
+                    }
+
+                    if ((TVADeductible1003 + Precompte0903) > TVACollectees1003)
+                    {
+                        Precompte1003 = TVADeductible1003 + Precompte0903 - TVACollectees1003;
+                    }
+                    else
+                    {
+                        Precompte1003 = 0;
+                    }
+
+                    if ((TVADeductible1103 + Precompte1003) > TVACollectees1103)
+                    {
+                        Precompte1103 = TVADeductible1103 + Precompte1003 - TVACollectees1103;
+                    }
+                    else
+                    {
+                        Precompte1103 = 0;
+                    }
+
+                    if ((TVADeductible1203 + Precompte1103) > TVACollectees1203)
+                    {
+                        Precompte1203 = TVADeductible1203 + Precompte1103 - TVACollectees1203;
+                    }
+                    else
+                    {
+                        Precompte1203 = 0;
+                    }
+
+                    #endregion
+
+                    #region Calcule Const TVA à décaisser
+
+                    if (TVACollectees0103 > TVADeductible0103)
+                    {
+                        ConstTVADecaisser0103 = TVACollectees0103 - TVADeductible0103;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser0103 = 0;
+                    }
+
+                    if (TVACollectees0103 > (TVADeductible0103 + Precompte1202))
+                    {
+                        ConstTVADecaisser0103 = TVACollectees0103 - TVADeductible0103 + Precompte1202;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser0103 = 0;
+                    }
+
+                    if (TVACollectees0203 > (TVADeductible0203 + Precompte0103))
+                    {
+                        ConstTVADecaisser0203 = TVACollectees0203 - TVADeductible0203 + Precompte0103;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser0203 = 0;
+                    }
+
+                    if (TVACollectees0303 > (TVADeductible0303 + Precompte0203))
+                    {
+                        ConstTVADecaisser0303 = TVACollectees0303 - TVADeductible0303 + Precompte0203;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser0303 = 0;
+                    }
+
+                    if (TVACollectees0403 > (TVADeductible0403 + Precompte0303))
+                    {
+                        ConstTVADecaisser0403 = TVACollectees0403 - TVADeductible0403 + Precompte0303;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser0403 = 0;
+                    }
+
+                    if (TVACollectees0503 > (TVADeductible0503 + Precompte0403))
+                    {
+                        ConstTVADecaisser0503 = TVACollectees0503 - TVADeductible0503 + Precompte0403;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser0503 = 0;
+                    }
+
+                    if (TVACollectees0603 > (TVADeductible0603 + Precompte0503))
+                    {
+                        ConstTVADecaisser0603 = TVACollectees0603 - TVADeductible0603 + Precompte0503;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser0603 = 0;
+                    }
+
+                    if (TVACollectees0703 > (TVADeductible0703 + Precompte0603))
+                    {
+                        ConstTVADecaisser0703 = TVACollectees0703 - TVADeductible0703 + Precompte0603;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser0703 = 0;
+                    }
+
+                    if (TVACollectees0803 > (TVADeductible0803 + Precompte0703))
+                    {
+                        ConstTVADecaisser0803 = TVACollectees0803 - TVADeductible0803 + Precompte0703;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser0803 = 0;
+                    }
+
+                    if (TVACollectees0903 > (TVADeductible0903 + Precompte0803))
+                    {
+                        ConstTVADecaisser0903 = TVACollectees0903 - TVADeductible0903 + Precompte0803;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser0903 = 0;
+                    }
+
+                    if (TVACollectees1003 > (TVADeductible1003 + Precompte0903))
+                    {
+                        ConstTVADecaisser1003 = TVACollectees1003 - TVADeductible1003 + Precompte0903;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser1003 = 0;
+                    }
+
+                    if (TVACollectees1103 > (TVADeductible1103 + Precompte1003))
+                    {
+                        ConstTVADecaisser1103 = TVACollectees1103 - TVADeductible1103 + Precompte1003;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser1103 = 0;
+                    }
+
+                    if (TVACollectees1203 > (TVADeductible1203 + Precompte1103))
+                    {
+                        ConstTVADecaisser1203 = TVACollectees1203 - TVADeductible1203 + Precompte1103;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser1203 = 0;
+                    }
+
+                    #endregion
+
+                    #region Calcule Décaissement TVA à décaisser
+
+                    if (ConstTVADecaisser1202 > 0)
+                    {
+                        DecaissTVADecaisser0103 = ConstTVADecaisser1202;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser0103 = 0;
+                    }
+
+                    if (ConstTVADecaisser0103 > 0)
+                    {
+                        DecaissTVADecaisser0203 = ConstTVADecaisser0103;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser0203 = 0;
+                    }
+
+                    if (ConstTVADecaisser0203 > 0)
+                    {
+                        DecaissTVADecaisser0303 = ConstTVADecaisser0203;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser0303 = 0;
+                    }
+
+                    if (ConstTVADecaisser0303 > 0)
+                    {
+                        DecaissTVADecaisser0403 = ConstTVADecaisser0303;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser0403 = 0;
+                    }
+
+                    if (ConstTVADecaisser0403 > 0)
+                    {
+                        DecaissTVADecaisser0503 = ConstTVADecaisser0403;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser0503 = 0;
+                    }
+
+                    if (ConstTVADecaisser0503 > 0)
+                    {
+                        DecaissTVADecaisser0603 = ConstTVADecaisser0503;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser0603 = 0;
+                    }
+
+                    if (ConstTVADecaisser0603 > 0)
+                    {
+                        DecaissTVADecaisser0703 = ConstTVADecaisser0603;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser0703 = 0;
+                    }
+
+                    if (ConstTVADecaisser0703 > 0)
+                    {
+                        DecaissTVADecaisser0803 = ConstTVADecaisser0703;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser0803 = 0;
+                    }
+
+                    if (ConstTVADecaisser0803 > 0)
+                    {
+                        DecaissTVADecaisser0903 = ConstTVADecaisser0803;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser0903 = 0;
+                    }
+
+                    if (ConstTVADecaisser0903 > 0)
+                    {
+                        DecaissTVADecaisser1003 = ConstTVADecaisser0903;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser1003 = 0;
+                    }
+
+                    if (ConstTVADecaisser1003 > 0)
+                    {
+                        DecaissTVADecaisser1103 = ConstTVADecaisser1003;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser1103 = 0;
+                    }
+
+                    if (ConstTVADecaisser1103 > 0)
+                    {
+                        DecaissTVADecaisser1203 = ConstTVADecaisser1103;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser1203 = 0;
+                    }
+
+                    SommeDecaissTVADecaisser03 = DecaissTVADecaisser1203
+                                               + DecaissTVADecaisser1103
+                                               + DecaissTVADecaisser1003
+                                               + DecaissTVADecaisser0903
+                                               + DecaissTVADecaisser0803
+                                               + DecaissTVADecaisser0703
+                                               + DecaissTVADecaisser0603
+                                               + DecaissTVADecaisser0503
+                                               + DecaissTVADecaisser0403
+                                               + DecaissTVADecaisser0303
+                                               + DecaissTVADecaisser0203
+                                               + DecaissTVADecaisser0103;
+
+
+                    #endregion
+
+                    #endregion
+
+                    #region Calcule Décaissement TVA à décaisser pour l'année 04
+
+                    #region Calcule TVA Collectees
+
+                    TVACollectees0104 = MontantChiffreAffaire0104 * TauxTVA / 100;
+                    TVACollectees0204 = MontantChiffreAffaire0204 * TauxTVA / 100;
+                    TVACollectees0304 = MontantChiffreAffaire0304 * TauxTVA / 100;
+                    TVACollectees0404 = MontantChiffreAffaire0404 * TauxTVA / 100;
+                    TVACollectees0504 = MontantChiffreAffaire0504 * TauxTVA / 100;
+                    TVACollectees0604 = MontantChiffreAffaire0604 * TauxTVA / 100;
+                    TVACollectees0704 = MontantChiffreAffaire0704 * TauxTVA / 100;
+                    TVACollectees0804 = MontantChiffreAffaire0804 * TauxTVA / 100;
+                    TVACollectees0904 = MontantChiffreAffaire0904 * TauxTVA / 100;
+                    TVACollectees1004 = MontantChiffreAffaire1004 * TauxTVA / 100;
+                    TVACollectees1104 = MontantChiffreAffaire1104 * TauxTVA / 100;
+                    TVACollectees1204 = MontantChiffreAffaire1204 * TauxTVA / 100;
+
+                    #endregion
+
+                    #region Calcule TVA Déductible
+
+                    TVADeductible0104 = (MontantAchatsConsommes0104 + MontantChargesExternes0104) * 19 / 100;
+                    TVADeductible0204 = (MontantAchatsConsommes0204 + MontantChargesExternes0204) * 19 / 100;
+                    TVADeductible0304 = (MontantAchatsConsommes0304 + MontantChargesExternes0304) * 19 / 100;
+                    TVADeductible0404 = (MontantAchatsConsommes0404 + MontantChargesExternes0404) * 19 / 100;
+                    TVADeductible0504 = (MontantAchatsConsommes0504 + MontantChargesExternes0504) * 19 / 100;
+                    TVADeductible0604 = (MontantAchatsConsommes0604 + MontantChargesExternes0604) * 19 / 100;
+                    TVADeductible0704 = (MontantAchatsConsommes0704 + MontantChargesExternes0704) * 19 / 100;
+                    TVADeductible0804 = (MontantAchatsConsommes0804 + MontantChargesExternes0804) * 19 / 100;
+                    TVADeductible0904 = (MontantAchatsConsommes0904 + MontantChargesExternes0904) * 19 / 100;
+                    TVADeductible1004 = (MontantAchatsConsommes1004 + MontantChargesExternes1004) * 19 / 100;
+                    TVADeductible1104 = (MontantAchatsConsommes1104 + MontantChargesExternes1104) * 19 / 100;
+                    TVADeductible1204 = (MontantAchatsConsommes1204 + MontantChargesExternes1204) * 19 / 100;
+
+                    #endregion
+
+                    #region Calcule Précompte
+
+                    if ((TVADeductible0104 + Precompte1203) > TVACollectees0104)
+                    {
+                        Precompte0104 = TVADeductible0104 + Precompte1203 - TVACollectees0104;
+                    }
+                    else
+                    {
+                        Precompte0104 = 0;
+                    }
+
+                    if ((TVADeductible0204 + Precompte0104) > TVACollectees0204)
+                    {
+                        Precompte0204 = TVADeductible0204 + Precompte0104 - TVACollectees0204;
+                    }
+                    else
+                    {
+                        Precompte0204 = 0;
+                    }
+
+                    if ((TVADeductible0304 + Precompte0204) > TVACollectees0304)
+                    {
+                        Precompte0304 = TVADeductible0304 + Precompte0204 - TVACollectees0304;
+                    }
+                    else
+                    {
+                        Precompte0304 = 0;
+                    }
+
+                    if ((TVADeductible0404 + Precompte0304) > TVACollectees0404)
+                    {
+                        Precompte0404 = TVADeductible0404 + Precompte0304 - TVACollectees0404;
+                    }
+                    else
+                    {
+                        Precompte0404 = 0;
+                    }
+
+                    if ((TVADeductible0504 + Precompte0404) > TVACollectees0504)
+                    {
+                        Precompte0504 = TVADeductible0504 + Precompte0404 - TVACollectees0504;
+                    }
+                    else
+                    {
+                        Precompte0504 = 0;
+                    }
+
+                    if ((TVADeductible0604 + Precompte0504) > TVACollectees0604)
+                    {
+                        Precompte0604 = TVADeductible0604 + Precompte0504 - TVACollectees0604;
+                    }
+                    else
+                    {
+                        Precompte0604 = 0;
+                    }
+
+                    if ((TVADeductible0704 + Precompte0604) > TVACollectees0704)
+                    {
+                        Precompte0704 = TVADeductible0704 + Precompte0604 - TVACollectees0704;
+                    }
+                    else
+                    {
+                        Precompte0704 = 0;
+                    }
+
+                    if ((TVADeductible0804 + Precompte0704) > TVACollectees0804)
+                    {
+                        Precompte0804 = TVADeductible0804 + Precompte0704 - TVACollectees0804;
+                    }
+                    else
+                    {
+                        Precompte0804 = 0;
+                    }
+
+                    if ((TVADeductible0904 + Precompte0804) > TVACollectees0904)
+                    {
+                        Precompte0904 = TVADeductible0904 + Precompte0804 - TVACollectees0904;
+                    }
+                    else
+                    {
+                        Precompte0904 = 0;
+                    }
+
+                    if ((TVADeductible1004 + Precompte0904) > TVACollectees1004)
+                    {
+                        Precompte1004 = TVADeductible1004 + Precompte0904 - TVACollectees1004;
+                    }
+                    else
+                    {
+                        Precompte1004 = 0;
+                    }
+
+                    if ((TVADeductible1104 + Precompte1004) > TVACollectees1104)
+                    {
+                        Precompte1104 = TVADeductible1104 + Precompte1004 - TVACollectees1104;
+                    }
+                    else
+                    {
+                        Precompte1104 = 0;
+                    }
+
+                    if ((TVADeductible1204 + Precompte1104) > TVACollectees1204)
+                    {
+                        Precompte1204 = TVADeductible1204 + Precompte1104 - TVACollectees1204;
+                    }
+                    else
+                    {
+                        Precompte1204 = 0;
+                    }
+
+                    #endregion
+
+                    #region Calcule Const TVA à décaisser
+
+                    if (TVACollectees0104 > TVADeductible0104)
+                    {
+                        ConstTVADecaisser0104 = TVACollectees0104 - TVADeductible0104;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser0104 = 0;
+                    }
+
+                    if (TVACollectees0104 > (TVADeductible0104 + Precompte1203))
+                    {
+                        ConstTVADecaisser0104 = TVACollectees0104 - TVADeductible0104 + Precompte1203;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser0104 = 0;
+                    }
+
+                    if (TVACollectees0204 > (TVADeductible0204 + Precompte0104))
+                    {
+                        ConstTVADecaisser0204 = TVACollectees0204 - TVADeductible0204 + Precompte0104;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser0204 = 0;
+                    }
+
+                    if (TVACollectees0304 > (TVADeductible0304 + Precompte0204))
+                    {
+                        ConstTVADecaisser0304 = TVACollectees0304 - TVADeductible0304 + Precompte0204;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser0304 = 0;
+                    }
+
+                    if (TVACollectees0404 > (TVADeductible0404 + Precompte0304))
+                    {
+                        ConstTVADecaisser0404 = TVACollectees0404 - TVADeductible0404 + Precompte0304;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser0404 = 0;
+                    }
+
+                    if (TVACollectees0504 > (TVADeductible0504 + Precompte0404))
+                    {
+                        ConstTVADecaisser0504 = TVACollectees0504 - TVADeductible0504 + Precompte0404;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser0504 = 0;
+                    }
+
+                    if (TVACollectees0604 > (TVADeductible0604 + Precompte0504))
+                    {
+                        ConstTVADecaisser0604 = TVACollectees0604 - TVADeductible0604 + Precompte0504;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser0604 = 0;
+                    }
+
+                    if (TVACollectees0704 > (TVADeductible0704 + Precompte0604))
+                    {
+                        ConstTVADecaisser0704 = TVACollectees0704 - TVADeductible0704 + Precompte0604;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser0704 = 0;
+                    }
+
+                    if (TVACollectees0804 > (TVADeductible0804 + Precompte0704))
+                    {
+                        ConstTVADecaisser0804 = TVACollectees0804 - TVADeductible0804 + Precompte0704;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser0804 = 0;
+                    }
+
+                    if (TVACollectees0904 > (TVADeductible0904 + Precompte0804))
+                    {
+                        ConstTVADecaisser0904 = TVACollectees0904 - TVADeductible0904 + Precompte0804;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser0904 = 0;
+                    }
+
+                    if (TVACollectees1004 > (TVADeductible1004 + Precompte0904))
+                    {
+                        ConstTVADecaisser1004 = TVACollectees1004 - TVADeductible1004 + Precompte0904;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser1004 = 0;
+                    }
+
+                    if (TVACollectees1104 > (TVADeductible1104 + Precompte1004))
+                    {
+                        ConstTVADecaisser1104 = TVACollectees1104 - TVADeductible1104 + Precompte1004;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser1104 = 0;
+                    }
+
+                    if (TVACollectees1204 > (TVADeductible1204 + Precompte1104))
+                    {
+                        ConstTVADecaisser1204 = TVACollectees1204 - TVADeductible1204 + Precompte1104;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser1204 = 0;
+                    }
+
+                    #endregion
+
+                    #region Calcule Décaissement TVA à décaisser
+
+                    if (ConstTVADecaisser1203 > 0)
+                    {
+                        DecaissTVADecaisser0104 = ConstTVADecaisser1203;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser0104 = 0;
+                    }
+
+                    if (ConstTVADecaisser0104 > 0)
+                    {
+                        DecaissTVADecaisser0204 = ConstTVADecaisser0104;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser0204 = 0;
+                    }
+
+                    if (ConstTVADecaisser0204 > 0)
+                    {
+                        DecaissTVADecaisser0304 = ConstTVADecaisser0204;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser0304 = 0;
+                    }
+
+                    if (ConstTVADecaisser0304 > 0)
+                    {
+                        DecaissTVADecaisser0404 = ConstTVADecaisser0304;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser0404 = 0;
+                    }
+
+                    if (ConstTVADecaisser0404 > 0)
+                    {
+                        DecaissTVADecaisser0504 = ConstTVADecaisser0404;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser0504 = 0;
+                    }
+
+                    if (ConstTVADecaisser0504 > 0)
+                    {
+                        DecaissTVADecaisser0604 = ConstTVADecaisser0504;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser0604 = 0;
+                    }
+
+                    if (ConstTVADecaisser0604 > 0)
+                    {
+                        DecaissTVADecaisser0704 = ConstTVADecaisser0604;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser0704 = 0;
+                    }
+
+                    if (ConstTVADecaisser0704 > 0)
+                    {
+                        DecaissTVADecaisser0804 = ConstTVADecaisser0704;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser0804 = 0;
+                    }
+
+                    if (ConstTVADecaisser0804 > 0)
+                    {
+                        DecaissTVADecaisser0904 = ConstTVADecaisser0804;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser0904 = 0;
+                    }
+
+                    if (ConstTVADecaisser0904 > 0)
+                    {
+                        DecaissTVADecaisser1004 = ConstTVADecaisser0904;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser1004 = 0;
+                    }
+
+                    if (ConstTVADecaisser1004 > 0)
+                    {
+                        DecaissTVADecaisser1104 = ConstTVADecaisser1004;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser1104 = 0;
+                    }
+
+                    if (ConstTVADecaisser1104 > 0)
+                    {
+                        DecaissTVADecaisser1204 = ConstTVADecaisser1104;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser1204 = 0;
+                    }
+
+                    SommeDecaissTVADecaisser04 = DecaissTVADecaisser1204
+                                               + DecaissTVADecaisser1104
+                                               + DecaissTVADecaisser1004
+                                               + DecaissTVADecaisser0904
+                                               + DecaissTVADecaisser0804
+                                               + DecaissTVADecaisser0704
+                                               + DecaissTVADecaisser0604
+                                               + DecaissTVADecaisser0504
+                                               + DecaissTVADecaisser0404
+                                               + DecaissTVADecaisser0304
+                                               + DecaissTVADecaisser0204
+                                               + DecaissTVADecaisser0104;
+
+
+                    #endregion
+
+                    #endregion
+
+                    #region Calcule Décaissement TVA à décaisser pour l'année 05
+
+                    #region Calcule TVA Collectees
+
+                    TVACollectees0105 = MontantChiffreAffaire0105 * TauxTVA / 100;
+                    TVACollectees0205 = MontantChiffreAffaire0205 * TauxTVA / 100;
+                    TVACollectees0305 = MontantChiffreAffaire0305 * TauxTVA / 100;
+                    TVACollectees0405 = MontantChiffreAffaire0405 * TauxTVA / 100;
+                    TVACollectees0505 = MontantChiffreAffaire0505 * TauxTVA / 100;
+                    TVACollectees0605 = MontantChiffreAffaire0605 * TauxTVA / 100;
+                    TVACollectees0705 = MontantChiffreAffaire0705 * TauxTVA / 100;
+                    TVACollectees0805 = MontantChiffreAffaire0805 * TauxTVA / 100;
+                    TVACollectees0905 = MontantChiffreAffaire0905 * TauxTVA / 100;
+                    TVACollectees1005 = MontantChiffreAffaire1005 * TauxTVA / 100;
+                    TVACollectees1105 = MontantChiffreAffaire1105 * TauxTVA / 100;
+                    TVACollectees1205 = MontantChiffreAffaire1205 * TauxTVA / 100;
+
+                    #endregion
+
+                    #region Calcule TVA Déductible
+
+                    TVADeductible0105 = (MontantAchatsConsommes0105 + MontantChargesExternes0105) * 19 / 100;
+                    TVADeductible0205 = (MontantAchatsConsommes0205 + MontantChargesExternes0205) * 19 / 100;
+                    TVADeductible0305 = (MontantAchatsConsommes0305 + MontantChargesExternes0305) * 19 / 100;
+                    TVADeductible0405 = (MontantAchatsConsommes0405 + MontantChargesExternes0405) * 19 / 100;
+                    TVADeductible0505 = (MontantAchatsConsommes0505 + MontantChargesExternes0505) * 19 / 100;
+                    TVADeductible0605 = (MontantAchatsConsommes0605 + MontantChargesExternes0605) * 19 / 100;
+                    TVADeductible0705 = (MontantAchatsConsommes0705 + MontantChargesExternes0705) * 19 / 100;
+                    TVADeductible0805 = (MontantAchatsConsommes0805 + MontantChargesExternes0805) * 19 / 100;
+                    TVADeductible0905 = (MontantAchatsConsommes0905 + MontantChargesExternes0905) * 19 / 100;
+                    TVADeductible1005 = (MontantAchatsConsommes1005 + MontantChargesExternes1005) * 19 / 100;
+                    TVADeductible1105 = (MontantAchatsConsommes1105 + MontantChargesExternes1105) * 19 / 100;
+                    TVADeductible1205 = (MontantAchatsConsommes1205 + MontantChargesExternes1205) * 19 / 100;
+
+                    #endregion
+
+                    #region Calcule Précompte
+
+                    if ((TVADeductible0105 + Precompte1204) > TVACollectees0105)
+                    {
+                        Precompte0105 = TVADeductible0105 + Precompte1204 - TVACollectees0105;
+                    }
+                    else
+                    {
+                        Precompte0105 = 0;
+                    }
+
+                    if ((TVADeductible0205 + Precompte0105) > TVACollectees0205)
+                    {
+                        Precompte0205 = TVADeductible0205 + Precompte0105 - TVACollectees0205;
+                    }
+                    else
+                    {
+                        Precompte0205 = 0;
+                    }
+
+                    if ((TVADeductible0305 + Precompte0205) > TVACollectees0305)
+                    {
+                        Precompte0305 = TVADeductible0305 + Precompte0205 - TVACollectees0305;
+                    }
+                    else
+                    {
+                        Precompte0305 = 0;
+                    }
+
+                    if ((TVADeductible0405 + Precompte0305) > TVACollectees0405)
+                    {
+                        Precompte0405 = TVADeductible0405 + Precompte0305 - TVACollectees0405;
+                    }
+                    else
+                    {
+                        Precompte0405 = 0;
+                    }
+
+                    if ((TVADeductible0505 + Precompte0405) > TVACollectees0505)
+                    {
+                        Precompte0505 = TVADeductible0505 + Precompte0405 - TVACollectees0505;
+                    }
+                    else
+                    {
+                        Precompte0505 = 0;
+                    }
+
+                    if ((TVADeductible0605 + Precompte0505) > TVACollectees0605)
+                    {
+                        Precompte0605 = TVADeductible0605 + Precompte0505 - TVACollectees0605;
+                    }
+                    else
+                    {
+                        Precompte0605 = 0;
+                    }
+
+                    if ((TVADeductible0705 + Precompte0605) > TVACollectees0705)
+                    {
+                        Precompte0705 = TVADeductible0705 + Precompte0605 - TVACollectees0705;
+                    }
+                    else
+                    {
+                        Precompte0705 = 0;
+                    }
+
+                    if ((TVADeductible0805 + Precompte0705) > TVACollectees0805)
+                    {
+                        Precompte0805 = TVADeductible0805 + Precompte0705 - TVACollectees0805;
+                    }
+                    else
+                    {
+                        Precompte0805 = 0;
+                    }
+
+                    if ((TVADeductible0905 + Precompte0805) > TVACollectees0905)
+                    {
+                        Precompte0905 = TVADeductible0905 + Precompte0805 - TVACollectees0905;
+                    }
+                    else
+                    {
+                        Precompte0905 = 0;
+                    }
+
+                    if ((TVADeductible1005 + Precompte0905) > TVACollectees1005)
+                    {
+                        Precompte1005 = TVADeductible1005 + Precompte0905 - TVACollectees1005;
+                    }
+                    else
+                    {
+                        Precompte1005 = 0;
+                    }
+
+                    if ((TVADeductible1105 + Precompte1005) > TVACollectees1105)
+                    {
+                        Precompte1105 = TVADeductible1105 + Precompte1005 - TVACollectees1105;
+                    }
+                    else
+                    {
+                        Precompte1105 = 0;
+                    }
+
+                    if ((TVADeductible1205 + Precompte1105) > TVACollectees1205)
+                    {
+                        Precompte1205 = TVADeductible1205 + Precompte1105 - TVACollectees1205;
+                    }
+                    else
+                    {
+                        Precompte1205 = 0;
+                    }
+
+                    #endregion
+
+                    #region Calcule Const TVA à décaisser
+
+                    if (TVACollectees0105 > TVADeductible0105)
+                    {
+                        ConstTVADecaisser0105 = TVACollectees0105 - TVADeductible0105;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser0105 = 0;
+                    }
+
+                    if (TVACollectees0105 > (TVADeductible0105 + Precompte1204))
+                    {
+                        ConstTVADecaisser0105 = TVACollectees0105 - TVADeductible0105 + Precompte1204;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser0105 = 0;
+                    }
+
+                    if (TVACollectees0205 > (TVADeductible0205 + Precompte0105))
+                    {
+                        ConstTVADecaisser0205 = TVACollectees0205 - TVADeductible0205 + Precompte0105;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser0205 = 0;
+                    }
+
+                    if (TVACollectees0305 > (TVADeductible0305 + Precompte0205))
+                    {
+                        ConstTVADecaisser0305 = TVACollectees0305 - TVADeductible0305 + Precompte0205;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser0305 = 0;
+                    }
+
+                    if (TVACollectees0405 > (TVADeductible0405 + Precompte0305))
+                    {
+                        ConstTVADecaisser0405 = TVACollectees0405 - TVADeductible0405 + Precompte0305;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser0405 = 0;
+                    }
+
+                    if (TVACollectees0505 > (TVADeductible0505 + Precompte0405))
+                    {
+                        ConstTVADecaisser0505 = TVACollectees0505 - TVADeductible0505 + Precompte0405;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser0505 = 0;
+                    }
+
+                    if (TVACollectees0605 > (TVADeductible0605 + Precompte0505))
+                    {
+                        ConstTVADecaisser0605 = TVACollectees0605 - TVADeductible0605 + Precompte0505;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser0605 = 0;
+                    }
+
+                    if (TVACollectees0705 > (TVADeductible0705 + Precompte0605))
+                    {
+                        ConstTVADecaisser0705 = TVACollectees0705 - TVADeductible0705 + Precompte0605;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser0705 = 0;
+                    }
+
+                    if (TVACollectees0805 > (TVADeductible0805 + Precompte0705))
+                    {
+                        ConstTVADecaisser0805 = TVACollectees0805 - TVADeductible0805 + Precompte0705;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser0805 = 0;
+                    }
+
+                    if (TVACollectees0905 > (TVADeductible0905 + Precompte0805))
+                    {
+                        ConstTVADecaisser0905 = TVACollectees0905 - TVADeductible0905 + Precompte0805;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser0905 = 0;
+                    }
+
+                    if (TVACollectees1005 > (TVADeductible1005 + Precompte0905))
+                    {
+                        ConstTVADecaisser1005 = TVACollectees1005 - TVADeductible1005 + Precompte0905;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser1005 = 0;
+                    }
+
+                    if (TVACollectees1105 > (TVADeductible1105 + Precompte1005))
+                    {
+                        ConstTVADecaisser1105 = TVACollectees1105 - TVADeductible1105 + Precompte1005;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser1105 = 0;
+                    }
+
+                    if (TVACollectees1205 > (TVADeductible1205 + Precompte1105))
+                    {
+                        ConstTVADecaisser1205 = TVACollectees1205 - TVADeductible1205 + Precompte1105;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser1205 = 0;
+                    }
+
+                    #endregion
+
+                    #region Calcule Décaissement TVA à décaisser
+
+                    if (ConstTVADecaisser1204 > 0)
+                    {
+                        DecaissTVADecaisser0105 = ConstTVADecaisser1204;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser0105 = 0;
+                    }
+
+                    if (ConstTVADecaisser0105 > 0)
+                    {
+                        DecaissTVADecaisser0205 = ConstTVADecaisser0105;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser0205 = 0;
+                    }
+
+                    if (ConstTVADecaisser0205 > 0)
+                    {
+                        DecaissTVADecaisser0305 = ConstTVADecaisser0205;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser0305 = 0;
+                    }
+
+                    if (ConstTVADecaisser0305 > 0)
+                    {
+                        DecaissTVADecaisser0405 = ConstTVADecaisser0305;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser0405 = 0;
+                    }
+
+                    if (ConstTVADecaisser0405 > 0)
+                    {
+                        DecaissTVADecaisser0505 = ConstTVADecaisser0405;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser0505 = 0;
+                    }
+
+                    if (ConstTVADecaisser0505 > 0)
+                    {
+                        DecaissTVADecaisser0605 = ConstTVADecaisser0505;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser0605 = 0;
+                    }
+
+                    if (ConstTVADecaisser0605 > 0)
+                    {
+                        DecaissTVADecaisser0705 = ConstTVADecaisser0605;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser0705 = 0;
+                    }
+
+                    if (ConstTVADecaisser0705 > 0)
+                    {
+                        DecaissTVADecaisser0805 = ConstTVADecaisser0705;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser0805 = 0;
+                    }
+
+                    if (ConstTVADecaisser0805 > 0)
+                    {
+                        DecaissTVADecaisser0905 = ConstTVADecaisser0805;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser0905 = 0;
+                    }
+
+                    if (ConstTVADecaisser0905 > 0)
+                    {
+                        DecaissTVADecaisser1005 = ConstTVADecaisser0905;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser1005 = 0;
+                    }
+
+                    if (ConstTVADecaisser1005 > 0)
+                    {
+                        DecaissTVADecaisser1105 = ConstTVADecaisser1005;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser1105 = 0;
+                    }
+
+                    if (ConstTVADecaisser1105 > 0)
+                    {
+                        DecaissTVADecaisser1205 = ConstTVADecaisser1105;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser1205 = 0;
+                    }
+
+                    SommeDecaissTVADecaisser05 = DecaissTVADecaisser1205
+                                               + DecaissTVADecaisser1105
+                                               + DecaissTVADecaisser1005
+                                               + DecaissTVADecaisser0905
+                                               + DecaissTVADecaisser0805
+                                               + DecaissTVADecaisser0705
+                                               + DecaissTVADecaisser0605
+                                               + DecaissTVADecaisser0505
+                                               + DecaissTVADecaisser0405
+                                               + DecaissTVADecaisser0305
+                                               + DecaissTVADecaisser0205
+                                               + DecaissTVADecaisser0105;
+
+
+                    #endregion
+
+                    #endregion
+
+                    #region Calcule Décaissement TVA à décaisser pour l'année 06
+
+                    #region Calcule TVA Collectees
+
+                    TVACollectees0106 = MontantChiffreAffaire0106 * TauxTVA / 100;
+                    TVACollectees0206 = MontantChiffreAffaire0206 * TauxTVA / 100;
+                    TVACollectees0306 = MontantChiffreAffaire0306 * TauxTVA / 100;
+                    TVACollectees0406 = MontantChiffreAffaire0406 * TauxTVA / 100;
+                    TVACollectees0506 = MontantChiffreAffaire0506 * TauxTVA / 100;
+                    TVACollectees0606 = MontantChiffreAffaire0606 * TauxTVA / 100;
+                    TVACollectees0706 = MontantChiffreAffaire0706 * TauxTVA / 100;
+                    TVACollectees0806 = MontantChiffreAffaire0806 * TauxTVA / 100;
+                    TVACollectees0906 = MontantChiffreAffaire0906 * TauxTVA / 100;
+                    TVACollectees1006 = MontantChiffreAffaire1006 * TauxTVA / 100;
+                    TVACollectees1106 = MontantChiffreAffaire1106 * TauxTVA / 100;
+                    TVACollectees1206 = MontantChiffreAffaire1206 * TauxTVA / 100;
+
+                    #endregion
+
+                    #region Calcule TVA Déductible
+
+                    TVADeductible0106 = (MontantAchatsConsommes0106 + MontantChargesExternes0106) * 19 / 100;
+                    TVADeductible0206 = (MontantAchatsConsommes0206 + MontantChargesExternes0206) * 19 / 100;
+                    TVADeductible0306 = (MontantAchatsConsommes0306 + MontantChargesExternes0306) * 19 / 100;
+                    TVADeductible0406 = (MontantAchatsConsommes0406 + MontantChargesExternes0406) * 19 / 100;
+                    TVADeductible0506 = (MontantAchatsConsommes0506 + MontantChargesExternes0506) * 19 / 100;
+                    TVADeductible0606 = (MontantAchatsConsommes0606 + MontantChargesExternes0606) * 19 / 100;
+                    TVADeductible0706 = (MontantAchatsConsommes0706 + MontantChargesExternes0706) * 19 / 100;
+                    TVADeductible0806 = (MontantAchatsConsommes0806 + MontantChargesExternes0806) * 19 / 100;
+                    TVADeductible0906 = (MontantAchatsConsommes0906 + MontantChargesExternes0906) * 19 / 100;
+                    TVADeductible1006 = (MontantAchatsConsommes1006 + MontantChargesExternes1006) * 19 / 100;
+                    TVADeductible1106 = (MontantAchatsConsommes1106 + MontantChargesExternes1106) * 19 / 100;
+                    TVADeductible1206 = (MontantAchatsConsommes1206 + MontantChargesExternes1206) * 19 / 100;
+
+                    #endregion
+
+                    #region Calcule Précompte
+
+                    if ((TVADeductible0106 + Precompte1205) > TVACollectees0106)
+                    {
+                        Precompte0106 = TVADeductible0106 + Precompte1205 - TVACollectees0106;
+                    }
+                    else
+                    {
+                        Precompte0106 = 0;
+                    }
+
+                    if ((TVADeductible0206 + Precompte0106) > TVACollectees0206)
+                    {
+                        Precompte0206 = TVADeductible0206 + Precompte0106 - TVACollectees0206;
+                    }
+                    else
+                    {
+                        Precompte0206 = 0;
+                    }
+
+                    if ((TVADeductible0306 + Precompte0206) > TVACollectees0306)
+                    {
+                        Precompte0306 = TVADeductible0306 + Precompte0206 - TVACollectees0306;
+                    }
+                    else
+                    {
+                        Precompte0306 = 0;
+                    }
+
+                    if ((TVADeductible0406 + Precompte0306) > TVACollectees0406)
+                    {
+                        Precompte0406 = TVADeductible0406 + Precompte0306 - TVACollectees0406;
+                    }
+                    else
+                    {
+                        Precompte0406 = 0;
+                    }
+
+                    if ((TVADeductible0506 + Precompte0406) > TVACollectees0506)
+                    {
+                        Precompte0506 = TVADeductible0506 + Precompte0406 - TVACollectees0506;
+                    }
+                    else
+                    {
+                        Precompte0506 = 0;
+                    }
+
+                    if ((TVADeductible0606 + Precompte0506) > TVACollectees0606)
+                    {
+                        Precompte0606 = TVADeductible0606 + Precompte0506 - TVACollectees0606;
+                    }
+                    else
+                    {
+                        Precompte0606 = 0;
+                    }
+
+                    if ((TVADeductible0706 + Precompte0606) > TVACollectees0706)
+                    {
+                        Precompte0706 = TVADeductible0706 + Precompte0606 - TVACollectees0706;
+                    }
+                    else
+                    {
+                        Precompte0706 = 0;
+                    }
+
+                    if ((TVADeductible0806 + Precompte0706) > TVACollectees0806)
+                    {
+                        Precompte0806 = TVADeductible0806 + Precompte0706 - TVACollectees0806;
+                    }
+                    else
+                    {
+                        Precompte0806 = 0;
+                    }
+
+                    if ((TVADeductible0906 + Precompte0806) > TVACollectees0906)
+                    {
+                        Precompte0906 = TVADeductible0906 + Precompte0806 - TVACollectees0906;
+                    }
+                    else
+                    {
+                        Precompte0906 = 0;
+                    }
+
+                    if ((TVADeductible1006 + Precompte0906) > TVACollectees1006)
+                    {
+                        Precompte1006 = TVADeductible1006 + Precompte0906 - TVACollectees1006;
+                    }
+                    else
+                    {
+                        Precompte1006 = 0;
+                    }
+
+                    if ((TVADeductible1106 + Precompte1006) > TVACollectees1106)
+                    {
+                        Precompte1106 = TVADeductible1106 + Precompte1006 - TVACollectees1106;
+                    }
+                    else
+                    {
+                        Precompte1106 = 0;
+                    }
+
+                    if ((TVADeductible1206 + Precompte1106) > TVACollectees1206)
+                    {
+                        Precompte1206 = TVADeductible1206 + Precompte1106 - TVACollectees1206;
+                    }
+                    else
+                    {
+                        Precompte1206 = 0;
+                    }
+
+                    #endregion
+
+                    #region Calcule Const TVA à décaisser
+
+                    if (TVACollectees0106 > TVADeductible0106)
+                    {
+                        ConstTVADecaisser0106 = TVACollectees0106 - TVADeductible0106;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser0106 = 0;
+                    }
+
+                    if (TVACollectees0106 > (TVADeductible0106 + Precompte1205))
+                    {
+                        ConstTVADecaisser0106 = TVACollectees0106 - TVADeductible0106 + Precompte1205;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser0106 = 0;
+                    }
+
+                    if (TVACollectees0206 > (TVADeductible0206 + Precompte0106))
+                    {
+                        ConstTVADecaisser0206 = TVACollectees0206 - TVADeductible0206 + Precompte0106;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser0206 = 0;
+                    }
+
+                    if (TVACollectees0306 > (TVADeductible0306 + Precompte0206))
+                    {
+                        ConstTVADecaisser0306 = TVACollectees0306 - TVADeductible0306 + Precompte0206;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser0306 = 0;
+                    }
+
+                    if (TVACollectees0406 > (TVADeductible0406 + Precompte0306))
+                    {
+                        ConstTVADecaisser0406 = TVACollectees0406 - TVADeductible0406 + Precompte0306;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser0406 = 0;
+                    }
+
+                    if (TVACollectees0506 > (TVADeductible0506 + Precompte0406))
+                    {
+                        ConstTVADecaisser0506 = TVACollectees0506 - TVADeductible0506 + Precompte0406;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser0506 = 0;
+                    }
+
+                    if (TVACollectees0606 > (TVADeductible0606 + Precompte0506))
+                    {
+                        ConstTVADecaisser0606 = TVACollectees0606 - TVADeductible0606 + Precompte0506;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser0606 = 0;
+                    }
+
+                    if (TVACollectees0706 > (TVADeductible0706 + Precompte0606))
+                    {
+                        ConstTVADecaisser0706 = TVACollectees0706 - TVADeductible0706 + Precompte0606;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser0706 = 0;
+                    }
+
+                    if (TVACollectees0806 > (TVADeductible0806 + Precompte0706))
+                    {
+                        ConstTVADecaisser0806 = TVACollectees0806 - TVADeductible0806 + Precompte0706;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser0806 = 0;
+                    }
+
+                    if (TVACollectees0906 > (TVADeductible0906 + Precompte0806))
+                    {
+                        ConstTVADecaisser0906 = TVACollectees0906 - TVADeductible0906 + Precompte0806;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser0906 = 0;
+                    }
+
+                    if (TVACollectees1006 > (TVADeductible1006 + Precompte0906))
+                    {
+                        ConstTVADecaisser1006 = TVACollectees1006 - TVADeductible1006 + Precompte0906;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser1006 = 0;
+                    }
+
+                    if (TVACollectees1106 > (TVADeductible1106 + Precompte1006))
+                    {
+                        ConstTVADecaisser1106 = TVACollectees1106 - TVADeductible1106 + Precompte1006;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser1106 = 0;
+                    }
+
+                    if (TVACollectees1206 > (TVADeductible1206 + Precompte1106))
+                    {
+                        ConstTVADecaisser1206 = TVACollectees1206 - TVADeductible1206 + Precompte1106;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser1206 = 0;
+                    }
+
+                    #endregion
+
+                    #region Calcule Décaissement TVA à décaisser
+
+                    if (ConstTVADecaisser1205 > 0)
+                    {
+                        DecaissTVADecaisser0106 = ConstTVADecaisser1205;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser0106 = 0;
+                    }
+
+                    if (ConstTVADecaisser0106 > 0)
+                    {
+                        DecaissTVADecaisser0206 = ConstTVADecaisser0106;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser0206 = 0;
+                    }
+
+                    if (ConstTVADecaisser0206 > 0)
+                    {
+                        DecaissTVADecaisser0306 = ConstTVADecaisser0206;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser0306 = 0;
+                    }
+
+                    if (ConstTVADecaisser0306 > 0)
+                    {
+                        DecaissTVADecaisser0406 = ConstTVADecaisser0306;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser0406 = 0;
+                    }
+
+                    if (ConstTVADecaisser0406 > 0)
+                    {
+                        DecaissTVADecaisser0506 = ConstTVADecaisser0406;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser0506 = 0;
+                    }
+
+                    if (ConstTVADecaisser0506 > 0)
+                    {
+                        DecaissTVADecaisser0606 = ConstTVADecaisser0506;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser0606 = 0;
+                    }
+
+                    if (ConstTVADecaisser0606 > 0)
+                    {
+                        DecaissTVADecaisser0706 = ConstTVADecaisser0606;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser0706 = 0;
+                    }
+
+                    if (ConstTVADecaisser0706 > 0)
+                    {
+                        DecaissTVADecaisser0806 = ConstTVADecaisser0706;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser0806 = 0;
+                    }
+
+                    if (ConstTVADecaisser0806 > 0)
+                    {
+                        DecaissTVADecaisser0906 = ConstTVADecaisser0806;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser0906 = 0;
+                    }
+
+                    if (ConstTVADecaisser0906 > 0)
+                    {
+                        DecaissTVADecaisser1006 = ConstTVADecaisser0906;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser1006 = 0;
+                    }
+
+                    if (ConstTVADecaisser1006 > 0)
+                    {
+                        DecaissTVADecaisser1106 = ConstTVADecaisser1006;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser1106 = 0;
+                    }
+
+                    if (ConstTVADecaisser1106 > 0)
+                    {
+                        DecaissTVADecaisser1206 = ConstTVADecaisser1106;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser1206 = 0;
+                    }
+
+                    SommeDecaissTVADecaisser06 = DecaissTVADecaisser1206
+                                               + DecaissTVADecaisser1106
+                                               + DecaissTVADecaisser1006
+                                               + DecaissTVADecaisser0906
+                                               + DecaissTVADecaisser0806
+                                               + DecaissTVADecaisser0706
+                                               + DecaissTVADecaisser0606
+                                               + DecaissTVADecaisser0506
+                                               + DecaissTVADecaisser0406
+                                               + DecaissTVADecaisser0306
+                                               + DecaissTVADecaisser0206
+                                               + DecaissTVADecaisser0106;
+
+
+                    #endregion
+
+                    #endregion
+
+                    #region Calcule Décaissement TVA à décaisser pour l'année 07
+
+                    #region Calcule TVA Collectees
+
+                    TVACollectees0107 = MontantChiffreAffaire0107 * TauxTVA / 100;
+                    TVACollectees0207 = MontantChiffreAffaire0207 * TauxTVA / 100;
+                    TVACollectees0307 = MontantChiffreAffaire0307 * TauxTVA / 100;
+                    TVACollectees0407 = MontantChiffreAffaire0407 * TauxTVA / 100;
+                    TVACollectees0507 = MontantChiffreAffaire0507 * TauxTVA / 100;
+                    TVACollectees0607 = MontantChiffreAffaire0607 * TauxTVA / 100;
+                    TVACollectees0707 = MontantChiffreAffaire0707 * TauxTVA / 100;
+                    TVACollectees0807 = MontantChiffreAffaire0807 * TauxTVA / 100;
+                    TVACollectees0907 = MontantChiffreAffaire0907 * TauxTVA / 100;
+                    TVACollectees1007 = MontantChiffreAffaire1007 * TauxTVA / 100;
+                    TVACollectees1107 = MontantChiffreAffaire1107 * TauxTVA / 100;
+                    TVACollectees1207 = MontantChiffreAffaire1207 * TauxTVA / 100;
+
+                    #endregion
+
+                    #region Calcule TVA Déductible
+
+                    TVADeductible0107 = (MontantAchatsConsommes0107 + MontantChargesExternes0107) * 19 / 100;
+                    TVADeductible0207 = (MontantAchatsConsommes0207 + MontantChargesExternes0207) * 19 / 100;
+                    TVADeductible0307 = (MontantAchatsConsommes0307 + MontantChargesExternes0307) * 19 / 100;
+                    TVADeductible0407 = (MontantAchatsConsommes0407 + MontantChargesExternes0407) * 19 / 100;
+                    TVADeductible0507 = (MontantAchatsConsommes0507 + MontantChargesExternes0507) * 19 / 100;
+                    TVADeductible0607 = (MontantAchatsConsommes0607 + MontantChargesExternes0607) * 19 / 100;
+                    TVADeductible0707 = (MontantAchatsConsommes0707 + MontantChargesExternes0707) * 19 / 100;
+                    TVADeductible0807 = (MontantAchatsConsommes0807 + MontantChargesExternes0807) * 19 / 100;
+                    TVADeductible0907 = (MontantAchatsConsommes0907 + MontantChargesExternes0907) * 19 / 100;
+                    TVADeductible1007 = (MontantAchatsConsommes1007 + MontantChargesExternes1007) * 19 / 100;
+                    TVADeductible1107 = (MontantAchatsConsommes1107 + MontantChargesExternes1107) * 19 / 100;
+                    TVADeductible1207 = (MontantAchatsConsommes1207 + MontantChargesExternes1207) * 19 / 100;
+
+                    #endregion
+
+                    #region Calcule Précompte
+
+                    if ((TVADeductible0107 + Precompte1206) > TVACollectees0107)
+                    {
+                        Precompte0107 = TVADeductible0107 + Precompte1206 - TVACollectees0107;
+                    }
+                    else
+                    {
+                        Precompte0107 = 0;
+                    }
+
+                    if ((TVADeductible0207 + Precompte0107) > TVACollectees0207)
+                    {
+                        Precompte0207 = TVADeductible0207 + Precompte0107 - TVACollectees0207;
+                    }
+                    else
+                    {
+                        Precompte0207 = 0;
+                    }
+
+                    if ((TVADeductible0307 + Precompte0207) > TVACollectees0307)
+                    {
+                        Precompte0307 = TVADeductible0307 + Precompte0207 - TVACollectees0307;
+                    }
+                    else
+                    {
+                        Precompte0307 = 0;
+                    }
+
+                    if ((TVADeductible0407 + Precompte0307) > TVACollectees0407)
+                    {
+                        Precompte0407 = TVADeductible0407 + Precompte0307 - TVACollectees0407;
+                    }
+                    else
+                    {
+                        Precompte0407 = 0;
+                    }
+
+                    if ((TVADeductible0507 + Precompte0407) > TVACollectees0507)
+                    {
+                        Precompte0507 = TVADeductible0507 + Precompte0407 - TVACollectees0507;
+                    }
+                    else
+                    {
+                        Precompte0507 = 0;
+                    }
+
+                    if ((TVADeductible0607 + Precompte0507) > TVACollectees0607)
+                    {
+                        Precompte0607 = TVADeductible0607 + Precompte0507 - TVACollectees0607;
+                    }
+                    else
+                    {
+                        Precompte0607 = 0;
+                    }
+
+                    if ((TVADeductible0707 + Precompte0607) > TVACollectees0707)
+                    {
+                        Precompte0707 = TVADeductible0707 + Precompte0607 - TVACollectees0707;
+                    }
+                    else
+                    {
+                        Precompte0707 = 0;
+                    }
+
+                    if ((TVADeductible0807 + Precompte0707) > TVACollectees0807)
+                    {
+                        Precompte0807 = TVADeductible0807 + Precompte0707 - TVACollectees0807;
+                    }
+                    else
+                    {
+                        Precompte0807 = 0;
+                    }
+
+                    if ((TVADeductible0907 + Precompte0807) > TVACollectees0907)
+                    {
+                        Precompte0907 = TVADeductible0907 + Precompte0807 - TVACollectees0907;
+                    }
+                    else
+                    {
+                        Precompte0907 = 0;
+                    }
+
+                    if ((TVADeductible1007 + Precompte0907) > TVACollectees1007)
+                    {
+                        Precompte1007 = TVADeductible1007 + Precompte0907 - TVACollectees1007;
+                    }
+                    else
+                    {
+                        Precompte1007 = 0;
+                    }
+
+                    if ((TVADeductible1107 + Precompte1007) > TVACollectees1107)
+                    {
+                        Precompte1107 = TVADeductible1107 + Precompte1007 - TVACollectees1107;
+                    }
+                    else
+                    {
+                        Precompte1107 = 0;
+                    }
+
+                    if ((TVADeductible1207 + Precompte1107) > TVACollectees1207)
+                    {
+                        Precompte1207 = TVADeductible1207 + Precompte1107 - TVACollectees1207;
+                    }
+                    else
+                    {
+                        Precompte1207 = 0;
+                    }
+
+                    #endregion
+
+                    #region Calcule Const TVA à décaisser
+
+                    if (TVACollectees0107 > TVADeductible0107)
+                    {
+                        ConstTVADecaisser0107 = TVACollectees0107 - TVADeductible0107;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser0107 = 0;
+                    }
+
+                    if (TVACollectees0107 > (TVADeductible0107 + Precompte1206))
+                    {
+                        ConstTVADecaisser0107 = TVACollectees0107 - TVADeductible0107 + Precompte1206;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser0107 = 0;
+                    }
+
+                    if (TVACollectees0207 > (TVADeductible0207 + Precompte0107))
+                    {
+                        ConstTVADecaisser0207 = TVACollectees0207 - TVADeductible0207 + Precompte0107;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser0207 = 0;
+                    }
+
+                    if (TVACollectees0307 > (TVADeductible0307 + Precompte0207))
+                    {
+                        ConstTVADecaisser0307 = TVACollectees0307 - TVADeductible0307 + Precompte0207;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser0307 = 0;
+                    }
+
+                    if (TVACollectees0407 > (TVADeductible0407 + Precompte0307))
+                    {
+                        ConstTVADecaisser0407 = TVACollectees0407 - TVADeductible0407 + Precompte0307;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser0407 = 0;
+                    }
+
+                    if (TVACollectees0507 > (TVADeductible0507 + Precompte0407))
+                    {
+                        ConstTVADecaisser0507 = TVACollectees0507 - TVADeductible0507 + Precompte0407;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser0507 = 0;
+                    }
+
+                    if (TVACollectees0607 > (TVADeductible0607 + Precompte0507))
+                    {
+                        ConstTVADecaisser0607 = TVACollectees0607 - TVADeductible0607 + Precompte0507;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser0607 = 0;
+                    }
+
+                    if (TVACollectees0707 > (TVADeductible0707 + Precompte0607))
+                    {
+                        ConstTVADecaisser0707 = TVACollectees0707 - TVADeductible0707 + Precompte0607;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser0707 = 0;
+                    }
+
+                    if (TVACollectees0807 > (TVADeductible0807 + Precompte0707))
+                    {
+                        ConstTVADecaisser0807 = TVACollectees0807 - TVADeductible0807 + Precompte0707;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser0807 = 0;
+                    }
+
+                    if (TVACollectees0907 > (TVADeductible0907 + Precompte0807))
+                    {
+                        ConstTVADecaisser0907 = TVACollectees0907 - TVADeductible0907 + Precompte0807;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser0907 = 0;
+                    }
+
+                    if (TVACollectees1007 > (TVADeductible1007 + Precompte0907))
+                    {
+                        ConstTVADecaisser1007 = TVACollectees1007 - TVADeductible1007 + Precompte0907;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser1007 = 0;
+                    }
+
+                    if (TVACollectees1107 > (TVADeductible1107 + Precompte1007))
+                    {
+                        ConstTVADecaisser1107 = TVACollectees1107 - TVADeductible1107 + Precompte1007;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser1107 = 0;
+                    }
+
+                    if (TVACollectees1207 > (TVADeductible1207 + Precompte1107))
+                    {
+                        ConstTVADecaisser1207 = TVACollectees1207 - TVADeductible1207 + Precompte1107;
+                    }
+                    else
+                    {
+                        ConstTVADecaisser1207 = 0;
+                    }
+
+                    #endregion
+
+                    #region Calcule Décaissement TVA à décaisser
+
+                    if (ConstTVADecaisser1206 > 0)
+                    {
+                        DecaissTVADecaisser0107 = ConstTVADecaisser1206;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser0107 = 0;
+                    }
+
+                    if (ConstTVADecaisser0107 > 0)
+                    {
+                        DecaissTVADecaisser0207 = ConstTVADecaisser0107;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser0207 = 0;
+                    }
+
+                    if (ConstTVADecaisser0207 > 0)
+                    {
+                        DecaissTVADecaisser0307 = ConstTVADecaisser0207;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser0307 = 0;
+                    }
+
+                    if (ConstTVADecaisser0307 > 0)
+                    {
+                        DecaissTVADecaisser0407 = ConstTVADecaisser0307;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser0407 = 0;
+                    }
+
+                    if (ConstTVADecaisser0407 > 0)
+                    {
+                        DecaissTVADecaisser0507 = ConstTVADecaisser0407;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser0507 = 0;
+                    }
+
+                    if (ConstTVADecaisser0507 > 0)
+                    {
+                        DecaissTVADecaisser0607 = ConstTVADecaisser0507;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser0607 = 0;
+                    }
+
+                    if (ConstTVADecaisser0607 > 0)
+                    {
+                        DecaissTVADecaisser0707 = ConstTVADecaisser0607;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser0707 = 0;
+                    }
+
+                    if (ConstTVADecaisser0707 > 0)
+                    {
+                        DecaissTVADecaisser0807 = ConstTVADecaisser0707;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser0807 = 0;
+                    }
+
+                    if (ConstTVADecaisser0807 > 0)
+                    {
+                        DecaissTVADecaisser0907 = ConstTVADecaisser0807;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser0907 = 0;
+                    }
+
+                    if (ConstTVADecaisser0907 > 0)
+                    {
+                        DecaissTVADecaisser1007 = ConstTVADecaisser0907;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser1007 = 0;
+                    }
+
+                    if (ConstTVADecaisser1007 > 0)
+                    {
+                        DecaissTVADecaisser1107 = ConstTVADecaisser1007;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser1107 = 0;
+                    }
+
+                    if (ConstTVADecaisser1107 > 0)
+                    {
+                        DecaissTVADecaisser1207 = ConstTVADecaisser1107;
+                    }
+                    else
+                    {
+                        DecaissTVADecaisser1207 = 0;
+                    }
+
+                    SommeDecaissTVADecaisser07 = DecaissTVADecaisser1207
+                                               + DecaissTVADecaisser1107
+                                               + DecaissTVADecaisser1007
+                                               + DecaissTVADecaisser0907
+                                               + DecaissTVADecaisser0807
+                                               + DecaissTVADecaisser0707
+                                               + DecaissTVADecaisser0607
+                                               + DecaissTVADecaisser0507
+                                               + DecaissTVADecaisser0407
+                                               + DecaissTVADecaisser0307
+                                               + DecaissTVADecaisser0207
+                                               + DecaissTVADecaisser0107;
+
+
+                    #endregion
+
+                    #endregion
+
+                }
+            }
 
 
 
@@ -41914,6 +45265,14 @@ namespace Anade.Khadamat.Web.Controllers
                                 + FluxTresorerieProvenantInvestissement01
                                 + FluxTresorerieProvenantFinancement01;
 
+            DecaissementTVAPayer01 = SommeDecaissTVADecaisser01;
+            DecaissementTVAPayer02 = SommeDecaissTVADecaisser02;
+            DecaissementTVAPayer03 = SommeDecaissTVADecaisser03;
+            DecaissementTVAPayer04 = SommeDecaissTVADecaisser04;
+            DecaissementTVAPayer05 = SommeDecaissTVADecaisser05;
+            DecaissementTVAPayer06 = SommeDecaissTVADecaisser06;
+            DecaissementTVAPayer07 = SommeDecaissTVADecaisser07;
+
             #endregion
 
             #region Données etatTFTModel
@@ -42052,6 +45411,26 @@ namespace Anade.Khadamat.Web.Controllers
             etatTFTModel.Equilibre07 = string.Format(frCult, "{0:n}", Equilibre07);
 
             #endregion
+
+            return PartialView($"_{nameof(EtatTFT)}", etatTFTModel);
+        }
+
+
+        [Authorize(Roles = "Analyste")]
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> EtatTFT2(int id)
+        {
+            //var modelBusinessPlan = _businessPlanBusinessService.GetById(id);
+            var modelBusinessPlan = _businessPlanBusinessService.GetById(id, _businessPlanBusinessService.GetDefaultLoadProperties());
+
+            string TauxTVA_string = modelBusinessPlan.InformationBase.TauxTVA.DesignationFr;
+
+            TauxTVA_string = TauxTVA_string.Replace("%", "");
+
+            int TauxTVA = Int32.Parse(TauxTVA_string);
+
+            EtatTFTModel etatTFTModel = new();
 
             return PartialView($"_{nameof(EtatTFT)}", etatTFTModel);
         }
