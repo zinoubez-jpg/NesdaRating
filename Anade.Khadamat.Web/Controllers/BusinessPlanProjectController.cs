@@ -1618,7 +1618,6 @@ namespace Anade.Khadamat.Web.Controllers
             decimal InstallationsEquipements = 0;
             decimal MaterielRoulant = 0;
             decimal Amenagement = 0;
-
             decimal FraisGeneraux = 0;
             decimal AssurancesLieesCreation = 0;
             decimal FondsGarantie = 0;
@@ -1652,6 +1651,9 @@ namespace Anade.Khadamat.Web.Controllers
                 MontantPNRReel = 20;
                 MontantApportReel = 20;
             }
+
+
+
 
             EquipementsImportes = CoutProjetReel + MontantCMTReel + MontantPNRReel + MontantApportReel;
 
@@ -2375,10 +2377,64 @@ namespace Anade.Khadamat.Web.Controllers
             CAF07 = ResultatNet07 + AmortissementsProvisions07;
 
             // Calcule IRG
+            decimal IRG_Annee03 = 0;
             decimal IRG_Annee04 = 0;
             decimal IRG_Annee05 = 0;
             decimal IRG_Annee06 = 0;
             decimal IRG_Annee07 = 0;
+
+            // Année 03
+            if (ResultatExploitation03 > 3840000)
+            {
+                IRG_Annee03 = (ResultatExploitation03 - 3840000) * (decimal)0.35
+                            + (decimal)55199.77
+                            + (decimal)129599.73
+                            + (decimal)287999.70
+                            + (decimal)633599.67;
+            }
+            else
+            {
+                if ((ResultatExploitation03 > 1920000) && (ResultatExploitation03 <= 3840000))
+                {
+                    IRG_Annee03 = (ResultatExploitation03 - 1920000) * (decimal)0.33
+                                + (decimal)55199.77
+                                + (decimal)129599.73
+                                + (decimal)287999.70;
+                }
+                else
+                {
+                    if ((ResultatExploitation03 > 960000) && (ResultatExploitation03 <= 1920000))
+                    {
+                        IRG_Annee03 = (ResultatExploitation03 - 960000) * (decimal)0.3
+                                    + (decimal)55199.77
+                                    + (decimal)129599.73;
+                    }
+                    else
+                    {
+                        if ((ResultatExploitation03 > 480000) && (ResultatExploitation03 <= 960000))
+                        {
+                            IRG_Annee03 = (ResultatExploitation03 - 480000) * (decimal)0.27
+                                        + (decimal)55199.77;
+                        }
+                        else
+                        {
+                            if ((ResultatExploitation03 > 240000) && (ResultatExploitation03 <= 480000))
+                            {
+                                IRG_Annee03 = (ResultatExploitation03 - 240000) * (decimal)0.23;
+                            }
+                            else
+                            {
+                                IRG_Annee03 = 0;
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (modelBusinessPlan.InformationBase.CommuneBP.WilayaBP.GrandSud == true)
+            {
+                IRG_Annee03 /= 2;
+            }
 
             // Année 04
             if (ResultatExploitation04 > 3840000)
@@ -45094,6 +45150,383 @@ namespace Anade.Khadamat.Web.Controllers
 
                 }
             }
+
+            #region Variables pour accomptes IBS
+
+            decimal VarIBS0304 = 0;
+            decimal VarIBS0604 = 0;
+            decimal VarIBS1104 = 0;
+            decimal VarIBS0405 = 0;
+
+            decimal VarIBS0305 = 0;
+            decimal VarIBS0605 = 0;
+            decimal VarIBS1105 = 0;
+            decimal VarIBS0406 = 0;
+
+            decimal VarIBS0306 = 0;
+            decimal VarIBS0606 = 0;
+            decimal VarIBS1106 = 0;
+            decimal VarIBS0407 = 0;
+
+            decimal VarIBS0307 = 0;
+            decimal VarIBS0607 = 0;
+            decimal VarIBS1107 = 0;
+
+            string Forfait_Bascul04 = "";
+            string Forfait_Bascul05 = "";
+            string Forfait_Bascul06 = "";
+            string Forfait_Bascul07 = "";
+
+            decimal ResultatExploitation02 = 0;
+            decimal ResultatExploitation03 = 0;
+            decimal ResultatExploitation04 = 0;
+            decimal ResultatExploitation05 = 0;
+            decimal ResultatExploitation06 = 0;
+
+            #endregion
+
+            #region Calcule accomptes IBS
+
+            if ((modelBusinessPlan.InformationBase.RegimeImpositionId == 1) || (modelBusinessPlan.InformationBase.RegimeImpositionId == 2 && modelBusinessPlan.InformationBase.FormeJuridiqueId == 1 && Forfait_Bascul04 == "Bascul"))
+            {
+                #region Calcule accomptes IBS Année 04
+
+                if (ResultatExploitation02 > 0)
+                {
+                    VarIBS0304 = (ResultatExploitation02 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS / 100) * 30 / 100;
+                }
+
+                if (ResultatExploitation03 > 0)
+                {
+                    VarIBS0604 = (ResultatExploitation03 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS / 100) * 30 / 100;
+                    VarIBS1104 = (ResultatExploitation03 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS / 100) * 30 / 100;
+                }
+
+                if (ResultatExploitation04 > 0)
+                {
+                    VarIBS0405 = (ResultatExploitation04 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS / 100) - (VarIBS0304 + VarIBS0604 + VarIBS1104);
+                }
+
+                if (modelBusinessPlan.InformationBase.CommuneBP.WilayaBP.GrandSud == true)
+                {
+                    VarIBS0304 /= 2;
+                    VarIBS0604 /= 2;
+                    VarIBS1104 /= 2;
+                    VarIBS0405 = ((ResultatExploitation04 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS / 100) / 2) - (VarIBS0304 + VarIBS0604 + VarIBS1104);
+                }
+
+                #endregion
+            }
+
+            if ((modelBusinessPlan.InformationBase.RegimeImpositionId == 1) || (modelBusinessPlan.InformationBase.RegimeImpositionId == 2 && modelBusinessPlan.InformationBase.FormeJuridiqueId == 1 && Forfait_Bascul05 == "Bascul"))
+            {
+                #region Calcule accomptes IBS Année 05
+
+                if (ResultatExploitation03 > 0)
+                {
+                    VarIBS0305 = (ResultatExploitation03 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS / 100) * 30 / 100;
+                }
+
+                if (ResultatExploitation04 > 0)
+                {
+                    VarIBS0605 = (ResultatExploitation04 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS / 100) * 30 / 100;
+                    VarIBS1105 = (ResultatExploitation04 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS / 100) * 30 / 100;
+                }
+
+                if (ResultatExploitation05 > 0)
+                {
+                    VarIBS0406 = (ResultatExploitation05 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS / 100) - (VarIBS0305 + VarIBS0605 + VarIBS1105);
+                }
+
+                if (modelBusinessPlan.InformationBase.CommuneBP.WilayaBP.GrandSud == true)
+                {
+                    VarIBS0305 /= 2;
+                    VarIBS0605 /= 2;
+                    VarIBS1105 /= 2;
+                    VarIBS0406 = ((ResultatExploitation05 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS / 100) / 2) - (VarIBS0305 + VarIBS0605 + VarIBS1105);
+                }
+
+                #endregion
+            }
+
+            if ((modelBusinessPlan.InformationBase.RegimeImpositionId == 1) || (modelBusinessPlan.InformationBase.RegimeImpositionId == 2 && modelBusinessPlan.InformationBase.FormeJuridiqueId == 1 && Forfait_Bascul06 == "Bascul"))
+            {
+                #region Calcule accomptes IBS Année 06
+
+                if (ResultatExploitation04 > 0)
+                {
+                    VarIBS0306 = (ResultatExploitation04 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS / 100) * 30 / 100;
+                }
+
+                if (ResultatExploitation05 > 0)
+                {
+                    VarIBS0606 = (ResultatExploitation05 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS / 100) * 30 / 100;
+                    VarIBS1106 = (ResultatExploitation05 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS / 100) * 30 / 100;
+                }
+
+                if (ResultatExploitation06 > 0)
+                {
+                    VarIBS0407 = (ResultatExploitation06 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS / 100) - (VarIBS0306 + VarIBS0606 + VarIBS1106);
+                }
+
+                if (modelBusinessPlan.InformationBase.CommuneBP.WilayaBP.GrandSud == true)
+                {
+                    VarIBS0306 /= 2;
+                    VarIBS0606 /= 2;
+                    VarIBS1106 /= 2;
+                    VarIBS0407 = ((ResultatExploitation06 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS / 100) / 2) - (VarIBS0306 + VarIBS0606 + VarIBS1106);
+                }
+
+                #endregion
+            }
+
+            if ((modelBusinessPlan.InformationBase.RegimeImpositionId == 1) || (modelBusinessPlan.InformationBase.RegimeImpositionId == 2 && modelBusinessPlan.InformationBase.FormeJuridiqueId == 1 && Forfait_Bascul07 == "Bascul"))
+            {
+                #region Calcule accomptes IBS Année 07
+
+                if (ResultatExploitation05 > 0)
+                {
+                    VarIBS0307 = (ResultatExploitation05 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS / 100) * 30 / 100;
+                }
+
+                if (ResultatExploitation06 > 0)
+                {
+                    VarIBS0607 = (ResultatExploitation06 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS / 100) * 30 / 100;
+                    VarIBS1107 = (ResultatExploitation06 * (decimal)modelBusinessPlan.StructureFinancement.TauxIBS / 100) * 30 / 100;
+                }
+
+                if (modelBusinessPlan.InformationBase.CommuneBP.WilayaBP.GrandSud == true)
+                {
+                    VarIBS0307 /= 2;
+                    VarIBS0607 /= 2;
+                    VarIBS1107 /= 2;
+
+                }
+
+                #endregion
+            }
+
+            #endregion
+
+            #region Variables pour accomptes IFU
+
+            decimal VarIFU0604 = 0;
+            decimal VarIFU0904 = 0;
+            decimal VarIFU1204 = 0;
+            decimal VarIFU0105 = 0;
+
+            decimal VarIFU0605 = 0;
+            decimal VarIFU0905 = 0;
+            decimal VarIFU1205 = 0;
+            decimal VarIFU0106 = 0;
+
+            decimal VarIFU0606 = 0;
+            decimal VarIFU0906 = 0;
+            decimal VarIFU1206 = 0;
+            decimal VarIFU0107 = 0;
+
+            decimal VarIFU0607 = 0;
+            decimal VarIFU0907 = 0;
+            decimal VarIFU1207 = 0;
+
+            #endregion
+
+            #region Calcule accomptes IFU
+
+            if (modelBusinessPlan.InformationBase.RegimeImpositionId == 2)
+            {
+                #region Calcule accomptes IFU Année 04
+
+                if (Forfait_Bascul04 == "IFU")
+                {
+                    VarIFU0604 = MontantChiffreAffaire03 * 50 / 100 * (decimal)modelBusinessPlan.StructureFinancement.TauxIFU / 100;
+                    VarIFU0904 = MontantChiffreAffaire03 * 25 / 100 * (decimal)modelBusinessPlan.StructureFinancement.TauxIFU / 100;
+                    VarIFU1204 = MontantChiffreAffaire03 * 25 / 100 * (decimal)modelBusinessPlan.StructureFinancement.TauxIFU / 100;
+                    VarIFU0105 = (MontantChiffreAffaire04 * (decimal)modelBusinessPlan.StructureFinancement.TauxIFU / 100) - (VarIFU0604 + VarIFU0904 + VarIFU1204);
+                }
+
+                #endregion
+
+                #region Calcule accomptes IFU Année 05
+
+                if (Forfait_Bascul05 == "IFU")
+                {
+                    VarIFU0605 = MontantChiffreAffaire04 * 50 / 100 * (decimal)modelBusinessPlan.StructureFinancement.TauxIFU / 100;
+                    VarIFU0905 = MontantChiffreAffaire04 * 25 / 100 * (decimal)modelBusinessPlan.StructureFinancement.TauxIFU / 100;
+                    VarIFU1205 = MontantChiffreAffaire04 * 25 / 100 * (decimal)modelBusinessPlan.StructureFinancement.TauxIFU / 100;
+                    VarIFU0106 = (MontantChiffreAffaire05 * (decimal)modelBusinessPlan.StructureFinancement.TauxIFU / 100) - (VarIFU0605 + VarIFU0905 + VarIFU1205);
+                }
+
+                #endregion
+
+                #region Calcule accomptes IFU Année 06
+
+                if (Forfait_Bascul06 == "IFU")
+                {
+                    VarIFU0606 = MontantChiffreAffaire05 * 50 / 100 * (decimal)modelBusinessPlan.StructureFinancement.TauxIFU / 100;
+                    VarIFU0906 = MontantChiffreAffaire05 * 25 / 100 * (decimal)modelBusinessPlan.StructureFinancement.TauxIFU / 100;
+                    VarIFU1206 = MontantChiffreAffaire05 * 25 / 100 * (decimal)modelBusinessPlan.StructureFinancement.TauxIFU / 100;
+                    VarIFU0107 = (MontantChiffreAffaire06 * (decimal)modelBusinessPlan.StructureFinancement.TauxIFU / 100) - (VarIFU0606 + VarIFU0906 + VarIFU1206);
+                }
+
+                #endregion
+
+                #region Calcule accomptes IFU Année 07
+
+                if (Forfait_Bascul07 == "IFU")
+                {
+                    VarIFU0607 = MontantChiffreAffaire06 * 50 / 100 * (decimal)modelBusinessPlan.StructureFinancement.TauxIFU / 100;
+                    VarIFU0907 = MontantChiffreAffaire06 * 25 / 100 * (decimal)modelBusinessPlan.StructureFinancement.TauxIFU / 100;
+                    VarIFU1207 = MontantChiffreAffaire06 * 25 / 100 * (decimal)modelBusinessPlan.StructureFinancement.TauxIFU / 100;
+                }
+
+                #endregion
+
+            }
+
+            #endregion
+
+            #region Variables pour accomptes IRG
+
+            // Calcule IRG
+            decimal IRG_Annee03 = 0;
+            decimal IRG_Annee04 = 0;
+            decimal IRG_Annee05 = 0;
+            decimal IRG_Annee06 = 0;
+
+            decimal VarIRG0304 = 0;
+            decimal VarIRG0604 = 0;
+            decimal VarIRG0505 = 0;
+
+            decimal VarIRG0305 = 0;
+            decimal VarIRG0605 = 0;
+            decimal VarIRG0506 = 0;
+
+            decimal VarIRG0306 = 0;
+            decimal VarIRG0606 = 0;
+            decimal VarIRG0507 = 0;
+
+            decimal VarIRG0307 = 0;
+            decimal VarIRG0607 = 0;
+
+            #endregion
+
+            #region Calcule accomptes IRG
+
+            #region Calcule accomptes IRG Année 04
+
+            if ((modelBusinessPlan.InformationBase.RegimeImpositionId == 3) || (modelBusinessPlan.InformationBase.RegimeImpositionId == 2 && modelBusinessPlan.InformationBase.FormeJuridiqueId == 2 && Forfait_Bascul04 == "Bascul"))
+            {
+                if (ResultatExploitation03 > 0)
+                {
+                    VarIRG0304 = IRG_Annee03 * 30 / 100;
+                    VarIRG0604 = IRG_Annee03 * 30 / 100;
+                    VarIRG0505 = IRG_Annee04 - (VarIRG0304 + VarIRG0604);
+                }
+            }
+
+            #endregion
+
+            #region Calcule accomptes IRG Année 05
+
+            if ((modelBusinessPlan.InformationBase.RegimeImpositionId == 3) || (modelBusinessPlan.InformationBase.RegimeImpositionId == 2 && modelBusinessPlan.InformationBase.FormeJuridiqueId == 2 && Forfait_Bascul05 == "Bascul"))
+            {
+                if (ResultatExploitation04 > 0)
+                {
+                    VarIRG0305 = IRG_Annee04 * 30 / 100;
+                    VarIRG0605 = IRG_Annee04 * 30 / 100;
+                    VarIRG0506 = IRG_Annee05 - (VarIRG0305 + VarIRG0605);
+                }
+            }
+
+            #endregion
+
+            #region Calcule accomptes IRG Année 06
+
+            if ((modelBusinessPlan.InformationBase.RegimeImpositionId == 3) || (modelBusinessPlan.InformationBase.RegimeImpositionId == 2 && modelBusinessPlan.InformationBase.FormeJuridiqueId == 2 && Forfait_Bascul06 == "Bascul"))
+            {
+                if (ResultatExploitation05 > 0)
+                {
+                    VarIRG0306 = IRG_Annee05 * 30 / 100;
+                    VarIRG0606 = IRG_Annee05 * 30 / 100;
+                    VarIRG0507 = IRG_Annee06 - (VarIRG0306 + VarIRG0606);
+                }
+            }
+
+            #endregion
+
+            #region Calcule accomptes IRG Année 07
+
+            if ((modelBusinessPlan.InformationBase.RegimeImpositionId == 3) || (modelBusinessPlan.InformationBase.RegimeImpositionId == 2 && modelBusinessPlan.InformationBase.FormeJuridiqueId == 2 && Forfait_Bascul07 == "Bascul"))
+            {
+                if (ResultatExploitation06 > 0)
+                {
+                    VarIRG0307 = IRG_Annee06 * 30 / 100;
+                    VarIRG0607 = IRG_Annee06 * 30 / 100;
+                }
+            }
+
+            #endregion
+
+            #endregion
+
+            #region Variables Sommes des décaissement sur (IBS / IFU / IRG)
+
+            decimal SommeDecaiss_IBS_IFU_IRG01 = 30000;
+            decimal SommeDecaiss_IBS_IFU_IRG02 = 30000;
+            decimal SommeDecaiss_IBS_IFU_IRG03 = 30000;
+            decimal SommeDecaiss_IBS_IFU_IRG04 = 30000;
+            decimal SommeDecaiss_IBS_IFU_IRG05 = 30000;
+            decimal SommeDecaiss_IBS_IFU_IRG06 = 30000;
+            decimal SommeDecaiss_IBS_IFU_IRG07 = 30000;
+
+            #endregion
+
+            // Identificationla durée d'exonération fiscale : Imposition ExonerationFiscaleId => 3 ans
+            if (modelBusinessPlan.StructureFinancement.ExonerationFiscaleId == 1)
+            {
+                if (modelBusinessPlan.InformationBase.RegimeImpositionId == 1)
+                {
+                    SommeDecaiss_IBS_IFU_IRG04 = VarIBS0304 + VarIBS0604 + VarIBS1104;
+                    SommeDecaiss_IBS_IFU_IRG05 = VarIBS0405 + VarIBS0305 + VarIBS0605 + VarIBS1105;
+                    SommeDecaiss_IBS_IFU_IRG06 = VarIBS0406 + VarIBS0306 + VarIBS0606 + VarIBS1106;
+                    SommeDecaiss_IBS_IFU_IRG07 = VarIBS0407 + VarIBS0307 + VarIBS0607 + VarIBS1107;
+                }
+                if (modelBusinessPlan.InformationBase.RegimeImpositionId == 2)
+                {
+                    SommeDecaiss_IBS_IFU_IRG04 = VarIFU0604 + VarIFU0904 + VarIFU1204;
+                    SommeDecaiss_IBS_IFU_IRG05 = VarIFU0105 + VarIFU0605 + VarIFU0905 + VarIFU1205;
+                    SommeDecaiss_IBS_IFU_IRG06 = VarIFU0106 + VarIFU0606 + VarIFU0906 + VarIFU1206;
+                    SommeDecaiss_IBS_IFU_IRG07 = VarIFU0107 + VarIFU0607 + VarIFU0907 + VarIFU1207;
+                }
+                if (modelBusinessPlan.InformationBase.RegimeImpositionId == 3)
+                {
+                    SommeDecaiss_IBS_IFU_IRG04 = VarIRG0304 + VarIRG0604;
+                    SommeDecaiss_IBS_IFU_IRG05 = VarIRG0505 + VarIRG0305 + VarIRG0605;
+                    SommeDecaiss_IBS_IFU_IRG06 = VarIRG0506 + VarIRG0306 + VarIRG0606;
+                    SommeDecaiss_IBS_IFU_IRG07 = VarIRG0507 + VarIRG0307 + VarIRG0607;
+                }
+            }
+
+            // Identificationla durée d'exonération fiscale : Imposition ExonerationFiscaleId => 6 ans
+            if (modelBusinessPlan.StructureFinancement.ExonerationFiscaleId == 2)
+            {
+                if (modelBusinessPlan.InformationBase.RegimeImpositionId == 1)
+                {
+                    SommeDecaiss_IBS_IFU_IRG07 = VarIBS0407 + VarIBS0307 + VarIBS0607 + VarIBS1107;
+                }
+                if (modelBusinessPlan.InformationBase.RegimeImpositionId == 2)
+                {
+                    SommeDecaiss_IBS_IFU_IRG07 = VarIFU0107 + VarIFU0607 + VarIFU0907 + VarIFU1207;
+                }
+                if (modelBusinessPlan.InformationBase.RegimeImpositionId == 3)
+                {
+                    SommeDecaiss_IBS_IFU_IRG07 = VarIRG0507 + VarIRG0307 + VarIRG0607;
+                }
+            }
+
+
+
 
 
 

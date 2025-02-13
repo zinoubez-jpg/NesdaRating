@@ -24,6 +24,12 @@ namespace Anade.Khadamat.Domain
         public decimal FondsRoulement { get; set; }
         public decimal Total { get; set; }
 
+        //public decimal PNRSupplementaire { get; set; }
+        //public decimal ApportSupplementaire { get; set; }
+
+        //public decimal TauxIFU { get; set; }
+        //public decimal TauxIBS { get; set; }
+
         public int BusinessPlanId { get; set; }
 
         [ForeignKey("BusinessPlanId")]
