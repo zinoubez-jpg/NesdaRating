@@ -23,8 +23,9 @@ namespace Anade.Khadamat.Business
             Expression<Func<BusinessPlan, object>> loadStructureFinancement = x => x.StructureFinancement;
             Expression<Func<BusinessPlan, object>> loadEvaluationProjet = x => x.EvaluationProjet;
             Expression<Func<BusinessPlan, object>> loadWilaya = x => x.InformationBase.CommuneBP.WilayaBP;
+            Expression<Func<BusinessPlan, object>> loadTauxStructureFinancement = x => x.StructureFinancement.TauxStructureFinancement;
 
-            return new Expression<Func<BusinessPlan, object>>[] { loadEtape, loadInformationBase, loadTauxTVA, loadRegimeImposition, loadStuctureInvestissement, loadStructureFinancement, loadEvaluationProjet, loadWilaya };
+            return new Expression<Func<BusinessPlan, object>>[] { loadEtape, loadInformationBase, loadTauxTVA, loadRegimeImposition, loadStuctureInvestissement, loadStructureFinancement, loadEvaluationProjet, loadWilaya, loadTauxStructureFinancement };
         }
 
         public string GenererNumero(string codeStructure, int numSequ)

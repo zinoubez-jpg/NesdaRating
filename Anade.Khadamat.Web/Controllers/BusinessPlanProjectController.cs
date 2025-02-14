@@ -65,7 +65,9 @@ namespace Anade.Khadamat.Web.Controllers
         private readonly DetailAchatsDirectsBusinessService _detailAchatsDirectsBusinessService;
         private readonly PosteBusinessService _posteBusinessService;
 
-        public decimal FondsGarantie_Test = 5797;
+        // Importation Base de données (EtatStructureInvestissement)
+        // public decimal FondsGarantie_Test = 5797;
+        ///////////////////////////////////////////////////////////
 
         public BusinessPlanProjectController(UserService userService,
                                              AnnexeBusinessService annexeBusinessService,
@@ -1185,6 +1187,7 @@ namespace Anade.Khadamat.Web.Controllers
                 poste.SLR_Indemnites_PrimesNonImplCotl = Math.Round(Convert.ToDecimal(model[i + 4].Replace(".", ",")), 2);
                 poste.NetPayer = Math.Round(Convert.ToDecimal(model[i + 5].Replace(".", ",")), 2);
                 poste.RetenueIRG = Math.Round(Convert.ToDecimal(model[i + 6].Replace(".", ",")), 2);
+                poste.CotisationCNAS = Math.Round(((poste.SalaireBase + poste.IndemnitesPrimesCotisables) * 35 / 100), 2);
 
                 for (int j = 0; j < 7; j++)
                 {
@@ -1572,13 +1575,7 @@ namespace Anade.Khadamat.Web.Controllers
             etatStuctureInvestissement.FraisGeneraux = string.Format(frCult, "{0:n}", FraisGeneraux);
             etatStuctureInvestissement.AssurancesLieesCreation = string.Format(frCult, "{0:n}", AssurancesLieesCreation);
 
-
-            FondsGarantie_Test = FondsGarantie;
-
             etatStuctureInvestissement.FondsGarantie = string.Format(frCult, "{0:n}", FondsGarantie);
-
-
-
 
             etatStuctureInvestissement.FondsRoulement = string.Format(frCult, "{0:n}", FondsRoulement);
             etatStuctureInvestissement.Total = string.Format(frCult, "{0:n}", Total);
@@ -1608,27 +1605,10 @@ namespace Anade.Khadamat.Web.Controllers
 
             var stuctureInvestissement = _stuctureInvestissementBusinessService.GetSingle(x => x.BusinessPlanId == id);
 
-            decimal EquipementsImportes = 0;
-            decimal ActifsBiologique = 0;
-            decimal MaterielProduction = 0;
-            decimal MaterielBureau = 0;
-            decimal MaterielInformatique = 0;
-            decimal MaterielAudioVisuel = 0;
-            decimal MaterielCommunication = 0;
-            decimal InstallationsEquipements = 0;
-            decimal MaterielRoulant = 0;
-            decimal Amenagement = 0;
-            decimal FraisGeneraux = 0;
-            decimal AssurancesLieesCreation = 0;
-            decimal FondsGarantie = 0;
-            decimal FondsRoulement = 0;
-            decimal Total = 0;
+            BusinessResult businessResult;
 
-            decimal ApportPersonnel = 0;
-            decimal CMT = 0;
-            decimal PNRClassique = 0;
-            decimal PNRSupplementaire = 0;
-            decimal ApportSupplementaire = 0;
+
+
             float TauxIFU = 0;
             float TauxIBS = 0;
 
@@ -1637,65 +1617,65 @@ namespace Anade.Khadamat.Web.Controllers
             decimal MontantPNRReel = 0;
             decimal MontantApportReel = 0;
 
-            if (stuctureInvestissement == null)
+            decimal EquipementsImportes = Math.Round(Convert.ToDecimal(etatStuctureInvestissement.EquipementsImportes.Replace(".", ",")), 2);
+            decimal ActifsBiologique = Math.Round(Convert.ToDecimal(etatStuctureInvestissement.ActifsBiologique.Replace(".", ",")), 2);
+            decimal MaterielProduction = Math.Round(Convert.ToDecimal(etatStuctureInvestissement.MaterielProduction.Replace(".", ",")), 2);
+            decimal MaterielBureau = Math.Round(Convert.ToDecimal(etatStuctureInvestissement.MaterielBureau.Replace(".", ",")), 2);
+            decimal MaterielInformatique = Math.Round(Convert.ToDecimal(etatStuctureInvestissement.MaterielInformatique.Replace(".", ",")), 2);
+            decimal MaterielAudioVisuel = Math.Round(Convert.ToDecimal(etatStuctureInvestissement.MaterielAudioVisuel.Replace(".", ",")), 2);
+            decimal MaterielCommunication = Math.Round(Convert.ToDecimal(etatStuctureInvestissement.MaterielCommunication.Replace(".", ",")), 2);
+            decimal InstallationsEquipements = Math.Round(Convert.ToDecimal(etatStuctureInvestissement.InstallationsEquipements.Replace(".", ",")), 2);
+            decimal MaterielRoulant = Math.Round(Convert.ToDecimal(etatStuctureInvestissement.MaterielRoulant.Replace(".", ",")), 2);
+            decimal Amenagement = Math.Round(Convert.ToDecimal(etatStuctureInvestissement.Amenagement.Replace(".", ",")), 2);
+            decimal FraisGeneraux = Math.Round(Convert.ToDecimal(etatStuctureInvestissement.FraisGeneraux.Replace(".", ",")), 2);
+            decimal AssurancesLieesCreation = Math.Round(Convert.ToDecimal(etatStuctureInvestissement.AssurancesLieesCreation.Replace(".", ",")), 2);
+            decimal FondsGarantie = Math.Round(Convert.ToDecimal(etatStuctureInvestissement.FondsGarantie.Replace(".", ",")), 2);
+            decimal FondsRoulement = Math.Round(Convert.ToDecimal(etatStuctureInvestissement.FondsRoulement.Replace(".", ",")), 2);
+            decimal Total = Math.Round(Convert.ToDecimal(etatStuctureInvestissement.Total.Replace(".", ",")), 2);
+
+            decimal ApportPersonnel = Math.Round(Convert.ToDecimal(etatStuctureInvestissement.ApportPersonnel.Replace(".", ",")), 2);
+            decimal CMT = Math.Round(Convert.ToDecimal(etatStuctureInvestissement.CMT.Replace(".", ",")), 2);
+            decimal PNRClassique = Math.Round(Convert.ToDecimal(etatStuctureInvestissement.PNRClassique.Replace(".", ",")), 2);
+            decimal PNRSupplementaire = Math.Round(Convert.ToDecimal(etatStuctureInvestissement.PNRSupplementaire.Replace(".", ",")), 2);
+            decimal ApportSupplementaire = Math.Round(Convert.ToDecimal(etatStuctureInvestissement.ApportSupplementaire.Replace(".", ",")), 2);
+
+            StuctureInvestissement stuctureInvestissement1 = new();
+
+            stuctureInvestissement1.EquipementsImportes = EquipementsImportes;
+            stuctureInvestissement1.ActifsBiologique = ActifsBiologique;
+            stuctureInvestissement1.MaterielProduction = MaterielProduction;
+            stuctureInvestissement1.MaterielBureau = MaterielBureau;
+            stuctureInvestissement1.MaterielInformatique = MaterielInformatique;
+            stuctureInvestissement1.MaterielAudioVisuel = MaterielAudioVisuel;
+            stuctureInvestissement1.MaterielCommunication = MaterielCommunication;
+            stuctureInvestissement1.InstallationsEquipements = InstallationsEquipements;
+            stuctureInvestissement1.MaterielRoulant = MaterielRoulant;
+            stuctureInvestissement1.Amenagement = Amenagement;
+            stuctureInvestissement1.FraisGeneraux = FraisGeneraux;
+            stuctureInvestissement1.AssurancesLieesCreation = AssurancesLieesCreation;
+            stuctureInvestissement1.FondsGarantie = FondsGarantie;
+            stuctureInvestissement1.FondsRoulement = FondsRoulement;
+            stuctureInvestissement1.Total = Total;
+
+            stuctureInvestissement1.ApportPersonnel = ApportPersonnel;
+            stuctureInvestissement1.CMT = CMT;
+            stuctureInvestissement1.PNRClassique = PNRClassique;
+            stuctureInvestissement1.ApportSupplementaire = ApportSupplementaire;
+            stuctureInvestissement1.PNRSupplementaire = PNRSupplementaire;
+
+            modelBusinessPlan.StuctureInvestissement = stuctureInvestissement1;
+
+            businessResult = _businessPlanBusinessService.Update(modelBusinessPlan);
+
+            if (businessResult.Succeeded)
             {
-                CoutProjetReel = 10;
-                MontantCMTReel = 10;
-                MontantPNRReel = 10;
-                MontantApportReel = 10;
+                TempData["Message"] = businessResult.ToBootstrapAlerts();
+                return Json(new { messages = businessResult.ToBootstrapAlerts() });
             }
             else
             {
-                CoutProjetReel = 20;
-                MontantCMTReel = 20;
-                MontantPNRReel = 20;
-                MontantApportReel = 20;
+                return Json(new { messages = businessResult.ToBootstrapAlerts() });
             }
-
-
-
-
-            EquipementsImportes = CoutProjetReel + MontantCMTReel + MontantPNRReel + MontantApportReel;
-
-            System.Globalization.CultureInfo frCult = System.Globalization.CultureInfo.CreateSpecificCulture("fr-FR");
-
-            etatStuctureInvestissement.EquipementsImportes = string.Format(frCult, "{0:n}", EquipementsImportes);
-            etatStuctureInvestissement.ActifsBiologique = string.Format(frCult, "{0:n}", ActifsBiologique);
-            etatStuctureInvestissement.MaterielProduction = string.Format(frCult, "{0:n}", MaterielProduction);
-            etatStuctureInvestissement.MaterielBureau = string.Format(frCult, "{0:n}", MaterielBureau);
-            etatStuctureInvestissement.MaterielInformatique = string.Format(frCult, "{0:n}", MaterielInformatique);
-            etatStuctureInvestissement.MaterielAudioVisuel = string.Format(frCult, "{0:n}", MaterielAudioVisuel);
-            etatStuctureInvestissement.MaterielCommunication = string.Format(frCult, "{0:n}", MaterielCommunication);
-            etatStuctureInvestissement.InstallationsEquipements = string.Format(frCult, "{0:n}", InstallationsEquipements);
-            etatStuctureInvestissement.MaterielRoulant = string.Format(frCult, "{0:n}", MaterielRoulant);
-            etatStuctureInvestissement.Amenagement = string.Format(frCult, "{0:n}", Amenagement);
-
-            etatStuctureInvestissement.FraisGeneraux = string.Format(frCult, "{0:n}", FraisGeneraux);
-            etatStuctureInvestissement.AssurancesLieesCreation = string.Format(frCult, "{0:n}", AssurancesLieesCreation);
-
-            FondsGarantie_Test = FondsGarantie;
-
-            etatStuctureInvestissement.FondsGarantie = string.Format(frCult, "{0:n}", FondsGarantie);
-
-
-
-
-            etatStuctureInvestissement.FondsRoulement = string.Format(frCult, "{0:n}", FondsRoulement);
-            etatStuctureInvestissement.Total = string.Format(frCult, "{0:n}", Total);
-
-            etatStuctureInvestissement.ApportPersonnel = string.Format(frCult, "{0:n}", ApportPersonnel);
-            etatStuctureInvestissement.CMT = string.Format(frCult, "{0:n}", CMT);
-            etatStuctureInvestissement.PNRClassique = string.Format(frCult, "{0:n}", PNRClassique);
-            //etatStuctureInvestissement.TauxApportPersonnel = structureFinancement.TauxStructureFinancement.ApportPersonnel.ToString();
-            //etatStuctureInvestissement.TauxCMT = structureFinancement.TauxStructureFinancement.CMT.ToString();
-            //etatStuctureInvestissement.TauxPNRClassique = structureFinancement.TauxStructureFinancement.PNRClassique.ToString();
-
-            etatStuctureInvestissement.PNRSupplementaire = string.Format(frCult, "{0:n}", PNRSupplementaire);
-            etatStuctureInvestissement.ApportSupplementaire = string.Format(frCult, "{0:n}", ApportSupplementaire);
-            etatStuctureInvestissement.TauxIFU = string.Format(frCult, "{0:n}", TauxIFU);
-            etatStuctureInvestissement.TauxIBS = string.Format(frCult, "{0:n}", TauxIBS);
-
-            return PartialView($"_{nameof(EtatStructureInvestissement)}", etatStuctureInvestissement);
         }
 
 
@@ -1762,6 +1742,9 @@ namespace Anade.Khadamat.Web.Controllers
             decimal MontantChargesExternes05 = 0;
             decimal MontantChargesExternes06 = 0;
             decimal MontantChargesExternes07 = 0;
+
+            decimal MontantAssurances01 = 0;
+            decimal MontantFraisGenerauxCreation01 = 0;
 
             decimal ValeurAjoutee01 = 0;
             decimal ValeurAjoutee02 = 0;
@@ -2045,6 +2028,7 @@ namespace Anade.Khadamat.Web.Controllers
                 }
             }
 
+
             if (detailsChargesExternes.Count != 0)
             {
                 for (int i = 0; i < detailsChargesExternes.Count; i++)
@@ -2052,6 +2036,15 @@ namespace Anade.Khadamat.Web.Controllers
                     if (detailsChargesExternes[i].AnneeId == 1)
                     {
                         MontantChargesExternes01 += detailsChargesExternes[i].Montant;
+
+                        if (detailsChargesExternes[i].RubriqueChargesExternesId == 6)
+                        {
+                            MontantAssurances01 = detailsChargesExternes[i].Montant;
+                        }
+                        if (detailsChargesExternes[i].RubriqueChargesExternesId == 11)
+                        {
+                            MontantFraisGenerauxCreation01 = detailsChargesExternes[i].Montant;
+                        }
                     }
                     if (detailsChargesExternes[i].AnneeId == 2)
                     {
@@ -2079,6 +2072,14 @@ namespace Anade.Khadamat.Web.Controllers
                     }
                 }
             }
+
+
+            MontantChargesExternes01 = MontantChargesExternes01
+                                     - MontantAssurances01
+                                     - MontantFraisGenerauxCreation01;
+
+
+
 
             if (postes.Count != 0)
             {
@@ -2336,45 +2337,6 @@ namespace Anade.Khadamat.Web.Controllers
             ResultatExploitation05 = ExcedentBrutExploitation05 - AmortissementsProvisions05;
             ResultatExploitation06 = ExcedentBrutExploitation06 - AmortissementsProvisions06;
             ResultatExploitation07 = ExcedentBrutExploitation07 - AmortissementsProvisions07;
-
-            ResultatNet01 = ResultatExploitation01 - IBS_IFU_IRG01;
-            ResultatNet02 = ResultatExploitation02 - IBS_IFU_IRG02;
-            ResultatNet03 = ResultatExploitation03 - IBS_IFU_IRG03;
-            ResultatNet04 = ResultatExploitation04 - IBS_IFU_IRG04;
-            ResultatNet05 = ResultatExploitation05 - IBS_IFU_IRG05;
-            ResultatNet06 = ResultatExploitation06 - IBS_IFU_IRG06;
-            ResultatNet07 = ResultatExploitation07 - IBS_IFU_IRG07;
-
-            EvolutionChiffreAffaires02 = ((MontantChiffreAffaire02 - MontantChiffreAffaire01) / MontantChiffreAffaire01) * 100;
-            EvolutionChiffreAffaires03 = ((MontantChiffreAffaire03 - MontantChiffreAffaire02) / MontantChiffreAffaire02) * 100;
-            EvolutionChiffreAffaires04 = ((MontantChiffreAffaire04 - MontantChiffreAffaire03) / MontantChiffreAffaire03) * 100;
-            EvolutionChiffreAffaires05 = ((MontantChiffreAffaire05 - MontantChiffreAffaire04) / MontantChiffreAffaire04) * 100;
-            EvolutionChiffreAffaires06 = ((MontantChiffreAffaire06 - MontantChiffreAffaire05) / MontantChiffreAffaire05) * 100;
-            EvolutionChiffreAffaires07 = ((MontantChiffreAffaire07 - MontantChiffreAffaire06) / MontantChiffreAffaire06) * 100;
-
-            TauxVA01 = ValeurAjoutee01 / MontantChiffreAffaire01 * 100;
-            TauxVA02 = ValeurAjoutee02 / MontantChiffreAffaire02 * 100;
-            TauxVA03 = ValeurAjoutee03 / MontantChiffreAffaire03 * 100;
-            TauxVA04 = ValeurAjoutee04 / MontantChiffreAffaire04 * 100;
-            TauxVA05 = ValeurAjoutee05 / MontantChiffreAffaire05 * 100;
-            TauxVA06 = ValeurAjoutee06 / MontantChiffreAffaire06 * 100;
-            TauxVA07 = ValeurAjoutee07 / MontantChiffreAffaire07 * 100;
-
-            TauxEBE01 = ResultatExploitation01 / MontantChiffreAffaire01 * 100;
-            TauxEBE02 = ResultatExploitation02 / MontantChiffreAffaire02 * 100;
-            TauxEBE03 = ResultatExploitation03 / MontantChiffreAffaire03 * 100;
-            TauxEBE04 = ResultatExploitation04 / MontantChiffreAffaire04 * 100;
-            TauxEBE05 = ResultatExploitation05 / MontantChiffreAffaire05 * 100;
-            TauxEBE06 = ResultatExploitation06 / MontantChiffreAffaire06 * 100;
-            TauxEBE07 = ResultatExploitation07 / MontantChiffreAffaire07 * 100;
-
-            CAF01 = ResultatNet01 + AmortissementsProvisions01;
-            CAF02 = ResultatNet02 + AmortissementsProvisions02;
-            CAF03 = ResultatNet03 + AmortissementsProvisions03;
-            CAF04 = ResultatNet04 + AmortissementsProvisions04;
-            CAF05 = ResultatNet05 + AmortissementsProvisions05;
-            CAF06 = ResultatNet06 + AmortissementsProvisions06;
-            CAF07 = ResultatNet07 + AmortissementsProvisions07;
 
             // Calcule IRG
             decimal IRG_Annee03 = 0;
@@ -3030,16 +2992,44 @@ namespace Anade.Khadamat.Web.Controllers
                 }
             }
 
+            ResultatNet01 = ResultatExploitation01 - IBS_IFU_IRG01;
+            ResultatNet02 = ResultatExploitation02 - IBS_IFU_IRG02;
+            ResultatNet03 = ResultatExploitation03 - IBS_IFU_IRG03;
+            ResultatNet04 = ResultatExploitation04 - IBS_IFU_IRG04;
+            ResultatNet05 = ResultatExploitation05 - IBS_IFU_IRG05;
+            ResultatNet06 = ResultatExploitation06 - IBS_IFU_IRG06;
+            ResultatNet07 = ResultatExploitation07 - IBS_IFU_IRG07;
 
+            EvolutionChiffreAffaires02 = ((MontantChiffreAffaire02 - MontantChiffreAffaire01) / MontantChiffreAffaire01) * 100;
+            EvolutionChiffreAffaires03 = ((MontantChiffreAffaire03 - MontantChiffreAffaire02) / MontantChiffreAffaire02) * 100;
+            EvolutionChiffreAffaires04 = ((MontantChiffreAffaire04 - MontantChiffreAffaire03) / MontantChiffreAffaire03) * 100;
+            EvolutionChiffreAffaires05 = ((MontantChiffreAffaire05 - MontantChiffreAffaire04) / MontantChiffreAffaire04) * 100;
+            EvolutionChiffreAffaires06 = ((MontantChiffreAffaire06 - MontantChiffreAffaire05) / MontantChiffreAffaire05) * 100;
+            EvolutionChiffreAffaires07 = ((MontantChiffreAffaire07 - MontantChiffreAffaire06) / MontantChiffreAffaire06) * 100;
 
+            TauxVA01 = ValeurAjoutee01 / MontantChiffreAffaire01 * 100;
+            TauxVA02 = ValeurAjoutee02 / MontantChiffreAffaire02 * 100;
+            TauxVA03 = ValeurAjoutee03 / MontantChiffreAffaire03 * 100;
+            TauxVA04 = ValeurAjoutee04 / MontantChiffreAffaire04 * 100;
+            TauxVA05 = ValeurAjoutee05 / MontantChiffreAffaire05 * 100;
+            TauxVA06 = ValeurAjoutee06 / MontantChiffreAffaire06 * 100;
+            TauxVA07 = ValeurAjoutee07 / MontantChiffreAffaire07 * 100;
 
+            TauxEBE01 = ResultatExploitation01 / MontantChiffreAffaire01 * 100;
+            TauxEBE02 = ResultatExploitation02 / MontantChiffreAffaire02 * 100;
+            TauxEBE03 = ResultatExploitation03 / MontantChiffreAffaire03 * 100;
+            TauxEBE04 = ResultatExploitation04 / MontantChiffreAffaire04 * 100;
+            TauxEBE05 = ResultatExploitation05 / MontantChiffreAffaire05 * 100;
+            TauxEBE06 = ResultatExploitation06 / MontantChiffreAffaire06 * 100;
+            TauxEBE07 = ResultatExploitation07 / MontantChiffreAffaire07 * 100;
 
-
-
-
-
-
-
+            CAF01 = ResultatNet01 + AmortissementsProvisions01;
+            CAF02 = ResultatNet02 + AmortissementsProvisions02;
+            CAF03 = ResultatNet03 + AmortissementsProvisions03;
+            CAF04 = ResultatNet04 + AmortissementsProvisions04;
+            CAF05 = ResultatNet05 + AmortissementsProvisions05;
+            CAF06 = ResultatNet06 + AmortissementsProvisions06;
+            CAF07 = ResultatNet07 + AmortissementsProvisions07;
 
             #endregion
 
@@ -29162,6 +29152,8 @@ namespace Anade.Khadamat.Web.Controllers
             decimal Sommes_Versees_Prestataires1108 = 0;
             decimal Sommes_Versees_Prestataires1208 = 0;
 
+            decimal FondsGarantie = modelBusinessPlan.StuctureInvestissement.FondsGarantie;
+
             #endregion
 
             delaiPrestataire = modelBusinessPlan.InformationBase.DelaiPrestataire;
@@ -41806,7 +41798,7 @@ namespace Anade.Khadamat.Web.Controllers
                                                   + Sommes_Versees_Prestataires1201
                                                   + MontantAssurances01
                                                   + MontantFraisGenerauxCreation01
-                                                  + FondsGarantie_Test;
+                                                  + FondsGarantie;
 
             decimal Sommes_Versees_Prestataires02 = Sommes_Versees_Prestataires0102
                                                   + Sommes_Versees_Prestataires0202
@@ -45172,16 +45164,25 @@ namespace Anade.Khadamat.Web.Controllers
             decimal VarIBS0607 = 0;
             decimal VarIBS1107 = 0;
 
-            string Forfait_Bascul04 = "";
-            string Forfait_Bascul05 = "";
-            string Forfait_Bascul06 = "";
-            string Forfait_Bascul07 = "";
+            // Importation Base de données (EtatCompteResultat)
+
+            string Forfait_Bascul04 = "IFU";
+            string Forfait_Bascul05 = "IFU";
+            string Forfait_Bascul06 = "IFU";
+            string Forfait_Bascul07 = "IFU";
+
+            /////////////////////////////////////////////////////
+
+            // Importation Base de données (EtatCompteResultat)
 
             decimal ResultatExploitation02 = 0;
             decimal ResultatExploitation03 = 0;
             decimal ResultatExploitation04 = 0;
             decimal ResultatExploitation05 = 0;
             decimal ResultatExploitation06 = 0;
+
+            /////////////////////////////////////////////////////
+
 
             #endregion
 
@@ -45525,9 +45526,243 @@ namespace Anade.Khadamat.Web.Controllers
                 }
             }
 
+            List<Poste> postes = _posteBusinessService.GetAllFiltered(x => x.DetailsPoste.Any(d => d.BusinessPlanId == id), _posteBusinessService.GetDefaultLoadProperties());
+
+            #region Calcule décaissememnt charges personnels
 
 
+            decimal DecaissChargesPersonnels01 = 0;
+            decimal DecaissChargesPersonnels02 = 0;
+            decimal DecaissChargesPersonnels03 = 0;
+            decimal DecaissChargesPersonnels04 = 0;
+            decimal DecaissChargesPersonnels05 = 0;
+            decimal DecaissChargesPersonnels06 = 0;
+            decimal DecaissChargesPersonnels07 = 0;
 
+            decimal decalageChargePersonnel01 = 0;
+            decimal decalageChargePersonnel02 = 0;
+            decimal decalageChargePersonnel03 = 0;
+            decimal decalageChargePersonnel04 = 0;
+            decimal decalageChargePersonnel05 = 0;
+            decimal decalageChargePersonnel06 = 0;
+
+            if (postes.Count != 0)
+            {
+                for (int i = 0; i < postes.Count; i++)
+                {
+                    decimal SommeNetPayer01 = 0;
+                    decimal SommeNetPayer02 = 0;
+                    decimal SommeNetPayer03 = 0;
+                    decimal SommeNetPayer04 = 0;
+                    decimal SommeNetPayer05 = 0;
+                    decimal SommeNetPayer06 = 0;
+                    decimal SommeNetPayer07 = 0;
+
+                    decimal SommeRetenueIRG01 = 0;
+                    decimal SommeRetenueIRG02 = 0;
+                    decimal SommeRetenueIRG03 = 0;
+                    decimal SommeRetenueIRG04 = 0;
+                    decimal SommeRetenueIRG05 = 0;
+                    decimal SommeRetenueIRG06 = 0;
+                    decimal SommeRetenueIRG07 = 0;
+
+                    decimal SommeCotisationCNAS01 = 0;
+                    decimal SommeCotisationCNAS02 = 0;
+                    decimal SommeCotisationCNAS03 = 0;
+                    decimal SommeCotisationCNAS04 = 0;
+                    decimal SommeCotisationCNAS05 = 0;
+                    decimal SommeCotisationCNAS06 = 0;
+                    decimal SommeCotisationCNAS07 = 0;
+
+                    if (postes[i].DetailsPoste.Count != 0)
+                    {
+                        List<DetailPoste> detailPostes = postes[i].DetailsPoste.ToList();
+
+                        for (int j = 0; j < detailPostes.Count; j++)
+                        {
+
+                            if (detailPostes[j].AnneeId == 1)
+                            {
+                                SommeNetPayer01 += postes[i].NetPayer * detailPostes[j].NombreEmploi;
+                                SommeRetenueIRG01 += postes[i].RetenueIRG * detailPostes[j].NombreEmploi;
+                                SommeCotisationCNAS01 += postes[i].CotisationCNAS * detailPostes[j].NombreEmploi;
+
+                                DecaissChargesPersonnels01 += (SommeNetPayer01 * 12) + ((SommeRetenueIRG01 + SommeCotisationCNAS01) * 11);
+
+                                decalageChargePersonnel01 = (SommeRetenueIRG01 + SommeCotisationCNAS01);
+                            }
+
+                            if (detailPostes[j].AnneeId == 2)
+                            {
+                                SommeNetPayer02 += postes[i].NetPayer * detailPostes[j].NombreEmploi;
+                                SommeRetenueIRG02 += postes[i].RetenueIRG * detailPostes[j].NombreEmploi;
+                                SommeCotisationCNAS02 += postes[i].CotisationCNAS * detailPostes[j].NombreEmploi;
+
+                                DecaissChargesPersonnels02 += (SommeNetPayer02 * 12) + (((SommeRetenueIRG02 + SommeCotisationCNAS02) * 11) + decalageChargePersonnel01);
+
+                                decalageChargePersonnel02 = (SommeRetenueIRG02 + SommeCotisationCNAS02);
+                            }
+                            if (detailPostes[j].AnneeId == 3)
+                            {
+                                SommeNetPayer03 += postes[i].NetPayer * detailPostes[j].NombreEmploi;
+                                SommeRetenueIRG03 += postes[i].RetenueIRG * detailPostes[j].NombreEmploi;
+                                SommeCotisationCNAS03 += postes[i].CotisationCNAS * detailPostes[j].NombreEmploi;
+
+                                DecaissChargesPersonnels03 += (SommeNetPayer03 * 12) + (((SommeRetenueIRG03 + SommeCotisationCNAS03) * 11) + decalageChargePersonnel02);
+
+                                decalageChargePersonnel03 = (SommeRetenueIRG03 + SommeCotisationCNAS03);
+                            }
+                            if (detailPostes[j].AnneeId == 4)
+                            {
+                                SommeNetPayer04 += postes[i].NetPayer * detailPostes[j].NombreEmploi;
+                                SommeRetenueIRG04 += postes[i].RetenueIRG * detailPostes[j].NombreEmploi;
+                                SommeCotisationCNAS04 += postes[i].CotisationCNAS * detailPostes[j].NombreEmploi;
+
+                                DecaissChargesPersonnels04 += (SommeNetPayer04 * 12) + (((SommeRetenueIRG04 + SommeCotisationCNAS04) * 11) + decalageChargePersonnel03);
+
+                                decalageChargePersonnel04 = (SommeRetenueIRG04 + SommeCotisationCNAS04);
+                            }
+                            if (detailPostes[j].AnneeId == 5)
+                            {
+                                SommeNetPayer05 += postes[i].NetPayer * detailPostes[j].NombreEmploi;
+                                SommeRetenueIRG05 += postes[i].RetenueIRG * detailPostes[j].NombreEmploi;
+                                SommeCotisationCNAS05 += postes[i].CotisationCNAS * detailPostes[j].NombreEmploi;
+
+                                DecaissChargesPersonnels05 += (SommeNetPayer05 * 12) + (((SommeRetenueIRG05 + SommeCotisationCNAS05) * 11) + decalageChargePersonnel04);
+
+                                decalageChargePersonnel05 = (SommeRetenueIRG05 + SommeCotisationCNAS05);
+                            }
+                            if (detailPostes[j].AnneeId == 6)
+                            {
+                                SommeNetPayer06 += postes[i].NetPayer * detailPostes[j].NombreEmploi;
+                                SommeRetenueIRG06 += postes[i].RetenueIRG * detailPostes[j].NombreEmploi;
+                                SommeCotisationCNAS06 += postes[i].CotisationCNAS * detailPostes[j].NombreEmploi;
+
+                                DecaissChargesPersonnels06 += (SommeNetPayer06 * 12) + (((SommeRetenueIRG06 + SommeCotisationCNAS06) * 11) + decalageChargePersonnel05);
+
+                                decalageChargePersonnel06 = (SommeRetenueIRG06 + SommeCotisationCNAS06);
+                            }
+                            if (detailPostes[j].AnneeId == 7)
+                            {
+                                SommeNetPayer07 += postes[i].NetPayer * detailPostes[j].NombreEmploi;
+                                SommeRetenueIRG07 += postes[i].RetenueIRG * detailPostes[j].NombreEmploi;
+                                SommeCotisationCNAS07 += postes[i].CotisationCNAS * detailPostes[j].NombreEmploi;
+
+                                DecaissChargesPersonnels07 += (SommeNetPayer07 * 12) + (((SommeRetenueIRG07 + SommeCotisationCNAS07) * 11) + decalageChargePersonnel06);
+                            }
+                        }
+                    }
+                }
+            }
+
+            #endregion
+
+
+            decimal MontantAcquisition01 = 0;
+            decimal MontantAcquisition02 = 0;
+            decimal MontantAcquisition03 = 0;
+            decimal MontantAcquisition04 = 0;
+            decimal MontantAcquisition05 = 0;
+            decimal MontantAcquisition06 = 0;
+            decimal MontantAcquisition07 = 0;
+
+
+            List<DetailInvestissement> detailInvestissement = _detailInvestissementBusinessService.GetAllFiltered(x => x.BusinessPlanId == id, _detailInvestissementBusinessService.GetDefaultLoadProperties());
+
+            if (detailInvestissement.Count != 0)
+            {
+                for (int i = 0; i < detailInvestissement.Count; i++)
+                {
+                    if (detailInvestissement[i].Acquisitions.Count != 0)
+                    {
+                        List<Acquisition> acquisitions = detailInvestissement[i].Acquisitions.ToList();
+
+                        if (acquisitions.Count != 0)
+                        {
+                            MontantAcquisition01 += acquisitions[0].Montant;
+                            MontantAcquisition02 += acquisitions[1].Montant;
+                            MontantAcquisition03 += acquisitions[2].Montant;
+                            MontantAcquisition04 += acquisitions[3].Montant;
+                            MontantAcquisition05 += acquisitions[4].Montant;
+                            MontantAcquisition06 += acquisitions[5].Montant;
+                            MontantAcquisition07 += acquisitions[6].Montant;
+
+                        }
+
+                    }
+                }
+            }
+
+            decimal ApportPersonnel01 = modelBusinessPlan.StuctureInvestissement.ApportPersonnel;
+            decimal FondsRoulement01 = modelBusinessPlan.StuctureInvestissement.FondsRoulement;
+            decimal ApportCMT01 = modelBusinessPlan.StuctureInvestissement.CMT;
+            decimal ApportPNRClassique01 = modelBusinessPlan.StuctureInvestissement.PNRClassique;
+
+            decimal ApportSupplementaire01 = modelBusinessPlan.StuctureInvestissement.ApportSupplementaire;
+            decimal PNRSupplementaire01 = modelBusinessPlan.StuctureInvestissement.PNRSupplementaire;
+
+            int TauxApportPersonnel = modelBusinessPlan.StructureFinancement.TauxStructureFinancement.ApportPersonnel;
+            int TauxCMT = modelBusinessPlan.StructureFinancement.TauxStructureFinancement.CMT;
+            int TauxPNRClassique = modelBusinessPlan.StructureFinancement.TauxStructureFinancement.PNRClassique;
+
+            decimal EncaissementsSuiteApportPersonnel01 = 0;
+            decimal EncaissementsProvenantEmprunts01 = 0;
+
+            decimal FondsRoulementApportPersonnel01 = FondsRoulement01 * TauxApportPersonnel / 100;
+
+            decimal FondsRoulementEmprunts01 = FondsRoulement01 * (TauxCMT + TauxPNRClassique) / 100;
+
+            EncaissementsSuiteApportPersonnel01 = ApportPersonnel01 - FondsRoulementApportPersonnel01;
+
+            EncaissementsProvenantEmprunts01 = ApportCMT01 + ApportPNRClassique01 + PNRSupplementaire01 - FondsRoulementEmprunts01;
+
+            decimal SoldeInitial01 = 0;
+
+            SoldeInitial01 = FondsRoulement01 + ApportSupplementaire01;
+
+            decimal RemboursementsEmpruntsCMT01 = 0;
+            decimal RemboursementsEmpruntsPNR01 = 0;
+
+            decimal RemboursementsEmpruntsCMT02 = 0;
+            decimal RemboursementsEmpruntsPNR02 = 0;
+
+            decimal RemboursementsEmpruntsCMT03 = 0;
+            decimal RemboursementsEmpruntsPNR03 = 0;
+
+            decimal RemboursementsEmpruntsCMT04 = 0;
+            decimal RemboursementsEmpruntsPNR04 = 0;
+
+            decimal RemboursementsEmpruntsCMT05 = 0;
+            decimal RemboursementsEmpruntsPNR05 = 0;
+
+            decimal RemboursementsEmpruntsCMT06 = 0;
+            decimal RemboursementsEmpruntsPNR06 = 0;
+
+            decimal RemboursementsEmpruntsCMT07 = 0;
+            decimal RemboursementsEmpruntsPNR07 = 0;
+
+            if (modelBusinessPlan.InformationBase.TypeFinancementId == 2)
+            {
+                RemboursementsEmpruntsPNR02 = ApportPNRClassique01 / 5;
+                RemboursementsEmpruntsPNR03 = ApportPNRClassique01 / 5;
+                RemboursementsEmpruntsPNR04 = ApportPNRClassique01 / 5;
+                RemboursementsEmpruntsPNR05 = ApportPNRClassique01 / 5;
+                RemboursementsEmpruntsPNR06 = ApportPNRClassique01 / 5;
+            }
+            else
+            {
+                if (modelBusinessPlan.InformationBase.TypeFinancementId == 3)
+                {
+                    RemboursementsEmpruntsCMT02 = ApportCMT01 / 10;
+                    RemboursementsEmpruntsCMT03 = ApportCMT01 / 5;
+                    RemboursementsEmpruntsCMT04 = ApportCMT01 / 5;
+                    RemboursementsEmpruntsCMT05 = ApportCMT01 / 5;
+                    RemboursementsEmpruntsCMT06 = ApportCMT01 / 5;
+                    RemboursementsEmpruntsCMT07 = ApportCMT01 / 10;
+
+                    RemboursementsEmpruntsPNR07 = (ApportPNRClassique01 + PNRSupplementaire01) / 10;
+                }
+            }
 
 
 
@@ -45544,130 +45779,87 @@ namespace Anade.Khadamat.Web.Controllers
             decimal EncaissementsRecuClients01 = 0;
             decimal SommesVerseesFournisseurs01 = 0;
             decimal SommesVerseesPrestataires01 = 0;
-            decimal SommesVerseesPersonnelCNAS_IRG01 = 0;
             decimal DecaissementTVAPayer01 = 0;
-            decimal DecaissementIBS_IFU_IRG01 = 0;
             decimal FluxTresorerieProvenantExploitation01 = 0;
             decimal DecaissementAcquisitionEquipements01 = 0;
             decimal FluxTresorerieProvenantInvestissement01 = 0;
-            decimal EncaissementsSuiteApportPersonnel01 = 0;
-            decimal EncaissementsProvenantEmprunts01 = 0;
-            decimal RemboursementsEmpruntsCMT01 = 0;
-            decimal RemboursementsEmpruntsPNR01 = 0;
+
             decimal FluxTresorerieProvenantFinancement01 = 0;
             decimal FluxTresorerieNet01 = 0;
-            decimal SoldeInitial01 = 0;
+
             decimal SoldeFinal01 = 0;
             decimal Equilibre01 = 0;
 
-            decimal EncaissementsRecuClients02 = 0;
-            decimal SommesVerseesFournisseurs02 = 0;
-            decimal SommesVerseesPrestataires02 = 0;
-            decimal SommesVerseesPersonnelCNAS_IRG02 = 0;
             decimal DecaissementTVAPayer02 = 0;
-            decimal DecaissementIBS_IFU_IRG02 = 0;
             decimal FluxTresorerieProvenantExploitation02 = 0;
-            decimal DecaissementAcquisitionEquipements02 = 0;
             decimal FluxTresorerieProvenantInvestissement02 = 0;
             decimal EncaissementsSuiteApportPersonnel02 = 0;
             decimal EncaissementsProvenantEmprunts02 = 0;
-            decimal RemboursementsEmpruntsCMT02 = 0;
-            decimal RemboursementsEmpruntsPNR02 = 0;
             decimal FluxTresorerieProvenantFinancement02 = 0;
             decimal FluxTresorerieNet02 = 0;
             decimal SoldeInitial02 = 0;
             decimal SoldeFinal02 = 0;
             decimal Equilibre02 = 0;
 
-            decimal EncaissementsRecuClients03 = 0;
-            decimal SommesVerseesFournisseurs03 = 0;
-            decimal SommesVerseesPrestataires03 = 0;
-            decimal SommesVerseesPersonnelCNAS_IRG03 = 0;
+
+
             decimal DecaissementTVAPayer03 = 0;
-            decimal DecaissementIBS_IFU_IRG03 = 0;
             decimal FluxTresorerieProvenantExploitation03 = 0;
-            decimal DecaissementAcquisitionEquipements03 = 0;
             decimal FluxTresorerieProvenantInvestissement03 = 0;
             decimal EncaissementsSuiteApportPersonnel03 = 0;
             decimal EncaissementsProvenantEmprunts03 = 0;
-            decimal RemboursementsEmpruntsCMT03 = 0;
-            decimal RemboursementsEmpruntsPNR03 = 0;
             decimal FluxTresorerieProvenantFinancement03 = 0;
             decimal FluxTresorerieNet03 = 0;
             decimal SoldeInitial03 = 0;
             decimal SoldeFinal03 = 0;
             decimal Equilibre03 = 0;
 
-            decimal EncaissementsRecuClients04 = 0;
-            decimal SommesVerseesFournisseurs04 = 0;
-            decimal SommesVerseesPrestataires04 = 0;
-            decimal SommesVerseesPersonnelCNAS_IRG04 = 0;
+
+
             decimal DecaissementTVAPayer04 = 0;
-            decimal DecaissementIBS_IFU_IRG04 = 0;
             decimal FluxTresorerieProvenantExploitation04 = 0;
-            decimal DecaissementAcquisitionEquipements04 = 0;
             decimal FluxTresorerieProvenantInvestissement04 = 0;
             decimal EncaissementsSuiteApportPersonnel04 = 0;
             decimal EncaissementsProvenantEmprunts04 = 0;
-            decimal RemboursementsEmpruntsCMT04 = 0;
-            decimal RemboursementsEmpruntsPNR04 = 0;
             decimal FluxTresorerieProvenantFinancement04 = 0;
             decimal FluxTresorerieNet04 = 0;
             decimal SoldeInitial04 = 0;
             decimal SoldeFinal04 = 0;
             decimal Equilibre04 = 0;
 
-            decimal EncaissementsRecuClients05 = 0;
-            decimal SommesVerseesFournisseurs05 = 0;
-            decimal SommesVerseesPrestataires05 = 0;
-            decimal SommesVerseesPersonnelCNAS_IRG05 = 0;
+
+
             decimal DecaissementTVAPayer05 = 0;
-            decimal DecaissementIBS_IFU_IRG05 = 0;
             decimal FluxTresorerieProvenantExploitation05 = 0;
-            decimal DecaissementAcquisitionEquipements05 = 0;
             decimal FluxTresorerieProvenantInvestissement05 = 0;
             decimal EncaissementsSuiteApportPersonnel05 = 0;
             decimal EncaissementsProvenantEmprunts05 = 0;
-            decimal RemboursementsEmpruntsCMT05 = 0;
-            decimal RemboursementsEmpruntsPNR05 = 0;
             decimal FluxTresorerieProvenantFinancement05 = 0;
             decimal FluxTresorerieNet05 = 0;
             decimal SoldeInitial05 = 0;
             decimal SoldeFinal05 = 0;
             decimal Equilibre05 = 0;
 
-            decimal EncaissementsRecuClients06 = 0;
-            decimal SommesVerseesFournisseurs06 = 0;
-            decimal SommesVerseesPrestataires06 = 0;
-            decimal SommesVerseesPersonnelCNAS_IRG06 = 0;
+
+
             decimal DecaissementTVAPayer06 = 0;
-            decimal DecaissementIBS_IFU_IRG06 = 0;
             decimal FluxTresorerieProvenantExploitation06 = 0;
-            decimal DecaissementAcquisitionEquipements06 = 0;
             decimal FluxTresorerieProvenantInvestissement06 = 0;
             decimal EncaissementsSuiteApportPersonnel06 = 0;
             decimal EncaissementsProvenantEmprunts06 = 0;
-            decimal RemboursementsEmpruntsCMT06 = 0;
-            decimal RemboursementsEmpruntsPNR06 = 0;
             decimal FluxTresorerieProvenantFinancement06 = 0;
             decimal FluxTresorerieNet06 = 0;
             decimal SoldeInitial06 = 0;
             decimal SoldeFinal06 = 0;
             decimal Equilibre06 = 0;
 
-            decimal EncaissementsRecuClients07 = 0;
-            decimal SommesVerseesFournisseurs07 = 0;
-            decimal SommesVerseesPrestataires07 = 0;
-            decimal SommesVerseesPersonnelCNAS_IRG07 = 0;
+
+
             decimal DecaissementTVAPayer07 = 0;
-            decimal DecaissementIBS_IFU_IRG07 = 0;
             decimal FluxTresorerieProvenantExploitation07 = 0;
-            decimal DecaissementAcquisitionEquipements07 = 0;
             decimal FluxTresorerieProvenantInvestissement07 = 0;
             decimal EncaissementsSuiteApportPersonnel07 = 0;
             decimal EncaissementsProvenantEmprunts07 = 0;
-            decimal RemboursementsEmpruntsCMT07 = 0;
-            decimal RemboursementsEmpruntsPNR07 = 0;
             decimal FluxTresorerieProvenantFinancement07 = 0;
             decimal FluxTresorerieNet07 = 0;
             decimal SoldeInitial07 = 0;
@@ -45680,14 +45872,14 @@ namespace Anade.Khadamat.Web.Controllers
 
             #region Calcule Données EtatTFT
 
-            FluxTresorerieProvenantExploitation01 = EncaissementsRecuClients01
-                                                  - SommesVerseesFournisseurs01
-                                                  - SommesVerseesPrestataires01
-                                                  - SommesVerseesPersonnelCNAS_IRG01
+            FluxTresorerieProvenantExploitation01 = Encaissement_Reçus_Clients01
+                                                  - Sommes_Versees_Fournisseurs01
+                                                  - Sommes_Versees_Prestataires01
+                                                  - DecaissChargesPersonnels01
                                                   - DecaissementTVAPayer01
-                                                  - DecaissementIBS_IFU_IRG01;
+                                                  - SommeDecaiss_IBS_IFU_IRG01;
 
-            FluxTresorerieProvenantInvestissement01 = DecaissementAcquisitionEquipements01;
+            FluxTresorerieProvenantInvestissement01 = -MontantAcquisition01;
 
             FluxTresorerieProvenantFinancement01 = EncaissementsSuiteApportPersonnel01
                                                  + EncaissementsProvenantEmprunts01
@@ -45697,6 +45889,120 @@ namespace Anade.Khadamat.Web.Controllers
             FluxTresorerieNet01 = FluxTresorerieProvenantExploitation01
                                 + FluxTresorerieProvenantInvestissement01
                                 + FluxTresorerieProvenantFinancement01;
+
+
+
+            FluxTresorerieProvenantExploitation02 = Encaissement_Reçus_Clients02
+                                      - Sommes_Versees_Fournisseurs02
+                                      - Sommes_Versees_Prestataires02
+                                      - DecaissChargesPersonnels02
+                                      - DecaissementTVAPayer02
+                                      - SommeDecaiss_IBS_IFU_IRG02;
+
+            FluxTresorerieProvenantInvestissement02 = -MontantAcquisition02;
+
+            FluxTresorerieProvenantFinancement02 = EncaissementsSuiteApportPersonnel02
+                                                 + EncaissementsProvenantEmprunts02
+                                                 - RemboursementsEmpruntsCMT02
+                                                 - RemboursementsEmpruntsPNR02;
+
+            FluxTresorerieNet02 = FluxTresorerieProvenantExploitation02
+                                + FluxTresorerieProvenantInvestissement02
+                                + FluxTresorerieProvenantFinancement02;
+
+
+            FluxTresorerieProvenantExploitation03 = Encaissement_Reçus_Clients03
+                                      - Sommes_Versees_Fournisseurs03
+                                      - Sommes_Versees_Prestataires03
+                                      - DecaissChargesPersonnels03
+                                      - DecaissementTVAPayer03
+                                      - SommeDecaiss_IBS_IFU_IRG03;
+
+            FluxTresorerieProvenantInvestissement03 = -MontantAcquisition03;
+
+            FluxTresorerieProvenantFinancement03 = EncaissementsSuiteApportPersonnel03
+                                                 + EncaissementsProvenantEmprunts03
+                                                 - RemboursementsEmpruntsCMT03
+                                                 - RemboursementsEmpruntsPNR03;
+
+            FluxTresorerieNet03 = FluxTresorerieProvenantExploitation03
+                                + FluxTresorerieProvenantInvestissement03
+                                + FluxTresorerieProvenantFinancement03;
+
+            FluxTresorerieProvenantExploitation04 = Encaissement_Reçus_Clients04
+                                      - Sommes_Versees_Fournisseurs04
+                                      - Sommes_Versees_Prestataires04
+                                      - DecaissChargesPersonnels04
+                                      - DecaissementTVAPayer04
+                                      - SommeDecaiss_IBS_IFU_IRG04;
+
+            FluxTresorerieProvenantInvestissement04 = -MontantAcquisition04;
+
+            FluxTresorerieProvenantFinancement04 = EncaissementsSuiteApportPersonnel04
+                                                 + EncaissementsProvenantEmprunts04
+                                                 - RemboursementsEmpruntsCMT04
+                                                 - RemboursementsEmpruntsPNR04;
+
+            FluxTresorerieNet04 = FluxTresorerieProvenantExploitation04
+                                + FluxTresorerieProvenantInvestissement04
+                                + FluxTresorerieProvenantFinancement04;
+
+
+            FluxTresorerieProvenantExploitation05 = Encaissement_Reçus_Clients05
+                                      - Sommes_Versees_Fournisseurs05
+                                      - Sommes_Versees_Prestataires05
+                                      - DecaissChargesPersonnels05
+                                      - DecaissementTVAPayer05
+                                      - SommeDecaiss_IBS_IFU_IRG05;
+
+            FluxTresorerieProvenantInvestissement05 = -MontantAcquisition05;
+
+            FluxTresorerieProvenantFinancement05 = EncaissementsSuiteApportPersonnel05
+                                                 + EncaissementsProvenantEmprunts05
+                                                 - RemboursementsEmpruntsCMT05
+                                                 - RemboursementsEmpruntsPNR05;
+
+            FluxTresorerieNet05 = FluxTresorerieProvenantExploitation05
+                                + FluxTresorerieProvenantInvestissement05
+                                + FluxTresorerieProvenantFinancement05;
+
+            FluxTresorerieProvenantExploitation06 = Encaissement_Reçus_Clients06
+                                      - Sommes_Versees_Fournisseurs06
+                                      - Sommes_Versees_Prestataires06
+                                      - DecaissChargesPersonnels06
+                                      - DecaissementTVAPayer06
+                                      - SommeDecaiss_IBS_IFU_IRG06;
+
+            FluxTresorerieProvenantInvestissement06 = -MontantAcquisition06;
+
+            FluxTresorerieProvenantFinancement06 = EncaissementsSuiteApportPersonnel06
+                                                 + EncaissementsProvenantEmprunts06
+                                                 - RemboursementsEmpruntsCMT06
+                                                 - RemboursementsEmpruntsPNR06;
+
+            FluxTresorerieNet06 = FluxTresorerieProvenantExploitation06
+                                + FluxTresorerieProvenantInvestissement06
+                                + FluxTresorerieProvenantFinancement06;
+
+            FluxTresorerieProvenantExploitation07 = Encaissement_Reçus_Clients07
+                                      - Sommes_Versees_Fournisseurs07
+                                      - Sommes_Versees_Prestataires07
+                                      - DecaissChargesPersonnels07
+                                      - DecaissementTVAPayer07
+                                      - SommeDecaiss_IBS_IFU_IRG07;
+
+            FluxTresorerieProvenantInvestissement07 = -MontantAcquisition07;
+
+            FluxTresorerieProvenantFinancement07 = EncaissementsSuiteApportPersonnel07
+                                                 + EncaissementsProvenantEmprunts07
+                                                 - RemboursementsEmpruntsCMT07
+                                                 - RemboursementsEmpruntsPNR07;
+
+            FluxTresorerieNet07 = FluxTresorerieProvenantExploitation07
+                                + FluxTresorerieProvenantInvestissement07
+                                + FluxTresorerieProvenantFinancement07;
+
+
 
             DecaissementTVAPayer01 = SommeDecaissTVADecaisser01;
             DecaissementTVAPayer02 = SommeDecaissTVADecaisser02;
@@ -45713,11 +46019,11 @@ namespace Anade.Khadamat.Web.Controllers
             etatTFTModel.EncaissementsRecuClients01 = string.Format(frCult, "{0:n}", Encaissement_Reçus_Clients01);
             etatTFTModel.SommesVerseesFournisseurs01 = string.Format(frCult, "{0:n}", Sommes_Versees_Fournisseurs01);
             etatTFTModel.SommesVerseesPrestataires01 = string.Format(frCult, "{0:n}", Sommes_Versees_Prestataires01);
-            etatTFTModel.SommesVerseesPersonnelCNAS_IRG01 = string.Format(frCult, "{0:n}", SommesVerseesPersonnelCNAS_IRG01);
+            etatTFTModel.SommesVerseesPersonnelCNAS_IRG01 = string.Format(frCult, "{0:n}", DecaissChargesPersonnels01);
             etatTFTModel.DecaissementTVAPayer01 = string.Format(frCult, "{0:n}", DecaissementTVAPayer01);
-            etatTFTModel.DecaissementIBS_IFU_IRG01 = string.Format(frCult, "{0:n}", DecaissementIBS_IFU_IRG01);
+            etatTFTModel.DecaissementIBS_IFU_IRG01 = string.Format(frCult, "{0:n}", SommeDecaiss_IBS_IFU_IRG01);
             etatTFTModel.FluxTresorerieProvenantExploitation01 = string.Format(frCult, "{0:n}", FluxTresorerieProvenantExploitation01);
-            etatTFTModel.DecaissementAcquisitionEquipements01 = string.Format(frCult, "{0:n}", DecaissementAcquisitionEquipements01);
+            etatTFTModel.DecaissementAcquisitionEquipements01 = string.Format(frCult, "{0:n}", MontantAcquisition01);
             etatTFTModel.FluxTresorerieProvenantInvestissement01 = string.Format(frCult, "{0:n}", FluxTresorerieProvenantInvestissement01);
             etatTFTModel.EncaissementsSuiteApportPersonnel01 = string.Format(frCult, "{0:n}", EncaissementsSuiteApportPersonnel01);
             etatTFTModel.EncaissementsProvenantEmprunts01 = string.Format(frCult, "{0:n}", EncaissementsProvenantEmprunts01);
@@ -45732,11 +46038,11 @@ namespace Anade.Khadamat.Web.Controllers
             etatTFTModel.EncaissementsRecuClients02 = string.Format(frCult, "{0:n}", Encaissement_Reçus_Clients02);
             etatTFTModel.SommesVerseesFournisseurs02 = string.Format(frCult, "{0:n}", Sommes_Versees_Fournisseurs02);
             etatTFTModel.SommesVerseesPrestataires02 = string.Format(frCult, "{0:n}", Sommes_Versees_Prestataires02);
-            etatTFTModel.SommesVerseesPersonnelCNAS_IRG02 = string.Format(frCult, "{0:n}", SommesVerseesPersonnelCNAS_IRG02);
+            etatTFTModel.SommesVerseesPersonnelCNAS_IRG02 = string.Format(frCult, "{0:n}", DecaissChargesPersonnels02);
             etatTFTModel.DecaissementTVAPayer02 = string.Format(frCult, "{0:n}", DecaissementTVAPayer02);
-            etatTFTModel.DecaissementIBS_IFU_IRG02 = string.Format(frCult, "{0:n}", DecaissementIBS_IFU_IRG02);
+            etatTFTModel.DecaissementIBS_IFU_IRG02 = string.Format(frCult, "{0:n}", SommeDecaiss_IBS_IFU_IRG02);
             etatTFTModel.FluxTresorerieProvenantExploitation02 = string.Format(frCult, "{0:n}", FluxTresorerieProvenantExploitation02);
-            etatTFTModel.DecaissementAcquisitionEquipements02 = string.Format(frCult, "{0:n}", DecaissementAcquisitionEquipements02);
+            etatTFTModel.DecaissementAcquisitionEquipements02 = string.Format(frCult, "{0:n}", MontantAcquisition02);
             etatTFTModel.FluxTresorerieProvenantInvestissement02 = string.Format(frCult, "{0:n}", FluxTresorerieProvenantInvestissement02);
             etatTFTModel.EncaissementsSuiteApportPersonnel02 = string.Format(frCult, "{0:n}", EncaissementsSuiteApportPersonnel02);
             etatTFTModel.EncaissementsProvenantEmprunts02 = string.Format(frCult, "{0:n}", EncaissementsProvenantEmprunts02);
@@ -45751,11 +46057,11 @@ namespace Anade.Khadamat.Web.Controllers
             etatTFTModel.EncaissementsRecuClients03 = string.Format(frCult, "{0:n}", Encaissement_Reçus_Clients03);
             etatTFTModel.SommesVerseesFournisseurs03 = string.Format(frCult, "{0:n}", Sommes_Versees_Fournisseurs03);
             etatTFTModel.SommesVerseesPrestataires03 = string.Format(frCult, "{0:n}", Sommes_Versees_Prestataires03);
-            etatTFTModel.SommesVerseesPersonnelCNAS_IRG03 = string.Format(frCult, "{0:n}", SommesVerseesPersonnelCNAS_IRG03);
+            etatTFTModel.SommesVerseesPersonnelCNAS_IRG03 = string.Format(frCult, "{0:n}", DecaissChargesPersonnels03);
             etatTFTModel.DecaissementTVAPayer03 = string.Format(frCult, "{0:n}", DecaissementTVAPayer03);
-            etatTFTModel.DecaissementIBS_IFU_IRG03 = string.Format(frCult, "{0:n}", DecaissementIBS_IFU_IRG03);
+            etatTFTModel.DecaissementIBS_IFU_IRG03 = string.Format(frCult, "{0:n}", SommeDecaiss_IBS_IFU_IRG03);
             etatTFTModel.FluxTresorerieProvenantExploitation03 = string.Format(frCult, "{0:n}", FluxTresorerieProvenantExploitation03);
-            etatTFTModel.DecaissementAcquisitionEquipements03 = string.Format(frCult, "{0:n}", DecaissementAcquisitionEquipements03);
+            etatTFTModel.DecaissementAcquisitionEquipements03 = string.Format(frCult, "{0:n}", MontantAcquisition03);
             etatTFTModel.FluxTresorerieProvenantInvestissement03 = string.Format(frCult, "{0:n}", FluxTresorerieProvenantInvestissement03);
             etatTFTModel.EncaissementsSuiteApportPersonnel03 = string.Format(frCult, "{0:n}", EncaissementsSuiteApportPersonnel03);
             etatTFTModel.EncaissementsProvenantEmprunts03 = string.Format(frCult, "{0:n}", EncaissementsProvenantEmprunts03);
@@ -45770,11 +46076,11 @@ namespace Anade.Khadamat.Web.Controllers
             etatTFTModel.EncaissementsRecuClients04 = string.Format(frCult, "{0:n}", Encaissement_Reçus_Clients04);
             etatTFTModel.SommesVerseesFournisseurs04 = string.Format(frCult, "{0:n}", Sommes_Versees_Fournisseurs04);
             etatTFTModel.SommesVerseesPrestataires04 = string.Format(frCult, "{0:n}", Sommes_Versees_Prestataires04);
-            etatTFTModel.SommesVerseesPersonnelCNAS_IRG04 = string.Format(frCult, "{0:n}", SommesVerseesPersonnelCNAS_IRG04);
+            etatTFTModel.SommesVerseesPersonnelCNAS_IRG04 = string.Format(frCult, "{0:n}", DecaissChargesPersonnels04);
             etatTFTModel.DecaissementTVAPayer04 = string.Format(frCult, "{0:n}", DecaissementTVAPayer04);
-            etatTFTModel.DecaissementIBS_IFU_IRG04 = string.Format(frCult, "{0:n}", DecaissementIBS_IFU_IRG04);
+            etatTFTModel.DecaissementIBS_IFU_IRG04 = string.Format(frCult, "{0:n}", SommeDecaiss_IBS_IFU_IRG04);
             etatTFTModel.FluxTresorerieProvenantExploitation04 = string.Format(frCult, "{0:n}", FluxTresorerieProvenantExploitation04);
-            etatTFTModel.DecaissementAcquisitionEquipements04 = string.Format(frCult, "{0:n}", DecaissementAcquisitionEquipements04);
+            etatTFTModel.DecaissementAcquisitionEquipements04 = string.Format(frCult, "{0:n}", MontantAcquisition04);
             etatTFTModel.FluxTresorerieProvenantInvestissement04 = string.Format(frCult, "{0:n}", FluxTresorerieProvenantInvestissement04);
             etatTFTModel.EncaissementsSuiteApportPersonnel04 = string.Format(frCult, "{0:n}", EncaissementsSuiteApportPersonnel04);
             etatTFTModel.EncaissementsProvenantEmprunts04 = string.Format(frCult, "{0:n}", EncaissementsProvenantEmprunts04);
@@ -45789,11 +46095,11 @@ namespace Anade.Khadamat.Web.Controllers
             etatTFTModel.EncaissementsRecuClients05 = string.Format(frCult, "{0:n}", Encaissement_Reçus_Clients05);
             etatTFTModel.SommesVerseesFournisseurs05 = string.Format(frCult, "{0:n}", Sommes_Versees_Fournisseurs05);
             etatTFTModel.SommesVerseesPrestataires05 = string.Format(frCult, "{0:n}", Sommes_Versees_Prestataires05);
-            etatTFTModel.SommesVerseesPersonnelCNAS_IRG05 = string.Format(frCult, "{0:n}", SommesVerseesPersonnelCNAS_IRG05);
+            etatTFTModel.SommesVerseesPersonnelCNAS_IRG05 = string.Format(frCult, "{0:n}", DecaissChargesPersonnels05);
             etatTFTModel.DecaissementTVAPayer05 = string.Format(frCult, "{0:n}", DecaissementTVAPayer05);
-            etatTFTModel.DecaissementIBS_IFU_IRG05 = string.Format(frCult, "{0:n}", DecaissementIBS_IFU_IRG05);
+            etatTFTModel.DecaissementIBS_IFU_IRG05 = string.Format(frCult, "{0:n}", SommeDecaiss_IBS_IFU_IRG05);
             etatTFTModel.FluxTresorerieProvenantExploitation05 = string.Format(frCult, "{0:n}", FluxTresorerieProvenantExploitation05);
-            etatTFTModel.DecaissementAcquisitionEquipements05 = string.Format(frCult, "{0:n}", DecaissementAcquisitionEquipements05);
+            etatTFTModel.DecaissementAcquisitionEquipements05 = string.Format(frCult, "{0:n}", MontantAcquisition05);
             etatTFTModel.FluxTresorerieProvenantInvestissement05 = string.Format(frCult, "{0:n}", FluxTresorerieProvenantInvestissement05);
             etatTFTModel.EncaissementsSuiteApportPersonnel05 = string.Format(frCult, "{0:n}", EncaissementsSuiteApportPersonnel05);
             etatTFTModel.EncaissementsProvenantEmprunts05 = string.Format(frCult, "{0:n}", EncaissementsProvenantEmprunts05);
@@ -45808,11 +46114,11 @@ namespace Anade.Khadamat.Web.Controllers
             etatTFTModel.EncaissementsRecuClients06 = string.Format(frCult, "{0:n}", Encaissement_Reçus_Clients06);
             etatTFTModel.SommesVerseesFournisseurs06 = string.Format(frCult, "{0:n}", Sommes_Versees_Fournisseurs06);
             etatTFTModel.SommesVerseesPrestataires06 = string.Format(frCult, "{0:n}", Sommes_Versees_Prestataires06);
-            etatTFTModel.SommesVerseesPersonnelCNAS_IRG06 = string.Format(frCult, "{0:n}", SommesVerseesPersonnelCNAS_IRG06);
+            etatTFTModel.SommesVerseesPersonnelCNAS_IRG06 = string.Format(frCult, "{0:n}", DecaissChargesPersonnels06);
             etatTFTModel.DecaissementTVAPayer06 = string.Format(frCult, "{0:n}", DecaissementTVAPayer06);
-            etatTFTModel.DecaissementIBS_IFU_IRG06 = string.Format(frCult, "{0:n}", DecaissementIBS_IFU_IRG06);
+            etatTFTModel.DecaissementIBS_IFU_IRG06 = string.Format(frCult, "{0:n}", SommeDecaiss_IBS_IFU_IRG06);
             etatTFTModel.FluxTresorerieProvenantExploitation06 = string.Format(frCult, "{0:n}", FluxTresorerieProvenantExploitation06);
-            etatTFTModel.DecaissementAcquisitionEquipements06 = string.Format(frCult, "{0:n}", DecaissementAcquisitionEquipements06);
+            etatTFTModel.DecaissementAcquisitionEquipements06 = string.Format(frCult, "{0:n}", MontantAcquisition06);
             etatTFTModel.FluxTresorerieProvenantInvestissement06 = string.Format(frCult, "{0:n}", FluxTresorerieProvenantInvestissement06);
             etatTFTModel.EncaissementsSuiteApportPersonnel06 = string.Format(frCult, "{0:n}", EncaissementsSuiteApportPersonnel06);
             etatTFTModel.EncaissementsProvenantEmprunts06 = string.Format(frCult, "{0:n}", EncaissementsProvenantEmprunts06);
@@ -45827,11 +46133,11 @@ namespace Anade.Khadamat.Web.Controllers
             etatTFTModel.EncaissementsRecuClients07 = string.Format(frCult, "{0:n}", Encaissement_Reçus_Clients07);
             etatTFTModel.SommesVerseesFournisseurs07 = string.Format(frCult, "{0:n}", Sommes_Versees_Fournisseurs07);
             etatTFTModel.SommesVerseesPrestataires07 = string.Format(frCult, "{0:n}", Sommes_Versees_Prestataires07);
-            etatTFTModel.SommesVerseesPersonnelCNAS_IRG07 = string.Format(frCult, "{0:n}", SommesVerseesPersonnelCNAS_IRG07);
+            etatTFTModel.SommesVerseesPersonnelCNAS_IRG07 = string.Format(frCult, "{0:n}", DecaissChargesPersonnels07);
             etatTFTModel.DecaissementTVAPayer07 = string.Format(frCult, "{0:n}", DecaissementTVAPayer07);
-            etatTFTModel.DecaissementIBS_IFU_IRG07 = string.Format(frCult, "{0:n}", DecaissementIBS_IFU_IRG07);
+            etatTFTModel.DecaissementIBS_IFU_IRG07 = string.Format(frCult, "{0:n}", SommeDecaiss_IBS_IFU_IRG07);
             etatTFTModel.FluxTresorerieProvenantExploitation07 = string.Format(frCult, "{0:n}", FluxTresorerieProvenantExploitation07);
-            etatTFTModel.DecaissementAcquisitionEquipements07 = string.Format(frCult, "{0:n}", DecaissementAcquisitionEquipements07);
+            etatTFTModel.DecaissementAcquisitionEquipements07 = string.Format(frCult, "{0:n}", MontantAcquisition07);
             etatTFTModel.FluxTresorerieProvenantInvestissement07 = string.Format(frCult, "{0:n}", FluxTresorerieProvenantInvestissement07);
             etatTFTModel.EncaissementsSuiteApportPersonnel07 = string.Format(frCult, "{0:n}", EncaissementsSuiteApportPersonnel07);
             etatTFTModel.EncaissementsProvenantEmprunts07 = string.Format(frCult, "{0:n}", EncaissementsProvenantEmprunts07);

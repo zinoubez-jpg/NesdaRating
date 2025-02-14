@@ -2120,6 +2120,9 @@ namespace Anade.Khadamat.Data.Migrations
                     b.Property<string>("Code")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<decimal>("CotisationCNAS")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<string>("Designation")
                         .HasColumnType("nvarchar(max)");
 
@@ -2312,11 +2315,20 @@ namespace Anade.Khadamat.Data.Migrations
                     b.Property<decimal>("Amenagement")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<decimal>("ApportPersonnel")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("ApportSupplementaire")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<decimal>("AssurancesLieesCreation")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("BusinessPlanId")
                         .HasColumnType("int");
+
+                    b.Property<decimal>("CMT")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("EquipementsImportes")
                         .HasColumnType("decimal(18,2)");
@@ -2349,6 +2361,12 @@ namespace Anade.Khadamat.Data.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("MaterielRoulant")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("PNRClassique")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("PNRSupplementaire")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("Total")
