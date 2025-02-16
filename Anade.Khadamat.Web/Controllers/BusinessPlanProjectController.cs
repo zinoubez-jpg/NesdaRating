@@ -64,6 +64,9 @@ namespace Anade.Khadamat.Web.Controllers
         private readonly DetailChiffreAffaireBusinessService _detailChiffreAffaireBusinessService;
         private readonly DetailAchatsDirectsBusinessService _detailAchatsDirectsBusinessService;
         private readonly PosteBusinessService _posteBusinessService;
+        private readonly TableauFluxTresorerieBusinessService _tableauFluxTresorerieBusinessService;
+
+
 
         // Importation Base de données (EtatStructureInvestissement)
         // public decimal FondsGarantie_Test = 5797;
@@ -110,7 +113,8 @@ namespace Anade.Khadamat.Web.Controllers
                                              StructureFinancementBusinessService structureFinancementBusinessService,
                                              DetailChiffreAffaireBusinessService detailChiffreAffaireBusinessService,
                                              DetailAchatsDirectsBusinessService detailAchatsDirectsBusinessService,
-                                             PosteBusinessService posteBusinessService
+                                             PosteBusinessService posteBusinessService,
+                                             TableauFluxTresorerieBusinessService tableauFluxTresorerieBusinessService
 
                                              )
         {
@@ -156,6 +160,7 @@ namespace Anade.Khadamat.Web.Controllers
             _detailChiffreAffaireBusinessService = detailChiffreAffaireBusinessService;
             _detailAchatsDirectsBusinessService = detailAchatsDirectsBusinessService;
             _posteBusinessService = posteBusinessService;
+            _tableauFluxTresorerieBusinessService = tableauFluxTresorerieBusinessService;
         }
 
         [Authorize(Roles = "Analyste,DG,Admin,AdminAgence,Utilisateur-Rating")]
@@ -1669,8 +1674,9 @@ namespace Anade.Khadamat.Web.Controllers
 
             if (businessResult.Succeeded)
             {
+                string promoteurId = modelBusinessPlan.NumeroSIEJE;
                 TempData["Message"] = businessResult.ToBootstrapAlerts();
-                return Json(new { messages = businessResult.ToBootstrapAlerts() });
+                return RedirectToAction(nameof(InfosBusinessPlan), new { promoteurId });
             }
             else
             {
@@ -45716,7 +45722,17 @@ namespace Anade.Khadamat.Web.Controllers
 
             EncaissementsProvenantEmprunts01 = ApportCMT01 + ApportPNRClassique01 + PNRSupplementaire01 - FondsRoulementEmprunts01;
 
+
+
+
+
+            decimal FluxTresorerieProvenantExploitation01 = 0;
+            decimal DecaissementTVAPayer01 = 0;
+            decimal FluxTresorerieNet01 = 0;
+
             decimal SoldeInitial01 = 0;
+            decimal SoldeFinal01 = 0;
+            decimal Equilibre01 = 0;
 
             SoldeInitial01 = FondsRoulement01 + ApportSupplementaire01;
 
@@ -45765,30 +45781,10 @@ namespace Anade.Khadamat.Web.Controllers
             }
 
 
-
-
-
-
-
-
-
-
-
             #region Données EtatTFT
 
-            decimal EncaissementsRecuClients01 = 0;
-            decimal SommesVerseesFournisseurs01 = 0;
-            decimal SommesVerseesPrestataires01 = 0;
-            decimal DecaissementTVAPayer01 = 0;
-            decimal FluxTresorerieProvenantExploitation01 = 0;
-            decimal DecaissementAcquisitionEquipements01 = 0;
             decimal FluxTresorerieProvenantInvestissement01 = 0;
-
             decimal FluxTresorerieProvenantFinancement01 = 0;
-            decimal FluxTresorerieNet01 = 0;
-
-            decimal SoldeFinal01 = 0;
-            decimal Equilibre01 = 0;
 
             decimal DecaissementTVAPayer02 = 0;
             decimal FluxTresorerieProvenantExploitation02 = 0;
@@ -46012,6 +46008,128 @@ namespace Anade.Khadamat.Web.Controllers
             DecaissementTVAPayer06 = SommeDecaissTVADecaisser06;
             DecaissementTVAPayer07 = SommeDecaissTVADecaisser07;
 
+
+
+
+            SoldeFinal01 = SoldeInitial01 + Encaissement_Reçus_Clients01
+                              - Sommes_Versees_Fournisseurs01
+                              - Sommes_Versees_Prestataires01
+                              - DecaissChargesPersonnels01
+                              - DecaissementTVAPayer01
+                              - SommeDecaiss_IBS_IFU_IRG01
+                              - MontantAcquisition01
+                              + EncaissementsSuiteApportPersonnel01
+                              + EncaissementsProvenantEmprunts01
+                              - RemboursementsEmpruntsCMT01
+                              - RemboursementsEmpruntsPNR01;
+
+
+            Equilibre01 = SoldeFinal01 - SoldeInitial01 - FluxTresorerieNet01;
+
+            SoldeInitial02 = SoldeFinal01;
+
+            SoldeFinal02 = SoldeInitial02 + Encaissement_Reçus_Clients02
+                  - Sommes_Versees_Fournisseurs02
+                  - Sommes_Versees_Prestataires02
+                  - DecaissChargesPersonnels02
+                  - DecaissementTVAPayer02
+                  - SommeDecaiss_IBS_IFU_IRG02
+                  - MontantAcquisition02
+                  + EncaissementsSuiteApportPersonnel02
+                  + EncaissementsProvenantEmprunts02
+                  - RemboursementsEmpruntsCMT02
+                  - RemboursementsEmpruntsPNR02;
+
+            Equilibre02 = SoldeFinal02 - SoldeInitial02 - FluxTresorerieNet02;
+
+
+            SoldeInitial03 = SoldeFinal02;
+
+            SoldeFinal03 = SoldeInitial03 + Encaissement_Reçus_Clients03
+                  - Sommes_Versees_Fournisseurs03
+                  - Sommes_Versees_Prestataires03
+                  - DecaissChargesPersonnels03
+                  - DecaissementTVAPayer03
+                  - SommeDecaiss_IBS_IFU_IRG03
+                  - MontantAcquisition03
+                  + EncaissementsSuiteApportPersonnel03
+                  + EncaissementsProvenantEmprunts03
+                  - RemboursementsEmpruntsCMT03
+                  - RemboursementsEmpruntsPNR03;
+
+            Equilibre03 = SoldeFinal03 - SoldeInitial03 - FluxTresorerieNet03;
+
+
+            SoldeInitial04 = SoldeFinal03;
+
+            SoldeFinal04 = SoldeInitial04 + Encaissement_Reçus_Clients04
+                  - Sommes_Versees_Fournisseurs04
+                  - Sommes_Versees_Prestataires04
+                  - DecaissChargesPersonnels04
+                  - DecaissementTVAPayer04
+                  - SommeDecaiss_IBS_IFU_IRG04
+                  - MontantAcquisition04
+                  + EncaissementsSuiteApportPersonnel04
+                  + EncaissementsProvenantEmprunts04
+                  - RemboursementsEmpruntsCMT04
+                  - RemboursementsEmpruntsPNR04;
+
+            Equilibre04 = SoldeFinal04 - SoldeInitial04 - FluxTresorerieNet04;
+
+
+            SoldeInitial05 = SoldeFinal04;
+
+            SoldeFinal05 = SoldeInitial05 + Encaissement_Reçus_Clients05
+                  - Sommes_Versees_Fournisseurs05
+                  - Sommes_Versees_Prestataires05
+                  - DecaissChargesPersonnels05
+                  - DecaissementTVAPayer05
+                  - SommeDecaiss_IBS_IFU_IRG05
+                  - MontantAcquisition05
+                  + EncaissementsSuiteApportPersonnel05
+                  + EncaissementsProvenantEmprunts05
+                  - RemboursementsEmpruntsCMT05
+                  - RemboursementsEmpruntsPNR05;
+
+            Equilibre05 = SoldeFinal05 - SoldeInitial05 - FluxTresorerieNet05;
+
+
+            SoldeInitial06 = SoldeFinal05;
+
+            SoldeFinal06 = SoldeInitial06 + Encaissement_Reçus_Clients06
+                  - Sommes_Versees_Fournisseurs06
+                  - Sommes_Versees_Prestataires06
+                  - DecaissChargesPersonnels06
+                  - DecaissementTVAPayer06
+                  - SommeDecaiss_IBS_IFU_IRG06
+                  - MontantAcquisition06
+                  + EncaissementsSuiteApportPersonnel06
+                  + EncaissementsProvenantEmprunts06
+                  - RemboursementsEmpruntsCMT06
+                  - RemboursementsEmpruntsPNR06;
+
+            Equilibre06 = SoldeFinal06 - SoldeInitial06 - FluxTresorerieNet06;
+
+
+            SoldeInitial07 = SoldeFinal06;
+
+            SoldeFinal07 = SoldeInitial07 + Encaissement_Reçus_Clients07
+                  - Sommes_Versees_Fournisseurs07
+                  - Sommes_Versees_Prestataires07
+                  - DecaissChargesPersonnels07
+                  - DecaissementTVAPayer07
+                  - SommeDecaiss_IBS_IFU_IRG07
+                  - MontantAcquisition07
+                  + EncaissementsSuiteApportPersonnel07
+                  + EncaissementsProvenantEmprunts07
+                  - RemboursementsEmpruntsCMT07
+                  - RemboursementsEmpruntsPNR07;
+
+            Equilibre07 = SoldeFinal07 - SoldeInitial07 - FluxTresorerieNet07;
+
+
+
+
             #endregion
 
             #region Données etatTFTModel
@@ -46152,6 +46270,368 @@ namespace Anade.Khadamat.Web.Controllers
             #endregion
 
             return PartialView($"_{nameof(EtatTFT)}", etatTFTModel);
+        }
+
+
+        [Authorize(Roles = "Analyste")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Route("{id}")]
+        public async Task<IActionResult> EtatTFT(int id, EtatTFTModel etatTFTModel)
+        {
+            var modelBusinessPlan = _businessPlanBusinessService.GetById(id, _businessPlanBusinessService.GetDefaultLoadProperties());
+
+            var tableauFluxTresorerieModel = _tableauFluxTresorerieBusinessService.GetSingle(x => x.BusinessPlanId == id);
+
+            TableauFluxTresorerie tableauFluxTresorerie01 = new();
+            TableauFluxTresorerie tableauFluxTresorerie02 = new();
+            TableauFluxTresorerie tableauFluxTresorerie03 = new();
+            TableauFluxTresorerie tableauFluxTresorerie04 = new();
+            TableauFluxTresorerie tableauFluxTresorerie05 = new();
+            TableauFluxTresorerie tableauFluxTresorerie06 = new();
+            TableauFluxTresorerie tableauFluxTresorerie07 = new();
+
+
+            List<TableauFluxTresorerie> tableauxFluxTresorerie = new();
+
+            decimal EncaissementsRecuClients = 0;
+            decimal SommesVerseesFournisseurs = 0;
+            decimal SommesVerseesPrestataires = 0;
+            decimal SommesVerseesPersonnelCNAS_IRG = 0;
+            decimal DecaissementTVAPayer = 0;
+            decimal DecaissementIBS_IFU_IRG = 0;
+            decimal FluxTresorerieProvenantExploitation = 0;
+            decimal DecaissementAcquisitionEquipements = 0;
+            decimal FluxTresorerieProvenantInvestissement = 0;
+            decimal EncaissementsSuiteApportPersonnel = 0;
+            decimal EncaissementsProvenantEmprunts = 0;
+            decimal RemboursementsEmpruntsCMT = 0;
+            decimal RemboursementsEmpruntsPNR = 0;
+            decimal FluxTresorerieProvenantFinancement = 0;
+            decimal FluxTresorerieNet = 0;
+            decimal SoldeInitial = 0;
+            decimal SoldeFinal = 0;
+            decimal Equilibre = 0;
+
+
+            EncaissementsRecuClients = Math.Round(Convert.ToDecimal(etatTFTModel.EncaissementsRecuClients01.Replace(".", ",")), 2);
+            SommesVerseesFournisseurs = Math.Round(Convert.ToDecimal(etatTFTModel.SommesVerseesFournisseurs01.Replace(".", ",")), 2);
+            SommesVerseesPrestataires = Math.Round(Convert.ToDecimal(etatTFTModel.SommesVerseesPrestataires01.Replace(".", ",")), 2);
+            SommesVerseesPersonnelCNAS_IRG = Math.Round(Convert.ToDecimal(etatTFTModel.SommesVerseesPersonnelCNAS_IRG01.Replace(".", ",")), 2);
+            DecaissementTVAPayer = Math.Round(Convert.ToDecimal(etatTFTModel.DecaissementTVAPayer01.Replace(".", ",")), 2);
+            DecaissementIBS_IFU_IRG = Math.Round(Convert.ToDecimal(etatTFTModel.DecaissementIBS_IFU_IRG01.Replace(".", ",")), 2);
+            FluxTresorerieProvenantExploitation = Math.Round(Convert.ToDecimal(etatTFTModel.FluxTresorerieProvenantExploitation01.Replace(".", ",")), 2);
+            DecaissementAcquisitionEquipements = Math.Round(Convert.ToDecimal(etatTFTModel.DecaissementAcquisitionEquipements01.Replace(".", ",")), 2);
+            FluxTresorerieProvenantInvestissement = Math.Round(Convert.ToDecimal(etatTFTModel.FluxTresorerieProvenantInvestissement01.Replace(".", ",")), 2);
+            EncaissementsSuiteApportPersonnel = Math.Round(Convert.ToDecimal(etatTFTModel.EncaissementsSuiteApportPersonnel01.Replace(".", ",")), 2);
+            EncaissementsProvenantEmprunts = Math.Round(Convert.ToDecimal(etatTFTModel.EncaissementsProvenantEmprunts01.Replace(".", ",")), 2);
+            RemboursementsEmpruntsCMT = Math.Round(Convert.ToDecimal(etatTFTModel.RemboursementsEmpruntsCMT01.Replace(".", ",")), 2);
+            RemboursementsEmpruntsPNR = Math.Round(Convert.ToDecimal(etatTFTModel.RemboursementsEmpruntsPNR01.Replace(".", ",")), 2);
+            FluxTresorerieProvenantFinancement = Math.Round(Convert.ToDecimal(etatTFTModel.FluxTresorerieProvenantFinancement01.Replace(".", ",")), 2);
+            FluxTresorerieNet = Math.Round(Convert.ToDecimal(etatTFTModel.FluxTresorerieNet01.Replace(".", ",")), 2);
+            SoldeInitial = Math.Round(Convert.ToDecimal(etatTFTModel.SoldeInitial01.Replace(".", ",")), 2);
+            SoldeFinal = Math.Round(Convert.ToDecimal(etatTFTModel.SoldeFinal01.Replace(".", ",")), 2);
+            Equilibre = Math.Round(Convert.ToDecimal(etatTFTModel.Equilibre01.Replace(".", ",")), 2);
+
+
+            tableauFluxTresorerie01.EncaissementsRecuClients = EncaissementsRecuClients;
+            tableauFluxTresorerie01.SommesVerseesFournisseurs = SommesVerseesFournisseurs;
+            tableauFluxTresorerie01.SommesVerseesPrestataires = SommesVerseesPrestataires;
+            tableauFluxTresorerie01.SommesVerseesPersonnelCNAS_IRG = SommesVerseesPersonnelCNAS_IRG;
+            tableauFluxTresorerie01.DecaissementTVAPayer = DecaissementTVAPayer;
+            tableauFluxTresorerie01.DecaissementIBS_IFU_IRG = DecaissementIBS_IFU_IRG;
+            tableauFluxTresorerie01.FluxTresorerieProvenantExploitation = FluxTresorerieProvenantExploitation;
+            tableauFluxTresorerie01.DecaissementAcquisitionEquipements = DecaissementAcquisitionEquipements;
+            tableauFluxTresorerie01.FluxTresorerieProvenantInvestissement = FluxTresorerieProvenantInvestissement;
+            tableauFluxTresorerie01.EncaissementsSuiteApportPersonnel = EncaissementsSuiteApportPersonnel;
+            tableauFluxTresorerie01.EncaissementsProvenantEmprunts = EncaissementsProvenantEmprunts;
+            tableauFluxTresorerie01.RemboursementsEmpruntsCMT = RemboursementsEmpruntsCMT;
+            tableauFluxTresorerie01.RemboursementsEmpruntsPNR = RemboursementsEmpruntsPNR;
+            tableauFluxTresorerie01.FluxTresorerieProvenantFinancement = FluxTresorerieProvenantFinancement;
+            tableauFluxTresorerie01.FluxTresorerieNet = FluxTresorerieNet;
+            tableauFluxTresorerie01.SoldeInitial = SoldeInitial;
+            tableauFluxTresorerie01.SoldeFinal = SoldeFinal;
+            tableauFluxTresorerie01.Equilibre = Equilibre;
+            tableauFluxTresorerie01.AnneeId = 1;
+
+            tableauxFluxTresorerie.Add(tableauFluxTresorerie01);
+
+            EncaissementsRecuClients = Math.Round(Convert.ToDecimal(etatTFTModel.EncaissementsRecuClients02.Replace(".", ",")), 2);
+            SommesVerseesFournisseurs = Math.Round(Convert.ToDecimal(etatTFTModel.SommesVerseesFournisseurs02.Replace(".", ",")), 2);
+            SommesVerseesPrestataires = Math.Round(Convert.ToDecimal(etatTFTModel.SommesVerseesPrestataires02.Replace(".", ",")), 2);
+            SommesVerseesPersonnelCNAS_IRG = Math.Round(Convert.ToDecimal(etatTFTModel.SommesVerseesPersonnelCNAS_IRG02.Replace(".", ",")), 2);
+            DecaissementTVAPayer = Math.Round(Convert.ToDecimal(etatTFTModel.DecaissementTVAPayer02.Replace(".", ",")), 2);
+            DecaissementIBS_IFU_IRG = Math.Round(Convert.ToDecimal(etatTFTModel.DecaissementIBS_IFU_IRG02.Replace(".", ",")), 2);
+            FluxTresorerieProvenantExploitation = Math.Round(Convert.ToDecimal(etatTFTModel.FluxTresorerieProvenantExploitation02.Replace(".", ",")), 2);
+            DecaissementAcquisitionEquipements = Math.Round(Convert.ToDecimal(etatTFTModel.DecaissementAcquisitionEquipements02.Replace(".", ",")), 2);
+            FluxTresorerieProvenantInvestissement = Math.Round(Convert.ToDecimal(etatTFTModel.FluxTresorerieProvenantInvestissement02.Replace(".", ",")), 2);
+            EncaissementsSuiteApportPersonnel = Math.Round(Convert.ToDecimal(etatTFTModel.EncaissementsSuiteApportPersonnel02.Replace(".", ",")), 2);
+            EncaissementsProvenantEmprunts = Math.Round(Convert.ToDecimal(etatTFTModel.EncaissementsProvenantEmprunts02.Replace(".", ",")), 2);
+            RemboursementsEmpruntsCMT = Math.Round(Convert.ToDecimal(etatTFTModel.RemboursementsEmpruntsCMT02.Replace(".", ",")), 2);
+            RemboursementsEmpruntsPNR = Math.Round(Convert.ToDecimal(etatTFTModel.RemboursementsEmpruntsPNR02.Replace(".", ",")), 2);
+            FluxTresorerieProvenantFinancement = Math.Round(Convert.ToDecimal(etatTFTModel.FluxTresorerieProvenantFinancement02.Replace(".", ",")), 2);
+            FluxTresorerieNet = Math.Round(Convert.ToDecimal(etatTFTModel.FluxTresorerieNet02.Replace(".", ",")), 2);
+            SoldeInitial = Math.Round(Convert.ToDecimal(etatTFTModel.SoldeInitial02.Replace(".", ",")), 2);
+            SoldeFinal = Math.Round(Convert.ToDecimal(etatTFTModel.SoldeFinal02.Replace(".", ",")), 2);
+            Equilibre = Math.Round(Convert.ToDecimal(etatTFTModel.Equilibre02.Replace(".", ",")), 2);
+
+
+            tableauFluxTresorerie02.EncaissementsRecuClients = EncaissementsRecuClients;
+            tableauFluxTresorerie02.SommesVerseesFournisseurs = SommesVerseesFournisseurs;
+            tableauFluxTresorerie02.SommesVerseesPrestataires = SommesVerseesPrestataires;
+            tableauFluxTresorerie02.SommesVerseesPersonnelCNAS_IRG = SommesVerseesPersonnelCNAS_IRG;
+            tableauFluxTresorerie02.DecaissementTVAPayer = DecaissementTVAPayer;
+            tableauFluxTresorerie02.DecaissementIBS_IFU_IRG = DecaissementIBS_IFU_IRG;
+            tableauFluxTresorerie02.FluxTresorerieProvenantExploitation = FluxTresorerieProvenantExploitation;
+            tableauFluxTresorerie02.DecaissementAcquisitionEquipements = DecaissementAcquisitionEquipements;
+            tableauFluxTresorerie02.FluxTresorerieProvenantInvestissement = FluxTresorerieProvenantInvestissement;
+            tableauFluxTresorerie02.EncaissementsSuiteApportPersonnel = EncaissementsSuiteApportPersonnel;
+            tableauFluxTresorerie02.EncaissementsProvenantEmprunts = EncaissementsProvenantEmprunts;
+            tableauFluxTresorerie02.RemboursementsEmpruntsCMT = RemboursementsEmpruntsCMT;
+            tableauFluxTresorerie02.RemboursementsEmpruntsPNR = RemboursementsEmpruntsPNR;
+            tableauFluxTresorerie02.FluxTresorerieProvenantFinancement = FluxTresorerieProvenantFinancement;
+            tableauFluxTresorerie02.FluxTresorerieNet = FluxTresorerieNet;
+            tableauFluxTresorerie02.SoldeInitial = SoldeInitial;
+            tableauFluxTresorerie02.SoldeFinal = SoldeFinal;
+            tableauFluxTresorerie02.Equilibre = Equilibre;
+            tableauFluxTresorerie02.AnneeId = 2;
+
+            tableauxFluxTresorerie.Add(tableauFluxTresorerie02);
+
+
+
+            EncaissementsRecuClients = Math.Round(Convert.ToDecimal(etatTFTModel.EncaissementsRecuClients03.Replace(".", ",")), 2);
+            SommesVerseesFournisseurs = Math.Round(Convert.ToDecimal(etatTFTModel.SommesVerseesFournisseurs03.Replace(".", ",")), 2);
+            SommesVerseesPrestataires = Math.Round(Convert.ToDecimal(etatTFTModel.SommesVerseesPrestataires03.Replace(".", ",")), 2);
+            SommesVerseesPersonnelCNAS_IRG = Math.Round(Convert.ToDecimal(etatTFTModel.SommesVerseesPersonnelCNAS_IRG03.Replace(".", ",")), 2);
+            DecaissementTVAPayer = Math.Round(Convert.ToDecimal(etatTFTModel.DecaissementTVAPayer03.Replace(".", ",")), 2);
+            DecaissementIBS_IFU_IRG = Math.Round(Convert.ToDecimal(etatTFTModel.DecaissementIBS_IFU_IRG03.Replace(".", ",")), 2);
+            FluxTresorerieProvenantExploitation = Math.Round(Convert.ToDecimal(etatTFTModel.FluxTresorerieProvenantExploitation03.Replace(".", ",")), 2);
+            DecaissementAcquisitionEquipements = Math.Round(Convert.ToDecimal(etatTFTModel.DecaissementAcquisitionEquipements03.Replace(".", ",")), 2);
+            FluxTresorerieProvenantInvestissement = Math.Round(Convert.ToDecimal(etatTFTModel.FluxTresorerieProvenantInvestissement03.Replace(".", ",")), 2);
+            EncaissementsSuiteApportPersonnel = Math.Round(Convert.ToDecimal(etatTFTModel.EncaissementsSuiteApportPersonnel03.Replace(".", ",")), 2);
+            EncaissementsProvenantEmprunts = Math.Round(Convert.ToDecimal(etatTFTModel.EncaissementsProvenantEmprunts03.Replace(".", ",")), 2);
+            RemboursementsEmpruntsCMT = Math.Round(Convert.ToDecimal(etatTFTModel.RemboursementsEmpruntsCMT03.Replace(".", ",")), 2);
+            RemboursementsEmpruntsPNR = Math.Round(Convert.ToDecimal(etatTFTModel.RemboursementsEmpruntsPNR03.Replace(".", ",")), 2);
+            FluxTresorerieProvenantFinancement = Math.Round(Convert.ToDecimal(etatTFTModel.FluxTresorerieProvenantFinancement03.Replace(".", ",")), 2);
+            FluxTresorerieNet = Math.Round(Convert.ToDecimal(etatTFTModel.FluxTresorerieNet03.Replace(".", ",")), 2);
+            SoldeInitial = Math.Round(Convert.ToDecimal(etatTFTModel.SoldeInitial03.Replace(".", ",")), 2);
+            SoldeFinal = Math.Round(Convert.ToDecimal(etatTFTModel.SoldeFinal03.Replace(".", ",")), 2);
+            Equilibre = Math.Round(Convert.ToDecimal(etatTFTModel.Equilibre03.Replace(".", ",")), 2);
+
+
+            tableauFluxTresorerie03.EncaissementsRecuClients = EncaissementsRecuClients;
+            tableauFluxTresorerie03.SommesVerseesFournisseurs = SommesVerseesFournisseurs;
+            tableauFluxTresorerie03.SommesVerseesPrestataires = SommesVerseesPrestataires;
+            tableauFluxTresorerie03.SommesVerseesPersonnelCNAS_IRG = SommesVerseesPersonnelCNAS_IRG;
+            tableauFluxTresorerie03.DecaissementTVAPayer = DecaissementTVAPayer;
+            tableauFluxTresorerie03.DecaissementIBS_IFU_IRG = DecaissementIBS_IFU_IRG;
+            tableauFluxTresorerie03.FluxTresorerieProvenantExploitation = FluxTresorerieProvenantExploitation;
+            tableauFluxTresorerie03.DecaissementAcquisitionEquipements = DecaissementAcquisitionEquipements;
+            tableauFluxTresorerie03.FluxTresorerieProvenantInvestissement = FluxTresorerieProvenantInvestissement;
+            tableauFluxTresorerie03.EncaissementsSuiteApportPersonnel = EncaissementsSuiteApportPersonnel;
+            tableauFluxTresorerie03.EncaissementsProvenantEmprunts = EncaissementsProvenantEmprunts;
+            tableauFluxTresorerie03.RemboursementsEmpruntsCMT = RemboursementsEmpruntsCMT;
+            tableauFluxTresorerie03.RemboursementsEmpruntsPNR = RemboursementsEmpruntsPNR;
+            tableauFluxTresorerie03.FluxTresorerieProvenantFinancement = FluxTresorerieProvenantFinancement;
+            tableauFluxTresorerie03.FluxTresorerieNet = FluxTresorerieNet;
+            tableauFluxTresorerie03.SoldeInitial = SoldeInitial;
+            tableauFluxTresorerie03.SoldeFinal = SoldeFinal;
+            tableauFluxTresorerie03.Equilibre = Equilibre;
+            tableauFluxTresorerie03.AnneeId = 3;
+
+            tableauxFluxTresorerie.Add(tableauFluxTresorerie03);
+
+            EncaissementsRecuClients = Math.Round(Convert.ToDecimal(etatTFTModel.EncaissementsRecuClients04.Replace(".", ",")), 2);
+            SommesVerseesFournisseurs = Math.Round(Convert.ToDecimal(etatTFTModel.SommesVerseesFournisseurs04.Replace(".", ",")), 2);
+            SommesVerseesPrestataires = Math.Round(Convert.ToDecimal(etatTFTModel.SommesVerseesPrestataires04.Replace(".", ",")), 2);
+            SommesVerseesPersonnelCNAS_IRG = Math.Round(Convert.ToDecimal(etatTFTModel.SommesVerseesPersonnelCNAS_IRG04.Replace(".", ",")), 2);
+            DecaissementTVAPayer = Math.Round(Convert.ToDecimal(etatTFTModel.DecaissementTVAPayer04.Replace(".", ",")), 2);
+            DecaissementIBS_IFU_IRG = Math.Round(Convert.ToDecimal(etatTFTModel.DecaissementIBS_IFU_IRG04.Replace(".", ",")), 2);
+            FluxTresorerieProvenantExploitation = Math.Round(Convert.ToDecimal(etatTFTModel.FluxTresorerieProvenantExploitation04.Replace(".", ",")), 2);
+            DecaissementAcquisitionEquipements = Math.Round(Convert.ToDecimal(etatTFTModel.DecaissementAcquisitionEquipements04.Replace(".", ",")), 2);
+            FluxTresorerieProvenantInvestissement = Math.Round(Convert.ToDecimal(etatTFTModel.FluxTresorerieProvenantInvestissement04.Replace(".", ",")), 2);
+            EncaissementsSuiteApportPersonnel = Math.Round(Convert.ToDecimal(etatTFTModel.EncaissementsSuiteApportPersonnel04.Replace(".", ",")), 2);
+            EncaissementsProvenantEmprunts = Math.Round(Convert.ToDecimal(etatTFTModel.EncaissementsProvenantEmprunts04.Replace(".", ",")), 2);
+            RemboursementsEmpruntsCMT = Math.Round(Convert.ToDecimal(etatTFTModel.RemboursementsEmpruntsCMT04.Replace(".", ",")), 2);
+            RemboursementsEmpruntsPNR = Math.Round(Convert.ToDecimal(etatTFTModel.RemboursementsEmpruntsPNR04.Replace(".", ",")), 2);
+            FluxTresorerieProvenantFinancement = Math.Round(Convert.ToDecimal(etatTFTModel.FluxTresorerieProvenantFinancement04.Replace(".", ",")), 2);
+            FluxTresorerieNet = Math.Round(Convert.ToDecimal(etatTFTModel.FluxTresorerieNet04.Replace(".", ",")), 2);
+            SoldeInitial = Math.Round(Convert.ToDecimal(etatTFTModel.SoldeInitial04.Replace(".", ",")), 2);
+            SoldeFinal = Math.Round(Convert.ToDecimal(etatTFTModel.SoldeFinal04.Replace(".", ",")), 2);
+            Equilibre = Math.Round(Convert.ToDecimal(etatTFTModel.Equilibre04.Replace(".", ",")), 2);
+
+
+            tableauFluxTresorerie04.EncaissementsRecuClients = EncaissementsRecuClients;
+            tableauFluxTresorerie04.SommesVerseesFournisseurs = SommesVerseesFournisseurs;
+            tableauFluxTresorerie04.SommesVerseesPrestataires = SommesVerseesPrestataires;
+            tableauFluxTresorerie04.SommesVerseesPersonnelCNAS_IRG = SommesVerseesPersonnelCNAS_IRG;
+            tableauFluxTresorerie04.DecaissementTVAPayer = DecaissementTVAPayer;
+            tableauFluxTresorerie04.DecaissementIBS_IFU_IRG = DecaissementIBS_IFU_IRG;
+            tableauFluxTresorerie04.FluxTresorerieProvenantExploitation = FluxTresorerieProvenantExploitation;
+            tableauFluxTresorerie04.DecaissementAcquisitionEquipements = DecaissementAcquisitionEquipements;
+            tableauFluxTresorerie04.FluxTresorerieProvenantInvestissement = FluxTresorerieProvenantInvestissement;
+            tableauFluxTresorerie04.EncaissementsSuiteApportPersonnel = EncaissementsSuiteApportPersonnel;
+            tableauFluxTresorerie04.EncaissementsProvenantEmprunts = EncaissementsProvenantEmprunts;
+            tableauFluxTresorerie04.RemboursementsEmpruntsCMT = RemboursementsEmpruntsCMT;
+            tableauFluxTresorerie04.RemboursementsEmpruntsPNR = RemboursementsEmpruntsPNR;
+            tableauFluxTresorerie04.FluxTresorerieProvenantFinancement = FluxTresorerieProvenantFinancement;
+            tableauFluxTresorerie04.FluxTresorerieNet = FluxTresorerieNet;
+            tableauFluxTresorerie04.SoldeInitial = SoldeInitial;
+            tableauFluxTresorerie04.SoldeFinal = SoldeFinal;
+            tableauFluxTresorerie04.Equilibre = Equilibre;
+            tableauFluxTresorerie04.AnneeId = 4;
+
+            tableauxFluxTresorerie.Add(tableauFluxTresorerie04);
+
+            EncaissementsRecuClients = Math.Round(Convert.ToDecimal(etatTFTModel.EncaissementsRecuClients05.Replace(".", ",")), 2);
+            SommesVerseesFournisseurs = Math.Round(Convert.ToDecimal(etatTFTModel.SommesVerseesFournisseurs05.Replace(".", ",")), 2);
+            SommesVerseesPrestataires = Math.Round(Convert.ToDecimal(etatTFTModel.SommesVerseesPrestataires05.Replace(".", ",")), 2);
+            SommesVerseesPersonnelCNAS_IRG = Math.Round(Convert.ToDecimal(etatTFTModel.SommesVerseesPersonnelCNAS_IRG05.Replace(".", ",")), 2);
+            DecaissementTVAPayer = Math.Round(Convert.ToDecimal(etatTFTModel.DecaissementTVAPayer05.Replace(".", ",")), 2);
+            DecaissementIBS_IFU_IRG = Math.Round(Convert.ToDecimal(etatTFTModel.DecaissementIBS_IFU_IRG05.Replace(".", ",")), 2);
+            FluxTresorerieProvenantExploitation = Math.Round(Convert.ToDecimal(etatTFTModel.FluxTresorerieProvenantExploitation05.Replace(".", ",")), 2);
+            DecaissementAcquisitionEquipements = Math.Round(Convert.ToDecimal(etatTFTModel.DecaissementAcquisitionEquipements05.Replace(".", ",")), 2);
+            FluxTresorerieProvenantInvestissement = Math.Round(Convert.ToDecimal(etatTFTModel.FluxTresorerieProvenantInvestissement05.Replace(".", ",")), 2);
+            EncaissementsSuiteApportPersonnel = Math.Round(Convert.ToDecimal(etatTFTModel.EncaissementsSuiteApportPersonnel05.Replace(".", ",")), 2);
+            EncaissementsProvenantEmprunts = Math.Round(Convert.ToDecimal(etatTFTModel.EncaissementsProvenantEmprunts05.Replace(".", ",")), 2);
+            RemboursementsEmpruntsCMT = Math.Round(Convert.ToDecimal(etatTFTModel.RemboursementsEmpruntsCMT05.Replace(".", ",")), 2);
+            RemboursementsEmpruntsPNR = Math.Round(Convert.ToDecimal(etatTFTModel.RemboursementsEmpruntsPNR05.Replace(".", ",")), 2);
+            FluxTresorerieProvenantFinancement = Math.Round(Convert.ToDecimal(etatTFTModel.FluxTresorerieProvenantFinancement05.Replace(".", ",")), 2);
+            FluxTresorerieNet = Math.Round(Convert.ToDecimal(etatTFTModel.FluxTresorerieNet05.Replace(".", ",")), 2);
+            SoldeInitial = Math.Round(Convert.ToDecimal(etatTFTModel.SoldeInitial05.Replace(".", ",")), 2);
+            SoldeFinal = Math.Round(Convert.ToDecimal(etatTFTModel.SoldeFinal05.Replace(".", ",")), 2);
+            Equilibre = Math.Round(Convert.ToDecimal(etatTFTModel.Equilibre05.Replace(".", ",")), 2);
+
+
+            tableauFluxTresorerie05.EncaissementsRecuClients = EncaissementsRecuClients;
+            tableauFluxTresorerie05.SommesVerseesFournisseurs = SommesVerseesFournisseurs;
+            tableauFluxTresorerie05.SommesVerseesPrestataires = SommesVerseesPrestataires;
+            tableauFluxTresorerie05.SommesVerseesPersonnelCNAS_IRG = SommesVerseesPersonnelCNAS_IRG;
+            tableauFluxTresorerie05.DecaissementTVAPayer = DecaissementTVAPayer;
+            tableauFluxTresorerie05.DecaissementIBS_IFU_IRG = DecaissementIBS_IFU_IRG;
+            tableauFluxTresorerie05.FluxTresorerieProvenantExploitation = FluxTresorerieProvenantExploitation;
+            tableauFluxTresorerie05.DecaissementAcquisitionEquipements = DecaissementAcquisitionEquipements;
+            tableauFluxTresorerie05.FluxTresorerieProvenantInvestissement = FluxTresorerieProvenantInvestissement;
+            tableauFluxTresorerie05.EncaissementsSuiteApportPersonnel = EncaissementsSuiteApportPersonnel;
+            tableauFluxTresorerie05.EncaissementsProvenantEmprunts = EncaissementsProvenantEmprunts;
+            tableauFluxTresorerie05.RemboursementsEmpruntsCMT = RemboursementsEmpruntsCMT;
+            tableauFluxTresorerie05.RemboursementsEmpruntsPNR = RemboursementsEmpruntsPNR;
+            tableauFluxTresorerie05.FluxTresorerieProvenantFinancement = FluxTresorerieProvenantFinancement;
+            tableauFluxTresorerie05.FluxTresorerieNet = FluxTresorerieNet;
+            tableauFluxTresorerie05.SoldeInitial = SoldeInitial;
+            tableauFluxTresorerie05.SoldeFinal = SoldeFinal;
+            tableauFluxTresorerie05.Equilibre = Equilibre;
+            tableauFluxTresorerie05.AnneeId = 5;
+
+            tableauxFluxTresorerie.Add(tableauFluxTresorerie05);
+
+
+            EncaissementsRecuClients = Math.Round(Convert.ToDecimal(etatTFTModel.EncaissementsRecuClients06.Replace(".", ",")), 2);
+            SommesVerseesFournisseurs = Math.Round(Convert.ToDecimal(etatTFTModel.SommesVerseesFournisseurs06.Replace(".", ",")), 2);
+            SommesVerseesPrestataires = Math.Round(Convert.ToDecimal(etatTFTModel.SommesVerseesPrestataires06.Replace(".", ",")), 2);
+            SommesVerseesPersonnelCNAS_IRG = Math.Round(Convert.ToDecimal(etatTFTModel.SommesVerseesPersonnelCNAS_IRG06.Replace(".", ",")), 2);
+            DecaissementTVAPayer = Math.Round(Convert.ToDecimal(etatTFTModel.DecaissementTVAPayer06.Replace(".", ",")), 2);
+            DecaissementIBS_IFU_IRG = Math.Round(Convert.ToDecimal(etatTFTModel.DecaissementIBS_IFU_IRG06.Replace(".", ",")), 2);
+            FluxTresorerieProvenantExploitation = Math.Round(Convert.ToDecimal(etatTFTModel.FluxTresorerieProvenantExploitation06.Replace(".", ",")), 2);
+            DecaissementAcquisitionEquipements = Math.Round(Convert.ToDecimal(etatTFTModel.DecaissementAcquisitionEquipements06.Replace(".", ",")), 2);
+            FluxTresorerieProvenantInvestissement = Math.Round(Convert.ToDecimal(etatTFTModel.FluxTresorerieProvenantInvestissement06.Replace(".", ",")), 2);
+            EncaissementsSuiteApportPersonnel = Math.Round(Convert.ToDecimal(etatTFTModel.EncaissementsSuiteApportPersonnel06.Replace(".", ",")), 2);
+            EncaissementsProvenantEmprunts = Math.Round(Convert.ToDecimal(etatTFTModel.EncaissementsProvenantEmprunts06.Replace(".", ",")), 2);
+            RemboursementsEmpruntsCMT = Math.Round(Convert.ToDecimal(etatTFTModel.RemboursementsEmpruntsCMT06.Replace(".", ",")), 2);
+            RemboursementsEmpruntsPNR = Math.Round(Convert.ToDecimal(etatTFTModel.RemboursementsEmpruntsPNR06.Replace(".", ",")), 2);
+            FluxTresorerieProvenantFinancement = Math.Round(Convert.ToDecimal(etatTFTModel.FluxTresorerieProvenantFinancement06.Replace(".", ",")), 2);
+            FluxTresorerieNet = Math.Round(Convert.ToDecimal(etatTFTModel.FluxTresorerieNet06.Replace(".", ",")), 2);
+            SoldeInitial = Math.Round(Convert.ToDecimal(etatTFTModel.SoldeInitial06.Replace(".", ",")), 2);
+            SoldeFinal = Math.Round(Convert.ToDecimal(etatTFTModel.SoldeFinal06.Replace(".", ",")), 2);
+            Equilibre = Math.Round(Convert.ToDecimal(etatTFTModel.Equilibre06.Replace(".", ",")), 2);
+
+
+            tableauFluxTresorerie06.EncaissementsRecuClients = EncaissementsRecuClients;
+            tableauFluxTresorerie06.SommesVerseesFournisseurs = SommesVerseesFournisseurs;
+            tableauFluxTresorerie06.SommesVerseesPrestataires = SommesVerseesPrestataires;
+            tableauFluxTresorerie06.SommesVerseesPersonnelCNAS_IRG = SommesVerseesPersonnelCNAS_IRG;
+            tableauFluxTresorerie06.DecaissementTVAPayer = DecaissementTVAPayer;
+            tableauFluxTresorerie06.DecaissementIBS_IFU_IRG = DecaissementIBS_IFU_IRG;
+            tableauFluxTresorerie06.FluxTresorerieProvenantExploitation = FluxTresorerieProvenantExploitation;
+            tableauFluxTresorerie06.DecaissementAcquisitionEquipements = DecaissementAcquisitionEquipements;
+            tableauFluxTresorerie06.FluxTresorerieProvenantInvestissement = FluxTresorerieProvenantInvestissement;
+            tableauFluxTresorerie06.EncaissementsSuiteApportPersonnel = EncaissementsSuiteApportPersonnel;
+            tableauFluxTresorerie06.EncaissementsProvenantEmprunts = EncaissementsProvenantEmprunts;
+            tableauFluxTresorerie06.RemboursementsEmpruntsCMT = RemboursementsEmpruntsCMT;
+            tableauFluxTresorerie06.RemboursementsEmpruntsPNR = RemboursementsEmpruntsPNR;
+            tableauFluxTresorerie06.FluxTresorerieProvenantFinancement = FluxTresorerieProvenantFinancement;
+            tableauFluxTresorerie06.FluxTresorerieNet = FluxTresorerieNet;
+            tableauFluxTresorerie06.SoldeInitial = SoldeInitial;
+            tableauFluxTresorerie06.SoldeFinal = SoldeFinal;
+            tableauFluxTresorerie06.Equilibre = Equilibre;
+            tableauFluxTresorerie06.AnneeId = 6;
+
+            tableauxFluxTresorerie.Add(tableauFluxTresorerie06);
+
+
+            EncaissementsRecuClients = Math.Round(Convert.ToDecimal(etatTFTModel.EncaissementsRecuClients07.Replace(".", ",")), 2);
+            SommesVerseesFournisseurs = Math.Round(Convert.ToDecimal(etatTFTModel.SommesVerseesFournisseurs07.Replace(".", ",")), 2);
+            SommesVerseesPrestataires = Math.Round(Convert.ToDecimal(etatTFTModel.SommesVerseesPrestataires07.Replace(".", ",")), 2);
+            SommesVerseesPersonnelCNAS_IRG = Math.Round(Convert.ToDecimal(etatTFTModel.SommesVerseesPersonnelCNAS_IRG07.Replace(".", ",")), 2);
+            DecaissementTVAPayer = Math.Round(Convert.ToDecimal(etatTFTModel.DecaissementTVAPayer07.Replace(".", ",")), 2);
+            DecaissementIBS_IFU_IRG = Math.Round(Convert.ToDecimal(etatTFTModel.DecaissementIBS_IFU_IRG07.Replace(".", ",")), 2);
+            FluxTresorerieProvenantExploitation = Math.Round(Convert.ToDecimal(etatTFTModel.FluxTresorerieProvenantExploitation07.Replace(".", ",")), 2);
+            DecaissementAcquisitionEquipements = Math.Round(Convert.ToDecimal(etatTFTModel.DecaissementAcquisitionEquipements07.Replace(".", ",")), 2);
+            FluxTresorerieProvenantInvestissement = Math.Round(Convert.ToDecimal(etatTFTModel.FluxTresorerieProvenantInvestissement07.Replace(".", ",")), 2);
+            EncaissementsSuiteApportPersonnel = Math.Round(Convert.ToDecimal(etatTFTModel.EncaissementsSuiteApportPersonnel07.Replace(".", ",")), 2);
+            EncaissementsProvenantEmprunts = Math.Round(Convert.ToDecimal(etatTFTModel.EncaissementsProvenantEmprunts07.Replace(".", ",")), 2);
+            RemboursementsEmpruntsCMT = Math.Round(Convert.ToDecimal(etatTFTModel.RemboursementsEmpruntsCMT07.Replace(".", ",")), 2);
+            RemboursementsEmpruntsPNR = Math.Round(Convert.ToDecimal(etatTFTModel.RemboursementsEmpruntsPNR07.Replace(".", ",")), 2);
+            FluxTresorerieProvenantFinancement = Math.Round(Convert.ToDecimal(etatTFTModel.FluxTresorerieProvenantFinancement07.Replace(".", ",")), 2);
+            FluxTresorerieNet = Math.Round(Convert.ToDecimal(etatTFTModel.FluxTresorerieNet07.Replace(".", ",")), 2);
+            SoldeInitial = Math.Round(Convert.ToDecimal(etatTFTModel.SoldeInitial07.Replace(".", ",")), 2);
+            SoldeFinal = Math.Round(Convert.ToDecimal(etatTFTModel.SoldeFinal07.Replace(".", ",")), 2);
+            Equilibre = Math.Round(Convert.ToDecimal(etatTFTModel.Equilibre07.Replace(".", ",")), 2);
+
+
+            tableauFluxTresorerie07.EncaissementsRecuClients = EncaissementsRecuClients;
+            tableauFluxTresorerie07.SommesVerseesFournisseurs = SommesVerseesFournisseurs;
+            tableauFluxTresorerie07.SommesVerseesPrestataires = SommesVerseesPrestataires;
+            tableauFluxTresorerie07.SommesVerseesPersonnelCNAS_IRG = SommesVerseesPersonnelCNAS_IRG;
+            tableauFluxTresorerie07.DecaissementTVAPayer = DecaissementTVAPayer;
+            tableauFluxTresorerie07.DecaissementIBS_IFU_IRG = DecaissementIBS_IFU_IRG;
+            tableauFluxTresorerie07.FluxTresorerieProvenantExploitation = FluxTresorerieProvenantExploitation;
+            tableauFluxTresorerie07.DecaissementAcquisitionEquipements = DecaissementAcquisitionEquipements;
+            tableauFluxTresorerie07.FluxTresorerieProvenantInvestissement = FluxTresorerieProvenantInvestissement;
+            tableauFluxTresorerie07.EncaissementsSuiteApportPersonnel = EncaissementsSuiteApportPersonnel;
+            tableauFluxTresorerie07.EncaissementsProvenantEmprunts = EncaissementsProvenantEmprunts;
+            tableauFluxTresorerie07.RemboursementsEmpruntsCMT = RemboursementsEmpruntsCMT;
+            tableauFluxTresorerie07.RemboursementsEmpruntsPNR = RemboursementsEmpruntsPNR;
+            tableauFluxTresorerie07.FluxTresorerieProvenantFinancement = FluxTresorerieProvenantFinancement;
+            tableauFluxTresorerie07.FluxTresorerieNet = FluxTresorerieNet;
+            tableauFluxTresorerie07.SoldeInitial = SoldeInitial;
+            tableauFluxTresorerie07.SoldeFinal = SoldeFinal;
+            tableauFluxTresorerie07.Equilibre = Equilibre;
+            tableauFluxTresorerie07.AnneeId = 7;
+
+            tableauxFluxTresorerie.Add(tableauFluxTresorerie07);
+
+            modelBusinessPlan.TableauxFluxTresorerie = tableauxFluxTresorerie;
+
+
+
+            BusinessResult businessResult;
+
+            businessResult = _businessPlanBusinessService.Update(modelBusinessPlan);
+
+            if (businessResult.Succeeded)
+            {
+                string promoteurId = modelBusinessPlan.NumeroSIEJE;
+                TempData["Message"] = businessResult.ToBootstrapAlerts();
+                return RedirectToAction(nameof(InfosBusinessPlan), new { promoteurId });
+            }
+            else
+            {
+                return Json(new { messages = businessResult.ToBootstrapAlerts() });
+            }
+
+
         }
 
 
@@ -50149,6 +50629,10 @@ namespace Anade.Khadamat.Web.Controllers
 
             var listeRubriqueChargesExternes = new SelectList(_rubriqueChargesExternesBusinessService.GetAll(), "Id", "CodeDesignationFr");
 
+            var tableauFluxTresorerieModel = _tableauFluxTresorerieBusinessService.GetAllFiltered(x => x.BusinessPlanId == id);
+
+            var stuctureInvestissement = _stuctureInvestissementBusinessService.GetSingle(x => x.BusinessPlanId == id);
+
             ViewData["RubriqueChargesExternesID"] = listeRubriqueChargesExternes;
 
             if (modelBusinessPlan.Complet)
@@ -50199,6 +50683,76 @@ namespace Anade.Khadamat.Web.Controllers
 
             #endregion
 
+            #region Calcules FluxTresorerieNet
+
+            for (int i = 0; i < 7; i++)
+            {
+                if (tableauFluxTresorerieModel[i].AnneeId == 1)
+                {
+                    MontantTresorerieNetAnnee01 = tableauFluxTresorerieModel[i].FluxTresorerieNet;
+                }
+                if (tableauFluxTresorerieModel[i].AnneeId == 2)
+                {
+                    MontantTresorerieNetAnnee02 = tableauFluxTresorerieModel[i].FluxTresorerieNet;
+                }
+                if (tableauFluxTresorerieModel[i].AnneeId == 3)
+                {
+                    MontantTresorerieNetAnnee03 = tableauFluxTresorerieModel[i].FluxTresorerieNet;
+                }
+                if (tableauFluxTresorerieModel[i].AnneeId == 4)
+                {
+                    MontantTresorerieNetAnnee04 = tableauFluxTresorerieModel[i].FluxTresorerieNet;
+                }
+                if (tableauFluxTresorerieModel[i].AnneeId == 5)
+                {
+                    MontantTresorerieNetAnnee05 = tableauFluxTresorerieModel[i].FluxTresorerieNet;
+                }
+                if (tableauFluxTresorerieModel[i].AnneeId == 6)
+                {
+                    MontantTresorerieNetAnnee06 = tableauFluxTresorerieModel[i].FluxTresorerieNet;
+                }
+                if (tableauFluxTresorerieModel[i].AnneeId == 7)
+                {
+                    MontantTresorerieNetAnnee07 = tableauFluxTresorerieModel[i].FluxTresorerieNet;
+                }
+            }
+
+            #endregion
+
+            #region Variables pour Calcules VAN
+
+            MontantCashFlowActualisesAnnee01 = MontantTresorerieNetAnnee01 / (decimal)(Math.Pow((1 + 0.1), 1));
+            MontantCashFlowActualisesAnnee02 = MontantTresorerieNetAnnee02 / (decimal)(Math.Pow((1 + 0.1), 2));
+            MontantCashFlowActualisesAnnee03 = MontantTresorerieNetAnnee03 / (decimal)(Math.Pow((1 + 0.1), 3));
+            MontantCashFlowActualisesAnnee04 = MontantTresorerieNetAnnee04 / (decimal)(Math.Pow((1 + 0.1), 4));
+            MontantCashFlowActualisesAnnee05 = MontantTresorerieNetAnnee05 / (decimal)(Math.Pow((1 + 0.1), 5));
+            MontantCashFlowActualisesAnnee06 = MontantTresorerieNetAnnee06 / (decimal)(Math.Pow((1 + 0.1), 6));
+            MontantCashFlowActualisesAnnee07 = MontantTresorerieNetAnnee07 / (decimal)(Math.Pow((1 + 0.1), 7));
+
+            MontantValeurActuelleNette = (MontantCashFlowActualisesAnnee01
+                                        + MontantCashFlowActualisesAnnee02
+                                        + MontantCashFlowActualisesAnnee03
+                                        + MontantCashFlowActualisesAnnee04
+                                        + MontantCashFlowActualisesAnnee05
+                                        + MontantCashFlowActualisesAnnee06
+                                        + MontantCashFlowActualisesAnnee07)
+                                        - stuctureInvestissement.PNRSupplementaire
+                                        - stuctureInvestissement.Total;
+
+            MontantCumulCFActualisesAnnee01 = MontantCashFlowActualisesAnnee01;
+            MontantCumulCFActualisesAnnee02 = MontantCumulCFActualisesAnnee01 + MontantCashFlowActualisesAnnee02;
+            MontantCumulCFActualisesAnnee03 = MontantCumulCFActualisesAnnee02 + MontantCashFlowActualisesAnnee03;
+            MontantCumulCFActualisesAnnee04 = MontantCumulCFActualisesAnnee03 + MontantCashFlowActualisesAnnee04;
+            MontantCumulCFActualisesAnnee05 = MontantCumulCFActualisesAnnee04 + MontantCashFlowActualisesAnnee05;
+            MontantCumulCFActualisesAnnee06 = MontantCumulCFActualisesAnnee05 + MontantCashFlowActualisesAnnee06;
+            MontantCumulCFActualisesAnnee07 = MontantCumulCFActualisesAnnee06 + MontantCashFlowActualisesAnnee07;
+
+            InvestissementInitial = stuctureInvestissement.PNRSupplementaire + stuctureInvestissement.Total;
+
+            TauxValeurActuelleNette = MontantValeurActuelleNette / InvestissementInitial * 100;
+
+            #endregion
+
             EtatEvaluationProjetModel etatEvaluationProjetModel = new();
 
             #region Données EtatEvaluationProjetModel
@@ -50233,6 +50787,7 @@ namespace Anade.Khadamat.Web.Controllers
 
             etatEvaluationProjetModel.MontantValeurActuelleNette = string.Format(frCult, "{0:n}", MontantValeurActuelleNette);
             etatEvaluationProjetModel.TauxValeurActuelleNette = string.Format(frCult, "{0:n}", TauxValeurActuelleNette);
+            etatEvaluationProjetModel.TauxValeurActuelleNette += " %";
             etatEvaluationProjetModel.DelaiRecuperation = DelaiRecuperation;
             etatEvaluationProjetModel.InvestissementInitial = string.Format(frCult, "{0:n}", InvestissementInitial);
 
@@ -50240,6 +50795,11 @@ namespace Anade.Khadamat.Web.Controllers
 
             return PartialView($"_{nameof(EtatEvaluationProjet)}", etatEvaluationProjetModel);
         }
+
+
+
+
+
 
     }
 }

@@ -63,9 +63,9 @@
                     <div class="col-md-12">
                         <div class="booking-form">
 
-                            <form asp-action="AddBusinessPlan" asp-controller="BusinessPlanProject"
+                            <form asp-action="EtatTFT" asp-controller="BusinessPlanProject"
                                   data-ajax="true"
-                                  data-ajax-success="addBusinessPlan">
+                                  data-ajax-success="EtatTFT">
 
                                 <div class="container" style="max-height: 100%; max-width:100%">
 
@@ -275,7 +275,16 @@
                                                                         <th id="FluxTresorerieNet06Id" style="text-align: center;">@Model.FluxTresorerieNet06</th>
                                                                         <th id="FluxTresorerieNet07Id" style="text-align: center;">@Model.FluxTresorerieNet07</th>
                                                                     </tr>
-
+                                                                    <tr>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                    </tr>
                                                                     <tr>
                                                                         <th>Solde Initial</th>
                                                                         <th id="SoldeInitial01Id" style="text-align: center;">@Model.SoldeInitial01</th>
@@ -286,7 +295,26 @@
                                                                         <th id="SoldeInitial06Id" style="text-align: center;">@Model.SoldeInitial06</th>
                                                                         <th id="SoldeInitial07Id" style="text-align: center;">@Model.SoldeInitial07</th>
                                                                     </tr>
-
+                                                                    <tr>
+                                                                        <th>Solde Final</th>
+                                                                        <th id="SoldeFinal01Id" style="text-align: center;">@Model.SoldeFinal01</th>
+                                                                        <th id="SoldeFinal02Id" style="text-align: center;">@Model.SoldeFinal02</th>
+                                                                        <th id="SoldeFinal03Id" style="text-align: center;">@Model.SoldeFinal03</th>
+                                                                        <th id="SoldeFinal04Id" style="text-align: center;">@Model.SoldeFinal04</th>
+                                                                        <th id="SoldeFinal05Id" style="text-align: center;">@Model.SoldeFinal05</th>
+                                                                        <th id="SoldeFinal06Id" style="text-align: center;">@Model.SoldeFinal06</th>
+                                                                        <th id="SoldeFinal07Id" style="text-align: center;">@Model.SoldeFinal07</th>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th>Equilibre</th>
+                                                                        <th id="Equilibre01Id" style="text-align: center;">@Model.Equilibre01</th>
+                                                                        <th id="Equilibre02Id" style="text-align: center;">@Model.Equilibre02</th>
+                                                                        <th id="Equilibre03Id" style="text-align: center;">@Model.Equilibre03</th>
+                                                                        <th id="Equilibre04Id" style="text-align: center;">@Model.Equilibre04</th>
+                                                                        <th id="Equilibre05Id" style="text-align: center;">@Model.Equilibre05</th>
+                                                                        <th id="Equilibre06Id" style="text-align: center;">@Model.Equilibre06</th>
+                                                                        <th id="Equilibre07Id" style="text-align: center;">@Model.Equilibre07</th>
+                                                                    </tr>
                                                                 </table>
 
                                                             </div>
@@ -303,7 +331,921 @@
 
                                     </div>
 
-                                    <div class="form-group modal-footer">                                        
+                                    <div class="row" hidden="hidden">
+
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    EncaissementsRecuClients01
+                                                </span><input id=" EncaissementsRecuClients01 " type="text" asp-for="EncaissementsRecuClients01 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    SommesVerseesFournisseurs01
+                                                </span><input id=" SommesVerseesFournisseurs01 " type="text" asp-for="SommesVerseesFournisseurs01 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    SommesVerseesPrestataires01
+                                                </span><input id=" SommesVerseesPrestataires01 " type="text" asp-for="SommesVerseesPrestataires01 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    SommesVerseesPersonnelCNAS_IRG01
+                                                </span><input id=" SommesVerseesPersonnelCNAS_IRG01 " type="text" asp-for="SommesVerseesPersonnelCNAS_IRG01 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    DecaissementTVAPayer01
+                                                </span><input id=" DecaissementTVAPayer01 " type="text" asp-for="DecaissementTVAPayer01 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    DecaissementIBS_IFU_IRG01
+                                                </span><input id=" DecaissementIBS_IFU_IRG01 " type="text" asp-for="DecaissementIBS_IFU_IRG01 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    FluxTresorerieProvenantExploitation01
+                                                </span><input id=" FluxTresorerieProvenantExploitation01 " type="text" asp-for="FluxTresorerieProvenantExploitation01 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    DecaissementAcquisitionEquipements01
+                                                </span><input id=" DecaissementAcquisitionEquipements01 " type="text" asp-for="DecaissementAcquisitionEquipements01 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    FluxTresorerieProvenantInvestissement01
+                                                </span><input id=" FluxTresorerieProvenantInvestissement01 " type="text" asp-for="FluxTresorerieProvenantInvestissement01 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    EncaissementsSuiteApportPersonnel01
+                                                </span><input id=" EncaissementsSuiteApportPersonnel01 " type="text" asp-for="EncaissementsSuiteApportPersonnel01 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    EncaissementsProvenantEmprunts01
+                                                </span><input id=" EncaissementsProvenantEmprunts01 " type="text" asp-for="EncaissementsProvenantEmprunts01 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    RemboursementsEmpruntsCMT01
+                                                </span><input id=" RemboursementsEmpruntsCMT01 " type="text" asp-for="RemboursementsEmpruntsCMT01 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    RemboursementsEmpruntsPNR01
+                                                </span><input id=" RemboursementsEmpruntsPNR01 " type="text" asp-for="RemboursementsEmpruntsPNR01 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    FluxTresorerieProvenantFinancement01
+                                                </span><input id=" FluxTresorerieProvenantFinancement01 " type="text" asp-for="FluxTresorerieProvenantFinancement01 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    FluxTresorerieNet01
+                                                </span><input id=" FluxTresorerieNet01 " type="text" asp-for="FluxTresorerieNet01 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    SoldeInitial01
+                                                </span><input id=" SoldeInitial01 " type="text" asp-for="SoldeInitial01 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    SoldeFinal01
+                                                </span><input id=" SoldeFinal01 " type="text" asp-for="SoldeFinal01 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    Equilibre01
+                                                </span><input id=" Equilibre01 " type="text" asp-for="Equilibre01 " class="form-control">
+                                            </div>
+                                        </div>
+
+
+
+
+
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    EncaissementsRecuClients02
+                                                </span><input id=" EncaissementsRecuClients02 " type="text" asp-for="EncaissementsRecuClients02 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    SommesVerseesFournisseurs02
+                                                </span><input id=" SommesVerseesFournisseurs02 " type="text" asp-for="SommesVerseesFournisseurs02 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    SommesVerseesPrestataires02
+                                                </span><input id=" SommesVerseesPrestataires02 " type="text" asp-for="SommesVerseesPrestataires02 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    SommesVerseesPersonnelCNAS_IRG02
+                                                </span><input id=" SommesVerseesPersonnelCNAS_IRG02 " type="text" asp-for="SommesVerseesPersonnelCNAS_IRG02 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    DecaissementTVAPayer02
+                                                </span><input id=" DecaissementTVAPayer02 " type="text" asp-for="DecaissementTVAPayer02 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    DecaissementIBS_IFU_IRG02
+                                                </span><input id=" DecaissementIBS_IFU_IRG02 " type="text" asp-for="DecaissementIBS_IFU_IRG02 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    FluxTresorerieProvenantExploitation02
+                                                </span><input id=" FluxTresorerieProvenantExploitation02 " type="text" asp-for="FluxTresorerieProvenantExploitation02 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    DecaissementAcquisitionEquipements02
+                                                </span><input id=" DecaissementAcquisitionEquipements02 " type="text" asp-for="DecaissementAcquisitionEquipements02 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    FluxTresorerieProvenantInvestissement02
+                                                </span><input id=" FluxTresorerieProvenantInvestissement02 " type="text" asp-for="FluxTresorerieProvenantInvestissement02 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    EncaissementsSuiteApportPersonnel02
+                                                </span><input id=" EncaissementsSuiteApportPersonnel02 " type="text" asp-for="EncaissementsSuiteApportPersonnel02 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    EncaissementsProvenantEmprunts02
+                                                </span><input id=" EncaissementsProvenantEmprunts02 " type="text" asp-for="EncaissementsProvenantEmprunts02 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    RemboursementsEmpruntsCMT02
+                                                </span><input id=" RemboursementsEmpruntsCMT02 " type="text" asp-for="RemboursementsEmpruntsCMT02 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    RemboursementsEmpruntsPNR02
+                                                </span><input id=" RemboursementsEmpruntsPNR02 " type="text" asp-for="RemboursementsEmpruntsPNR02 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    FluxTresorerieProvenantFinancement02
+                                                </span><input id=" FluxTresorerieProvenantFinancement02 " type="text" asp-for="FluxTresorerieProvenantFinancement02 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    FluxTresorerieNet02
+                                                </span><input id=" FluxTresorerieNet02 " type="text" asp-for="FluxTresorerieNet02 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    SoldeInitial02
+                                                </span><input id=" SoldeInitial02 " type="text" asp-for="SoldeInitial02 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    SoldeFinal02
+                                                </span><input id=" SoldeFinal02 " type="text" asp-for="SoldeFinal02 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    Equilibre02
+                                                </span><input id=" Equilibre02 " type="text" asp-for="Equilibre02 " class="form-control">
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    EncaissementsRecuClients03
+                                                </span><input id=" EncaissementsRecuClients03 " type="text" asp-for="EncaissementsRecuClients03 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    SommesVerseesFournisseurs03
+                                                </span><input id=" SommesVerseesFournisseurs03 " type="text" asp-for="SommesVerseesFournisseurs03 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    SommesVerseesPrestataires03
+                                                </span><input id=" SommesVerseesPrestataires03 " type="text" asp-for="SommesVerseesPrestataires03 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    SommesVerseesPersonnelCNAS_IRG03
+                                                </span><input id=" SommesVerseesPersonnelCNAS_IRG03 " type="text" asp-for="SommesVerseesPersonnelCNAS_IRG03 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    DecaissementTVAPayer03
+                                                </span><input id=" DecaissementTVAPayer03 " type="text" asp-for="DecaissementTVAPayer03 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    DecaissementIBS_IFU_IRG03
+                                                </span><input id=" DecaissementIBS_IFU_IRG03 " type="text" asp-for="DecaissementIBS_IFU_IRG03 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    FluxTresorerieProvenantExploitation03
+                                                </span><input id=" FluxTresorerieProvenantExploitation03 " type="text" asp-for="FluxTresorerieProvenantExploitation03 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    DecaissementAcquisitionEquipements03
+                                                </span><input id=" DecaissementAcquisitionEquipements03 " type="text" asp-for="DecaissementAcquisitionEquipements03 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    FluxTresorerieProvenantInvestissement03
+                                                </span><input id=" FluxTresorerieProvenantInvestissement03 " type="text" asp-for="FluxTresorerieProvenantInvestissement03 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    EncaissementsSuiteApportPersonnel03
+                                                </span><input id=" EncaissementsSuiteApportPersonnel03 " type="text" asp-for="EncaissementsSuiteApportPersonnel03 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    EncaissementsProvenantEmprunts03
+                                                </span><input id=" EncaissementsProvenantEmprunts03 " type="text" asp-for="EncaissementsProvenantEmprunts03 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    RemboursementsEmpruntsCMT03
+                                                </span><input id=" RemboursementsEmpruntsCMT03 " type="text" asp-for="RemboursementsEmpruntsCMT03 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    RemboursementsEmpruntsPNR03
+                                                </span><input id=" RemboursementsEmpruntsPNR03 " type="text" asp-for="RemboursementsEmpruntsPNR03 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    FluxTresorerieProvenantFinancement03
+                                                </span><input id=" FluxTresorerieProvenantFinancement03 " type="text" asp-for="FluxTresorerieProvenantFinancement03 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    FluxTresorerieNet03
+                                                </span><input id=" FluxTresorerieNet03 " type="text" asp-for="FluxTresorerieNet03 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    SoldeInitial03
+                                                </span><input id=" SoldeInitial03 " type="text" asp-for="SoldeInitial03 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    SoldeFinal03
+                                                </span><input id=" SoldeFinal03 " type="text" asp-for="SoldeFinal03 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    Equilibre03
+                                                </span><input id=" Equilibre03 " type="text" asp-for="Equilibre03 " class="form-control">
+                                            </div>
+                                        </div>
+
+
+
+
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    EncaissementsRecuClients04
+                                                </span><input id=" EncaissementsRecuClients04 " type="text" asp-for="EncaissementsRecuClients04 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    SommesVerseesFournisseurs04
+                                                </span><input id=" SommesVerseesFournisseurs04 " type="text" asp-for="SommesVerseesFournisseurs04 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    SommesVerseesPrestataires04
+                                                </span><input id=" SommesVerseesPrestataires04 " type="text" asp-for="SommesVerseesPrestataires04 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    SommesVerseesPersonnelCNAS_IRG04
+                                                </span><input id=" SommesVerseesPersonnelCNAS_IRG04 " type="text" asp-for="SommesVerseesPersonnelCNAS_IRG04 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    DecaissementTVAPayer04
+                                                </span><input id=" DecaissementTVAPayer04 " type="text" asp-for="DecaissementTVAPayer04 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    DecaissementIBS_IFU_IRG04
+                                                </span><input id=" DecaissementIBS_IFU_IRG04 " type="text" asp-for="DecaissementIBS_IFU_IRG04 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    FluxTresorerieProvenantExploitation04
+                                                </span><input id=" FluxTresorerieProvenantExploitation04 " type="text" asp-for="FluxTresorerieProvenantExploitation04 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    DecaissementAcquisitionEquipements04
+                                                </span><input id=" DecaissementAcquisitionEquipements04 " type="text" asp-for="DecaissementAcquisitionEquipements04 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    FluxTresorerieProvenantInvestissement04
+                                                </span><input id=" FluxTresorerieProvenantInvestissement04 " type="text" asp-for="FluxTresorerieProvenantInvestissement04 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    EncaissementsSuiteApportPersonnel04
+                                                </span><input id=" EncaissementsSuiteApportPersonnel04 " type="text" asp-for="EncaissementsSuiteApportPersonnel04 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    EncaissementsProvenantEmprunts04
+                                                </span><input id=" EncaissementsProvenantEmprunts04 " type="text" asp-for="EncaissementsProvenantEmprunts04 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    RemboursementsEmpruntsCMT04
+                                                </span><input id=" RemboursementsEmpruntsCMT04 " type="text" asp-for="RemboursementsEmpruntsCMT04 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    RemboursementsEmpruntsPNR04
+                                                </span><input id=" RemboursementsEmpruntsPNR04 " type="text" asp-for="RemboursementsEmpruntsPNR04 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    FluxTresorerieProvenantFinancement04
+                                                </span><input id=" FluxTresorerieProvenantFinancement04 " type="text" asp-for="FluxTresorerieProvenantFinancement04 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    FluxTresorerieNet04
+                                                </span><input id=" FluxTresorerieNet04 " type="text" asp-for="FluxTresorerieNet04 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    SoldeInitial04
+                                                </span><input id=" SoldeInitial04 " type="text" asp-for="SoldeInitial04 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    SoldeFinal04
+                                                </span><input id=" SoldeFinal04 " type="text" asp-for="SoldeFinal04 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    Equilibre04
+                                                </span><input id=" Equilibre04 " type="text" asp-for="Equilibre04 " class="form-control">
+                                            </div>
+                                        </div>
+
+
+
+
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    EncaissementsRecuClients05
+                                                </span><input id=" EncaissementsRecuClients05 " type="text" asp-for="EncaissementsRecuClients05 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    SommesVerseesFournisseurs05
+                                                </span><input id=" SommesVerseesFournisseurs05 " type="text" asp-for="SommesVerseesFournisseurs05 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    SommesVerseesPrestataires05
+                                                </span><input id=" SommesVerseesPrestataires05 " type="text" asp-for="SommesVerseesPrestataires05 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    SommesVerseesPersonnelCNAS_IRG05
+                                                </span><input id=" SommesVerseesPersonnelCNAS_IRG05 " type="text" asp-for="SommesVerseesPersonnelCNAS_IRG05 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    DecaissementTVAPayer05
+                                                </span><input id=" DecaissementTVAPayer05 " type="text" asp-for="DecaissementTVAPayer05 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    DecaissementIBS_IFU_IRG05
+                                                </span><input id=" DecaissementIBS_IFU_IRG05 " type="text" asp-for="DecaissementIBS_IFU_IRG05 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    FluxTresorerieProvenantExploitation05
+                                                </span><input id=" FluxTresorerieProvenantExploitation05 " type="text" asp-for="FluxTresorerieProvenantExploitation05 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    DecaissementAcquisitionEquipements05
+                                                </span><input id=" DecaissementAcquisitionEquipements05 " type="text" asp-for="DecaissementAcquisitionEquipements05 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    FluxTresorerieProvenantInvestissement05
+                                                </span><input id=" FluxTresorerieProvenantInvestissement05 " type="text" asp-for="FluxTresorerieProvenantInvestissement05 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    EncaissementsSuiteApportPersonnel05
+                                                </span><input id=" EncaissementsSuiteApportPersonnel05 " type="text" asp-for="EncaissementsSuiteApportPersonnel05 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    EncaissementsProvenantEmprunts05
+                                                </span><input id=" EncaissementsProvenantEmprunts05 " type="text" asp-for="EncaissementsProvenantEmprunts05 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    RemboursementsEmpruntsCMT05
+                                                </span><input id=" RemboursementsEmpruntsCMT05 " type="text" asp-for="RemboursementsEmpruntsCMT05 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    RemboursementsEmpruntsPNR05
+                                                </span><input id=" RemboursementsEmpruntsPNR05 " type="text" asp-for="RemboursementsEmpruntsPNR05 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    FluxTresorerieProvenantFinancement05
+                                                </span><input id=" FluxTresorerieProvenantFinancement05 " type="text" asp-for="FluxTresorerieProvenantFinancement05 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    FluxTresorerieNet05
+                                                </span><input id=" FluxTresorerieNet05 " type="text" asp-for="FluxTresorerieNet05 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    SoldeInitial05
+                                                </span><input id=" SoldeInitial05 " type="text" asp-for="SoldeInitial05 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    SoldeFinal05
+                                                </span><input id=" SoldeFinal05 " type="text" asp-for="SoldeFinal05 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    Equilibre05
+                                                </span><input id=" Equilibre05 " type="text" asp-for="Equilibre05 " class="form-control">
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    EncaissementsRecuClients06
+                                                </span><input id=" EncaissementsRecuClients06 " type="text" asp-for="EncaissementsRecuClients06 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    SommesVerseesFournisseurs06
+                                                </span><input id=" SommesVerseesFournisseurs06 " type="text" asp-for="SommesVerseesFournisseurs06 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    SommesVerseesPrestataires06
+                                                </span><input id=" SommesVerseesPrestataires06 " type="text" asp-for="SommesVerseesPrestataires06 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    SommesVerseesPersonnelCNAS_IRG06
+                                                </span><input id=" SommesVerseesPersonnelCNAS_IRG06 " type="text" asp-for="SommesVerseesPersonnelCNAS_IRG06 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    DecaissementTVAPayer06
+                                                </span><input id=" DecaissementTVAPayer06 " type="text" asp-for="DecaissementTVAPayer06 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    DecaissementIBS_IFU_IRG06
+                                                </span><input id=" DecaissementIBS_IFU_IRG06 " type="text" asp-for="DecaissementIBS_IFU_IRG06 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    FluxTresorerieProvenantExploitation06
+                                                </span><input id=" FluxTresorerieProvenantExploitation06 " type="text" asp-for="FluxTresorerieProvenantExploitation06 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    DecaissementAcquisitionEquipements06
+                                                </span><input id=" DecaissementAcquisitionEquipements06 " type="text" asp-for="DecaissementAcquisitionEquipements06 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    FluxTresorerieProvenantInvestissement06
+                                                </span><input id=" FluxTresorerieProvenantInvestissement06 " type="text" asp-for="FluxTresorerieProvenantInvestissement06 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    EncaissementsSuiteApportPersonnel06
+                                                </span><input id=" EncaissementsSuiteApportPersonnel06 " type="text" asp-for="EncaissementsSuiteApportPersonnel06 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    EncaissementsProvenantEmprunts06
+                                                </span><input id=" EncaissementsProvenantEmprunts06 " type="text" asp-for="EncaissementsProvenantEmprunts06 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    RemboursementsEmpruntsCMT06
+                                                </span><input id=" RemboursementsEmpruntsCMT06 " type="text" asp-for="RemboursementsEmpruntsCMT06 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    RemboursementsEmpruntsPNR06
+                                                </span><input id=" RemboursementsEmpruntsPNR06 " type="text" asp-for="RemboursementsEmpruntsPNR06 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    FluxTresorerieProvenantFinancement06
+                                                </span><input id=" FluxTresorerieProvenantFinancement06 " type="text" asp-for="FluxTresorerieProvenantFinancement06 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    FluxTresorerieNet06
+                                                </span><input id=" FluxTresorerieNet06 " type="text" asp-for="FluxTresorerieNet06 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    SoldeInitial06
+                                                </span><input id=" SoldeInitial06 " type="text" asp-for="SoldeInitial06 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    SoldeFinal06
+                                                </span><input id=" SoldeFinal06 " type="text" asp-for="SoldeFinal06 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    Equilibre06
+                                                </span><input id=" Equilibre06 " type="text" asp-for="Equilibre06 " class="form-control">
+                                            </div>
+                                        </div>
+
+
+
+
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    EncaissementsRecuClients07
+                                                </span><input id=" EncaissementsRecuClients07 " type="text" asp-for="EncaissementsRecuClients07 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    SommesVerseesFournisseurs07
+                                                </span><input id=" SommesVerseesFournisseurs07 " type="text" asp-for="SommesVerseesFournisseurs07 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    SommesVerseesPrestataires07
+                                                </span><input id=" SommesVerseesPrestataires07 " type="text" asp-for="SommesVerseesPrestataires07 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    SommesVerseesPersonnelCNAS_IRG07
+                                                </span><input id=" SommesVerseesPersonnelCNAS_IRG07 " type="text" asp-for="SommesVerseesPersonnelCNAS_IRG07 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    DecaissementTVAPayer07
+                                                </span><input id=" DecaissementTVAPayer07 " type="text" asp-for="DecaissementTVAPayer07 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    DecaissementIBS_IFU_IRG07
+                                                </span><input id=" DecaissementIBS_IFU_IRG07 " type="text" asp-for="DecaissementIBS_IFU_IRG07 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    FluxTresorerieProvenantExploitation07
+                                                </span><input id=" FluxTresorerieProvenantExploitation07 " type="text" asp-for="FluxTresorerieProvenantExploitation07 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    DecaissementAcquisitionEquipements07
+                                                </span><input id=" DecaissementAcquisitionEquipements07 " type="text" asp-for="DecaissementAcquisitionEquipements07 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    FluxTresorerieProvenantInvestissement07
+                                                </span><input id=" FluxTresorerieProvenantInvestissement07 " type="text" asp-for="FluxTresorerieProvenantInvestissement07 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    EncaissementsSuiteApportPersonnel07
+                                                </span><input id=" EncaissementsSuiteApportPersonnel07 " type="text" asp-for="EncaissementsSuiteApportPersonnel07 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    EncaissementsProvenantEmprunts07
+                                                </span><input id=" EncaissementsProvenantEmprunts07 " type="text" asp-for="EncaissementsProvenantEmprunts07 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    RemboursementsEmpruntsCMT07
+                                                </span><input id=" RemboursementsEmpruntsCMT07 " type="text" asp-for="RemboursementsEmpruntsCMT07 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    RemboursementsEmpruntsPNR07
+                                                </span><input id=" RemboursementsEmpruntsPNR07 " type="text" asp-for="RemboursementsEmpruntsPNR07 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    FluxTresorerieProvenantFinancement07
+                                                </span><input id=" FluxTresorerieProvenantFinancement07 " type="text" asp-for="FluxTresorerieProvenantFinancement07 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    FluxTresorerieNet07
+                                                </span><input id=" FluxTresorerieNet07 " type="text" asp-for="FluxTresorerieNet07 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    SoldeInitial07
+                                                </span><input id=" SoldeInitial07 " type="text" asp-for="SoldeInitial07 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    SoldeFinal07
+                                                </span><input id=" SoldeFinal07 " type="text" asp-for="SoldeFinal07 " class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span class="form-label">
+                                                    Equilibre07
+                                                </span><input id=" Equilibre07 " type="text" asp-for="Equilibre07 " class="form-control">
+                                            </div>
+                                        </div>
+
+
+
+
+                                    </div>
+
+                                    <div class="form-group modal-footer">
+                                        <input type="submit" class="btn btn-outline-primary" value="Add" />
                                         <button class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
                                     </div>
 
