@@ -50753,6 +50753,307 @@ namespace Anade.Khadamat.Web.Controllers
 
             #endregion
 
+            #region Variables pour Calcules DR
+
+            string VarDR01 = "";
+            int VarDR02 = 0;
+
+            string DRValue = "";
+
+            decimal DRValue01 = 0;
+            decimal DRValue02 = 0;
+            decimal DRValue03 = 0;
+            decimal DRValue04 = 0;
+            decimal DRValue05 = 0;
+            decimal DRValue06 = 0;
+            decimal DRValue07 = 0;
+
+            #endregion
+
+            #region Calcules FluxTresorerieNet
+
+            DRValue01 = MontantCumulCFActualisesAnnee01 - stuctureInvestissement.PNRSupplementaire - stuctureInvestissement.Total;
+            DRValue02 = MontantCumulCFActualisesAnnee02 - stuctureInvestissement.PNRSupplementaire - stuctureInvestissement.Total;
+            DRValue03 = MontantCumulCFActualisesAnnee03 - stuctureInvestissement.PNRSupplementaire - stuctureInvestissement.Total;
+            DRValue04 = MontantCumulCFActualisesAnnee04 - stuctureInvestissement.PNRSupplementaire - stuctureInvestissement.Total;
+            DRValue05 = MontantCumulCFActualisesAnnee05 - stuctureInvestissement.PNRSupplementaire - stuctureInvestissement.Total;
+            DRValue06 = MontantCumulCFActualisesAnnee06 - stuctureInvestissement.PNRSupplementaire - stuctureInvestissement.Total;
+            DRValue07 = MontantCumulCFActualisesAnnee07 - stuctureInvestissement.PNRSupplementaire - stuctureInvestissement.Total;
+
+
+            //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+            decimal VarDR03 = 0;
+            decimal VarDR03_Div_7 = 0;
+            string Valeur_Droite_02 = "";
+            string Valeur_Droite_01 = "";
+            string Valeur_Droite_00 = "";
+            string Valeur_Droite_resultat = "";
+
+            decimal VarDR04 = 0;
+            decimal VarDR05 = 0;
+            decimal VarDR06 = 0;
+            decimal VarDR07 = 0;
+
+            MontantCashFlowActualisesAnnee01 = 4738750;
+            MontantCashFlowActualisesAnnee02 = (decimal)4314274.07;
+            MontantCashFlowActualisesAnnee03 = (decimal)3565772.55;
+            MontantCashFlowActualisesAnnee04 = (decimal)3078022.38;
+            MontantCashFlowActualisesAnnee05 = (decimal)2798202.16;
+            MontantCashFlowActualisesAnnee06 = (decimal)2633157.55;
+            MontantCashFlowActualisesAnnee07 = (decimal)2472127.42;
+
+            MontantValeurActuelleNette = (decimal)16825615.19;
+
+
+            MontantCumulCFActualisesAnnee01 = 4738750;
+            MontantCumulCFActualisesAnnee02 = (decimal)9053024.07;
+            MontantCumulCFActualisesAnnee03 = (decimal)12618796.62;
+            MontantCumulCFActualisesAnnee04 = 15696819;
+            MontantCumulCFActualisesAnnee05 = (decimal)18495021.16;
+            MontantCumulCFActualisesAnnee06 = (decimal)21128178.71;
+            MontantCumulCFActualisesAnnee07 = (decimal)23600306.13;
+
+
+            DRValue01 = (decimal)(-2035940.95);
+            DRValue02 = (decimal)2278333.12;
+            DRValue03 = (decimal)5844105.67;
+            DRValue04 = (decimal)8922128.05;
+            DRValue05 = (decimal)11720330.21;
+            DRValue06 = (decimal)14353487.76;
+            DRValue07 = (decimal)16825615.18;
+
+            InvestissementInitial = (decimal)6774690.96;
+
+
+
+            if (DRValue01 > (-1))
+            {
+                DRValue = "";
+            }
+            else
+            {
+                if (DRValue02 > (-1))
+                {
+                    DRValue = "1 ans";
+                }
+                else
+                {
+                    if (DRValue03 > (-1))
+                    {
+                        DRValue = "2 ans";
+                    }
+                    else
+                    {
+                        if (DRValue04 > (-1))
+                        {
+                            DRValue = "3 ans";
+                        }
+                        else
+                        {
+                            if (DRValue05 > (-1))
+                            {
+                                DRValue = "4 ans";
+                            }
+                            else
+                            {
+                                if (DRValue06 > (-1))
+                                {
+                                    DRValue = "5 ans";
+                                }
+                                else
+                                {
+                                    if (DRValue07 > (-1))
+                                    {
+                                        DRValue = "6 ans";
+                                    }
+                                    else
+                                    {
+                                        DRValue = "Plus de 7 ans";
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (DRValue == "")
+            {
+                VarDR01 = ((int)((InvestissementInitial + stuctureInvestissement.PNRSupplementaire) / (MontantCumulCFActualisesAnnee01) * 360 / 30)).ToString();
+
+            }
+            else
+            {
+                if (DRValue == "1 ans")
+                {
+                    VarDR01 = ((int)(Math.Ceiling(((InvestissementInitial + stuctureInvestissement.PNRSupplementaire - MontantCumulCFActualisesAnnee01)
+                                                  / ((MontantCumulCFActualisesAnnee02 - MontantCumulCFActualisesAnnee01))
+                                                  * 360
+                                                  / 30)))
+                                                  ).ToString();
+                }
+                else
+                {
+                    if (DRValue == "2 ans")
+                    {
+                        VarDR01 = ((int)(Math.Ceiling(((InvestissementInitial + stuctureInvestissement.PNRSupplementaire - MontantCumulCFActualisesAnnee02)
+                                                      / ((MontantCumulCFActualisesAnnee03 - MontantCumulCFActualisesAnnee02))
+                                                      * 360
+                                                      / 30)))
+                                                      ).ToString();
+                    }
+                    else
+                    {
+                        if (DRValue == "3 ans")
+                        {
+                            VarDR01 = ((int)(Math.Ceiling(((InvestissementInitial + stuctureInvestissement.PNRSupplementaire - MontantCumulCFActualisesAnnee03)
+                                                          / ((MontantCumulCFActualisesAnnee04 - MontantCumulCFActualisesAnnee03))
+                                                          * 360
+                                                          / 30)))
+                                                          ).ToString();
+                        }
+                        else
+                        {
+                            if (DRValue == "4 ans")
+                            {
+                                VarDR01 = ((int)(Math.Ceiling(((InvestissementInitial + stuctureInvestissement.PNRSupplementaire - MontantCumulCFActualisesAnnee04)
+                                                              / ((MontantCumulCFActualisesAnnee05 - MontantCumulCFActualisesAnnee04))
+                                                              * 360
+                                                              / 30)))
+                                                              ).ToString();
+                            }
+                            else
+                            {
+                                if (DRValue == "5 ans")
+                                {
+                                    VarDR01 = ((int)(Math.Ceiling(((InvestissementInitial + stuctureInvestissement.PNRSupplementaire - MontantCumulCFActualisesAnnee05)
+                                                                  / ((MontantCumulCFActualisesAnnee06 - MontantCumulCFActualisesAnnee05))
+                                                                  * 360
+                                                                  / 30)))
+                                                                  ).ToString();
+                                }
+                                else
+                                {
+                                    if (DRValue == "6 ans")
+                                    {
+                                        VarDR01 = ((int)(Math.Ceiling(((InvestissementInitial + stuctureInvestissement.PNRSupplementaire - MontantCumulCFActualisesAnnee06)
+                                                                      / ((MontantCumulCFActualisesAnnee07 - MontantCumulCFActualisesAnnee06))
+                                                                      * 360
+                                                                      / 30)))
+                                                                      ).ToString();
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (DRValue == "")
+            {
+                VarDR02 = Int32.Parse(VarDR01);
+            }
+            else
+            {
+                if (VarDR01 == "12")
+                {
+                    VarDR02 = Int32.Parse(DRValue.Substring(1, 1)) + 1;
+                }
+            }
+
+            if (DRValue == "")
+            {
+                DelaiRecuperation = VarDR02.ToString();
+            }
+            else
+            {
+                if (VarDR02 > 0)
+                {
+                    DelaiRecuperation = VarDR02.ToString() + " ans";
+                }
+                else
+                {
+                    DelaiRecuperation = DRValue + " " + VarDR01;
+                }
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+            VarDR03 = MontantCashFlowActualisesAnnee01
+                    + MontantCashFlowActualisesAnnee02
+                    + MontantCashFlowActualisesAnnee03
+                    + MontantCashFlowActualisesAnnee04
+                    + MontantCashFlowActualisesAnnee05
+                    + MontantCashFlowActualisesAnnee06
+                    + MontantCashFlowActualisesAnnee07;
+
+            VarDR03_Div_7 = Math.Round(InvestissementInitial / (VarDR03 / 7), 2);
+            //Valeur_Droite_02 = VarDR03_Div_7.ToString().Substring(VarDR03_Div_7.ToString().Length - 2);
+            Valeur_Droite_02 = VarDR03_Div_7.ToString()[^2..];
+            Valeur_Droite_01 = Valeur_Droite_02.Substring(0, 1);
+
+            Valeur_Droite_00 = Math.Truncate(VarDR04).ToString();
+
+            if (Valeur_Droite_01 == ",")
+            {
+                //VarDR04 = Math.Round((decimal)(Int32.Parse(Valeur_Droite_02.Substring(1, 1))) * 10 / (100 / 12), 0);
+                VarDR04 = (decimal)(Int32.Parse(Valeur_Droite_02.Substring(1, 1))) * 10;
+                VarDR04 /= 100;
+                VarDR04 /= 12;
+                VarDR04 = Math.Ceiling(VarDR04);
+                VarDR04 = Math.Round(VarDR04, 0);
+            }
+            else
+            {
+                //VarDR04 = Math.Round((decimal)(Int32.Parse(Valeur_Droite_02)) / (100 / 12), 0);
+                VarDR04 = (decimal)(Int32.Parse(Valeur_Droite_02));
+                VarDR04 /= 100;
+                VarDR04 /= 12;
+                VarDR04 = Math.Ceiling(VarDR04);
+                VarDR04 = Math.Round(VarDR04, 0);
+            }
+
+            if (VarDR03_Div_7 >= 0)
+            {
+                Valeur_Droite_00 = Math.Floor(VarDR03_Div_7).ToString();
+            }
+            else
+            {
+                Valeur_Droite_00 = Math.Ceiling(VarDR03_Div_7).ToString();
+            }
+
+
+
+
+            if (VarDR04 < 12)
+            {
+                Valeur_Droite_resultat = Valeur_Droite_00 + " ans et " + VarDR04.ToString() + " mois";
+            }
+            else
+            {
+                Valeur_Droite_resultat = (Int32.Parse(Valeur_Droite_00) + 1).ToString() + " ans";
+            }
+
+
+
+            // VarDR04 = (decimal)12.75;
+            //VarDR05 = Math.Round(VarDR04, 0);
+            //Valeur_Droite_00 = Math.Truncate(VarDR05).ToString();
+
+
+            #endregion
+
             EtatEvaluationProjetModel etatEvaluationProjetModel = new();
 
             #region Données EtatEvaluationProjetModel
