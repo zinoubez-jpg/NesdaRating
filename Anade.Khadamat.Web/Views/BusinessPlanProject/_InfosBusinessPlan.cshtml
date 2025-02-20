@@ -103,26 +103,43 @@
                                         }
                                         else
                                         {
-                                            <button type="button" class="btn btn-dark btn-sm dropdown-toggle" data-bs-toggle="dropdown">
-                                                Etape 07 Etats de synthèse
-                                            </button>
-                                            <ul class="dropdown-menu">
-                                                <li style="text-align: center;">
-                                                    <a class="dropdown-item" data-bs-target="#modalBP" data-bs-toggle="modal" data-url="@Url.Action("EtatStructureInvestissement", "BusinessPlanProject", new { id = item.Id })">Structure d'investissement</a>
-                                                </li>
-                                                <li style="text-align: center;">
-                                                    <a class="dropdown-item" data-bs-target="#modalBP_Full" data-bs-toggle="modal" data-url="@Url.Action("EtatCompteResultat", "BusinessPlanProject", new { id = item.Id })">Compte de résultat</a>
-                                                </li>
-                                                <li style="text-align: center;">
-                                                    <a class="dropdown-item" data-bs-target="#modalBP_Full" data-bs-toggle="modal" data-url="@Url.Action("EtatTFT", "BusinessPlanProject", new { id = item.Id })">T.F.T</a>
-                                                </li>
-                                                <li style="text-align: center;">
-                                                    <a class="dropdown-item" data-bs-target="#modalBP_Full" data-bs-toggle="modal" data-url="@Url.Action("EtatPlanTresorerie", "BusinessPlanProject", new { id = item.Id })">Plan de trésorerie</a>
-                                                </li>
-                                                <li style="text-align: center;">
-                                                    <a class="dropdown-item" data-bs-target="#modalBP_Full" data-bs-toggle="modal" data-url="@Url.Action("EtatEvaluationProjet", "BusinessPlanProject", new { id = item.Id })">Evaluation du projet</a>
-                                                </li>
-                                            </ul>
+                                            if (item.EtapeId == 6)
+                                            {
+                                                <a href="@Url.Action("EtatsSyntheseBusinessPlan", "BusinessPlanProject", new { id = item.Id })"
+                                                   class="btn btn-dark btn-sm clignote"
+                                                   role="button">
+                                                    Etape 07 Calcule (Etats de synthèse)
+                                                </a>
+                                            }
+                                            else
+                                            {
+                                                <button type="button" class="btn btn-dark btn-sm dropdown-toggle" data-bs-toggle="dropdown">
+                                                    Etape 07 Etats de synthèse
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    @*<li style="text-align: center;">
+                                                        <a class="dropdown-item" href="@Url.Action("EtatsSyntheseBusinessPlan", "BusinessPlanProject", new { id = item.Id })">
+                                                            Recalcule (Etats de synthèse)
+                                                        </a>
+                                                    </li>*@
+                                                    <li style="text-align: center;">
+                                                        <a class="dropdown-item" data-bs-target="#modalBP" data-bs-toggle="modal" data-url="@Url.Action("EtatStructureInvestissement", "BusinessPlanProject", new { id = item.Id })">Structure d'investissement</a>
+                                                    </li>
+                                                    <li style="text-align: center;">
+                                                        <a class="dropdown-item" data-bs-target="#modalBP_Full" data-bs-toggle="modal" data-url="@Url.Action("EtatCompteResultat", "BusinessPlanProject", new { id = item.Id })">Compte de résultat</a>
+                                                    </li>
+                                                    <li style="text-align: center;">
+                                                        <a class="dropdown-item" data-bs-target="#modalBP_Full" data-bs-toggle="modal" data-url="@Url.Action("EtatTFT", "BusinessPlanProject", new { id = item.Id })">T.F.T</a>
+                                                    </li>
+                                                    <li style="text-align: center;">
+                                                        <a class="dropdown-item" data-bs-target="#modalBP_Full" data-bs-toggle="modal" data-url="@Url.Action("EtatPlanTresorerie", "BusinessPlanProject", new { id = item.Id })">Plan de trésorerie</a>
+                                                    </li>
+                                                    <li style="text-align: center;">
+                                                        <a class="dropdown-item" data-bs-target="#modalBP_Full" data-bs-toggle="modal" data-url="@Url.Action("EtatEvaluationProjet", "BusinessPlanProject", new { id = item.Id })">Evaluation du projet</a>
+                                                    </li>
+                                                </ul>
+
+                                            }
 
                                         }
                                     }
