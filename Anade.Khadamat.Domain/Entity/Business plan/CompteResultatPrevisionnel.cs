@@ -25,9 +25,11 @@ namespace Anade.Khadamat.Domain
 
         public int AnneeId { get; set; }
         public int BusinessPlanId { get; set; }
+        public int BasculeRegimeImpositionId { get; set; }
 
         public virtual Annee Annee { get; set; }
         public virtual BusinessPlan BusinessPlan { get; set; }
+        public virtual BasculeRegimeImposition BasculeRegimeImposition { get; set; }
 
     }
 }

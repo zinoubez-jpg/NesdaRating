@@ -39,6 +39,7 @@ namespace Anade.Khadamat.Domain
         public string TauxVA02 { get; set; }
         public string TauxEBE02 { get; set; }
         public string CAF02 { get; set; }
+        public string Forfait_Bascul02 { get; set; }
 
         public string ChiffreAffaires03 { get; set; }
         public string AchatsConsommes03 { get; set; }
@@ -54,6 +55,7 @@ namespace Anade.Khadamat.Domain
         public string TauxVA03 { get; set; }
         public string TauxEBE03 { get; set; }
         public string CAF03 { get; set; }
+        public string Forfait_Bascul03 { get; set; }
 
         public string ChiffreAffaires04 { get; set; }
         public string AchatsConsommes04 { get; set; }
@@ -69,6 +71,7 @@ namespace Anade.Khadamat.Domain
         public string TauxVA04 { get; set; }
         public string TauxEBE04 { get; set; }
         public string CAF04 { get; set; }
+        public string Forfait_Bascul04 { get; set; }
 
         public string ChiffreAffaires05 { get; set; }
         public string AchatsConsommes05 { get; set; }
@@ -84,6 +87,7 @@ namespace Anade.Khadamat.Domain
         public string TauxVA05 { get; set; }
         public string TauxEBE05 { get; set; }
         public string CAF05 { get; set; }
+        public string Forfait_Bascul05 { get; set; }
 
         public string ChiffreAffaires06 { get; set; }
         public string AchatsConsommes06 { get; set; }
@@ -99,6 +103,7 @@ namespace Anade.Khadamat.Domain
         public string TauxVA06 { get; set; }
         public string TauxEBE06 { get; set; }
         public string CAF06 { get; set; }
+        public string Forfait_Bascul06 { get; set; }
 
         public string ChiffreAffaires07 { get; set; }
         public string AchatsConsommes07 { get; set; }
@@ -114,5 +119,7 @@ namespace Anade.Khadamat.Domain
         public string TauxVA07 { get; set; }
         public string TauxEBE07 { get; set; }
         public string CAF07 { get; set; }
+        public string Forfait_Bascul07 { get; set; }
+
     }
 }

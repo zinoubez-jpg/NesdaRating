@@ -127,6 +127,32 @@ namespace Anade.Khadamat.Data.Migrations
                     b.ToTable("Antenne");
                 });
 
+            modelBuilder.Entity("Anade.Khadamat.Domain.BasculeRegimeImposition", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<string>("DesignationAr")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("DesignationFr")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BasculeRegimeImposition");
+                });
+
             modelBuilder.Entity("Anade.Khadamat.Domain.BusinessPlan", b =>
                 {
                     b.Property<int>("Id")
@@ -1134,6 +1160,9 @@ namespace Anade.Khadamat.Data.Migrations
                     b.Property<int>("AnneeId")
                         .HasColumnType("int");
 
+                    b.Property<int>("BasculeRegimeImpositionId")
+                        .HasColumnType("int");
+
                     b.Property<int>("BusinessPlanId")
                         .HasColumnType("int");
 
@@ -1176,6 +1205,8 @@ namespace Anade.Khadamat.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AnneeId");
+
+                    b.HasIndex("BasculeRegimeImpositionId");
 
                     b.HasIndex("BusinessPlanId");
 
@@ -1555,13 +1586,16 @@ namespace Anade.Khadamat.Data.Migrations
                     b.Property<int>("BusinessPlanId")
                         .HasColumnType("int");
 
-                    b.Property<int>("DelaiRecuperation")
-                        .HasColumnType("int");
+                    b.Property<string>("DelaiRecuperation")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("InvestissementInitial")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("MontantValeurActuelleNette")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("TauxValeurActuelleNette")
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
@@ -2736,6 +2770,12 @@ namespace Anade.Khadamat.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Anade.Khadamat.Domain.BasculeRegimeImposition", "BasculeRegimeImposition")
+                        .WithMany("ComptesResultatPrevisionnel")
+                        .HasForeignKey("BasculeRegimeImpositionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Anade.Khadamat.Domain.BusinessPlan", "BusinessPlan")
                         .WithMany("ComptesResultatPrevisionnel")
                         .HasForeignKey("BusinessPlanId")
@@ -2743,6 +2783,8 @@ namespace Anade.Khadamat.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Annee");
+
+                    b.Navigation("BasculeRegimeImposition");
 
                     b.Navigation("BusinessPlan");
                 });
@@ -3195,6 +3237,11 @@ namespace Anade.Khadamat.Data.Migrations
             modelBuilder.Entity("Anade.Khadamat.Domain.Antenne", b =>
                 {
                     b.Navigation("Annexes");
+                });
+
+            modelBuilder.Entity("Anade.Khadamat.Domain.BasculeRegimeImposition", b =>
+                {
+                    b.Navigation("ComptesResultatPrevisionnel");
                 });
 
             modelBuilder.Entity("Anade.Khadamat.Domain.BusinessPlan", b =>

@@ -96234,7 +96234,7 @@ namespace Anade.Khadamat.Web.Controllers
 
             #endregion
 
-
+            //////////////////////////////////////////////////////////////////////
 
             #region Enregistrement dans la base de données (Structure d'investissement)
 
