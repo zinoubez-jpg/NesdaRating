@@ -33,6 +33,34 @@ namespace Anade.Data.Core
         {
             return _dbSet.IncludeAll(navigationPropertiesToLoad).SingleOrDefault(predicate);
         }
+        //public virtual T GetById(TKey id, params Expression<Func<T, object>>[] navigationPropertiesToLoad)
+        //{
+        //    IQueryable<T> query = _dbSet;
+
+        //    if (navigationPropertiesToLoad != null)
+        //    {
+        //        foreach (var navigationProperty in navigationPropertiesToLoad)
+        //        {
+        //            query = query.Include(navigationProperty);
+        //        }
+        //    }
+
+        //    return query.AsNoTracking().SingleOrDefault(x => x.Id.Equals(id));
+        //}
+        //public virtual T GetSingle(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] navigationPropertiesToLoad)
+        //{
+        //    IQueryable<T> query = _dbSet;
+
+        //    if (navigationPropertiesToLoad != null)
+        //    {
+        //        foreach (var navigationProperty in navigationPropertiesToLoad)
+        //        {
+        //            query = query.Include(navigationProperty);
+        //        }
+        //    }
+
+        //    return query.AsNoTracking().SingleOrDefault(predicate);
+        //}
         public virtual List<T> GetAll(params Expression<Func<T, object>>[] navigationPropertiesToLoad)
         {
             var query = _dbSet.IncludeAll(navigationPropertiesToLoad).AsNoTracking();

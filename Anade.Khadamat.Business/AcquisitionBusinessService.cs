@@ -16,8 +16,9 @@ namespace Anade.Khadamat.Business
         public override Expression<Func<Acquisition, object>>[] GetDefaultLoadProperties()
         {
             Expression<Func<Acquisition, object>> loadDetailInvestissement = x => x.DetailInvestissement;
+            Expression<Func<Acquisition, object>> loadAnnne = x => x.Annee;
 
-            return new Expression<Func<Acquisition, object>>[] { loadDetailInvestissement };
+            return new Expression<Func<Acquisition, object>>[] { loadDetailInvestissement, loadAnnne };
         }
     }
 }

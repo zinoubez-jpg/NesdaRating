@@ -13,6 +13,7 @@ namespace Anade.Data.Abstractions
     {
 
         T GetById(TKey id);
+        //T GetById(TKey id, params Expression<Func<T, object>>[] navigationPropertiesToLoad);
         T GetSingle(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] navigationPropertiesToLoad);
         List<T> GetAll(params Expression<Func<T, object>>[] navigationPropertiesToLoad);
         PagedResult<T> GetAllPaged(string orderBy, int startRowIndex = 0, int maxRows = 10, params Expression<Func<T, object>>[] navigationPropertiesToLoad);

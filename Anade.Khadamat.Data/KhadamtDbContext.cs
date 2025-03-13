@@ -24,6 +24,15 @@ namespace Anade.Khadamat.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Acquisition>()
+                .HasOne(a => a.Annee)
+                .WithMany()
+                .HasForeignKey(a => a.AnneeId);
+
+            modelBuilder.Entity<Acquisition>()
+                .HasOne(a => a.DetailInvestissement)
+                .WithMany(d => d.Acquisitions)
+                .HasForeignKey(a => a.DetailInvestissementId);
 
 
             base.OnModelCreating(modelBuilder);
