@@ -1086,7 +1086,7 @@ namespace Anade.Khadamat.Web.Controllers
                     detailAchatsDirects.Quantite = (float)Math.Round(Convert.ToDouble(model[i + 2 + j].Replace(".", ",")), 2);
                     detailAchatsDirects.PrixUnitaire = Math.Round(Convert.ToDecimal(model[i + 3 + j].Replace(".", ",")), 2);
                     detailAchatsDirects.Montant = Math.Round(Convert.ToDecimal(model[i + 4 + j].Replace(".", ",")), 2);
-                    detailAchatsDirects.TauxConsommation = Math.Round(Convert.ToDecimal((model[i + 5 + j].Replace("%", "")).Replace(".", ",")), 2);
+                    //detailAchatsDirects.TauxConsommation = Math.Round(Convert.ToDecimal((model[i + 5 + j].Replace("%", "")).Replace(".", ",")), 2);
 
                     detailAchatsDirects.MatierePremiereApprovisionnement = matierePremiereApprovisionnement;
 
@@ -1842,40 +1842,59 @@ namespace Anade.Khadamat.Web.Controllers
                 }
             }
 
-            if (detailAchatsDirects.Count != 0)
-            {
-                for (int i = 0; i < detailAchatsDirects.Count; i++)
-                {
-                    if (detailAchatsDirects[i].AnneeId == 1)
-                    {
-                        MontantAchatsConsommes01 += detailAchatsDirects[i].Montant * detailAchatsDirects[i].TauxConsommation / 100;
-                    }
-                    if (detailAchatsDirects[i].AnneeId == 2)
-                    {
-                        MontantAchatsConsommes02 += detailAchatsDirects[i].Montant * detailAchatsDirects[i].TauxConsommation / 100;
-                    }
-                    if (detailAchatsDirects[i].AnneeId == 3)
-                    {
-                        MontantAchatsConsommes03 += detailAchatsDirects[i].Montant * detailAchatsDirects[i].TauxConsommation / 100;
-                    }
-                    if (detailAchatsDirects[i].AnneeId == 4)
-                    {
-                        MontantAchatsConsommes04 += detailAchatsDirects[i].Montant * detailAchatsDirects[i].TauxConsommation / 100;
-                    }
-                    if (detailAchatsDirects[i].AnneeId == 5)
-                    {
-                        MontantAchatsConsommes05 += detailAchatsDirects[i].Montant * detailAchatsDirects[i].TauxConsommation / 100;
-                    }
-                    if (detailAchatsDirects[i].AnneeId == 6)
-                    {
-                        MontantAchatsConsommes06 += detailAchatsDirects[i].Montant * detailAchatsDirects[i].TauxConsommation / 100;
-                    }
-                    if (detailAchatsDirects[i].AnneeId == 7)
-                    {
-                        MontantAchatsConsommes07 += detailAchatsDirects[i].Montant * detailAchatsDirects[i].TauxConsommation / 100;
-                    }
-                }
-            }
+
+
+
+
+
+
+            //if (detailAchatsDirects.Count != 0)
+            //{
+            //    for (int i = 0; i < detailAchatsDirects.Count; i++)
+            //    {
+            //        if (detailAchatsDirects[i].AnneeId == 1)
+            //        {
+            //            MontantAchatsConsommes01 += detailAchatsDirects[i].Montant * detailAchatsDirects[i].TauxConsommation / 100;
+            //        }
+            //        if (detailAchatsDirects[i].AnneeId == 2)
+            //        {
+            //            MontantAchatsConsommes02 += detailAchatsDirects[i].Montant * detailAchatsDirects[i].TauxConsommation / 100;
+            //        }
+            //        if (detailAchatsDirects[i].AnneeId == 3)
+            //        {
+            //            MontantAchatsConsommes03 += detailAchatsDirects[i].Montant * detailAchatsDirects[i].TauxConsommation / 100;
+            //        }
+            //        if (detailAchatsDirects[i].AnneeId == 4)
+            //        {
+            //            MontantAchatsConsommes04 += detailAchatsDirects[i].Montant * detailAchatsDirects[i].TauxConsommation / 100;
+            //        }
+            //        if (detailAchatsDirects[i].AnneeId == 5)
+            //        {
+            //            MontantAchatsConsommes05 += detailAchatsDirects[i].Montant * detailAchatsDirects[i].TauxConsommation / 100;
+            //        }
+            //        if (detailAchatsDirects[i].AnneeId == 6)
+            //        {
+            //            MontantAchatsConsommes06 += detailAchatsDirects[i].Montant * detailAchatsDirects[i].TauxConsommation / 100;
+            //        }
+            //        if (detailAchatsDirects[i].AnneeId == 7)
+            //        {
+            //            MontantAchatsConsommes07 += detailAchatsDirects[i].Montant * detailAchatsDirects[i].TauxConsommation / 100;
+            //        }
+            //    }
+            //}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
             if (detailsChargesExternes.Count != 0)
@@ -51488,40 +51507,51 @@ namespace Anade.Khadamat.Web.Controllers
                 }
             }
 
-            if (detailAchatsDirects.Count != 0)
-            {
-                for (int i = 0; i < detailAchatsDirects.Count; i++)
-                {
-                    if (detailAchatsDirects[i].AnneeId == 1)
-                    {
-                        MontantAchatsConsommes01 += detailAchatsDirects[i].Montant * detailAchatsDirects[i].TauxConsommation / 100;
-                    }
-                    if (detailAchatsDirects[i].AnneeId == 2)
-                    {
-                        MontantAchatsConsommes02 += detailAchatsDirects[i].Montant * detailAchatsDirects[i].TauxConsommation / 100;
-                    }
-                    if (detailAchatsDirects[i].AnneeId == 3)
-                    {
-                        MontantAchatsConsommes03 += detailAchatsDirects[i].Montant * detailAchatsDirects[i].TauxConsommation / 100;
-                    }
-                    if (detailAchatsDirects[i].AnneeId == 4)
-                    {
-                        MontantAchatsConsommes04 += detailAchatsDirects[i].Montant * detailAchatsDirects[i].TauxConsommation / 100;
-                    }
-                    if (detailAchatsDirects[i].AnneeId == 5)
-                    {
-                        MontantAchatsConsommes05 += detailAchatsDirects[i].Montant * detailAchatsDirects[i].TauxConsommation / 100;
-                    }
-                    if (detailAchatsDirects[i].AnneeId == 6)
-                    {
-                        MontantAchatsConsommes06 += detailAchatsDirects[i].Montant * detailAchatsDirects[i].TauxConsommation / 100;
-                    }
-                    if (detailAchatsDirects[i].AnneeId == 7)
-                    {
-                        MontantAchatsConsommes07 += detailAchatsDirects[i].Montant * detailAchatsDirects[i].TauxConsommation / 100;
-                    }
-                }
-            }
+
+
+
+            //if (detailAchatsDirects.Count != 0)
+            //{
+            //    for (int i = 0; i < detailAchatsDirects.Count; i++)
+            //    {
+            //        if (detailAchatsDirects[i].AnneeId == 1)
+            //        {
+            //            MontantAchatsConsommes01 += detailAchatsDirects[i].Montant * detailAchatsDirects[i].TauxConsommation / 100;
+            //        }
+            //        if (detailAchatsDirects[i].AnneeId == 2)
+            //        {
+            //            MontantAchatsConsommes02 += detailAchatsDirects[i].Montant * detailAchatsDirects[i].TauxConsommation / 100;
+            //        }
+            //        if (detailAchatsDirects[i].AnneeId == 3)
+            //        {
+            //            MontantAchatsConsommes03 += detailAchatsDirects[i].Montant * detailAchatsDirects[i].TauxConsommation / 100;
+            //        }
+            //        if (detailAchatsDirects[i].AnneeId == 4)
+            //        {
+            //            MontantAchatsConsommes04 += detailAchatsDirects[i].Montant * detailAchatsDirects[i].TauxConsommation / 100;
+            //        }
+            //        if (detailAchatsDirects[i].AnneeId == 5)
+            //        {
+            //            MontantAchatsConsommes05 += detailAchatsDirects[i].Montant * detailAchatsDirects[i].TauxConsommation / 100;
+            //        }
+            //        if (detailAchatsDirects[i].AnneeId == 6)
+            //        {
+            //            MontantAchatsConsommes06 += detailAchatsDirects[i].Montant * detailAchatsDirects[i].TauxConsommation / 100;
+            //        }
+            //        if (detailAchatsDirects[i].AnneeId == 7)
+            //        {
+            //            MontantAchatsConsommes07 += detailAchatsDirects[i].Montant * detailAchatsDirects[i].TauxConsommation / 100;
+            //        }
+            //    }
+            //}
+
+
+
+
+
+
+
+
 
             if (detailsChargesExternes.Count != 0)
             {

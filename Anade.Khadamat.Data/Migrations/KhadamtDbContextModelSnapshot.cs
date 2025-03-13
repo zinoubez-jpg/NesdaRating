@@ -1296,9 +1296,6 @@ namespace Anade.Khadamat.Data.Migrations
                     b.Property<float>("Quantite")
                         .HasColumnType("real");
 
-                    b.Property<decimal>("TauxConsommation")
-                        .HasColumnType("decimal(18,2)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("AnneeId");
@@ -1493,6 +1490,31 @@ namespace Anade.Khadamat.Data.Migrations
                     b.HasIndex("PosteId");
 
                     b.ToTable("DetailPoste");
+                });
+
+            modelBuilder.Entity("Anade.Khadamat.Domain.DetailTauxConsommation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AnneeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BusinessPlanId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("TauxConsommation")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AnneeId");
+
+                    b.HasIndex("BusinessPlanId");
+
+                    b.ToTable("DetailTauxConsommation");
                 });
 
             modelBuilder.Entity("Anade.Khadamat.Domain.DiffereEmprunt", b =>
@@ -2960,6 +2982,25 @@ namespace Anade.Khadamat.Data.Migrations
                     b.Navigation("BusinessPlan");
 
                     b.Navigation("Poste");
+                });
+
+            modelBuilder.Entity("Anade.Khadamat.Domain.DetailTauxConsommation", b =>
+                {
+                    b.HasOne("Anade.Khadamat.Domain.Annee", "Annee")
+                        .WithMany()
+                        .HasForeignKey("AnneeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Anade.Khadamat.Domain.BusinessPlan", "BusinessPlan")
+                        .WithMany()
+                        .HasForeignKey("BusinessPlanId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Annee");
+
+                    b.Navigation("BusinessPlan");
                 });
 
             modelBuilder.Entity("Anade.Khadamat.Domain.EvaluationProjet", b =>

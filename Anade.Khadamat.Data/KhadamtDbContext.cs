@@ -54,6 +54,7 @@ namespace Anade.Khadamat.Data
         public virtual DbSet<DetailChiffreAffaire> DetailChiffreAffaire { get; set; }
         public virtual DbSet<DetailEvaluationProjet> DetailEvaluationProjet { get; set; }
         public virtual DbSet<DetailInvestissement> DetailInvestissement { get; set; }
+        public virtual DbSet<DetailTauxConsommation> DetailTauxConsommation { get; set; }
         public virtual DbSet<DiffereEmprunt> DiffereEmprunt { get; set; }
         public virtual DbSet<Etape> Etape { get; set; }
         public virtual DbSet<EvaluationProjet> EvaluationProjet { get; set; }
